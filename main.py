@@ -9,8 +9,8 @@ from aiogram.filters import CommandStart
 # Ваш токен бота
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
 
-# Ссылка на ваш интерфейс GitHub Pages с версией ?v=11 для обхода кеша Telegram
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=11"
+# Ссылка на ваш интерфейс GitHub Pages с версией ?v=15 для принудительного сброса кэша Telegram
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=15"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
@@ -37,7 +37,7 @@ async def start_command(message: types.Message):
     )
     await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
 
-# Обработчик пополнения звезд из WebApp
+# Обработчик пополнения звезд из WebApp (выставление счета Telegram Stars)
 @dp.message(F.web_app_data)
 async def handle_webapp_data(message: types.Message):
     try:
@@ -53,7 +53,7 @@ async def handle_webapp_data(message: types.Message):
                 chat_id=message.chat.id,
                 title="Пополнение баланса ⭐",
                 description=f"Пополнение баланса в NellCasino на {stars_amount} ⭐",
-                provider_token="",  # Пустая строка для Telegram Stars (XTR)
+                provider_token="",  # Пустая строка обязательна для Telegram Stars (XTR)
                 currency="XTR",
                 prices=prices,
                 start_parameter="deposit-stars",
@@ -75,7 +75,7 @@ async def process_successful_payment(message: types.Message):
         f"Откройте NellCasino повторно для игры!"
     )
 
-# Веб-сервер для поддержки активности Render (порт 10000)
+# Фоновый веб-сервер для поддержки активности Render (порт 10000)
 async def handle_ping(request):
     return web.Response(text="Bot is running!")
 
