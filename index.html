@@ -7,13 +7,14 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root {
-      --bg-main: #0b0e14;
-      --card-bg: rgba(22, 27, 38, 0.85);
-      --accent-gold: #ffd700;
-      --accent-orange: #ff9800;
-      --accent-green: #00e676;
-      --accent-red: #ff5252;
-      --border-color: rgba(255, 255, 255, 0.08);
+      --bg-dark: #12151e;
+      --card-bg: #1c2230;
+      --blue-grad: linear-gradient(135deg, #1e62d0, #0f3ba0);
+      --purple-grad: linear-gradient(135deg, #8a2be2, #4a00e0);
+      --cyan-grad: linear-gradient(135deg, #00d2ff, #0083b0);
+      --red-grad: linear-gradient(135deg, #ff416c, #ff4b2b);
+      --text-muted: #8e9aaf;
+      --gold: #ffd700;
     }
 
     * {
@@ -26,224 +27,189 @@
     }
 
     body {
-      background: var(--bg-main);
+      background-color: var(--bg-dark);
       color: #ffffff;
       padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      padding-bottom: 80px;
       min-height: 100vh;
-      background-image: radial-gradient(circle at top, #1a2236 0%, #0b0e14 70%);
     }
 
-    /* HEADER */
-    .header {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 12px 16px;
+    /* TOP HEADER */
+    .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      margin-bottom: 12px;
     }
 
-    .brand {
-      font-weight: 800;
+    .brand-title {
       font-size: 18px;
-      background: linear-gradient(135deg, #fff, var(--accent-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .balance-badge {
-      background: rgba(255, 215, 0, 0.1);
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-weight: 700;
-      color: var(--accent-gold);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
-    }
-
-    /* DEPOSIT PANEL */
-    .topup-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 10px 12px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .topup-input {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 10px 12px;
+      font-weight: 800;
       color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .topup-btn {
-      background: linear-gradient(135deg, #ff9800, #f57c00);
+    .balance-pill {
+      background: #1c2230;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .btn-add {
+      background: #2b62d9;
       color: #fff;
       border: none;
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-weight: 700;
-      font-size: 13px;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
-      transition: transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .topup-btn:active {
-      transform: scale(0.96);
+    /* LIVE WINNERS STRIP */
+    .live-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card-bg);
+      padding: 8px 12px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
-    /* NAVIGATION TABS */
-    .tabs {
+    .live-label {
+      font-weight: 900;
+      font-size: 14px;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .live-items {
       display: flex;
       gap: 8px;
     }
 
-    .tab-btn {
-      flex: 1;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      color: #8a94a6;
-      padding: 12px 0;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s;
+    .live-item {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .tab-btn.active {
-      background: linear-gradient(135deg, #ff9800, #e65100);
-      color: #fff;
-      border-color: transparent;
-      box-shadow: 0 4px 16px rgba(255, 152, 0, 0.35);
-    }
-
-    /* MAIN GAME CARD */
-    .game-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 16px;
+    /* PAGES */
+    .page {
       display: none;
       flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      gap: 12px;
     }
-
-    .game-card.active {
+    .page.active {
       display: flex;
     }
 
-    .game-title {
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      color: #e2e8f0;
+    /* VERTICAL GAME CARDS (КАК НА МАКЕТЕ) */
+    .game-card-row {
+      width: 100%;
+      border-radius: 20px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.15s;
+      text-decoration: none;
+      color: #fff;
+    }
+    .game-card-row:active {
+      transform: scale(0.98);
     }
 
-    /* CANVASES (CRASH & PLINKO) */
-    .canvas-box {
-      position: relative;
-      width: 100%;
-      background: #06080d;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      overflow: hidden;
+    .card-slots { background: var(--blue-grad); }
+    .card-plinko { background: var(--cyan-grad); }
+    .card-crash { background: var(--purple-grad); }
+
+    .card-info h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .card-info p {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    .card-icon {
+      font-size: 42px;
+    }
+
+    /* INNER GAME WINDOWS */
+    .inner-game {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      align-self: flex-start;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     canvas {
-      display: block;
+      background: #0d111a;
+      border-radius: 14px;
       width: 100%;
     }
 
-    .multiplier-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 46px;
-      font-weight: 900;
-      color: var(--accent-green);
-      text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
-      pointer-events: none;
-    }
-
-    .multiplier-overlay.crashed {
-      color: var(--accent-red);
-      text-shadow: 0 0 20px rgba(255, 82, 82, 0.5);
-    }
-
-    /* SLOTS STYLING */
-    .slots-container {
+    .slots-box {
       display: flex;
-      gap: 12px;
-      background: #06080d;
-      padding: 20px;
-      border-radius: 16px;
-      border: 2px solid var(--accent-gold);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+      gap: 10px;
+      background: #0d111a;
+      padding: 16px;
+      border-radius: 14px;
+      border: 2px solid var(--gold);
     }
-
-    .slot-reel {
-      width: 80px;
-      height: 100px;
-      background: linear-gradient(180deg, #181d29 0%, #0d1017 100%);
-      border-radius: 12px;
+    .reel {
+      width: 70px;
+      height: 90px;
+      background: #182030;
+      border-radius: 10px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      font-size: 46px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+      justify-content: center;
+      font-size: 42px;
     }
 
-    /* BET CONTROLS */
-    .bet-box {
+    .input-box {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .bet-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      color: #8a94a6;
-      font-weight: 600;
-    }
-
-    .bet-input-wrap {
-      display: flex;
-      gap: 6px;
-    }
-
-    .bet-input {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--border-color);
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 12px;
       padding: 12px;
       color: #fff;
@@ -252,464 +218,395 @@
       outline: none;
     }
 
-    .quick-bet-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-color);
-      color: #ccc;
-      border-radius: 8px;
-      padding: 0 10px;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .action-btn {
+    .btn-action {
       width: 100%;
-      background: linear-gradient(135deg, #00e676, #00a152);
-      color: #000;
+      background: #2b62d9;
+      color: #fff;
       border: none;
       border-radius: 14px;
-      padding: 16px;
-      font-size: 17px;
+      padding: 14px;
+      font-size: 16px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0, 230, 118, 0.3);
-      transition: all 0.15s;
     }
 
-    .action-btn:active {
-      transform: scale(0.98);
+    /* PROFILE & REFERRAL PAGE */
+    .promo-banner {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .promo-banner h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .promo-banner p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
     }
 
-    .action-btn.cashout {
-      background: linear-gradient(135deg, #ff9800, #f57c00);
-      color: #fff;
-      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+    /* BOTTOM NAV BAR (ТОЧНО КАК НА МАКЕТЕ) */
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #161b26;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      padding: 10px 0;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-btn.active {
+      color: #2b62d9;
+    }
+
+    .nav-icon {
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="brand">🎰 NellCasino</div>
-    <div class="balance-badge"><span id="userBalance">0</span> ⭐</div>
+  <!-- TOP HEADER -->
+  <div class="top-bar">
+    <div class="brand-title">🦍 NellCasino</div>
+    <div class="balance-pill">
+      <span>⭐ <span id="balanceVal">0</span></span>
+      <button class="btn-add" onclick="showPage('profile')">+</button>
+    </div>
   </div>
 
-  <!-- Deposit Form -->
-  <div class="topup-card">
-    <input type="number" id="starsAmount" class="topup-input" value="100" min="10">
-    <button class="topup-btn" onclick="requestDeposit()">💳 Выставить чек</button>
+  <!-- LIVE STRIP -->
+  <div class="live-strip">
+    <div class="live-label">LIVE</div>
+    <div class="live-items">
+      <div class="live-item">🎁</div>
+      <div class="live-item">💎</div>
+      <div class="live-item">👑</div>
+      <div class="live-item">🎃</div>
+      <div class="live-item">🚀</div>
+    </div>
   </div>
 
-  <!-- Navigation Tabs -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('slots')">Слоты 777</button>
-    <button class="tab-btn" onclick="switchTab('plinko')">Плинко</button>
-    <button class="tab-btn" onclick="switchTab('crash')">Краш</button>
+  <!-- PAGE 1: GAMES LIST -->
+  <div id="page-games" class="page active">
+    <!-- List of games in standing columns -->
+    <div id="games-list" style="display:flex; flex-direction:column; gap:12px;">
+      <div class="game-card-row card-slots" onclick="openGame('slots')">
+        <div class="card-info">
+          <h3>Слоты 777</h3>
+          <p>Классический занос 777</p>
+        </div>
+        <div class="card-icon">🎰</div>
+      </div>
+
+      <div class="game-card-row card-plinko" onclick="openGame('plinko')">
+        <div class="card-info">
+          <h3>Plinko</h3>
+          <p>Попадите шариком в цель</p>
+        </div>
+        <div class="card-icon">🎱</div>
+      </div>
+
+      <div class="game-card-row card-crash" onclick="openGame('crash')">
+        <div class="card-info">
+          <h3>Краш</h3>
+          <p>Успей забрать до взрыва</p>
+        </div>
+        <div class="card-icon">🚀</div>
+      </div>
+    </div>
+
+    <!-- SLOTS DISPLAY -->
+    <div id="game-slots" class="inner-game" style="display:none;">
+      <button class="back-btn" onclick="closeGame()">⬅️ Назад к играм</button>
+      <h2>Слоты 777</h2>
+      <div class="slots-box">
+        <div class="reel" id="r1">7️⃣</div>
+        <div class="reel" id="r2">7️⃣</div>
+        <div class="reel" id="r3">7️⃣</div>
+      </div>
+      <input type="number" id="bet-slots" class="input-box" value="25" min="25" placeholder="Ставка звезд">
+      <button class="btn-action" onclick="playSlots()">Крутить слоты</button>
+    </div>
+
+    <!-- PLINKO DISPLAY -->
+    <div id="game-plinko" class="inner-game" style="display:none;">
+      <button class="back-btn" onclick="closeGame()">⬅️ Назад к играм</button>
+      <h2>Плинко</h2>
+      <canvas id="plinkoCanvas" width="300" height="280"></canvas>
+      <input type="number" id="bet-plinko" class="input-box" value="25" min="25" placeholder="Ставка звезд">
+      <button class="btn-action" onclick="playPlinko()">Бросить шар</button>
+    </div>
+
+    <!-- CRASH DISPLAY -->
+    <div id="game-crash" class="inner-game" style="display:none;">
+      <button class="back-btn" onclick="closeGame()">⬅️ Назад к играм</button>
+      <h2>Краш Ракета</h2>
+      <canvas id="crashCanvas" width="300" height="200"></canvas>
+      <div id="crashMult" style="font-size:32px; font-weight:900; color:#00e676;">1.00x</div>
+      <input type="number" id="bet-crash" class="input-box" value="25" min="25" placeholder="Ставка звезд">
+      <button id="crashBtn" class="btn-action" onclick="playCrash()">Сделать ставку</button>
+    </div>
   </div>
 
-  <!-- TAB 1: SLOTS 777 -->
-  <div id="tab-slots" class="game-card active">
-    <div class="game-title">🎰 Классические Слоты 777</div>
-
-    <div class="slots-container">
-      <div class="slot-reel" id="reel1">7️⃣</div>
-      <div class="slot-reel" id="reel2">7️⃣</div>
-      <div class="slot-reel" id="reel3">7️⃣</div>
+  <!-- PAGE 2: PROFILE & DEPOSIT / WITHDRAWAL -->
+  <div id="page-profile" class="page">
+    <div class="promo-banner">
+      <h2>💳 Пополнение звезд ⭐</h2>
+      <p>Введите сумму для получения чека на оплату в Telegram Stars:</p>
+      <input type="number" id="depositInput" class="input-box" value="100" min="10" style="margin-bottom:10px;">
+      <button class="btn-action" onclick="makeDeposit()">Выставить чек</button>
     </div>
 
-    <div class="bet-box">
-      <div class="bet-header">
-        <span>Размер ставки (мин. 25 ⭐)</span>
-      </div>
-      <div class="bet-input-wrap">
-        <input type="number" id="slots-bet" class="bet-input" value="25" min="25">
-        <button class="quick-bet-btn" onclick="addBet('slots-bet', 25)">+25</button>
-        <button class="quick-bet-btn" onclick="addBet('slots-bet', 100)">+100</button>
-      </div>
+    <div class="promo-banner">
+      <h2>🎁 Вывод звезд</h2>
+      <p>Минимальный вывод от 100 ⭐. При выводе звезды спишутся с баланса.</p>
+      <button class="btn-action" style="background:#ff9800;" onclick="makeWithdraw()">Вывести звезды</button>
     </div>
-
-    <button id="slots-btn" class="action-btn" onclick="spinSlots()">Крутить слоты</button>
   </div>
 
-  <!-- TAB 2: PLINKO -->
-  <div id="tab-plinko" class="game-card">
-    <div class="game-title">⚪ Плинко</div>
-
-    <div class="canvas-box" style="height: 310px;">
-      <canvas id="plinkoCanvas" width="320" height="310"></canvas>
-    </div>
-
-    <div class="bet-box">
-      <div class="bet-header">
-        <span>Размер ставки (мин. 25 ⭐)</span>
-      </div>
-      <div class="bet-input-wrap">
-        <input type="number" id="plinko-bet" class="bet-input" value="25" min="25">
-        <button class="quick-bet-btn" onclick="addBet('plinko-bet', 25)">+25</button>
-        <button class="quick-bet-btn" onclick="addBet('plinko-bet', 100)">+100</button>
-      </div>
-    </div>
-
-    <button id="plinko-btn" class="action-btn" onclick="dropPlinkoBall()">Бросить шар</button>
-  </div>
-
-  <!-- TAB 3: CRASH -->
-  <div id="tab-crash" class="game-card">
-    <div class="game-title">🚀 Краш Ракета</div>
-
-    <div class="canvas-box" style="height: 230px;">
-      <canvas id="crashCanvas" width="320" height="230"></canvas>
-      <div id="multiplierText" class="multiplier-overlay">1.00x</div>
-    </div>
-
-    <div class="bet-box">
-      <div class="bet-header">
-        <span>Размер ставки (мин. 25 ⭐)</span>
-      </div>
-      <div class="bet-input-wrap">
-        <input type="number" id="crash-bet" class="bet-input" value="25" min="25">
-        <button class="quick-bet-btn" onclick="addBet('crash-bet', 25)">+25</button>
-        <button class="quick-bet-btn" onclick="addBet('crash-bet', 100)">+100</button>
-      </div>
-    </div>
-
-    <button id="crash-btn" class="action-btn" onclick="handleCrashAction()">Сделать ставку</button>
+  <!-- BOTTOM NAVIGATION BAR -->
+  <div class="nav-bar">
+    <button class="nav-btn active" id="btn-nav-games" onclick="showPage('games')">
+      <span class="nav-icon">🎮</span>
+      <span>Игры</span>
+    </button>
+    <button class="nav-btn" id="btn-nav-profile" onclick="showPage('profile')">
+      <span class="nav-icon">👤</span>
+      <span>Профиль</span>
+    </button>
   </div>
 
   <script>
     const tg = window.Telegram ? window.Telegram.WebApp : null;
-    if (tg) {
-      tg.ready();
-      tg.expand();
-    }
+    if (tg) { tg.ready(); tg.expand(); }
 
     let balance = 0;
 
-    function updateBalance(amt) {
+    function updateBal(amt) {
       balance += amt;
-      document.getElementById('userBalance').innerText = balance;
+      document.getElementById('balanceVal').innerText = balance;
     }
 
-    function addBet(inputId, amount) {
-      const input = document.getElementById(inputId);
-      let cur = parseInt(input.value) || 0;
-      input.value = cur + amount;
+    function showPage(p) {
+      document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+      if(p === 'games') {
+        document.getElementById('page-games').classList.add('active');
+        document.getElementById('btn-nav-games').classList.add('active');
+      } else if(p === 'profile') {
+        document.getElementById('page-profile').classList.add('active');
+        document.getElementById('btn-nav-profile').classList.add('active');
+      }
     }
 
-    function requestDeposit() {
-      const amt = parseInt(document.getElementById('starsAmount').value);
-      if (isNaN(amt) || amt < 10) {
-        alert("Минимальная сумма пополнения — 10 ⭐");
+    function openGame(g) {
+      document.getElementById('games-list').style.display = 'none';
+      document.getElementById('game-slots').style.display = 'none';
+      document.getElementById('game-plinko').style.display = 'none';
+      document.getElementById('game-crash').style.display = 'none';
+
+      if(g === 'slots') document.getElementById('game-slots').style.display = 'flex';
+      if(g === 'plinko') {
+        document.getElementById('game-plinko').style.display = 'flex';
+        drawPlinko();
+      }
+      if(g === 'crash') {
+        document.getElementById('game-crash').style.display = 'flex';
+        drawCrashInit();
+      }
+    }
+
+    function closeGame() {
+      document.getElementById('games-list').style.display = 'flex';
+      document.getElementById('game-slots').style.display = 'none';
+      document.getElementById('game-plinko').style.display = 'none';
+      document.getElementById('game-crash').style.display = 'none';
+    }
+
+    function makeDeposit() {
+      const amt = parseInt(document.getElementById('depositInput').value);
+      if(isNaN(amt) || amt < 10) { alert('Минимум 10 ⭐'); return; }
+      if(tg) {
+        tg.sendData(JSON.stringify({ action: 'deposit', amount: amt }));
+      } else {
+        alert('Запустите через Telegram!');
+      }
+    }
+
+    function makeWithdraw() {
+      if(balance < 100) {
+        alert('❌ Минимальная сумма для вывода 100 ⭐');
         return;
       }
-
-      if (tg) {
-        tg.sendData(JSON.stringify({ action: "deposit", amount: amt }));
-      } else {
-        alert("Запустите WebApp через Telegram, чтобы выставить чек!");
-      }
+      balance -= 100;
+      updateBal(0);
+      alert('✅ Заявка создана!\n\nНапишите администратору @Navi4563 для получения выплаты!');
     }
 
-    function switchTab(tab) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.game-card').forEach(c => c.classList.remove('active'));
+    /* GAME LOGIC: SLOTS */
+    const syms = ['7️⃣', '🍇', '🍋', '🔔', '💎', '🍒'];
+    function playSlots() {
+      const bet = parseInt(document.getElementById('bet-slots').value);
+      if(isNaN(bet) || bet < 25) { alert('Мин. ставка 25 ⭐'); return; }
+      if(bet > balance) { alert('Недостаточно звезд!'); return; }
 
-      if (tab === 'slots') {
-        document.querySelectorAll('.tab-btn')[0].classList.add('active');
-        document.getElementById('tab-slots').classList.add('active');
-      } else if (tab === 'plinko') {
-        document.querySelectorAll('.tab-btn')[1].classList.add('active');
-        document.getElementById('tab-plinko').classList.add('active');
-        drawPlinkoBoard();
-      } else if (tab === 'crash') {
-        document.querySelectorAll('.tab-btn')[2].classList.add('active');
-        document.getElementById('tab-crash').classList.add('active');
-        drawCrashInitial();
-      }
-    }
-
-    function getBet(inputId) {
-      const val = parseInt(document.getElementById(inputId).value);
-      if (isNaN(val) || val < 25) {
-        alert("Минимальная ставка — 25 ⭐!");
-        return null;
-      }
-      if (val > balance) {
-        alert("Недостаточно звезд на балансе! Нажмите 'Выставить чек'.");
-        return null;
-      }
-      return val;
-    }
-
-    /* --- SLOTS --- */
-    const slotSymbols = ['7️⃣', '🍇', '🍋', '🔔', '💎', '🍒', '⭐'];
-    function spinSlots() {
-      const bet = getBet('slots-bet');
-      if (!bet) return;
-
-      updateBalance(-bet);
-      const btn = document.getElementById('slots-btn');
-      btn.disabled = true;
-
-      let interval = setInterval(() => {
-        document.getElementById('reel1').innerText = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-        document.getElementById('reel2').innerText = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-        document.getElementById('reel3').innerText = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+      updateBal(-bet);
+      let intv = setInterval(() => {
+        document.getElementById('r1').innerText = syms[Math.floor(Math.random()*syms.length)];
+        document.getElementById('r2').innerText = syms[Math.floor(Math.random()*syms.length)];
+        document.getElementById('r3').innerText = syms[Math.floor(Math.random()*syms.length)];
       }, 70);
 
       setTimeout(() => {
-        clearInterval(interval);
-        
-        let res1, res2, res3;
-        if (Math.random() < 0.12) {
-          res1 = res2 = res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-        } else if (Math.random() < 0.35) {
-          res1 = res2 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-          res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-        } else {
-          res1 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-          res2 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-          res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-        }
+        clearInterval(intv);
+        let s1 = syms[Math.floor(Math.random()*syms.length)];
+        let s2 = syms[Math.floor(Math.random()*syms.length)];
+        let s3 = syms[Math.floor(Math.random()*syms.length)];
 
-        document.getElementById('reel1').innerText = res1;
-        document.getElementById('reel2').innerText = res2;
-        document.getElementById('reel3').innerText = res3;
+        document.getElementById('r1').innerText = s1;
+        document.getElementById('r2').innerText = s2;
+        document.getElementById('r3').innerText = s3;
 
-        if (res1 === res2 && res2 === res3) {
-          const win = bet * 5;
-          updateBalance(win);
-          alert(`🎉 ДЖЕКПОТ! Вы выиграли ${win} ⭐!`);
-        } else if (res1 === res2 || res2 === res3 || res1 === res3) {
-          const win = Math.floor(bet * 1.2);
-          updateBalance(win);
-          alert(`Совпало 2 символа: +${win} ⭐`);
+        if(s1 === s2 && s2 === s3) {
+          updateBal(bet * 5); alert('🎉 Джекпот! +'+(bet*5)+' ⭐');
+        } else if(s1 === s2 || s2 === s3 || s1 === s3) {
+          updateBal(Math.floor(bet * 1.2)); alert('Занос! +'+Math.floor(bet*1.2)+' ⭐');
         }
-        btn.disabled = false;
-      }, 1500);
+      }, 1200);
     }
 
-    /* --- PLINKO --- */
+    /* GAME LOGIC: PLINKO */
     const pCanvas = document.getElementById('plinkoCanvas');
     const pCtx = pCanvas.getContext('2d');
-    const rows = 7;
-    const pins = [];
-    const multipliers = [2.0, 1.2, 0.5, 0.2, 0.5, 1.2, 2.0];
+    const mults = [2.0, 1.2, 0.5, 0.2, 0.5, 1.2, 2.0];
 
-    function initPlinko() {
-      pins.length = 0;
-      for (let r = 0; r < rows; r++) {
-        const count = r + 3;
-        const spacing = 260 / (rows + 2);
-        const startX = (320 - (count - 1) * spacing) / 2;
-        const y = 35 + r * 32;
-        for (let c = 0; c < count; c++) {
-          pins.push({ x: startX + c * spacing, y: y });
+    function drawPlinko() {
+      pCtx.clearRect(0, 0, 300, 280);
+      pCtx.fillStyle = '#00e676';
+      for(let r=0; r<6; r++) {
+        let count = r + 3;
+        let spacing = 240 / (6 + 2);
+        let startX = (300 - (count - 1) * spacing) / 2;
+        for(let c=0; c<count; c++) {
+          pCtx.beginPath();
+          pCtx.arc(startX + c * spacing, 30 + r * 32, 4, 0, Math.PI*2);
+          pCtx.fill();
         }
       }
-    }
-    initPlinko();
-
-    function drawPlinkoBoard() {
-      pCtx.clearRect(0, 0, 320, 310);
-      
-      // Pins (светодиодные точки)
-      pins.forEach(pin => {
-        pCtx.fillStyle = "#00e676";
-        pCtx.shadowColor = "#00e676";
-        pCtx.shadowBlur = 6;
-        pCtx.beginPath();
-        pCtx.arc(pin.x, pin.y, 4, 0, Math.PI * 2);
-        pCtx.fill();
-        pCtx.shadowBlur = 0;
-      });
-
-      // Multipliers
-      const bucketWidth = 320 / multipliers.length;
-      multipliers.forEach((m, i) => {
-        pCtx.fillStyle = m >= 1.5 ? "#00e676" : (m >= 1.0 ? "#ff9800" : "#ff5252");
-        pCtx.beginPath();
-        pCtx.roundRect(i * bucketWidth + 3, 270, bucketWidth - 6, 30, 6);
-        pCtx.fill();
-
-        pCtx.fillStyle = "#000";
-        pCtx.font = "bold 12px sans-serif";
-        pCtx.textAlign = "center";
-        pCtx.fillText(m + "x", i * bucketWidth + bucketWidth / 2, 290);
+      let bw = 300 / mults.length;
+      mults.forEach((m, i) => {
+        pCtx.fillStyle = m >= 1.2 ? '#00e676' : '#ff5252';
+        pCtx.fillRect(i * bw + 2, 240, bw - 4, 30);
+        pCtx.fillStyle = '#000';
+        pCtx.font = 'bold 12px sans-serif';
+        pCtx.fillText(m + 'x', i * bw + bw/2 - 8, 260);
       });
     }
 
-    function dropPlinkoBall() {
-      const bet = getBet('plinko-bet');
-      if (!bet) return;
+    function playPlinko() {
+      const bet = parseInt(document.getElementById('bet-plinko').value);
+      if(isNaN(bet) || bet < 25) { alert('Мин. ставка 25 ⭐'); return; }
+      if(bet > balance) { alert('Недостаточно звезд!'); return; }
 
-      updateBalance(-bet);
-      const btn = document.getElementById('plinko-btn');
-      btn.disabled = true;
-
-      let ballX = 160 + (Math.random() * 4 - 2);
-      let ballY = 15;
-      let vx = 0;
-      let vy = 2;
-
+      updateBal(-bet);
+      let bx = 150, by = 10, vx = 0, vy = 2;
       let anim = setInterval(() => {
-        vy += 0.2;
-        ballX += vx;
-        ballY += vy;
+        vy += 0.2; bx += vx; by += vy;
+        drawPlinko();
+        pCtx.fillStyle = '#ffd700';
+        pCtx.beginPath(); pCtx.arc(bx, by, 6, 0, Math.PI*2); pCtx.fill();
 
-        pins.forEach(pin => {
-          let dx = ballX - pin.x;
-          let dy = ballY - pin.y;
-          let dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 9) {
-            vy = -vy * 0.4;
-            let pullToCenter = (160 - ballX) * 0.05;
-            vx = (dx > 0 ? 0.8 : -0.8) + pullToCenter;
-          }
-        });
-
-        if (ballX < 10) ballX = 10;
-        if (ballX > 310) ballX = 310;
-
-        drawPlinkoBoard();
-
-        // Ball
-        pCtx.fillStyle = "#ffd700";
-        pCtx.shadowColor = "#ffd700";
-        pCtx.shadowBlur = 10;
-        pCtx.beginPath();
-        pCtx.arc(ballX, ballY, 7, 0, Math.PI * 2);
-        pCtx.fill();
-        pCtx.shadowBlur = 0;
-
-        if (ballY >= 265) {
+        if(by >= 235) {
           clearInterval(anim);
-          const bucketWidth = 320 / multipliers.length;
-          let idx = Math.floor(ballX / bucketWidth);
-          idx = Math.max(0, Math.min(multipliers.length - 1, idx));
-          
-          const mult = multipliers[idx];
-          const win = Math.floor(bet * mult);
-          updateBalance(win);
-          btn.disabled = false;
+          let bw = 300 / mults.length;
+          let idx = Math.min(mults.length - 1, Math.max(0, Math.floor(bx / bw)));
+          let win = Math.floor(bet * mults[idx]);
+          updateBal(win);
         }
       }, 20);
     }
 
-    /* --- CRASH --- */
+    /* GAME LOGIC: CRASH */
     const cCanvas = document.getElementById('crashCanvas');
     const cCtx = cCanvas.getContext('2d');
-    let crashState = 'idle';
-    let currentMultiplier = 1.00;
-    let crashPoint = 0;
-    let crashAnim = null;
-    let currentBet = 0;
+    let cState = 'idle', cMult = 1.00, cPoint = 0, cAnim = null, cBet = 0;
 
-    function drawCrashInitial() {
-      cCtx.clearRect(0, 0, 320, 230);
-      cCtx.strokeStyle = "rgba(255,255,255,0.08)";
-      cCtx.lineWidth = 1;
-
-      for (let i = 0; i < 230; i += 30) {
-        cCtx.beginPath();
-        cCtx.moveTo(0, i);
-        cCtx.lineTo(320, i);
-        cCtx.stroke();
+    function drawCrashInit() {
+      cCtx.clearRect(0,0,300,200);
+      cCtx.strokeStyle = 'rgba(255,255,255,0.1)';
+      for(let i=0; i<200; i+=30) {
+        cCtx.beginPath(); cCtx.moveTo(0,i); cCtx.lineTo(300,i); cCtx.stroke();
       }
-
-      document.getElementById('multiplierText').innerText = "1.00x";
-      document.getElementById('multiplierText').classList.remove('crashed');
     }
 
-    function handleCrashAction() {
-      const btn = document.getElementById('crash-btn');
-      const multText = document.getElementById('multiplierText');
+    function playCrash() {
+      const btn = document.getElementById('crashBtn');
+      if(cState === 'idle') {
+        const bet = parseInt(document.getElementById('bet-crash').value);
+        if(isNaN(bet) || bet < 25) { alert('Мин. ставка 25 ⭐'); return; }
+        if(bet > balance) { alert('Недостаточно звезд!'); return; }
 
-      if (crashState === 'idle') {
-        const bet = getBet('crash-bet');
-        if (!bet) return;
-        currentBet = bet;
-        updateBalance(-bet);
+        cBet = bet; updateBal(-bet);
+        cState = 'running'; cMult = 1.00;
+        cPoint = (Math.random() < 0.7 ? (1.01 + Math.random()*0.19) : (1.21 + Math.random()*1.5)).toFixed(2);
 
-        crashState = 'running';
-        currentMultiplier = 1.00;
+        btn.innerText = 'Забрать выигрыш';
+        btn.style.background = '#ff9800';
 
-        const rand = Math.random();
-        if (rand < 0.70) {
-          crashPoint = (1.01 + Math.random() * 0.19).toFixed(2);
-        } else {
-          crashPoint = (1.21 + Math.random() * 2.0).toFixed(2);
-        }
+        let st = Date.now();
+        cAnim = setInterval(() => {
+          let el = (Date.now() - st) / 1000;
+          cMult = (1.00 + el * 0.35).toFixed(2);
+          document.getElementById('crashMult').innerText = cMult + 'x';
 
-        btn.innerText = "Забрать выигрыш";
-        btn.classList.add('cashout');
+          cCtx.clearRect(0,0,300,200);
+          drawCrashInit();
 
-        let startTime = Date.now();
+          let rx = 20 + Math.min(250, el * 45);
+          let ry = 180 - Math.min(140, (cMult - 1) * 60);
 
-        crashAnim = setInterval(() => {
-          let elapsed = (Date.now() - startTime) / 1000;
-          currentMultiplier = (1.00 + elapsed * 0.35).toFixed(2);
+          cCtx.strokeStyle = '#00e676'; cCtx.lineWidth = 3;
+          cCtx.beginPath(); cCtx.moveTo(20, 180);
+          cCtx.quadraticCurveTo(20 + (rx-20)/2, 180, rx, ry); cCtx.stroke();
+          cCtx.font = '20px sans-serif'; cCtx.fillText('🚀', rx - 10, ry + 5);
 
-          cCtx.clearRect(0, 0, 320, 230);
-          
-          cCtx.strokeStyle = "rgba(255,255,255,0.08)";
-          for (let i = 0; i < 230; i += 30) {
-            cCtx.beginPath();
-            cCtx.moveTo(0, i);
-            cCtx.lineTo(320, i);
-            cCtx.stroke();
-          }
-
-          let rx = 30 + Math.min(250, elapsed * 45);
-          let ry = 200 - Math.min(160, (currentMultiplier - 1) * 60);
-
-          cCtx.strokeStyle = "#00e676";
-          cCtx.lineWidth = 4;
-          cCtx.shadowColor = "#00e676";
-          cCtx.shadowBlur = 10;
-          cCtx.beginPath();
-          cCtx.moveTo(30, 200);
-          cCtx.quadraticCurveTo(30 + (rx - 30) / 2, 200, rx, ry);
-          cCtx.stroke();
-          cCtx.shadowBlur = 0;
-
-          cCtx.font = "24px sans-serif";
-          cCtx.fillText("🚀", rx - 12, ry + 6);
-
-          multText.innerText = currentMultiplier + "x";
-
-          if (parseFloat(currentMultiplier) >= parseFloat(crashPoint)) {
-            clearInterval(crashAnim);
-            crashState = 'idle';
-
-            multText.innerText = crashPoint + "x";
-            multText.classList.add('crashed');
-
-            cCtx.font = "30px sans-serif";
-            cCtx.fillText("💥", rx - 14, ry + 8);
-            
-            btn.innerText = "Сделать ставку";
-            btn.classList.remove('cashout');
+          if(parseFloat(cMult) >= parseFloat(cPoint)) {
+            clearInterval(cAnim); cState = 'idle';
+            document.getElementById('crashMult').innerText = cPoint + 'x (ВЗРЫВ!)';
+            btn.innerText = 'Сделать ставку';
+            btn.style.background = '#2b62d9';
           }
         }, 50);
-
-      } else if (crashState === 'running') {
-        clearInterval(crashAnim);
-        crashState = 'idle';
-        const win = Math.floor(currentBet * currentMultiplier);
-        updateBalance(win);
-
-        alert(`🎉 Вы забрали ${win} ⭐ (х${currentMultiplier})!`);
-
-        btn.innerText = "Сделать ставку";
-        btn.classList.remove('cashout');
+      } else if(cState === 'running') {
+        clearInterval(cAnim); cState = 'idle';
+        let win = Math.floor(cBet * cMult);
+        updateBal(win);
+        alert('🎉 Забрано: +'+win+' ⭐!');
+        btn.innerText = 'Сделать ставку';
+        btn.style.background = '#2b62d9';
       }
     }
-
-    // Старт
-    drawCrashInitial();
   </script>
 </body>
 </html>
