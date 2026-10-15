@@ -9,15 +9,15 @@ from aiogram.filters import CommandStart
 # Ваш токен
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
 
-# Посилання з параметром ?v=3 для зкидання кешу в Telegram
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=3"
+# Обновленная ссылка с параметром ?v=4 для сброса кеша Telegram
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=4"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def start_command(message: types.Message):
-    # Reply-клавіатура для стабільної роботи sendData()
+    # Reply-клавиатура для открытия Mini App
     keyboard = ReplyKeyboardMarkup(
         keyboard=[
             [
@@ -37,7 +37,7 @@ async def start_command(message: types.Message):
     )
     await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
 
-# Обробник виставлення чеку зірок з WebApp
+# Обработчик выставления чека звезд из WebApp
 @dp.message(F.web_app_data)
 async def handle_webapp_data(message: types.Message):
     try:
@@ -53,7 +53,7 @@ async def handle_webapp_data(message: types.Message):
                 chat_id=message.chat.id,
                 title="Пополнение баланса ⭐",
                 description=f"Пополнение баланса в NellCasino на {stars_amount} ⭐",
-                provider_token="",  # Порожньо для Telegram Stars (XTR)
+                provider_token="",  # Пусто для Telegram Stars (XTR)
                 currency="XTR",
                 prices=prices,
                 start_parameter="deposit-stars",
@@ -75,7 +75,7 @@ async def process_successful_payment(message: types.Message):
         f"Откройте NellCasino повторно для игры!"
     )
 
-# Веб-сервер для усунення помилки портів на Render
+# Веб-сервер для порта 10000 на Render
 async def handle_ping(request):
     return web.Response(text="Bot is running!")
 
