@@ -6,15 +6,18 @@ from aiogram import Bot, Dispatcher, types, F
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo, LabeledPrice, PreCheckoutQuery
 from aiogram.filters import CommandStart
 
+# Ваш токен
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/"
+
+# Посилання з параметром ?v=3 для зкидання кешу в Telegram
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=3"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def start_command(message: types.Message):
-    # Звичайна клавіатура (ReplyKeyboard) — СТРИКТНО НЕОБХІДНА ДЛЯ sendData()!
+    # Reply-клавіатура для стабільної роботи sendData()
     keyboard = ReplyKeyboardMarkup(
         keyboard=[
             [
@@ -72,6 +75,7 @@ async def process_successful_payment(message: types.Message):
         f"Откройте NellCasino повторно для игры!"
     )
 
+# Веб-сервер для усунення помилки портів на Render
 async def handle_ping(request):
     return web.Response(text="Bot is running!")
 
