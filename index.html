@@ -77,7 +77,7 @@
       display: block;
     }
 
-    /* NFT MARKET GRID (3 Columns) */
+    /* NFT MARKET GRID (3 Columns, No Text Labels) */
     .market-title {
       text-align: center;
       margin-bottom: 16px;
@@ -104,13 +104,14 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      padding: 10px 8px;
+      padding: 12px 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      aspect-ratio: 1 / 1.15;
       transition: transform 0.15s ease;
-      position: relative;
+      cursor: pointer;
     }
 
     .nft-card:active {
@@ -119,19 +120,18 @@
 
     .nft-img-container {
       width: 100%;
-      aspect-ratio: 1 / 1;
+      flex-grow: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 8px;
-      position: relative;
     }
 
     .nft-img-container img {
-      width: 85%;
-      height: 85%;
+      width: 75%;
+      height: 75%;
       object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
     }
 
     /* Price Tag Pill Style */
@@ -214,6 +214,7 @@
       color: #fff;
       font-weight: 700;
       border: none;
+      cursor: pointer;
     }
 
     /* NAVIGATION BAR */
@@ -345,20 +346,20 @@
 
     let balance = 0;
 
-    // NFT GIFT CATALOG DATA WITH FALLBACK IMAGES
+    // CLEAN CATALOG WITH WORKING ASSETS
     const nftCatalog = [
-      { id: 1, price: 398, img: 'https://nft.fragment.com/gift/rabbit-3D.webp' },
-      { id: 2, price: 400, img: 'https://nft.fragment.com/gift/candy-bow-3D.webp' },
-      { id: 3, price: 400, img: 'https://nft.fragment.com/gift/banana-ice-3D.webp' },
-      { id: 4, price: 400, img: 'https://nft.fragment.com/gift/torch-3D.webp' },
-      { id: 5, price: 400, img: 'https://nft.fragment.com/gift/galaxy-sphere-3D.webp' },
-      { id: 6, price: 400, img: 'https://nft.fragment.com/gift/pumpkin-ice-3D.webp' },
-      { id: 7, price: 401, img: 'https://nft.fragment.com/gift/2025-clock-3D.webp' },
-      { id: 8, price: 403, img: 'https://nft.fragment.com/gift/magic-circle-3D.webp' },
-      { id: 9, price: 403, img: 'https://nft.fragment.com/gift/spider-web-3D.webp' },
-      { id: 10, price: 405, img: 'https://nft.fragment.com/gift/snake-3D.webp' },
-      { id: 11, price: 410, img: 'https://nft.fragment.com/gift/flamingo-3D.webp' },
-      { id: 12, price: 415, img: 'https://nft.fragment.com/gift/hat-3D.webp' }
+      { price: 398, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
+      { price: 400, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
+      { price: 400, img: 'https://cdn4.iconfinder.com/data/icons/food-and-drink-3d/512/Banana_3D.png' },
+      { price: 400, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
+      { price: 400, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
+      { price: 400, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Pumpkin_3D.png' },
+      { price: 401, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
+      { price: 403, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
+      { price: 403, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Spider_Web_3D.png' },
+      { price: 405, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Snake_3D.png' },
+      { price: 410, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Flamingo_3D.png' },
+      { price: 415, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' }
     ];
 
     function renderNFTs() {
@@ -372,7 +373,7 @@
 
         card.innerHTML = `
           <div class="nft-img-container">
-            <img src="${item.img}" alt="Gift" onerror="this.onerror=null; this.src='https://telegram.org/img/emoji/4K/1F381.png';">
+            <img src="${item.img}" alt="NFT" onerror="this.src='https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png';">
           </div>
           <div class="price-pill">
             <span>${item.price.toLocaleString()}</span> ⭐
@@ -418,7 +419,6 @@
       if (tg) tg.showAlert('Ссылка скопирована!');
     }
 
-    // Init
     renderNFTs();
   </script>
 </body>
