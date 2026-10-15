@@ -1,5 +1,4 @@
 import logging
-import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 
@@ -9,10 +8,8 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-# Токен бота
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
-# Ссылка на Mini App (с новым тегом v=100 для сброса кэша)
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=100"
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=101"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
@@ -32,7 +29,7 @@ def main():
     print("Запуск бота NellCasino...")
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
-    app.run_polling(drop_pending_updates=True)
+    app.run_polling()
 
 if __name__ == '__main__':
     main()
