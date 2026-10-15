@@ -1,58 +1,95 @@
-import time
-import requests
-from flask import Flask
+import logging
+import json
+import asyncio
+from aiohttp import web
+from aiogram import Bot, Dispatcher, types, F
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo, LabeledPrice, PreCheckoutQuery
+from aiogram.filters import CommandStart
 
-app = Flask('')
-
-@app.route('/')
-def home():
-    return "NellCasino Bot is active 24/7!"
-
+# Ваш токен бота
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=103"
-URL = f"https://api.telegram.org/bot{TOKEN}"
 
-def send_message(chat_id, text):
-    keyboard = {
-        "inline_keyboard": [
-            [{"text": "🎰 Открыть NellCasino", "web_app": {"url": WEB_APP_URL}}],
-            [{"text": "💬 Админ (@Navi4563)", "url": "https://t.me/Navi4563"}]
-        ]
-    }
-    data = {
-        "chat_id": chat_id,
-        "text": text,
-        "parse_mode": "Markdown",
-        "reply_markup": keyboard
-    }
+# Ссылка на ваш интерфейс GitHub Pages с версией ?v=15 для принудительного сброса кэша Telegram
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=15"
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
+
+@dp.message(CommandStart())
+async def start_command(message: types.Message):
+    # Клавиатура для запуска Mini App
+    keyboard = ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                KeyboardButton(
+                    text="🎰 Открыть NellCasino",
+                    web_app=WebAppInfo(url=WEB_APP_URL)
+                )
+            ]
+        ],
+        resize_keyboard=True
+    )
+    
+    welcome_text = (
+        "👑 **Добро пожаловать в NellCasino!** 👑\n\n"
+        "Нажмите кнопку ниже, чтобы открыть приложение, поиграть в слоты, "
+        "плинко, краш и зайти на рынок NFT подарков со звездами ⭐!"
+    )
+    await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
+
+# Обработчик пополнения звезд из WebApp (выставление счета Telegram Stars)
+@dp.message(F.web_app_data)
+async def handle_webapp_data(message: types.Message):
     try:
-        requests.post(f"{URL}/sendMessage", json=data)
-    except Exception as e:
-        print(f"Send error: {e}")
+        data = json.loads(message.web_app_data.data)
+        if data.get("action") == "deposit":
+            stars_amount = int(data.get("amount", 100))
+            if stars_amount < 10:
+                stars_amount = 10
 
-def check_updates():
-    offset = 0
-    print("Бот запущен через чистый API...")
-    while True:
-        try:
-            response = requests.get(f"{URL}/getUpdates", params={"offset": offset, "timeout": 30})
-            data = response.json()
-            if data.get("ok"):
-                for result in data.get("result", []):
-                    offset = result["update_id"] + 1
-                    message = result.get("message")
-                    if message and "text" in message:
-                        chat_id = message["chat"]["id"]
-                        text = message["text"]
-                        if text.startswith("/start"):
-                            send_message(chat_id, "👑 **Добро пожаловать в NellCasino!**\n\nНажмите кнопку ниже, чтобы открыть приложение:")
-        except Exception as e:
-            print(f"Polling error: {e}")
-        time.sleep(1)
+            prices = [LabeledPrice(label="Пополнение баланса NellCasino", amount=stars_amount)]
+            
+            await bot.send_invoice(
+                chat_id=message.chat.id,
+                title="Пополнение баланса ⭐",
+                description=f"Пополнение баланса в NellCasino на {stars_amount} ⭐",
+                provider_token="",  # Пустая строка обязательна для Telegram Stars (XTR)
+                currency="XTR",
+                prices=prices,
+                start_parameter="deposit-stars",
+                payload=f"deposit_{stars_amount}"
+            )
+    except Exception as e:
+        logging.error(f"Ошибка при обработке WebApp данных: {e}")
+
+@dp.pre_checkout_query()
+async def process_pre_checkout(pre_checkout_query: PreCheckoutQuery):
+    await bot.answer_pre_checkout_query(pre_checkout_query.id, ok=True)
+
+@dp.message(F.successful_payment)
+async def process_successful_payment(message: types.Message):
+    stars_added = message.successful_payment.total_amount
+    await message.answer(
+        f"✅ **Оплата прошла успешно!**\n\n"
+        f"Вам зачислено: **{stars_added} ⭐**.\n"
+        f"Откройте NellCasino повторно для игры!"
+    )
+
+# Фоновый веб-сервер для поддержки активности Render (порт 10000)
+async def handle_ping(request):
+    return web.Response(text="Bot is running!")
+
+async def start_web_server():
+    app = web.Application()
+    app.router.add_get('/', handle_ping)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', 10000)
+    await site.start()
+
+async def main():
+    asyncio.create_task(start_web_server())
+    await dp.start_polling(bot)
 
 if __name__ == "__main__":
-    import threading
-    # Запуск фонового прослушивания сообщений Telegram
-    threading.Thread(target=check_updates, daemon=True).start()
-    # Запуск веб-сервера для Render
-    app.run(host="0.0.0.0", port=8080)
+    asyncio.run(main())
