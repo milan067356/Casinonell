@@ -9,20 +9,20 @@ from aiogram.filters import CommandStart
 # Ваш токен бота
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
 
-# Ссылка на ваш интерфейс GitHub Pages с версией ?v=15 для принудительного сброса кэша Telegram
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=15"
+# Посилання на ваш інтерфейс GitHub Pages з версією ?v=30 для примусового скидання кешу Telegram
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=30"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def start_command(message: types.Message):
-    # Клавиатура для запуска Mini App
+    # Клавіатура для запуску Mini App
     keyboard = ReplyKeyboardMarkup(
         keyboard=[
             [
                 KeyboardButton(
-                    text="🎰 Открыть NellCasino",
+                    text="🎰 Відкрити NellCasino",
                     web_app=WebAppInfo(url=WEB_APP_URL)
                 )
             ]
@@ -31,13 +31,13 @@ async def start_command(message: types.Message):
     )
     
     welcome_text = (
-        "👑 **Добро пожаловать в NellCasino!** 👑\n\n"
-        "Нажмите кнопку ниже, чтобы открыть приложение, поиграть в слоты, "
-        "плинко, краш и зайти на рынок NFT подарков со звездами ⭐!"
+        "👑 **Ласкаво просимо в NellCasino!** 👑\n\n"
+        "Натисніть кнопку нижче, щоб відкрити додаток, зіграти в слоти, "
+        "плінко, краш та переглянути ринок NFT подарунків зі зірками ⭐!"
     )
     await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
 
-# Обработчик пополнения звезд из WebApp (выставление счета Telegram Stars)
+# Обробник поповнення зірок з WebApp (виставлення рахунку Telegram Stars)
 @dp.message(F.web_app_data)
 async def handle_webapp_data(message: types.Message):
     try:
@@ -47,20 +47,20 @@ async def handle_webapp_data(message: types.Message):
             if stars_amount < 10:
                 stars_amount = 10
 
-            prices = [LabeledPrice(label="Пополнение баланса NellCasino", amount=stars_amount)]
+            prices = [LabeledPrice(label="Поповнення балансу NellCasino", amount=stars_amount)]
             
             await bot.send_invoice(
                 chat_id=message.chat.id,
-                title="Пополнение баланса ⭐",
-                description=f"Пополнение баланса в NellCasino на {stars_amount} ⭐",
-                provider_token="",  # Пустая строка обязательна для Telegram Stars (XTR)
+                title="Поповнення балансу ⭐",
+                description=f"Поповнення балансу в NellCasino на {stars_amount} ⭐",
+                provider_token="",  # Порожній рядок обов'язковий для Telegram Stars (XTR)
                 currency="XTR",
                 prices=prices,
                 start_parameter="deposit-stars",
                 payload=f"deposit_{stars_amount}"
             )
     except Exception as e:
-        logging.error(f"Ошибка при обработке WebApp данных: {e}")
+        logging.error(f"Помилка при обробці WebApp даних: {e}")
 
 @dp.pre_checkout_query()
 async def process_pre_checkout(pre_checkout_query: PreCheckoutQuery):
@@ -70,12 +70,12 @@ async def process_pre_checkout(pre_checkout_query: PreCheckoutQuery):
 async def process_successful_payment(message: types.Message):
     stars_added = message.successful_payment.total_amount
     await message.answer(
-        f"✅ **Оплата прошла успешно!**\n\n"
-        f"Вам зачислено: **{stars_added} ⭐**.\n"
-        f"Откройте NellCasino повторно для игры!"
+        f"✅ **Оплата пройшла успішно!**\n\n"
+        f"Вам зараховано: **{stars_added} ⭐**.\n"
+        f"Відкрийте NellCasino повторно для гри!"
     )
 
-# Фоновый веб-сервер для поддержки активности Render (порт 10000)
+# Фоновий веб-сервер для підтримки активності Render (порт 10000)
 async def handle_ping(request):
     return web.Response(text="Bot is running!")
 
