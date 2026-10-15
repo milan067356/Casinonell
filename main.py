@@ -3,10 +3,9 @@ import json
 import asyncio
 from aiohttp import web
 from aiogram import Bot, Dispatcher, types, F
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo, LabeledPrice, PreCheckoutQuery
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo, LabeledPrice, PreCheckoutQuery
 from aiogram.filters import CommandStart
 
-# Ваш токен від BotFather підставлено:
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
 WEB_APP_URL = "https://milan067356.github.io/Casinonell/"
 
@@ -15,19 +14,22 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def start_command(message: types.Message):
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
+    # Звичайна клавіатура (ReplyKeyboard) — СТРИКТНО НЕОБХІДНА ДЛЯ sendData()!
+    keyboard = ReplyKeyboardMarkup(
+        keyboard=[
             [
-                InlineKeyboardButton(
+                KeyboardButton(
                     text="🎰 Открыть NellCasino",
                     web_app=WebAppInfo(url=WEB_APP_URL)
                 )
             ]
-        ]
+        ],
+        resize_keyboard=True
     )
+    
     welcome_text = (
         "💎 **Добро пожаловать в NellCasino!** 💎\n\n"
-        "Нажмите кнопку ниже, чтобы запустить игры "
+        "Нажмите кнопку ниже на клавиатуре, чтобы запустить игры "
         "(Слоты, Плинко, Краш) и выставить чек для пополнения ⭐:"
     )
     await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
@@ -67,10 +69,9 @@ async def process_successful_payment(message: types.Message):
     await message.answer(
         f"✅ **Оплата прошла успешно!**\n\n"
         f"Вам зачислено: **{stars_added} ⭐**.\n"
-        f"Откройте NellCasino повторно для обновления баланса!"
+        f"Откройте NellCasino повторно для игры!"
     )
 
-# Простий веб-сервер для усунення помилки портів на Render
 async def handle_ping(request):
     return web.Response(text="Bot is running!")
 
