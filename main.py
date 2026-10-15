@@ -9,8 +9,8 @@ from aiogram.filters import CommandStart
 # Ваш токен бота
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
 
-# Ссылка на ваш интерфейс GitHub Pages с версией ?v=9 для обхода кеша
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=9"
+# Ссылка на ваш интерфейс GitHub Pages с версией ?v=11 для обхода кеша Telegram
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=11"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
