@@ -9,8 +9,8 @@ from aiogram.filters import CommandStart
 # Ваш токен
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
 
-# Обновленная ссылка с версией ?v=5 для сброса кеша Telegram
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=5"
+# Обновленная ссылка с версией ?v=8 для принудительного сброса кеша Telegram
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=8"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
@@ -33,7 +33,7 @@ async def start_command(message: types.Message):
     welcome_text = (
         "💎 **Добро пожаловать в NellCasino!** 💎\n\n"
         "Нажмите кнопку ниже на клавиатуре, чтобы запустить игры "
-        "(Слоты, Плинко, Краш) и выставить чек для пополнения ⭐:"
+        "(Слоты, Плинко, Краш), посетить Рынок NFT и пополнить ⭐:"
     )
     await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
 
@@ -84,7 +84,7 @@ async def start_web_server():
     app.router.add_get('/', handle_ping)
     runner = web.AppRunner(app)
     await runner.setup()
-    site = web.TCPSite(runner, '0.0.0.0', 10000)
+    site = runner_site = web.TCPSite(runner, '0.0.0.0', 10000)
     await site.start()
 
 async def main():
