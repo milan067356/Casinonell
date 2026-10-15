@@ -53,7 +53,7 @@
       gap: 4px;
     }
 
-    /* POPUP DEPOSIT */
+    /* DEPOSIT */
     .deposit-card {
       width: 100%;
       max-width: 400px;
@@ -253,9 +253,12 @@
 
   <script>
     const tg = window.Telegram ? window.Telegram.WebApp : null;
-    if (tg) tg.expand();
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
 
-    let balance = 0; // Початковий баланс 0 ⭐
+    let balance = 0;
 
     function updateBalance(amount) {
       balance += amount;
@@ -272,7 +275,7 @@
         tg.sendData(JSON.stringify({ action: "deposit", amount: amt }));
         tg.close();
       } else {
-        alert("Пополнение работает только внутри Telegram!");
+        alert("Запустите WebApp через Telegram, чтобы выставить чек!");
       }
     }
 
@@ -301,7 +304,7 @@
         return null;
       }
       if (val > balance) {
-        alert("Недостаточно звезд на балансе! Пополните баланс.");
+        alert("Недостаточно звезд на балансе! Нажмите 'Выставить чек'.");
         return null;
       }
       return val;
@@ -326,7 +329,6 @@
       setTimeout(() => {
         clearInterval(interval);
         
-        // Низький шанс джекпоту
         let res1, res2, res3;
         if (Math.random() < 0.15) {
           res1 = res2 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
@@ -342,7 +344,7 @@
         document.getElementById('reel3').innerText = res3;
 
         if (res1 === res2 && res2 === res3) {
-          const win = bet * 8;
+          const win = bet * 5;
           updateBalance(win);
           alert(`🎉 ДЖЕКПОТ! Вы выиграли ${win} ⭐!`);
         } else if (res1 === res2 || res2 === res3 || res1 === res3) {
@@ -354,13 +356,13 @@
       }, 1500);
     }
 
-    /* --- PLINKO (ЗНИЖЕНІ ШАНСИ) --- */
+    /* --- PLINKO (МАКС 2.0x) --- */
     const pCanvas = document.getElementById('plinkoCanvas');
     const pCtx = pCanvas.getContext('2d');
     const rows = 7;
     const pins = [];
-    // Знижені коефіцієнти: у центрі 0.2x та 0.5x
-    const multipliers = [5.0, 1.5, 0.5, 0.2, 0.5, 1.5, 5.0];
+    // Коефіцієнти: максимальний 2.0x
+    const multipliers = [2.0, 1.2, 0.5, 0.2, 0.5, 1.2, 2.0];
 
     function initPlinko() {
       pins.length = 0;
@@ -404,7 +406,6 @@
       const btn = document.getElementById('plinko-btn');
       btn.disabled = true;
 
-      // Шар спрямовується більше до центру
       let ballX = 160 + (Math.random() * 4 - 2);
       let ballY = 15;
       let vx = 0;
@@ -421,7 +422,6 @@
           let dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 9) {
             vy = -vy * 0.4;
-            // Притягання до центру
             let pullToCenter = (160 - ballX) * 0.05;
             vx = (dx > 0 ? 0.8 : -0.8) + pullToCenter;
           }
@@ -451,7 +451,7 @@
       }, 20);
     }
 
-    /* --- CRASH (ЖОРСТКІШІ ШАНСИ) --- */
+    /* --- CRASH --- */
     const cCanvas = document.getElementById('crashCanvas');
     const cCtx = cCanvas.getContext('2d');
     let crashState = 'idle';
@@ -489,7 +489,6 @@
         crashState = 'running';
         currentMultiplier = 1.00;
 
-        // 70% шанс вибуху від 1.01x до 1.20x
         const rand = Math.random();
         if (rand < 0.70) {
           crashPoint = (1.01 + Math.random() * 0.19).toFixed(2);
