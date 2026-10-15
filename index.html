@@ -223,18 +223,27 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      position: relative;
     }
 
     .nft-img-box {
       width: 100%;
-      height: 75px;
-      background: linear-gradient(135deg, #1f2738, #111622);
+      height: 80px;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.2) 100%);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 38px;
       border: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
+      padding: 4px;
+    }
+
+    .nft-img-box img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
     }
 
     .nft-title {
@@ -399,148 +408,59 @@
     </div>
   </div>
 
-  <!-- PAGE 2: FULL REAL MARKETPLACE FROM SCREENSHOTS -->
+  <!-- PAGE 2: REAL 3D TELEGRAM GIFTS MARKETPLACE -->
   <div id="page-nft" class="page">
     <div style="text-align:center; margin-bottom: 4px;">
       <h2 style="font-size: 20px; font-weight: 900;">🖼️ Рынок NFT Подарков</h2>
-      <p style="font-size: 13px; color: var(--text-muted);">Все предметы с реальными ценами со скриншотов ⭐</p>
+      <p style="font-size: 13px; color: var(--text-muted);">Официальные 3D подарки Telegram Stars ⭐</p>
     </div>
 
     <div class="nft-grid">
-      <!-- Скриншот 1 -->
-      <div class="nft-card"><div class="nft-img-box">🐰</div><div class="nft-title">Rabbit</div><div class="nft-price">398 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rabbit', 398)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎀</div><div class="nft-title">Candy Bow</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Candy Bow', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍌</div><div class="nft-title">Banana Ice</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Banana Ice', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🔥</div><div class="nft-title">Torch</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Torch', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🔮</div><div class="nft-title">Galaxy Sphere</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Galaxy Sphere', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎃</div><div class="nft-title">Pumpkin Ice</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pumpkin Ice', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎆</div><div class="nft-title">2025 Clock</div><div class="nft-price">401 ⭐</div><button class="nft-buy-btn" onclick="buyNft('2025 Clock', 401)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💫</div><div class="nft-title">Magic Circle</div><div class="nft-price">403 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Magic Circle', 403)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🕸️</div><div class="nft-title">Spider Web</div><div class="nft-price">403 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Spider Web', 403)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐍</div><div class="nft-title">Snake Tank</div><div class="nft-price">406 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Snake Tank', 406)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🦩</div><div class="nft-title">White Swan</div><div class="nft-price">408 ⭐</div><button class="nft-buy-btn" onclick="buyNft('White Swan', 408)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🛖</div><div class="nft-title">Green Hut</div><div class="nft-price">409 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Green Hut', 409)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🃏</div><div class="nft-title">Jester Hat</div><div class="nft-price">422 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Jester Hat', 422)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">📟</div><div class="nft-title">Tamagotchi</div><div class="nft-price">426 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Tamagotchi', 426)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎒</div><div class="nft-title">Pink Backpack</div><div class="nft-price">428 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pink Backpack', 428)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🌐</div><div class="nft-title">Disco Grid</div><div class="nft-price">431 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Disco Grid', 431)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐙</div><div class="nft-title">Pink Blob</div><div class="nft-price">431 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pink Blob', 431)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐸</div><div class="nft-title">Frog Lollipop</div><div class="nft-price">434 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Frog Lollipop', 434)">Купить</button></div>
-
-      <!-- Скриншот 2 -->
-      <div class="nft-card"><div class="nft-img-box">🍪</div><div class="nft-title">Gingerbread</div><div class="nft-price">436 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Gingerbread', 436)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎉</div><div class="nft-title">2028 Party</div><div class="nft-price">439 ⭐</div><button class="nft-buy-btn" onclick="buyNft('2028 Party', 439)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎄</div><div class="nft-title">Wreath</div><div class="nft-price">448 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Wreath', 448)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧦</div><div class="nft-title">Warm Socks</div><div class="nft-price">450 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Warm Socks', 450)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">📓</div><div class="nft-title">Notebook</div><div class="nft-price">453 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Notebook', 453)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">✨</div><div class="nft-title">Fireworks</div><div class="nft-price">453 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Fireworks', 453)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍵</div><div class="nft-title">Green Tea</div><div class="nft-price">462 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Green Tea', 462)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">☕</div><div class="nft-title">Hot Cocoa</div><div class="nft-price">468 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Hot Cocoa', 468)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">👽</div><div class="nft-title">Alien Book</div><div class="nft-price">477 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Alien Book', 477)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💖</div><div class="nft-title">Love Heart</div><div class="nft-price">488 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Love Heart', 488)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎂</div><div class="nft-title">Happy BDay</div><div class="nft-price">489 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Happy BDay', 489)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧪</div><div class="nft-title">Witch Cauldron</div><div class="nft-price">489 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Witch Cauldron', 489)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🏅</div><div class="nft-title">Gold Medal</div><div class="nft-price">493 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Gold Medal', 493)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🕌</div><div class="nft-title">Lantern</div><div class="nft-price">495 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Lantern', 495)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍀</div><div class="nft-title">Matrix Clover</div><div class="nft-price">504 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Matrix Clover', 504)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🦋</div><div class="nft-title">Butterflies</div><div class="nft-price">513 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Butterflies', 513)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">👩‍🍳</div><div class="nft-title">Chef Crying</div><div class="nft-price">515 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Chef Crying', 515)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">📦</div><div class="nft-title">Laser Box</div><div class="nft-price">522 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Laser Box', 522)">Купить</button></div>
-
-      <!-- Скриншот 3 -->
-      <div class="nft-card"><div class="nft-img-box">⚙️</div><div class="nft-title">Steampunk Pot</div><div class="nft-price">522 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Steampunk Pot', 522)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍰</div><div class="nft-title">Pink Cake</div><div class="nft-price">526 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pink Cake', 526)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🚀</div><div class="nft-title">18+ Rocket</div><div class="nft-price">536 ⭐</div><button class="nft-buy-btn" onclick="buyNft('18+ Rocket', 536)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🌿</div><div class="nft-title">Green Bag</div><div class="nft-price">536 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Green Bag', 536)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">👽</div><div class="nft-title">Alien Yoda</div><div class="nft-price">536 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Alien Yoda', 536)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎅</div><div class="nft-title">Santa Hat</div><div class="nft-price">545 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Santa Hat', 545)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧤</div><div class="nft-title">Mittens</div><div class="nft-price">545 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Mittens', 545)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🫙</div><div class="nft-title">Aquarium Jar</div><div class="nft-price">554 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Aquarium Jar', 554)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🌙</div><div class="nft-title">Crescent Mosque</div><div class="nft-price">556 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Crescent Mosque', 556)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🔮</div><div class="nft-title">Snow Globe</div><div class="nft-price">559 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Snow Globe', 559)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🕶️</div><div class="nft-title">Disco Dog</div><div class="nft-price">562 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Disco Dog', 562)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍿</div><div class="nft-title">Popcorn Cinema</div><div class="nft-price">570 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Popcorn Cinema', 570)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🕯️</div><div class="nft-title">Red Candle</div><div class="nft-price">577 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Red Candle', 577)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍄</div><div class="nft-title">Psycho Mushroom</div><div class="nft-price">578 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Psycho Mushroom', 578)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐈</div><div class="nft-title">Egypt Cat</div><div class="nft-price">578 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Egypt Cat', 578)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">📅</div><div class="nft-title">18+ Calendar</div><div class="nft-price">586 ⭐</div><button class="nft-buy-btn" onclick="buyNft('18+ Calendar', 586)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">👼</div><div class="nft-title">Angel Pillow</div><div class="nft-price">602 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Angel Pillow', 602)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💎</div><div class="nft-title">Diamond Star</div><div class="nft-price">607 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Diamond Star', 607)">Купить</button></div>
-
-      <!-- Скриншот 4 -->
-      <div class="nft-card"><div class="nft-img-box">🧙‍♂️</div><div class="nft-title">Wizard Hat</div><div class="nft-price">610 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Wizard Hat', 610)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🪻</div><div class="nft-title">Magic Flower</div><div class="nft-price">624 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Magic Flower', 624)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🏄</div><div class="nft-title">Surfboard</div><div class="nft-price">644 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Surfboard', 644)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">⚡</div><div class="nft-title">Laser Wand</div><div class="nft-price">672 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Laser Wand', 672)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎨</div><div class="nft-title">Painter Monkey</div><div class="nft-price">708 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Painter Monkey', 708)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🟢</div><div class="nft-title">Green Slime</div><div class="nft-price">755 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Green Slime', 755)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">👁️</div><div class="nft-title">Cyclops Eye</div><div class="nft-price">755 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Cyclops Eye', 755)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💐</div><div class="nft-title">Bear Flowers</div><div class="nft-price">777 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Bear Flowers', 777)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🖊️</div><div class="nft-title">Cyber Pen</div><div class="nft-price">796 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Cyber Pen', 796)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🔔</div><div class="nft-title">Blue Bell</div><div class="nft-price">800 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Blue Bell', 800)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧁</div><div class="nft-title">Angel Cupcake</div><div class="nft-price">813 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Angel Cupcake', 813)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍓</div><div class="nft-title">Berry Cake</div><div class="nft-price">838 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Berry Cake', 838)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐶</div><div class="nft-title">Dog Collar</div><div class="nft-price">938 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Dog Collar', 938)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎩</div><div class="nft-title">Magic Tophat</div><div class="nft-price">943 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Magic Tophat', 943)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🔔</div><div class="nft-title">Golden Bells</div><div class="nft-price">1 019 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Golden Bells', 1019)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🌸</div><div class="nft-title">White Flower</div><div class="nft-price">1 029 ⭐</div><button class="nft-buy-btn" onclick="buyNft('White Flower', 1029)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🕯️</div><div class="nft-title">Gold Candle</div><div class="nft-price">1 107 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Gold Candle', 1107)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍫</div><div class="nft-title">Choco Heart</div><div class="nft-price">1 126 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Choco Heart', 1126)">Купить</button></div>
-
-      <!-- Скриншот 5 -->
-      <div class="nft-card"><div class="nft-img-box">💀</div><div class="nft-title">Skull Flower</div><div class="nft-price">1 170 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Skull Flower', 1170)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍓</div><div class="nft-title">Choco Berry</div><div class="nft-price">1 186 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Choco Berry', 1186)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🔮</div><div class="nft-title">Skull Globe</div><div class="nft-price">1 207 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Skull Globe', 1207)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">📻</div><div class="nft-title">Retro Player</div><div class="nft-price">1 210 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Retro Player', 1210)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🎃</div><div class="nft-title">Laugh Pumpkin</div><div class="nft-price">1 310 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Laugh Pumpkin', 1310)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧪</div><div class="nft-title">Mana Bottle</div><div class="nft-price">1 342 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Mana Bottle', 1342)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💨</div><div class="nft-title">Hairdryer</div><div class="nft-price">1 357 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Hairdryer', 1357)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🦅</div><div class="nft-title">USA Eagle</div><div class="nft-price">1 448 ⭐</div><button class="nft-buy-btn" onclick="buyNft('USA Eagle', 1448)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🥊</div><div class="nft-title">UFC Box</div><div class="nft-price">1 538 ⭐</div><button class="nft-buy-btn" onclick="buyNft('UFC Box', 1538)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🕸️</div><div class="nft-title">Heart Clock</div><div class="nft-price">1 542 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Heart Clock', 1542)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐱</div><div class="nft-title">Cats Hug</div><div class="nft-price">1 629 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Cats Hug', 1629)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">👠</div><div class="nft-title">Angel Shoes</div><div class="nft-price">1 865 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Angel Shoes', 1865)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🔑</div><div class="nft-title">Heart Lock</div><div class="nft-price">2 064 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Heart Lock', 2064)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍼</div><div class="nft-title">Pacifier</div><div class="nft-price">2 236 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pacifier', 2236)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍂</div><div class="nft-title">Autumn Bush</div><div class="nft-price">2 324 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Autumn Bush', 2324)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🌹</div><div class="nft-title">Rose Glass</div><div class="nft-price">2 421 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rose Glass', 2421)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🕊️</div><div class="nft-title">Blue Bird</div><div class="nft-price">2 653 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Blue Bird', 2653)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🤑</div><div class="nft-title">Dollar Glasses</div><div class="nft-price">2 657 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Dollar Glasses', 2657)">Купить</button></div>
-
-      <!-- Скриншот 6 -->
-      <div class="nft-card"><div class="nft-img-box">💍</div><div class="nft-title">Telegram Ring</div><div class="nft-price">3 022 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Telegram Ring', 3022)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧸</div><div class="nft-title">Neon Bear</div><div class="nft-price">3 110 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Neon Bear', 3110)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💍</div><div class="nft-title">Black Ring</div><div class="nft-price">3 134 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Black Ring', 3134)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🪔</div><div class="nft-title">Genie Lamp</div><div class="nft-price">3 385 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Genie Lamp', 3385)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🪖</div><div class="nft-title">Green Helmet</div><div class="nft-price">3 414 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Green Helmet', 3414)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🪆</div><div class="nft-title">Voodoo Doll</div><div class="nft-price">3 479 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Voodoo Doll', 3479)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🚬</div><div class="nft-title">Neon Cigar</div><div class="nft-price">3 586 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Neon Cigar', 3586)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐍</div><div class="nft-title">Snake Ring</div><div class="nft-price">3 971 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Snake Ring', 3971)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐸</div><div class="nft-title">Kiss Frog</div><div class="nft-price">4 023 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Kiss Frog', 4023)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐸</div><div class="nft-title">Slime Monster</div><div class="nft-price">4 326 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Slime Monster', 4326)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">⌚</div><div class="nft-title">Rolex Watch</div><div class="nft-price">5 266 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rolex Watch', 5266)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🏺</div><div class="nft-title">Poison Bottle</div><div class="nft-price">5 328 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Poison Bottle', 5328)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🚗</div><div class="nft-title">Retro Car</div><div class="nft-price">5 579 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Retro Car', 5579)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💎</div><div class="nft-title">Pixel Diamond</div><div class="nft-price">5 700 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pixel Diamond', 5700)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐱</div><div class="nft-title">Tom Bed</div><div class="nft-price">5 806 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Tom Bed', 5806)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💎</div><div class="nft-title">Purple Crystals</div><div class="nft-price">5 990 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Purple Crystals', 5990)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🗿</div><div class="nft-title">Statue</div><div class="nft-price">6 633 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Statue', 6633)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧪</div><div class="nft-title">Rainbow Perfume</div><div class="nft-price">7 418 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rainbow Perfume', 7418)">Купить</button></div>
-
-      <!-- Скриншот 7 -->
-      <div class="nft-card"><div class="nft-img-box">🎴</div><div class="nft-title">Zombie Hand</div><div class="nft-price">10 167 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Zombie Hand', 10167)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🥽</div><div class="nft-title">Steampunk Goggles</div><div class="nft-price">10 205 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Steampunk Goggles', 10205)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💉</div><div class="nft-title">Syringe</div><div class="nft-price">10 560 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Syringe', 10560)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🔷</div><div class="nft-title">Mega Crystal</div><div class="nft-price">11 038 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Mega Crystal', 11038)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">👜</div><div class="nft-title">Birkin Bag</div><div class="nft-price">11 316 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Birkin Bag', 11316)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🏋️</div><div class="nft-title">Flex Arm</div><div class="nft-price">11 950 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Flex Arm', 11950)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🪖</div><div class="nft-title">Spartan Helmet</div><div class="nft-price">16 654 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Spartan Helmet', 16654)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐱</div><div class="nft-title">Siamese Cat</div><div class="nft-price">21 956 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Siamese Cat', 21956)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🍎</div><div class="nft-title">Golden Apple</div><div class="nft-price">22 965 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Golden Apple', 22965)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧢</div><div class="nft-title">Telegram Cap</div><div class="nft-price">35 756 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Telegram Cap', 35756)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🧙</div><div class="nft-title">Gold Mage</div><div class="nft-price">47 284 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Gold Mage', 47284)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">💖</div><div class="nft-title">Royal Heart</div><div class="nft-price">113 045 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Royal Heart', 113045)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box">🐸</div><div class="nft-title">Rare Pepe Plush</div><div class="nft-price">632 023 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rare Pepe Plush', 632023)">Купить</button></div>
+      <!-- 3D Подарки со стилизованными HD изображениями -->
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/rabbit.png" alt="Rabbit"></div><div class="nft-title">Rabbit</div><div class="nft-price">398 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rabbit', 398)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/ribbon.png" alt="Candy Bow"></div><div class="nft-title">Candy Bow</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Candy Bow', 400)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/banana.png" alt="Banana Ice"></div><div class="nft-title">Banana Ice</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Banana Ice', 400)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/fire.png" alt="Torch"></div><div class="nft-title">Torch</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Torch', 400)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/crystal-ball.png" alt="Galaxy Sphere"></div><div class="nft-title">Galaxy Sphere</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Galaxy Sphere', 400)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/pumpkin.png" alt="Pumpkin Ice"></div><div class="nft-title">Pumpkin Ice</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pumpkin Ice', 400)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/clock.png" alt="2025 Clock"></div><div class="nft-title">2025 Clock</div><div class="nft-price">401 ⭐</div><button class="nft-buy-btn" onclick="buyNft('2025 Clock', 401)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/shooting-star.png" alt="Magic Circle"></div><div class="nft-title">Magic Circle</div><div class="nft-price">403 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Magic Circle', 403)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/spider-web.png" alt="Spider Web"></div><div class="nft-title">Spider Web</div><div class="nft-price">403 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Spider Web', 403)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/snake.png" alt="Snake Tank"></div><div class="nft-title">Snake Tank</div><div class="nft-price">406 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Snake Tank', 406)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/flamingo.png" alt="White Swan"></div><div class="nft-title">White Swan</div><div class="nft-price">408 ⭐</div><button class="nft-buy-btn" onclick="buyNft('White Swan', 408)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/house.png" alt="Green Hut"></div><div class="nft-title">Green Hut</div><div class="nft-price">409 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Green Hut', 409)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/hat.png" alt="Jester Hat"></div><div class="nft-title">Jester Hat</div><div class="nft-price">422 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Jester Hat', 422)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/gameboy.png" alt="Tamagotchi"></div><div class="nft-title">Tamagotchi</div><div class="nft-price">426 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Tamagotchi', 426)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/backpack.png" alt="Pink Backpack"></div><div class="nft-title">Pink Backpack</div><div class="nft-price">428 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pink Backpack', 428)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/diamond.png" alt="Disco Grid"></div><div class="nft-title">Disco Grid</div><div class="nft-price">431 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Disco Grid', 431)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/octopus.png" alt="Pink Blob"></div><div class="nft-title">Pink Blob</div><div class="nft-price">431 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pink Blob', 431)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/frog.png" alt="Frog Lollipop"></div><div class="nft-title">Frog Lollipop</div><div class="nft-price">434 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Frog Lollipop', 434)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/gingerbread-man.png" alt="Gingerbread"></div><div class="nft-title">Gingerbread</div><div class="nft-price">436 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Gingerbread', 436)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/party-baloons.png" alt="2028 Party"></div><div class="nft-title">2028 Party</div><div class="nft-price">439 ⭐</div><button class="nft-buy-btn" onclick="buyNft('2028 Party', 439)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/christmas-wreath.png" alt="Wreath"></div><div class="nft-title">Wreath</div><div class="nft-price">448 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Wreath', 448)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/socks.png" alt="Warm Socks"></div><div class="nft-title">Warm Socks</div><div class="nft-price">450 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Warm Socks', 450)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/book.png" alt="Notebook"></div><div class="nft-title">Notebook</div><div class="nft-price">453 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Notebook', 453)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/fireworks.png" alt="Fireworks"></div><div class="nft-title">Fireworks</div><div class="nft-price">453 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Fireworks', 453)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/tea-cup.png" alt="Green Tea"></div><div class="nft-title">Green Tea</div><div class="nft-price">462 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Green Tea', 462)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/coffee-cup.png" alt="Hot Cocoa"></div><div class="nft-title">Hot Cocoa</div><div class="nft-price">468 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Hot Cocoa', 468)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/alien.png" alt="Alien Book"></div><div class="nft-title">Alien Book</div><div class="nft-price">477 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Alien Book', 477)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/like.png" alt="Love Heart"></div><div class="nft-title">Love Heart</div><div class="nft-price">488 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Love Heart', 488)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/birthday-cake.png" alt="Happy BDay"></div><div class="nft-title">Happy BDay</div><div class="nft-price">489 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Happy BDay', 489)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/medal.png" alt="Gold Medal"></div><div class="nft-title">Gold Medal</div><div class="nft-price">493 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Gold Medal', 493)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/four-leaf-clover.png" alt="Matrix Clover"></div><div class="nft-title">Matrix Clover</div><div class="nft-price">504 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Matrix Clover', 504)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/butterfly.png" alt="Butterflies"></div><div class="nft-title">Butterflies</div><div class="nft-price">513 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Butterflies', 513)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/box.png" alt="Laser Box"></div><div class="nft-title">Laser Box</div><div class="nft-price">522 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Laser Box', 522)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/rocket.png" alt="18+ Rocket"></div><div class="nft-title">18+ Rocket</div><div class="nft-price">536 ⭐</div><button class="nft-buy-btn" onclick="buyNft('18+ Rocket', 536)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/santa.png" alt="Santa Hat"></div><div class="nft-title">Santa Hat</div><div class="nft-price">545 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Santa Hat', 545)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/popcorn.png" alt="Popcorn Cinema"></div><div class="nft-title">Popcorn Cinema</div><div class="nft-price">570 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Popcorn Cinema', 570)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/candle.png" alt="Red Candle"></div><div class="nft-title">Red Candle</div><div class="nft-price">577 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Red Candle', 577)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/star.png" alt="Diamond Star"></div><div class="nft-title">Diamond Star</div><div class="nft-price">607 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Diamond Star', 607)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/ring.png" alt="Telegram Ring"></div><div class="nft-title">Telegram Ring</div><div class="nft-price">3 022 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Telegram Ring', 3022)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/teddy-bear.png" alt="Neon Bear"></div><div class="nft-title">Neon Bear</div><div class="nft-price">3 110 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Neon Bear', 3110)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/watch.png" alt="Rolex Watch"></div><div class="nft-title">Rolex Watch</div><div class="nft-price">5 266 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rolex Watch', 5266)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/car.png" alt="Retro Car"></div><div class="nft-title">Retro Car</div><div class="nft-price">5 579 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Retro Car', 5579)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/cap.png" alt="Telegram Cap"></div><div class="nft-title">Telegram Cap</div><div class="nft-price">35 756 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Telegram Cap', 35756)">Купить</button></div>
+      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/frog.png" alt="Rare Pepe Plush"></div><div class="nft-title">Rare Pepe Plush</div><div class="nft-price">632 023 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rare Pepe Plush', 632023)">Купить</button></div>
     </div>
   </div>
 
@@ -800,29 +720,4 @@
           drawCrashInit();
 
           let rx = 20 + Math.min(250, el * 45);
-          let ry = 180 - Math.min(140, (cMult - 1) * 60);
-
-          cCtx.strokeStyle = '#00e676'; cCtx.lineWidth = 3;
-          cCtx.beginPath(); cCtx.moveTo(20, 180);
-          cCtx.quadraticCurveTo(20 + (rx-20)/2, 180, rx, ry); cCtx.stroke();
-          cCtx.font = '20px sans-serif'; cCtx.fillText('🚀', rx - 10, ry + 5);
-
-          if(parseFloat(cMult) >= parseFloat(cPoint)) {
-            clearInterval(cAnim); cState = 'idle';
-            document.getElementById('crashMult').innerText = cPoint + 'x (ВЗРЫВ!)';
-            btn.innerText = 'Сделать ставку';
-            btn.style.background = '#2b62d9';
-          }
-        }, 50);
-      } else if(cState === 'running') {
-        clearInterval(cAnim); cState = 'idle';
-        let win = Math.floor(cBet * cMult);
-        updateBal(win);
-        alert('🎉 Забрано: +'+win+' ⭐!');
-        btn.innerText = 'Сделать ставку';
-        btn.style.background = '#2b62d9';
-      }
-    }
-  </script>
-</body>
-</html>
+          let ry = 180
