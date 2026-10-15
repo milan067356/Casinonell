@@ -6,18 +6,18 @@ from aiogram import Bot, Dispatcher, types, F
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo, LabeledPrice, PreCheckoutQuery
 from aiogram.filters import CommandStart
 
-# Ваш токен
+# Ваш токен бота
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
 
-# Обновленная ссылка с версией ?v=8 для принудительного сброса кеша Telegram
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=8"
+# Ссылка на ваш интерфейс GitHub Pages с версией ?v=9 для обхода кеша
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=9"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def start_command(message: types.Message):
-    # Reply-клавиатура для открытия Mini App
+    # Клавиатура для запуска Mini App
     keyboard = ReplyKeyboardMarkup(
         keyboard=[
             [
@@ -31,13 +31,13 @@ async def start_command(message: types.Message):
     )
     
     welcome_text = (
-        "💎 **Добро пожаловать в NellCasino!** 💎\n\n"
-        "Нажмите кнопку ниже на клавиатуре, чтобы запустить игры "
-        "(Слоты, Плинко, Краш), посетить Рынок NFT и пополнить ⭐:"
+        "👑 **Добро пожаловать в NellCasino!** 👑\n\n"
+        "Нажмите кнопку ниже, чтобы открыть приложение, поиграть в слоты, "
+        "плинко, краш и зайти на рынок NFT подарков со звездами ⭐!"
     )
     await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
 
-# Обработчик выставления чека звезд из WebApp
+# Обработчик пополнения звезд из WebApp
 @dp.message(F.web_app_data)
 async def handle_webapp_data(message: types.Message):
     try:
@@ -53,7 +53,7 @@ async def handle_webapp_data(message: types.Message):
                 chat_id=message.chat.id,
                 title="Пополнение баланса ⭐",
                 description=f"Пополнение баланса в NellCasino на {stars_amount} ⭐",
-                provider_token="",  # Пусто для Telegram Stars (XTR)
+                provider_token="",  # Пустая строка для Telegram Stars (XTR)
                 currency="XTR",
                 prices=prices,
                 start_parameter="deposit-stars",
@@ -75,7 +75,7 @@ async def process_successful_payment(message: types.Message):
         f"Откройте NellCasino повторно для игры!"
     )
 
-# Веб-сервер для порта 10000 на Render
+# Веб-сервер для поддержки активности Render (порт 10000)
 async def handle_ping(request):
     return web.Response(text="Bot is running!")
 
@@ -84,7 +84,7 @@ async def start_web_server():
     app.router.add_get('/', handle_ping)
     runner = web.AppRunner(app)
     await runner.setup()
-    site = runner_site = web.TCPSite(runner, '0.0.0.0', 10000)
+    site = web.TCPSite(runner, '0.0.0.0', 10000)
     await site.start()
 
 async def main():
