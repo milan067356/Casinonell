@@ -31,7 +31,7 @@
       padding: 10px 14px;
       background: #1e1e1e;
       border-radius: 14px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     .brand {
@@ -52,6 +52,41 @@
       align-items: center;
       gap: 4px;
     }
+
+    /* POPUP DEPOSIT */
+    .deposit-card {
+      width: 100%;
+      max-width: 400px;
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .deposit-input {
+      flex: 1;
+      background: #1a1a1a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      outline: none;
+    }
+    .btn-deposit {
+      background: #ff9800;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .nav-tabs {
       width: 100%;
       max-width: 400px;
@@ -129,7 +164,7 @@
       cursor: not-allowed;
     }
 
-    /* SLOTS STYLES */
+    /* SLOTS */
     .slots-container {
       display: flex;
       gap: 10px;
@@ -152,7 +187,6 @@
       border: 1px solid #444;
     }
 
-    /* CANVAS STYLES FOR PLINKO & CRASH */
     canvas {
       background: #111;
       border-radius: 12px;
@@ -165,7 +199,13 @@
 
   <div class="header">
     <div class="brand">🎰 NellCasino</div>
-    <div class="balance-box"><span id="balance">500</span> ⭐</div>
+    <div class="balance-box"><span id="balance">0</span> ⭐</div>
+  </div>
+
+  <!-- ПОПОЛНЕНИЕ БАЛАНСА -->
+  <div class="deposit-card">
+    <input type="number" id="deposit-amount" class="deposit-input" value="100" min="10" placeholder="Кол-во звезд">
+    <button class="btn-deposit" onclick="requestDeposit()">💳 Выставить чек</button>
   </div>
 
   <div class="nav-tabs">
@@ -212,10 +252,28 @@
   </div>
 
   <script>
-    let balance = 500;
+    const tg = window.Telegram ? window.Telegram.WebApp : null;
+    if (tg) tg.expand();
+
+    let balance = 0; // Початковий баланс 0 ⭐
+
     function updateBalance(amount) {
       balance += amount;
       document.getElementById('balance').innerText = balance;
+    }
+
+    function requestDeposit() {
+      const amt = parseInt(document.getElementById('deposit-amount').value);
+      if (isNaN(amt) || amt < 10) {
+        alert("Минимальное пополнение — 10 ⭐!");
+        return;
+      }
+      if (tg) {
+        tg.sendData(JSON.stringify({ action: "deposit", amount: amt }));
+        tg.close();
+      } else {
+        alert("Пополнение работает только внутри Telegram!");
+      }
     }
 
     function switchTab(tab) {
@@ -243,13 +301,13 @@
         return null;
       }
       if (val > balance) {
-        alert("Недостаточно звезд на балансе!");
+        alert("Недостаточно звезд на балансе! Пополните баланс.");
         return null;
       }
       return val;
     }
 
-    /* --- LOGIC 1: SLOTS --- */
+    /* --- SLOTS --- */
     const slotSymbols = ['7️⃣', '🍇', '🍋', '🔔', '💎', '🍒', '⭐'];
     function spinSlots() {
       const bet = getBet('slots-bet');
@@ -267,33 +325,42 @@
 
       setTimeout(() => {
         clearInterval(interval);
-        const res1 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-        const res2 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
-        const res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+        
+        // Низький шанс джекпоту
+        let res1, res2, res3;
+        if (Math.random() < 0.15) {
+          res1 = res2 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+          res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+        } else {
+          res1 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+          res2 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+          res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+        }
 
         document.getElementById('reel1').innerText = res1;
         document.getElementById('reel2').innerText = res2;
         document.getElementById('reel3').innerText = res3;
 
         if (res1 === res2 && res2 === res3) {
-          const win = bet * 10;
+          const win = bet * 8;
           updateBalance(win);
           alert(`🎉 ДЖЕКПОТ! Вы выиграли ${win} ⭐!`);
         } else if (res1 === res2 || res2 === res3 || res1 === res3) {
-          const win = Math.floor(bet * 1.5);
+          const win = Math.floor(bet * 1.2);
           updateBalance(win);
-          alert(`Занос! Совпало 2 символа: +${win} ⭐`);
+          alert(`Совпало 2 символа: +${win} ⭐`);
         }
         btn.disabled = false;
       }, 1500);
     }
 
-    /* --- LOGIC 2: PLINKO --- */
+    /* --- PLINKO (ЗНИЖЕНІ ШАНСИ) --- */
     const pCanvas = document.getElementById('plinkoCanvas');
     const pCtx = pCanvas.getContext('2d');
     const rows = 7;
     const pins = [];
-    const multipliers = [3.0, 1.5, 1.0, 0.5, 1.0, 1.5, 3.0];
+    // Знижені коефіцієнти: у центрі 0.2x та 0.5x
+    const multipliers = [5.0, 1.5, 0.5, 0.2, 0.5, 1.5, 5.0];
 
     function initPlinko() {
       pins.length = 0;
@@ -320,7 +387,7 @@
 
       const bucketWidth = 320 / multipliers.length;
       multipliers.forEach((m, i) => {
-        pCtx.fillStyle = m >= 1.5 ? "#2e7d32" : (m === 1.0 ? "#f57c00" : "#c62828");
+        pCtx.fillStyle = m >= 1.5 ? "#2e7d32" : (m >= 1.0 ? "#f57c00" : "#c62828");
         pCtx.fillRect(i * bucketWidth + 2, 280, bucketWidth - 4, 30);
         pCtx.fillStyle = "#fff";
         pCtx.font = "bold 11px sans-serif";
@@ -337,7 +404,8 @@
       const btn = document.getElementById('plinko-btn');
       btn.disabled = true;
 
-      let ballX = 160 + (Math.random() * 8 - 4);
+      // Шар спрямовується більше до центру
+      let ballX = 160 + (Math.random() * 4 - 2);
       let ballY = 15;
       let vx = 0;
       let vy = 2;
@@ -353,7 +421,9 @@
           let dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 9) {
             vy = -vy * 0.4;
-            vx += (dx > 0 ? 1 : -1) * (1.2 + Math.random());
+            // Притягання до центру
+            let pullToCenter = (160 - ballX) * 0.05;
+            vx = (dx > 0 ? 0.8 : -0.8) + pullToCenter;
           }
         });
 
@@ -381,7 +451,7 @@
       }, 20);
     }
 
-    /* --- LOGIC 3: CRASH --- */
+    /* --- CRASH (ЖОРСТКІШІ ШАНСИ) --- */
     const cCanvas = document.getElementById('crashCanvas');
     const cCtx = cCanvas.getContext('2d');
     let crashState = 'idle';
@@ -418,7 +488,16 @@
 
         crashState = 'running';
         currentMultiplier = 1.00;
-        crashPoint = (Math.random() < 0.7 ? (1.1 + Math.random() * 2) : (2.5 + Math.random() * 5)).toFixed(2);
+
+        // 70% шанс вибуху від 1.01x до 1.20x
+        const rand = Math.random();
+        if (rand < 0.70) {
+          crashPoint = (1.01 + Math.random() * 0.19).toFixed(2);
+        } else if (rand < 0.90) {
+          crashPoint = (1.21 + Math.random() * 0.50).toFixed(2);
+        } else {
+          crashPoint = (1.71 + Math.random() * 1.50).toFixed(2);
+        }
 
         btn.innerText = "Забрать выигрыш";
         btn.style.background = "#f57c00";
@@ -427,7 +506,7 @@
 
         crashAnim = setInterval(() => {
           let elapsed = (Date.now() - startTime) / 1000;
-          currentMultiplier = (1.00 + elapsed * 0.4).toFixed(2);
+          currentMultiplier = (1.00 + elapsed * 0.3).toFixed(2);
 
           cCtx.clearRect(0, 0, 320, 220);
           
@@ -437,8 +516,8 @@
           cCtx.lineTo(290, 190);
           cCtx.stroke();
 
-          let rx = 30 + Math.min(230, elapsed * 45);
-          let ry = 190 - Math.min(150, (currentMultiplier - 1) * 40);
+          let rx = 30 + Math.min(230, elapsed * 40);
+          let ry = 190 - Math.min(150, (currentMultiplier - 1) * 50);
 
           cCtx.strokeStyle = "#4caf50";
           cCtx.lineWidth = 3;
