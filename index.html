@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gorilla Case</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            background-color: #1a1512;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #261f1b;
+            box-sizing: border-box;
+            border-bottom: 1px solid #362c26;
+        }
+        .brand {
+            font-weight: bold;
+            font-size: 16px;
+            color: #e67e22;
+        }
+        .balance-box {
+            background: #362c26;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #f1c40f;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+            width: 90%;
+            max-width: 400px;
+        }
+        .tab-btn {
+            flex: 1;
+            background: #261f1b;
+            border: none;
+            color: #b0a8a2;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #e67e22;
+            color: #fff;
+        }
+        .game-view {
+            display: none;
+            width: 92%;
+            max-width: 400px;
+            background: #261f1b;
+            border-radius: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .game-view.active {
+            display: block;
+        }
+        .case-box {
+            background: #1a1512;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-around;
+            font-size: 45px;
+        }
+        .prices-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+        .price-chip {
+            background: #362c26;
+            border: none;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .price-chip.active {
+            background: #e67e22;
+        }
+        .action-btn {
+            background: #2ecc71;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        .plinko-board {
+            background: #1a1512;
+            height: 180px;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .plinko-multipliers {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .difficulty-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .diff-btn {
+            flex: 1;
+            background: #362c26;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .diff-btn.active {
+            background: #3498db;
+        }
+        .crash-screen {
+            background: #1a1512;
+            height: 180px;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .crash-multiplier {
+            font-size: 42px;
+            font-weight: bold;
+            color: #2ecc71;
+        }
+        .bets-list {
+            text-align: left;
+            font-size: 12px;
+            background: #1a1512;
+            border-radius: 12px;
+            padding: 10px;
+            max-height: 100px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        .bet-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #b0a8a2;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="brand">🦍 Gorilla Case</span>
+        <div class="balance-box">⭐ <span id="balance">500</span></div>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('cases')">Кейсы</button>
+        <button class="tab-btn" onclick="switchTab('plinko')">Плинко</button>
+        <button class="tab-btn" onclick="switchTab('crash')">Краш</button>
+    </div>
+
+    <!-- КЕЙСЫ / СЛОТЫ -->
+    <div id="cases-view" class="game-view active">
+        <h3 style="margin-top:0">Открытие кейса</h3>
+        <div class="prices-row">
+            <button class="price-chip active" onclick="setCasePrice(69, this)">⭐ 69</button>
+            <button class="price-chip" onclick="setCasePrice(149, this)">⭐ 149</button>
+            <button class="price-chip" onclick="setCasePrice(399, this)">⭐ 399</button>
+            <button class="price-chip" onclick="setCasePrice(999, this)">⭐ 999</button>
+            <button class="price-chip" onclick="setCasePrice(1499, this)">⭐ 1499</button>
+        </div>
+        <div class="case-box">
+            <span id="slot1">🎃</span>
+            <span id="slot2">👑</span>
+            <span id="slot3">🐸</span>
+        </div>
+        <button class="action-btn" id="case-btn" onclick="openCase()">Крутить за ⭐ <span id="current-price">69</span></button>
+        <p id="case-res" style="font-size: 14px; margin-top: 12px;"></p>
+    </div>
+
+    <!-- ПЛИНКО -->
+    <div id="plinko-view" class="game-view">
+        <h3 style="margin-top:0">Плинко</h3>
+        <div class="difficulty-row">
+            <button class="diff-btn active" onclick="setDiff('easy', this)">Легко</button>
+            <button class="diff-btn" onclick="setDiff('medium', this)">Средне</button>
+            <button class="diff-btn" onclick="setDiff('hard', this)">Сложно</button>
+        </div>
+        <div class="plinko-board">
+            <div style="font-size: 24px;">🔻</div>
+            <div class="plinko-multipliers">
+                <span style="color:#e74c3c">5.2x</span>
+                <span style="color:#e67e22">1.6x</span>
+                <span style="color:#2ecc71">1.2x</span>
+                <span style="color:#3498db">1.0x</span>
+                <span style="color:#f1c40f">0.4x</span>
+                <span style="color:#3498db">1.0x</span>
+                <span style="color:#2ecc71">1.2x</span>
+                <span style="color:#e67e22">1.6x</span>
+                <span style="color:#e74c3c">5.2x</span>
+            </div>
+        </div>
+        <p style="font-size: 13px; color: #b0a8a2;">Ставка: 25 ⭐</p>
+        <button class="action-btn" onclick="playPlinko()">Бросить шар (25 ⭐)</button>
+        <p id="plinko-res" style="font-size: 14px; margin-top: 12px;"></p>
+    </div>
+
+    <!-- КРАШ -->
+    <div id="crash-view" class="game-view">
+        <h3 style="margin-top:0">Краш</h3>
+        <div class="crash-screen">
+            <div class="crash-multiplier" id="crash-mult">1.00x</div>
+            <div id="crash-status" style="font-size: 12px; color: #b0a8a2;">Ожидание раунда...</div>
+        </div>
+        <button class="action-btn" id="crash-action-btn" onclick="handleCrashAction()">Сделать ставку (25 ⭐)</button>
+        <div style="margin-top: 15px; text-align: left; font-size: 13px;">Живые ставки:</div>
+        <div class="bets-list" id="bets-list">
+            <div class="bet-item"><span>User_992</span> <span>⭐ 50 (x1.00)</span></div>
+            <div class="bet-item"><span>CryptoKing</span> <span>⭐ 200 (x1.00)</span></div>
+        </div>
+    </div>
+
+    <script>
+        let balance = 500;
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function updateUI() {
+            document.getElementById('balance').innerText = balance;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.game-view').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            if(tab === 'cases') {
+                document.getElementById('cases-view').classList.add('active');
+                event.target.classList.add('active');
+            } else if(tab === 'plinko') {
+                document.getElementById('plinko-view').classList.add('active');
+                event.target.classList.add('active');
+            } else if(tab === 'crash') {
+                document.getElementById('crash-view').classList.add('active');
+                event.target.classList.add('active');
+            }
+        }
+
+        let selectedCasePrice = 69;
+        const icons = ['🎃', '👑', '🐸', '💎', '🍬', '📦', '🚀'];
+
+        function setCasePrice(price, btn) {
+            selectedCasePrice = price;
+            document.getElementById('current-price').innerText = price;
+            document.querySelectorAll('.price-chip').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function openCase() {
+            if (balance < selectedCasePrice) { alert('Недостаточно звезд!'); return; }
+            balance -= selectedCasePrice;
+            updateUI();
+
+            let i1 = Math.floor(Math.random() * icons.length);
+            let i2 = Math.floor(Math.random() * icons.length);
+            let i3 = Math.floor(Math.random() * icons.length);
+
+            document.getElementById('slot1').innerText = icons[i1];
+            document.getElementById('slot2').innerText = icons[i2];
+            document.getElementById('slot3').innerText = icons[i3];
+
+            let res = document.getElementById('case-res');
+            if (i1 === i2 && i2 === i3) {
+                let prize = selectedCasePrice * 5;
+                balance += prize;
+                res.innerHTML = `🎉 ДЖЕКПОТ! Вы выиграли ${prize} ⭐! Напишите @Navi4563`;
+            } else {
+                res.innerText = "😢 Не повезло, попробуйте еще раз!";
+            }
+            updateUI();
+        }
+
+        let plinkoDiff = 'easy';
+        function setDiff(diff, btn) {
+            plinkoDiff = diff;
+            document.querySelectorAll('.diff-btn').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function playPlinko() {
+            if (balance < 25) { alert('Недостаточно звезд!'); return; }
+            balance -= 25;
+            updateUI();
+
+            let multipliers = [5.2, 1.6, 1.2, 1.0, 0.4, 1.0, 1.2, 1.6, 5.2];
+            let index = Math.floor(Math.random() * multipliers.length);
+            if (plinkoDiff === 'easy') { index = Math.random() > 0.5 ? 2 : 6; }
+            let mult = multipliers[index];
+            let win = Math.floor(25 * mult);
+            balance += win;
+
+            let res = document.getElementById('plinko-res');
+            if (win > 25) {
+                res.innerHTML = `🎉 Множитель x${mult}! Выиграно ${win} ⭐. Пишите @Navi4563`;
+            } else {
+                res.innerText = `😢 Шар упал на x${mult}. Попробуйте еще.`;
+            }
+            updateUI();
+        }
+
+        let crashInterval;
+        let isPlayingCrash = false;
+        let currentMultiplier = 1.00;
+
+        function handleCrashAction() {
+            let btn = document.getElementById('crash-action-btn');
+            if (!isPlayingCrash) {
+                if (balance < 25) { alert('Недостаточно звезд!'); return; }
+                balance -= 25;
+                updateUI();
+
+                isPlayingCrash = true;
+                btn.innerText = "Забрать выигрыш";
+                btn.style.background = "#e67e22";
+                
+                currentMultiplier = 1.00;
+                let crashPoint = (Math.random() * 3.5 + 1.1).toFixed(2);
+                document.getElementById('crash-status').innerText = "Ракета летит...";
+
+                crashInterval = setInterval(() => {
+                    currentMultiplier += 0.04;
+                    document.getElementById('crash-mult').innerText = currentMultiplier.toFixed(2) + 'x';
+                    if (currentMultiplier >= crashPoint) {
+                        clearInterval(crashInterval);
+                        document.getElementById('crash-mult').innerText = "💥 КРАШ (" + crashPoint + "x)";
+                        document.getElementById('crash-status').innerText = "Ставка сгорела!";
+                        btn.innerText = "Сделать ставку (25 ⭐)";
+                        btn.style.background = "#2ecc71";
+                        isPlayingCrash = false;
+                    }
+                }, 100);
+            } else {
+                clearInterval(crashInterval);
+                let winAmount = Math.floor(25 * currentMultiplier);
+                balance += winAmount;
+                updateUI();
+                document.getElementById('crash-status').innerHTML = `🏆 Забрано! Выигрыш: ${winAmount} ⭐`;
+                btn.innerText = "Сделать ставку (25 ⭐)";
+                btn.style.background = "#2ecc71";
+                isPlayingCrash = false;
+            }
+        }
+    </script>
+</body>
+</html>
