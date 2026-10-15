@@ -6,85 +6,93 @@
   <title>NellCasino</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
+    :root {
+      --bg-main: #0b0e14;
+      --card-bg: rgba(22, 27, 38, 0.85);
+      --accent-gold: #ffd700;
+      --accent-orange: #ff9800;
+      --accent-green: #00e676;
+      --accent-red: #ff5252;
+      --border-color: rgba(255, 255, 255, 0.08);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    html, body {
-      width: 100%;
-      height: 100%;
-      background-color: #121212;
+    body {
+      background: var(--bg-main);
       color: #ffffff;
-      overflow: hidden;
-    }
-
-    /* Основний контейнер на весь екран */
-    .app-wrapper {
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      width: 100vw;
-      height: 100vh;
-      padding: 12px;
-      gap: 10px;
+      gap: 12px;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at top, #1a2236 0%, #0b0e14 70%);
     }
 
-    /* Header */
+    /* HEADER */
     .header {
-      background: #1e1e1e;
-      border-radius: 12px;
-      padding: 10px 14px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .brand {
+      font-weight: 800;
+      font-size: 18px;
+      background: linear-gradient(135deg, #fff, var(--accent-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       display: flex;
       align-items: center;
       gap: 6px;
-      font-weight: 700;
-      font-size: 16px;
-      color: #ffd700;
     }
 
     .balance-badge {
-      background: #2a2a2a;
-      padding: 5px 10px;
-      border-radius: 16px;
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      padding: 6px 12px;
+      border-radius: 20px;
       font-weight: 700;
-      color: #ffd700;
+      color: var(--accent-gold);
       display: flex;
       align-items: center;
-      gap: 4px;
-      border: 1px solid #ffcc0033;
+      gap: 6px;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
     }
 
-    /* Top-up Card */
+    /* DEPOSIT PANEL */
     .topup-card {
-      background: #1e1e1e;
-      border-radius: 12px;
-      padding: 8px 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 10px 12px;
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
-      flex-shrink: 0;
     }
 
     .topup-input {
       flex: 1;
-      background: #2a2a2a;
-      border: 1px solid #3d3d3d;
-      border-radius: 8px;
-      padding: 8px 10px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 12px;
       color: #fff;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 15px;
+      font-weight: 700;
       outline: none;
     }
 
@@ -92,76 +100,82 @@
       background: linear-gradient(135deg, #ff9800, #f57c00);
       color: #fff;
       border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
+      border-radius: 10px;
+      padding: 10px 16px;
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(245, 124, 0, 0.4);
-      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+      transition: transform 0.1s;
     }
 
-    /* Tabs */
+    .topup-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* NAVIGATION TABS */
     .tabs {
       display: flex;
-      gap: 6px;
-      flex-shrink: 0;
+      gap: 8px;
     }
 
     .tab-btn {
       flex: 1;
-      background: #2a2a2a;
-      border: none;
-      color: #aaa;
-      padding: 8px 0;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 13px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: #8a94a6;
+      padding: 12px 0;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
       cursor: pointer;
-      text-align: center;
+      transition: all 0.2s;
     }
 
     .tab-btn.active {
-      background: #ff9800;
+      background: linear-gradient(135deg, #ff9800, #e65100);
       color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 16px rgba(255, 152, 0, 0.35);
     }
 
-    /* Game Card - Займає весь залишок висоти екрана */
+    /* MAIN GAME CARD */
     .game-card {
-      background: #1e1e1e;
-      border-radius: 14px;
-      padding: 12px;
-      display: flex;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 16px;
+      display: none;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      flex: 1;
-      min-height: 0;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      gap: 14px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .game-card.active {
+      display: flex;
     }
 
     .game-title {
-      font-size: 16px;
-      font-weight: 700;
-      flex-shrink: 0;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #e2e8f0;
     }
 
-    /* Краш Повноекранне поле */
-    .crash-container {
+    /* CANVASES (CRASH & PLINKO) */
+    .canvas-box {
       position: relative;
       width: 100%;
-      flex: 1;
-      min-height: 180px;
-      background: radial-gradient(circle at bottom left, #141824, #090b10);
-      border-radius: 12px;
+      background: #06080d;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
       overflow: hidden;
-      border: 1px solid #2d3245;
     }
 
-    #crashCanvas {
-      width: 100%;
-      height: 100%;
+    canvas {
       display: block;
+      width: 100%;
     }
 
     .multiplier-overlay {
@@ -169,102 +183,199 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 44px;
+      font-size: 46px;
       font-weight: 900;
-      color: #4caf50;
-      text-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+      color: var(--accent-green);
+      text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
       pointer-events: none;
     }
 
     .multiplier-overlay.crashed {
-      color: #f44336;
-      text-shadow: 0 0 15px rgba(244, 67, 54, 0.6);
+      color: var(--accent-red);
+      text-shadow: 0 0 20px rgba(255, 82, 82, 0.5);
     }
 
-    /* Bet Box */
+    /* SLOTS STYLING */
+    .slots-container {
+      display: flex;
+      gap: 12px;
+      background: #06080d;
+      padding: 20px;
+      border-radius: 16px;
+      border: 2px solid var(--accent-gold);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+
+    .slot-reel {
+      width: 80px;
+      height: 100px;
+      background: linear-gradient(180deg, #181d29 0%, #0d1017 100%);
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 46px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+    }
+
+    /* BET CONTROLS */
     .bet-box {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      flex-shrink: 0;
+      gap: 8px;
     }
 
-    .bet-label {
-      font-size: 12px;
-      color: #aaa;
+    .bet-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #8a94a6;
+      font-weight: 600;
+    }
+
+    .bet-input-wrap {
+      display: flex;
+      gap: 6px;
     }
 
     .bet-input {
-      width: 100%;
-      background: #2a2a2a;
-      border: 1px solid #3d3d3d;
-      border-radius: 8px;
-      padding: 10px;
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px;
       color: #fff;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       outline: none;
     }
 
+    .quick-bet-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      color: #ccc;
+      border-radius: 8px;
+      padding: 0 10px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
     .action-btn {
       width: 100%;
-      background: linear-gradient(135deg, #4caf50, #388e3c);
-      color: #fff;
+      background: linear-gradient(135deg, #00e676, #00a152);
+      color: #000;
       border: none;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 16px;
-      font-weight: 700;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
-      flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(0, 230, 118, 0.3);
+      transition: all 0.15s;
+    }
+
+    .action-btn:active {
+      transform: scale(0.98);
     }
 
     .action-btn.cashout {
       background: linear-gradient(135deg, #ff9800, #f57c00);
-      box-shadow: 0 4px 10px rgba(245, 124, 0, 0.4);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
     }
   </style>
 </head>
 <body>
 
-  <div class="app-wrapper">
-    <!-- Header -->
-    <div class="header">
-      <div class="brand">🎰 NellCasino</div>
-      <div class="balance-badge"><span id="userBalance">0</span> ⭐</div>
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">🎰 NellCasino</div>
+    <div class="balance-badge"><span id="userBalance">0</span> ⭐</div>
+  </div>
+
+  <!-- Deposit Form -->
+  <div class="topup-card">
+    <input type="number" id="starsAmount" class="topup-input" value="100" min="10">
+    <button class="topup-btn" onclick="requestDeposit()">💳 Выставить чек</button>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('slots')">Слоты 777</button>
+    <button class="tab-btn" onclick="switchTab('plinko')">Плинко</button>
+    <button class="tab-btn" onclick="switchTab('crash')">Краш</button>
+  </div>
+
+  <!-- TAB 1: SLOTS 777 -->
+  <div id="tab-slots" class="game-card active">
+    <div class="game-title">🎰 Классические Слоты 777</div>
+
+    <div class="slots-container">
+      <div class="slot-reel" id="reel1">7️⃣</div>
+      <div class="slot-reel" id="reel2">7️⃣</div>
+      <div class="slot-reel" id="reel3">7️⃣</div>
     </div>
 
-    <!-- Deposit Form -->
-    <div class="topup-card">
-      <input type="number" id="starsAmount" class="topup-input" value="100" min="10">
-      <button class="topup-btn" onclick="requestDeposit()">💳 Выставить чек</button>
-    </div>
-
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab-btn" onclick="switchGame('slots')">Слоты 777</button>
-      <button class="tab-btn" onclick="switchGame('plinko')">Плинко</button>
-      <button class="tab-btn active" onclick="switchGame('crash')">Краш</button>
-    </div>
-
-    <!-- Crash Fullscreen Game Card -->
-    <div id="crashGame" class="game-card">
-      <div class="game-title">🚀 Краш Ракета</div>
-
-      <div class="crash-container">
-        <canvas id="crashCanvas"></canvas>
-        <div id="multiplierText" class="multiplier-overlay">1.00x</div>
+    <div class="bet-box">
+      <div class="bet-header">
+        <span>Размер ставки (мин. 25 ⭐)</span>
       </div>
-
-      <div class="bet-box">
-        <div class="bet-label">Размер ставки (мин. 25 ⭐):</div>
-        <input type="number" id="betAmount" class="bet-input" value="25" min="25">
+      <div class="bet-input-wrap">
+        <input type="number" id="slots-bet" class="bet-input" value="25" min="25">
+        <button class="quick-bet-btn" onclick="addBet('slots-bet', 25)">+25</button>
+        <button class="quick-bet-btn" onclick="addBet('slots-bet', 100)">+100</button>
       </div>
-
-      <button id="mainGameBtn" class="action-btn" onclick="handleGameClick()">Сделать ставку</button>
     </div>
+
+    <button id="slots-btn" class="action-btn" onclick="spinSlots()">Крутить слоты</button>
+  </div>
+
+  <!-- TAB 2: PLINKO -->
+  <div id="tab-plinko" class="game-card">
+    <div class="game-title">⚪ Плинко</div>
+
+    <div class="canvas-box" style="height: 310px;">
+      <canvas id="plinkoCanvas" width="320" height="310"></canvas>
+    </div>
+
+    <div class="bet-box">
+      <div class="bet-header">
+        <span>Размер ставки (мин. 25 ⭐)</span>
+      </div>
+      <div class="bet-input-wrap">
+        <input type="number" id="plinko-bet" class="bet-input" value="25" min="25">
+        <button class="quick-bet-btn" onclick="addBet('plinko-bet', 25)">+25</button>
+        <button class="quick-bet-btn" onclick="addBet('plinko-bet', 100)">+100</button>
+      </div>
+    </div>
+
+    <button id="plinko-btn" class="action-btn" onclick="dropPlinkoBall()">Бросить шар</button>
+  </div>
+
+  <!-- TAB 3: CRASH -->
+  <div id="tab-crash" class="game-card">
+    <div class="game-title">🚀 Краш Ракета</div>
+
+    <div class="canvas-box" style="height: 230px;">
+      <canvas id="crashCanvas" width="320" height="230"></canvas>
+      <div id="multiplierText" class="multiplier-overlay">1.00x</div>
+    </div>
+
+    <div class="bet-box">
+      <div class="bet-header">
+        <span>Размер ставки (мин. 25 ⭐)</span>
+      </div>
+      <div class="bet-input-wrap">
+        <input type="number" id="crash-bet" class="bet-input" value="25" min="25">
+        <button class="quick-bet-btn" onclick="addBet('crash-bet', 25)">+25</button>
+        <button class="quick-bet-btn" onclick="addBet('crash-bet', 100)">+100</button>
+      </div>
+    </div>
+
+    <button id="crash-btn" class="action-btn" onclick="handleCrashAction()">Сделать ставку</button>
   </div>
 
   <script>
@@ -275,113 +386,256 @@
     }
 
     let balance = 0;
-    let gameState = 'idle';
-    let currentMultiplier = 1.00;
-    let crashPoint = 1.00;
-    let animId = null;
 
-    const canvas = document.getElementById('crashCanvas');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-    }
-    setTimeout(resizeCanvas, 100);
-    window.addEventListener('resize', resizeCanvas);
-
-    const stars = Array.from({ length: 45 }, () => ({
-      x: Math.random() * 300,
-      y: Math.random() * 200,
-      r: Math.random() * 1.5 + 0.5,
-      alpha: Math.random()
-    }));
-
-    function drawScene(progress = 0, isCrashed = false) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      stars.forEach(s => {
-        ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
-        ctx.beginPath();
-        ctx.arc((s.x * canvas.width) / 300, (s.y * canvas.height) / 200, s.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      ctx.strokeStyle = '#232838';
-      ctx.lineWidth = 1;
-      for (let i = 0; i < canvas.height; i += 35) {
-        ctx.beginPath();
-        ctx.moveTo(0, i);
-        ctx.lineTo(canvas.width, i);
-        ctx.stroke();
-      }
-
-      if (gameState === 'idle') return;
-
-      const startX = 20;
-      const startY = canvas.height - 20;
-      const endX = Math.min(startX + (canvas.width - 40) * progress, canvas.width - 40);
-      const endY = Math.max(startY - (canvas.height - 40) * progress, 30);
-
-      ctx.beginPath();
-      ctx.moveTo(startX, startY);
-      ctx.quadraticCurveTo(startX + (endX - startX) / 2, startY, endX, endY);
-      ctx.strokeStyle = isCrashed ? '#f44336' : '#ff9800';
-      ctx.lineWidth = 4;
-      ctx.stroke();
-
-      ctx.lineTo(endX, startY);
-      ctx.lineTo(startX, startY);
-      ctx.fillStyle = isCrashed ? 'rgba(244, 67, 54, 0.15)' : 'rgba(255, 152, 0, 0.15)';
-      ctx.fill();
-
-      if (!isCrashed) {
-        ctx.font = '26px serif';
-        ctx.fillText('🚀', endX - 14, endY + 8);
-      } else {
-        ctx.font = '30px serif';
-        ctx.fillText('💥', endX - 15, endY + 10);
-      }
+    function updateBalance(amt) {
+      balance += amt;
+      document.getElementById('userBalance').innerText = balance;
     }
 
-    drawScene();
+    function addBet(inputId, amount) {
+      const input = document.getElementById(inputId);
+      let cur = parseInt(input.value) || 0;
+      input.value = cur + amount;
+    }
 
     function requestDeposit() {
-      const amount = parseInt(document.getElementById('starsAmount').value);
-      if (isNaN(amount) || amount < 10) {
-        alert('Минимальная сумма пополнения — 10 ⭐');
+      const amt = parseInt(document.getElementById('starsAmount').value);
+      if (isNaN(amt) || amt < 10) {
+        alert("Минимальная сумма пополнения — 10 ⭐");
         return;
       }
 
-      const payload = JSON.stringify({
-        action: 'deposit',
-        amount: amount
-      });
-
       if (tg) {
-        tg.sendData(payload);
+        tg.sendData(JSON.stringify({ action: "deposit", amount: amt }));
+      } else {
+        alert("Запустите WebApp через Telegram, чтобы выставить чек!");
       }
     }
 
-    function handleGameClick() {
-      const btn = document.getElementById('mainGameBtn');
-      const multText = document.getElementById('multiplierText');
-      const betInput = document.getElementById('betAmount');
-      const bet = parseInt(betInput.value);
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.game-card').forEach(c => c.classList.remove('active'));
 
-      if (gameState === 'idle') {
-        if (balance < bet) {
-          alert('Недостаточно звезд на балансе! Выставьте чек для пополнения.');
-          return;
+      if (tab === 'slots') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('tab-slots').classList.add('active');
+      } else if (tab === 'plinko') {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('tab-plinko').classList.add('active');
+        drawPlinkoBoard();
+      } else if (tab === 'crash') {
+        document.querySelectorAll('.tab-btn')[2].classList.add('active');
+        document.getElementById('tab-crash').classList.add('active');
+        drawCrashInitial();
+      }
+    }
+
+    function getBet(inputId) {
+      const val = parseInt(document.getElementById(inputId).value);
+      if (isNaN(val) || val < 25) {
+        alert("Минимальная ставка — 25 ⭐!");
+        return null;
+      }
+      if (val > balance) {
+        alert("Недостаточно звезд на балансе! Нажмите 'Выставить чек'.");
+        return null;
+      }
+      return val;
+    }
+
+    /* --- SLOTS --- */
+    const slotSymbols = ['7️⃣', '🍇', '🍋', '🔔', '💎', '🍒', '⭐'];
+    function spinSlots() {
+      const bet = getBet('slots-bet');
+      if (!bet) return;
+
+      updateBalance(-bet);
+      const btn = document.getElementById('slots-btn');
+      btn.disabled = true;
+
+      let interval = setInterval(() => {
+        document.getElementById('reel1').innerText = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+        document.getElementById('reel2').innerText = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+        document.getElementById('reel3').innerText = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+      }, 70);
+
+      setTimeout(() => {
+        clearInterval(interval);
+        
+        let res1, res2, res3;
+        if (Math.random() < 0.12) {
+          res1 = res2 = res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+        } else if (Math.random() < 0.35) {
+          res1 = res2 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+          res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+        } else {
+          res1 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+          res2 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
+          res3 = slotSymbols[Math.floor(Math.random()*slotSymbols.length)];
         }
 
-        balance -= bet;
-        document.getElementById('userBalance').innerText = balance;
+        document.getElementById('reel1').innerText = res1;
+        document.getElementById('reel2').innerText = res2;
+        document.getElementById('reel3').innerText = res3;
 
-        gameState = 'running';
+        if (res1 === res2 && res2 === res3) {
+          const win = bet * 5;
+          updateBalance(win);
+          alert(`🎉 ДЖЕКПОТ! Вы выиграли ${win} ⭐!`);
+        } else if (res1 === res2 || res2 === res3 || res1 === res3) {
+          const win = Math.floor(bet * 1.2);
+          updateBalance(win);
+          alert(`Совпало 2 символа: +${win} ⭐`);
+        }
+        btn.disabled = false;
+      }, 1500);
+    }
+
+    /* --- PLINKO --- */
+    const pCanvas = document.getElementById('plinkoCanvas');
+    const pCtx = pCanvas.getContext('2d');
+    const rows = 7;
+    const pins = [];
+    const multipliers = [2.0, 1.2, 0.5, 0.2, 0.5, 1.2, 2.0];
+
+    function initPlinko() {
+      pins.length = 0;
+      for (let r = 0; r < rows; r++) {
+        const count = r + 3;
+        const spacing = 260 / (rows + 2);
+        const startX = (320 - (count - 1) * spacing) / 2;
+        const y = 35 + r * 32;
+        for (let c = 0; c < count; c++) {
+          pins.push({ x: startX + c * spacing, y: y });
+        }
+      }
+    }
+    initPlinko();
+
+    function drawPlinkoBoard() {
+      pCtx.clearRect(0, 0, 320, 310);
+      
+      // Pins (светодиодные точки)
+      pins.forEach(pin => {
+        pCtx.fillStyle = "#00e676";
+        pCtx.shadowColor = "#00e676";
+        pCtx.shadowBlur = 6;
+        pCtx.beginPath();
+        pCtx.arc(pin.x, pin.y, 4, 0, Math.PI * 2);
+        pCtx.fill();
+        pCtx.shadowBlur = 0;
+      });
+
+      // Multipliers
+      const bucketWidth = 320 / multipliers.length;
+      multipliers.forEach((m, i) => {
+        pCtx.fillStyle = m >= 1.5 ? "#00e676" : (m >= 1.0 ? "#ff9800" : "#ff5252");
+        pCtx.beginPath();
+        pCtx.roundRect(i * bucketWidth + 3, 270, bucketWidth - 6, 30, 6);
+        pCtx.fill();
+
+        pCtx.fillStyle = "#000";
+        pCtx.font = "bold 12px sans-serif";
+        pCtx.textAlign = "center";
+        pCtx.fillText(m + "x", i * bucketWidth + bucketWidth / 2, 290);
+      });
+    }
+
+    function dropPlinkoBall() {
+      const bet = getBet('plinko-bet');
+      if (!bet) return;
+
+      updateBalance(-bet);
+      const btn = document.getElementById('plinko-btn');
+      btn.disabled = true;
+
+      let ballX = 160 + (Math.random() * 4 - 2);
+      let ballY = 15;
+      let vx = 0;
+      let vy = 2;
+
+      let anim = setInterval(() => {
+        vy += 0.2;
+        ballX += vx;
+        ballY += vy;
+
+        pins.forEach(pin => {
+          let dx = ballX - pin.x;
+          let dy = ballY - pin.y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 9) {
+            vy = -vy * 0.4;
+            let pullToCenter = (160 - ballX) * 0.05;
+            vx = (dx > 0 ? 0.8 : -0.8) + pullToCenter;
+          }
+        });
+
+        if (ballX < 10) ballX = 10;
+        if (ballX > 310) ballX = 310;
+
+        drawPlinkoBoard();
+
+        // Ball
+        pCtx.fillStyle = "#ffd700";
+        pCtx.shadowColor = "#ffd700";
+        pCtx.shadowBlur = 10;
+        pCtx.beginPath();
+        pCtx.arc(ballX, ballY, 7, 0, Math.PI * 2);
+        pCtx.fill();
+        pCtx.shadowBlur = 0;
+
+        if (ballY >= 265) {
+          clearInterval(anim);
+          const bucketWidth = 320 / multipliers.length;
+          let idx = Math.floor(ballX / bucketWidth);
+          idx = Math.max(0, Math.min(multipliers.length - 1, idx));
+          
+          const mult = multipliers[idx];
+          const win = Math.floor(bet * mult);
+          updateBalance(win);
+          btn.disabled = false;
+        }
+      }, 20);
+    }
+
+    /* --- CRASH --- */
+    const cCanvas = document.getElementById('crashCanvas');
+    const cCtx = cCanvas.getContext('2d');
+    let crashState = 'idle';
+    let currentMultiplier = 1.00;
+    let crashPoint = 0;
+    let crashAnim = null;
+    let currentBet = 0;
+
+    function drawCrashInitial() {
+      cCtx.clearRect(0, 0, 320, 230);
+      cCtx.strokeStyle = "rgba(255,255,255,0.08)";
+      cCtx.lineWidth = 1;
+
+      for (let i = 0; i < 230; i += 30) {
+        cCtx.beginPath();
+        cCtx.moveTo(0, i);
+        cCtx.lineTo(320, i);
+        cCtx.stroke();
+      }
+
+      document.getElementById('multiplierText').innerText = "1.00x";
+      document.getElementById('multiplierText').classList.remove('crashed');
+    }
+
+    function handleCrashAction() {
+      const btn = document.getElementById('crash-btn');
+      const multText = document.getElementById('multiplierText');
+
+      if (crashState === 'idle') {
+        const bet = getBet('crash-bet');
+        if (!bet) return;
+        currentBet = bet;
+        updateBalance(-bet);
+
+        crashState = 'running';
         currentMultiplier = 1.00;
-        
-        // Переважає вибух на низькому коефіцієнті
+
         const rand = Math.random();
         if (rand < 0.70) {
           crashPoint = (1.01 + Math.random() * 0.19).toFixed(2);
@@ -389,55 +643,73 @@
           crashPoint = (1.21 + Math.random() * 2.0).toFixed(2);
         }
 
-        btn.innerText = 'Забрать выигрыш';
+        btn.innerText = "Забрать выигрыш";
         btn.classList.add('cashout');
-        multText.classList.remove('crashed');
 
         let startTime = Date.now();
 
-        function animate() {
+        crashAnim = setInterval(() => {
           let elapsed = (Date.now() - startTime) / 1000;
-          currentMultiplier = (1 + elapsed * 0.35).toFixed(2);
+          currentMultiplier = (1.00 + elapsed * 0.35).toFixed(2);
 
-          if (parseFloat(currentMultiplier) >= parseFloat(crashPoint)) {
-            gameState = 'crashed';
-            multText.innerText = crashPoint + 'x';
-            multText.classList.add('crashed');
-            btn.innerText = 'Сделать ставку';
-            btn.classList.remove('cashout');
-            drawScene(1, true);
-            setTimeout(() => { gameState = 'idle'; }, 1000);
-            return;
+          cCtx.clearRect(0, 0, 320, 230);
+          
+          cCtx.strokeStyle = "rgba(255,255,255,0.08)";
+          for (let i = 0; i < 230; i += 30) {
+            cCtx.beginPath();
+            cCtx.moveTo(0, i);
+            cCtx.lineTo(320, i);
+            cCtx.stroke();
           }
 
-          multText.innerText = currentMultiplier + 'x';
-          let progress = Math.min((currentMultiplier - 1) / 2.5, 1);
-          drawScene(progress, false);
+          let rx = 30 + Math.min(250, elapsed * 45);
+          let ry = 200 - Math.min(160, (currentMultiplier - 1) * 60);
 
-          animId = requestAnimationFrame(animate);
-        }
+          cCtx.strokeStyle = "#00e676";
+          cCtx.lineWidth = 4;
+          cCtx.shadowColor = "#00e676";
+          cCtx.shadowBlur = 10;
+          cCtx.beginPath();
+          cCtx.moveTo(30, 200);
+          cCtx.quadraticCurveTo(30 + (rx - 30) / 2, 200, rx, ry);
+          cCtx.stroke();
+          cCtx.shadowBlur = 0;
 
-        animate();
+          cCtx.font = "24px sans-serif";
+          cCtx.fillText("🚀", rx - 12, ry + 6);
 
-      } else if (gameState === 'running') {
-        cancelAnimationFrame(animId);
-        let winAmount = Math.floor(bet * parseFloat(currentMultiplier));
-        balance += winAmount;
-        document.getElementById('userBalance').innerText = balance;
+          multText.innerText = currentMultiplier + "x";
 
-        gameState = 'idle';
-        alert(`🎉 Вы забрали ${winAmount} ⭐ (х${currentMultiplier})!`);
+          if (parseFloat(currentMultiplier) >= parseFloat(crashPoint)) {
+            clearInterval(crashAnim);
+            crashState = 'idle';
 
-        btn.innerText = 'Сделать ставку';
+            multText.innerText = crashPoint + "x";
+            multText.classList.add('crashed');
+
+            cCtx.font = "30px sans-serif";
+            cCtx.fillText("💥", rx - 14, ry + 8);
+            
+            btn.innerText = "Сделать ставку";
+            btn.classList.remove('cashout');
+          }
+        }, 50);
+
+      } else if (crashState === 'running') {
+        clearInterval(crashAnim);
+        crashState = 'idle';
+        const win = Math.floor(currentBet * currentMultiplier);
+        updateBalance(win);
+
+        alert(`🎉 Вы забрали ${win} ⭐ (х${currentMultiplier})!`);
+
+        btn.innerText = "Сделать ставку";
         btn.classList.remove('cashout');
       }
     }
 
-    function switchGame(game) {
-      if (game !== 'crash') {
-        alert('Раздел находится в разработке');
-      }
-    }
+    // Старт
+    drawCrashInitial();
   </script>
 </body>
 </html>
