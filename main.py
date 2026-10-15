@@ -1,4 +1,3 @@
-import os
 import time
 import requests
 from flask import Flask
@@ -7,10 +6,10 @@ app = Flask('')
 
 @app.route('/')
 def home():
-    return "NellCasino Bot is running 24/7!"
+    return "NellCasino Bot is active 24/7!"
 
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=102"
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=103"
 URL = f"https://api.telegram.org/bot{TOKEN}"
 
 def send_message(chat_id, text):
@@ -26,11 +25,14 @@ def send_message(chat_id, text):
         "parse_mode": "Markdown",
         "reply_markup": keyboard
     }
-    requests.post(f"{URL}/sendMessage", json=data)
+    try:
+        requests.post(f"{URL}/sendMessage", json=data)
+    except Exception as e:
+        print(f"Send error: {e}")
 
 def check_updates():
     offset = 0
-    print("Бот запущен и слушает сообщения через API...")
+    print("Бот запущен через чистый API...")
     while True:
         try:
             response = requests.get(f"{URL}/getUpdates", params={"offset": offset, "timeout": 30})
@@ -45,12 +47,12 @@ def check_updates():
                         if text.startswith("/start"):
                             send_message(chat_id, "👑 **Добро пожаловать в NellCasino!**\n\nНажмите кнопку ниже, чтобы открыть приложение:")
         except Exception as e:
-            print(f"Ошибка: {e}")
+            print(f"Polling error: {e}")
         time.sleep(1)
 
 if __name__ == "__main__":
     import threading
-    # Запуск фонового потока для ответов на команды Telegram
+    # Запуск фонового прослушивания сообщений Telegram
     threading.Thread(target=check_updates, daemon=True).start()
     # Запуск веб-сервера для Render
     app.run(host="0.0.0.0", port=8080)
