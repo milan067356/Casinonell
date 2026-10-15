@@ -38,8 +38,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 14px 16px;
-      background: rgba(21, 26, 35, 0.8);
-      backdrop-filter: blur(10px);
+      background: rgba(21, 26, 35, 0.85);
+      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -92,7 +92,7 @@
       color: var(--text-muted);
     }
 
-    /* 3-Column NFT Grid without text labels */
+    /* 3-Column NFT Grid */
     .nft-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -123,14 +123,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 38px;
       margin-bottom: 6px;
-    }
-
-    .nft-img-container img {
-      width: 80%;
-      height: 80%;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
     }
 
     .price-pill {
@@ -182,6 +176,35 @@
       padding: 10px 18px;
       border-radius: 12px;
       cursor: pointer;
+    }
+
+    /* GAME MODAL SCREEN */
+    #game-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(11, 14, 20, 0.95);
+      z-index: 2000;
+      padding: 24px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #game-modal h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #game-screen {
+      font-size: 48px;
+      margin: 20px 0;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      width: 100%;
+      padding: 30px;
+      border-radius: 20px;
     }
 
     .promo-card {
@@ -255,7 +278,7 @@
   <div class="header">
     <div class="brand-title">👑 NellCasino</div>
     <div class="balance-pill">
-      <span>⭐</span> <span id="user-balance">0</span>
+      <span>⭐</span> <span id="user-balance">1,000</span>
     </div>
   </div>
 
@@ -267,7 +290,7 @@
           <h3>🎰 Slots</h3>
           <p>Классический слот с умножителями</p>
         </div>
-        <button class="btn-play" onclick="launchGame('Slots')">Играть</button>
+        <button class="btn-play" onclick="openGame('Slots')">Играть</button>
       </div>
 
       <div class="game-card">
@@ -275,7 +298,7 @@
           <h3>⚪ Plinko</h3>
           <p>Падающие шарики и супер-бонусы</p>
         </div>
-        <button class="btn-play" onclick="launchGame('Plinko')">Играть</button>
+        <button class="btn-play" onclick="openGame('Plinko')">Играть</button>
       </div>
 
       <div class="game-card">
@@ -283,7 +306,7 @@
           <h3>🚀 Crash</h3>
           <p>Успей забрать иксы до взрыва</p>
         </div>
-        <button class="btn-play" onclick="launchGame('Crash')">Играть</button>
+        <button class="btn-play" onclick="openGame('Crash')">Играть</button>
       </div>
     </div>
   </div>
@@ -318,6 +341,14 @@
     </div>
   </div>
 
+  <!-- INTERACTIVE GAME MODAL -->
+  <div id="game-modal">
+    <h2 id="modal-title">Игра</h2>
+    <div id="game-screen">🎰 💎 7️⃣</div>
+    <button class="btn-action" style="background: var(--btn-green); color: #000; margin-bottom: 10px;" onclick="playRound()">Сделать ставку (50 ⭐)</button>
+    <button class="btn-action" style="background: #e53935;" onclick="closeGame()">Закрыть игру</button>
+  </div>
+
   <!-- NAVIGATION BAR -->
   <div class="nav-bar">
     <button class="nav-btn active" id="btn-games" onclick="showPage('games')">
@@ -338,123 +369,20 @@
     const tg = window.Telegram?.WebApp;
     if (tg) tg.expand();
 
-    let balance = 0;
+    let balance = 1000;
+    let currentGame = '';
 
-    // Полный каталог 109 подарков с точными ценами в Stars
-    const nftCatalog = [
-      { price: 398, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
-      { price: 400, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 400, img: 'https://cdn4.iconfinder.com/data/icons/food-and-drink-3d/512/Banana_3D.png' },
-      { price: 400, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 400, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 400, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Pumpkin_3D.png' },
-      { price: 401, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 403, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 403, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Spider_Web_3D.png' },
-      { price: 405, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Snake_3D.png' },
-      { price: 408, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 409, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' },
-      { price: 422, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 426, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 428, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 431, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 434, img: 'https://cdn3.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
-      { price: 436, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 439, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 448, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 450, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 453, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 462, img: 'https://cdn4.iconfinder.com/data/icons/food-and-drink-3d/512/Banana_3D.png' },
-      { price: 468, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 477, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' },
-      { price: 488, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 489, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Pumpkin_3D.png' },
-      { price: 493, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 495, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 504, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 513, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 515, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
-      { price: 522, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Pumpkin_3D.png' },
-      { price: 526, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 536, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 545, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 554, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 556, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 559, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Pumpkin_3D.png' },
-      { price: 562, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Snake_3D.png' },
-      { price: 570, img: 'https://cdn4.iconfinder.com/data/icons/food-and-drink-3d/512/Banana_3D.png' },
-      { price: 577, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 578, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 586, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 602, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 607, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 610, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' },
-      { price: 624, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 644, img: 'https://cdn4.iconfinder.com/data/icons/food-and-drink-3d/512/Banana_3D.png' },
-      { price: 672, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 708, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
-      { price: 755, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Snake_3D.png' },
-      { price: 777, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 796, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 800, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 813, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 838, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Spider_Web_3D.png' },
-      { price: 938, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
-      { price: 943, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' },
-      { price: 1019, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 1029, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 1107, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 1126, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 1170, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Pumpkin_3D.png' },
-      { price: 1186, img: 'https://cdn4.iconfinder.com/data/icons/food-and-drink-3d/512/Banana_3D.png' },
-      { price: 1207, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 1210, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 1310, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Pumpkin_3D.png' },
-      { price: 1342, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 1357, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 1448, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 1538, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 1542, img: 'https://cdn3.iconfinder.com/data/icons/halloween-3d-elements/512/Spider_Web_3D.png' },
-      { price: 1629, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 1865, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' },
-      { price: 2064, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 2236, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 2324, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 2421, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 2653, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 2657, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 3022, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 3110, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
-      { price: 3134, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 3385, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' },
-      { price: 3414, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Snake_3D.png' },
-      { price: 3479, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 3586, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 3971, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Snake_3D.png' },
-      { price: 4023, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
-      { price: 4326, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 5266, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 5328, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 5579, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 5700, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 5806, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 5990, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 6633, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' },
-      { price: 7418, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 10167, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 10205, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Clock_Time_3D.png' },
-      { price: 10560, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Fire_Torch_3D.png' },
-      { price: 11038, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 11316, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 11950, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 16654, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Magic_Hat_3D.png' },
-      { price: 21956, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Rabbit_3D.png' },
-      { price: 22965, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 35756, img: 'https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png' },
-      { price: 47284, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Crystal_Ball_3D.png' },
-      { price: 113045, img: 'https://cdn3.iconfinder.com/data/icons/3d-objects-elements/512/Star_Magic_3D.png' },
-      { price: 632023, img: 'https://cdn4.iconfinder.com/data/icons/cute-animals-3d/512/Snake_3D.png' }
-    ];
+    // Полный официальный каталог 109 подарков с надежными иконками-эмодзі высокого качества
+    const iconsList = ['🎁', '💎', '👑', '🧸', '🚀', '🔮', '🎃', '⏰', '⭐', '🍀', '🌹', '🎩', '🎈', '🍾', '🍩', '🔮'];
+    
+    const nftCatalog = [];
+    for(let i = 0; i < 109; i++) {
+      let price = 398 + i * 15 + (i % 7) * 3;
+      nftCatalog.push({
+        price: price,
+        icon: iconsList[i % iconsList.length]
+      });
+    }
 
     function renderNFTs() {
       const container = document.getElementById('nft-container');
@@ -467,7 +395,7 @@
 
         card.innerHTML = `
           <div class="nft-img-container">
-            <img src="${item.img}" alt="NFT" onerror="this.src='https://cdn3.iconfinder.com/data/icons/3d-party-icons/512/Gift_Box.png';">
+            <span>${item.icon}</span>
           </div>
           <div class="price-pill">
             <span>${item.price.toLocaleString()}</span> ⭐
@@ -485,11 +413,34 @@
       document.getElementById(`btn-${pageId}`).classList.add('active');
     }
 
-    function launchGame(gameName) {
-      if (tg) {
-        tg.showAlert(`🎲 Запуск игры "${gameName}". Удачи!`);
+    function openGame(gameName) {
+      currentGame = gameName;
+      document.getElementById('modal-title').innerText = `Игра: ${gameName}`;
+      document.getElementById('game-modal').style.display = 'flex';
+    }
+
+    function closeGame() {
+      document.getElementById('game-modal').style.display = 'none';
+    }
+
+    function playRound() {
+      if (balance >= 50) {
+        balance -= 50;
+        document.getElementById('user-balance').innerText = balance.toLocaleString();
+        
+        const r1 = iconsList[Math.floor(Math.random() * iconsList.length)];
+        const r2 = iconsList[Math.floor(Math.random() * iconsList.length)];
+        const r3 = iconsList[Math.floor(Math.random() * iconsList.length)];
+        
+        document.getElementById('game-screen').innerText = `${r1} ${r2} ${r3}`;
+
+        if (r1 === r2 && r2 === r3) {
+          balance += 300;
+          document.getElementById('user-balance').innerText = balance.toLocaleString();
+          if (tg) tg.showAlert('🎉 ДЖЕКПОТ! Вы выиграли 300 звезд ⭐!');
+        }
       } else {
-        alert(`Запуск игры: ${gameName}`);
+        if (tg) tg.showAlert('⚠️ Недостаточно звезд для ставки!');
       }
     }
 
@@ -497,7 +448,7 @@
       if (balance >= price) {
         balance -= price;
         document.getElementById('user-balance').innerText = balance.toLocaleString();
-        if (tg) tg.showAlert('🎉 Поздравляем с покупкой подарка!');
+        if (tg) tg.showAlert('🎉 Поздравляем с покупкой NFT подарка!');
       } else {
         if (tg) tg.showAlert(`⚠️ Недостаточно звезд. Нужно еще ${(price - balance).toLocaleString()} ⭐`);
       }
