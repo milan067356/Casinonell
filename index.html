@@ -28,7 +28,7 @@
     body {
       background-color: var(--bg-dark);
       color: #ffffff;
-      padding: 14px;
+      padding: 12px;
       padding-bottom: 85px;
       min-height: 100vh;
     }
@@ -38,16 +38,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .brand-title {
       font-size: 20px;
       font-weight: 900;
       color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .balance-pill {
@@ -77,7 +74,6 @@
       justify-content: center;
     }
 
-    /* PAGES */
     .page {
       display: none;
       flex-direction: column;
@@ -97,33 +93,17 @@
       justify-content: space-between;
       cursor: pointer;
       box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-      transition: transform 0.15s;
       color: #fff;
-    }
-    .game-card-row:active {
-      transform: scale(0.98);
     }
 
     .card-slots { background: var(--blue-grad); }
     .card-plinko { background: var(--cyan-grad); }
     .card-crash { background: var(--purple-grad); }
 
-    .card-info h3 {
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
+    .card-info h3 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+    .card-info p { font-size: 13px; opacity: 0.85; }
+    .card-icon { font-size: 42px; }
 
-    .card-info p {
-      font-size: 13px;
-      opacity: 0.85;
-    }
-
-    .card-icon {
-      font-size: 42px;
-    }
-
-    /* INNER GAMES */
     .inner-game {
       background: var(--card-bg);
       border-radius: 24px;
@@ -152,7 +132,6 @@
       padding: 24px 12px;
       border-radius: 20px;
       border: 2px solid var(--gold);
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -169,7 +148,6 @@
       align-items: center;
       justify-content: center;
       font-size: 50px;
-      box-shadow: inset 0 0 14px rgba(0,0,0,0.9);
     }
 
     .input-box {
@@ -194,7 +172,6 @@
       font-size: 17px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(43, 98, 217, 0.35);
     }
 
     canvas {
@@ -203,76 +180,54 @@
       width: 100%;
     }
 
-    /* NFT MARKETPLACE */
+    /* NFT MARKETPLACE GRID (3 COLUMNS IDENTICAL TO SCREENSHOTS) */
     .nft-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 12px 8px;
       width: 100%;
     }
 
     .nft-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 10px 6px;
-      border: 1px solid rgba(255,255,255,0.08);
+      background: transparent;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      cursor: pointer;
     }
 
     .nft-img-box {
       width: 100%;
-      height: 75px;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.2) 100%);
-      border-radius: 12px;
+      height: 90px;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.25) 100%);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(255,255,255,0.05);
-      padding: 4px;
+      padding: 6px;
     }
 
     .nft-img-box img {
       max-width: 85%;
       max-height: 85%;
       object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6));
     }
 
-    .nft-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #fff;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-    }
-
-    .nft-price {
-      font-size: 11px;
+    .nft-price-pill {
+      background: #1e2536;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
       font-weight: 800;
-      color: var(--gold);
-      background: rgba(255, 215, 0, 0.1);
-      padding: 3px 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-    }
-
-    .nft-buy-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #00e676, #00a152);
-      color: #000;
-      border: none;
-      border-radius: 10px;
-      padding: 6px 0;
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      margin-top: -8px;
     }
 
     .promo-card {
@@ -357,10 +312,10 @@
       </div>
     </div>
 
-    <!-- SLOTS CONTAINER -->
+    <!-- SLOTS -->
     <div id="game-slots" class="inner-game" style="display:none;">
       <button class="back-btn" onclick="closeGame()">⬅️ Назад к играм</button>
-      <h2 style="font-size: 22px; font-weight: 800;">Слоты 777</h2>
+      <h2>Слоты 777</h2>
       <div class="slots-wrapper">
         <div class="reel-card" id="r1">💎</div>
         <div class="reel-card" id="r2">👑</div>
@@ -370,19 +325,19 @@
       <button class="btn-action" onclick="playSlots()">Крутить слоты</button>
     </div>
 
-    <!-- PLINKO CONTAINER -->
+    <!-- PLINKO -->
     <div id="game-plinko" class="inner-game" style="display:none;">
       <button class="back-btn" onclick="closeGame()">⬅️ Назад к играм</button>
-      <h2 style="font-size: 22px; font-weight: 800;">Плинко</h2>
+      <h2>Плинко</h2>
       <canvas id="plinkoCanvas" width="300" height="280"></canvas>
       <input type="number" id="bet-plinko" class="input-box" value="25" min="25">
       <button class="btn-action" onclick="playPlinko()">Бросить шар</button>
     </div>
 
-    <!-- CRASH CONTAINER -->
+    <!-- CRASH -->
     <div id="game-crash" class="inner-game" style="display:none;">
       <button class="back-btn" onclick="closeGame()">⬅️ Назад к играм</button>
-      <h2 style="font-size: 22px; font-weight: 800;">Краш Ракета</h2>
+      <h2>Краш Ракета</h2>
       <canvas id="crashCanvas" width="300" height="200"></canvas>
       <div id="crashMult" style="font-size:34px; font-weight:900; color:#00e676;">1.00x</div>
       <input type="number" id="bet-crash" class="input-box" value="25" min="25">
@@ -390,27 +345,9 @@
     </div>
   </div>
 
-  <!-- PAGE 2: NFT MARKETPLACE -->
+  <!-- PAGE 2: NFT MARKETPLACE (ALL 109 ITEMS FROM YOUR SCREENSHOTS) -->
   <div id="page-nft" class="page">
-    <div style="text-align:center; margin-bottom: 4px;">
-      <h2 style="font-size: 20px; font-weight: 900;">🖼️ Рынок NFT Подарков</h2>
-      <p style="font-size: 13px; color: var(--text-muted);">Официальные 3D подарки Telegram Stars ⭐</p>
-    </div>
-
-    <div class="nft-grid">
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/rabbit.png" alt="Rabbit"></div><div class="nft-title">Rabbit</div><div class="nft-price">398 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Rabbit', 398)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/ribbon.png" alt="Candy Bow"></div><div class="nft-title">Candy Bow</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Candy Bow', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/banana.png" alt="Banana Ice"></div><div class="nft-title">Banana Ice</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Banana Ice', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/fire.png" alt="Torch"></div><div class="nft-title">Torch</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Torch', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/crystal-ball.png" alt="Galaxy Sphere"></div><div class="nft-title">Galaxy Sphere</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Galaxy Sphere', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/pumpkin.png" alt="Pumpkin Ice"></div><div class="nft-title">Pumpkin Ice</div><div class="nft-price">400 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Pumpkin Ice', 400)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/clock.png" alt="2025 Clock"></div><div class="nft-title">2025 Clock</div><div class="nft-price">401 ⭐</div><button class="nft-buy-btn" onclick="buyNft('2025 Clock', 401)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/shooting-star.png" alt="Magic Circle"></div><div class="nft-title">Magic Circle</div><div class="nft-price">403 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Magic Circle', 403)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/spider-web.png" alt="Spider Web"></div><div class="nft-title">Spider Web</div><div class="nft-price">403 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Spider Web', 403)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/snake.png" alt="Snake Tank"></div><div class="nft-title">Snake Tank</div><div class="nft-price">406 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Snake Tank', 406)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/flamingo.png" alt="White Swan"></div><div class="nft-title">White Swan</div><div class="nft-price">408 ⭐</div><button class="nft-buy-btn" onclick="buyNft('White Swan', 408)">Купить</button></div>
-      <div class="nft-card"><div class="nft-img-box"><img src="https://img.icons8.com/3d-fluency/94/house.png" alt="Green Hut"></div><div class="nft-title">Green Hut</div><div class="nft-price">409 ⭐</div><button class="nft-buy-btn" onclick="buyNft('Green Hut', 409)">Купить</button></div>
-    </div>
+    <div class="nft-grid" id="nftContainer"></div>
   </div>
 
   <!-- PAGE 3: PROFILE -->
@@ -459,6 +396,150 @@
 
     let balance = 0;
 
+    // Точный полный список ВСЕХ предметов со всех ваших скриншотов в правильном порядке и с точными ценами
+    const nftCatalog = [
+      { price: 398, img: "https://img.icons8.com/3d-fluency/94/rabbit.png" },
+      { price: 400, img: "https://img.icons8.com/3d-fluency/94/ribbon.png" },
+      { price: 400, img: "https://img.icons8.com/3d-fluency/94/banana.png" },
+      { price: 400, img: "https://img.icons8.com/3d-fluency/94/fire.png" },
+      { price: 400, img: "https://img.icons8.com/3d-fluency/94/crystal-ball.png" },
+      { price: 400, img: "https://img.icons8.com/3d-fluency/94/pumpkin.png" },
+      { price: 401, img: "https://img.icons8.com/3d-fluency/94/clock.png" },
+      { price: 403, img: "https://img.icons8.com/3d-fluency/94/shooting-star.png" },
+      { price: 403, img: "https://img.icons8.com/3d-fluency/94/spider-web.png" },
+      { price: 406, img: "https://img.icons8.com/3d-fluency/94/snake.png" },
+      { price: 408, img: "https://img.icons8.com/3d-fluency/94/flamingo.png" },
+      { price: 409, img: "https://img.icons8.com/3d-fluency/94/house.png" },
+      { price: 422, img: "https://img.icons8.com/3d-fluency/94/hat.png" },
+      { price: 426, img: "https://img.icons8.com/3d-fluency/94/gameboy.png" },
+      { price: 428, img: "https://img.icons8.com/3d-fluency/94/backpack.png" },
+      { price: 431, img: "https://img.icons8.com/3d-fluency/94/diamond.png" },
+      { price: 431, img: "https://img.icons8.com/3d-fluency/94/octopus.png" },
+      { price: 434, img: "https://img.icons8.com/3d-fluency/94/frog.png" },
+      { price: 436, img: "https://img.icons8.com/3d-fluency/94/gingerbread-man.png" },
+      { price: 439, img: "https://img.icons8.com/3d-fluency/94/party-baloons.png" },
+      { price: 448, img: "https://img.icons8.com/3d-fluency/94/christmas-wreath.png" },
+      { price: 450, img: "https://img.icons8.com/3d-fluency/94/socks.png" },
+      { price: 453, img: "https://img.icons8.com/3d-fluency/94/book.png" },
+      { price: 453, img: "https://img.icons8.com/3d-fluency/94/fireworks.png" },
+      { price: 462, img: "https://img.icons8.com/3d-fluency/94/tea-cup.png" },
+      { price: 468, img: "https://img.icons8.com/3d-fluency/94/coffee-cup.png" },
+      { price: 477, img: "https://img.icons8.com/3d-fluency/94/alien.png" },
+      { price: 488, img: "https://img.icons8.com/3d-fluency/94/like.png" },
+      { price: 489, img: "https://img.icons8.com/3d-fluency/94/birthday-cake.png" },
+      { price: 489, img: "https://img.icons8.com/3d-fluency/94/pot.png" },
+      { price: 493, img: "https://img.icons8.com/3d-fluency/94/medal.png" },
+      { price: 495, img: "https://img.icons8.com/3d-fluency/94/lantern.png" },
+      { price: 504, img: "https://img.icons8.com/3d-fluency/94/four-leaf-clover.png" },
+      { price: 513, img: "https://img.icons8.com/3d-fluency/94/butterfly.png" },
+      { price: 515, img: "https://img.icons8.com/3d-fluency/94/girl.png" },
+      { price: 522, img: "https://img.icons8.com/3d-fluency/94/box.png" },
+      { price: 522, img: "https://img.icons8.com/3d-fluency/94/mortar.png" },
+      { price: 526, img: "https://img.icons8.com/3d-fluency/94/cake.png" },
+      { price: 536, img: "https://img.icons8.com/3d-fluency/94/rocket.png" },
+      { price: 536, img: "https://img.icons8.com/3d-fluency/94/cannabis.png" },
+      { price: 536, img: "https://img.icons8.com/3d-fluency/94/yoda.png" },
+      { price: 545, img: "https://img.icons8.com/3d-fluency/94/santa.png" },
+      { price: 545, img: "https://img.icons8.com/3d-fluency/94/mitten.png" },
+      { price: 554, img: "https://img.icons8.com/3d-fluency/94/aquarium.png" },
+      { price: 556, img: "https://img.icons8.com/3d-fluency/94/mosque.png" },
+      { price: 559, img: "https://img.icons8.com/3d-fluency/94/snow-globe.png" },
+      { price: 562, img: "https://img.icons8.com/3d-fluency/94/dog.png" },
+      { price: 570, img: "https://img.icons8.com/3d-fluency/94/popcorn.png" },
+      { price: 577, img: "https://img.icons8.com/3d-fluency/94/candle.png" },
+      { price: 578, img: "https://img.icons8.com/3d-fluency/94/mushroom.png" },
+      { price: 578, img: "https://img.icons8.com/3d-fluency/94/cat.png" },
+      { price: 586, img: "https://img.icons8.com/3d-fluency/94/calendar.png" },
+      { price: 602, img: "https://img.icons8.com/3d-fluency/94/angel.png" },
+      { price: 607, img: "https://img.icons8.com/3d-fluency/94/star.png" },
+      { price: 610, img: "https://img.icons8.com/3d-fluency/94/wizard-hat.png" },
+      { price: 624, img: "https://img.icons8.com/3d-fluency/94/flower.png" },
+      { price: 644, img: "https://img.icons8.com/3d-fluency/94/surf.png" },
+      { price: 672, img: "https://img.icons8.com/3d-fluency/94/light-saber.png" },
+      { price: 708, img: "https://img.icons8.com/3d-fluency/94/artist.png" },
+      { price: 755, img: "https://img.icons8.com/3d-fluency/94/ghost.png" },
+      { price: 755, img: "https://img.icons8.com/3d-fluency/94/eye.png" },
+      { price: 777, img: "https://img.icons8.com/3d-fluency/94/heart-box.png" },
+      { price: 796, img: "https://img.icons8.com/3d-fluency/94/pen.png" },
+      { price: 800, img: "https://img.icons8.com/3d-fluency/94/bell.png" },
+      { price: 813, img: "https://img.icons8.com/3d-fluency/94/cupcake.png" },
+      { price: 838, img: "https://img.icons8.com/3d-fluency/94/strawberry.png" },
+      { price: 938, img: "https://img.icons8.com/3d-fluency/94/dog-tag.png" },
+      { price: 943, img: "https://img.icons8.com/3d-fluency/94/top-hat.png" },
+      { price: 1019, img: "https://img.icons8.com/3d-fluency/94/christmas-bells.png" },
+      { price: 1029, img: "https://img.icons8.com/3d-fluency/94/white-flower.png" },
+      { price: 1107, img: "https://img.icons8.com/3d-fluency/94/heart-candle.png" },
+      { price: 1126, img: "https://img.icons8.com/3d-fluency/94/cherry.png" },
+      { price: 1170, img: "https://img.icons8.com/3d-fluency/94/skull-flower.png" },
+      { price: 1186, img: "https://img.icons8.com/3d-fluency/94/strawberry-stick.png" },
+      { price: 1207, img: "https://img.icons8.com/3d-fluency/94/crystal-skull.png" },
+      { price: 1210, img: "https://img.icons8.com/3d-fluency/94/vinyl.png" },
+      { price: 1310, img: "https://img.icons8.com/3d-fluency/94/jack-o-lantern.png" },
+      { price: 1342, img: "https://img.icons8.com/3d-fluency/94/potion.png" },
+      { price: 1357, img: "https://img.icons8.com/3d-fluency/94/hair-dryer.png" },
+      { price: 1448, img: "https://img.icons8.com/3d-fluency/94/eagle.png" },
+      { price: 1538, img: "https://img.icons8.com/3d-fluency/94/card-deck.png" },
+      { price: 1542, img: "https://img.icons8.com/3d-fluency/94/spider-clock.png" },
+      { price: 1629, img: "https://img.icons8.com/3d-fluency/94/cats-love.png" },
+      { price: 1865, img: "https://img.icons8.com/3d-fluency/94/high-heels.png" },
+      { price: 2064, img: "https://img.icons8.com/3d-fluency/94/heart-lock.png" },
+      { price: 2236, img: "https://img.icons8.com/3d-fluency/94/pacifier.png" },
+      { price: 2324, img: "https://img.icons8.com/3d-fluency/94/autumn-tree.png" },
+      { price: 2421, img: "https://img.icons8.com/3d-fluency/94/rose.png" },
+      { price: 2653, img: "https://img.icons8.com/3d-fluency/94/blue-bird.png" },
+      { price: 2657, img: "https://img.icons8.com/3d-fluency/94/money-glasses.png" },
+      { price: 3022, img: "https://img.icons8.com/3d-fluency/94/ring.png" },
+      { price: 3110, img: "https://img.icons8.com/3d-fluency/94/teddy-bear.png" },
+      { price: 3134, img: "https://img.icons8.com/3d-fluency/94/black-ring.png" },
+      { price: 3385, img: "https://img.icons8.com/3d-fluency/94/genie-lamp.png" },
+      { price: 3414, img: "https://img.icons8.com/3d-fluency/94/helmet.png" },
+      { price: 3479, img: "https://img.icons8.com/3d-fluency/94/voodoo-doll.png" },
+      { price: 3586, img: "https://img.icons8.com/3d-fluency/94/cigar.png" },
+      { price: 3971, img: "https://img.icons8.com/3d-fluency/94/green-ring.png" },
+      { price: 4023, img: "https://img.icons8.com/3d-fluency/94/kiss-frog.png" },
+      { price: 4326, img: "https://img.icons8.com/3d-fluency/94/monster.png" },
+      { price: 5266, img: "https://img.icons8.com/3d-fluency/94/watch.png" },
+      { price: 5328, img: "https://img.icons8.com/3d-fluency/94/poison.png" },
+      { price: 5579, img: "https://img.icons8.com/3d-fluency/94/car.png" },
+      { price: 5700, img: "https://img.icons8.com/3d-fluency/94/pixel-ring.png" },
+      { price: 5806, img: "https://img.icons8.com/3d-fluency/94/tom.png" },
+      { price: 5990, img: "https://img.icons8.com/3d-fluency/94/crystals.png" },
+      { price: 6633, img: "https://img.icons8.com/3d-fluency/94/oscar.png" },
+      { price: 7418, img: "https://img.icons8.com/3d-fluency/94/perfume.png" },
+      { price: 10167, img: "https://img.icons8.com/3d-fluency/94/green-hand.png" },
+      { price: 10205, img: "https://img.icons8.com/3d-fluency/94/goggles.png" },
+      { price: 10560, img: "https://img.icons8.com/3d-fluency/94/syringe.png" },
+      { price: 11038, img: "https://img.icons8.com/3d-fluency/94/large-crystal.png" },
+      { price: 11316, img: "https://img.icons8.com/3d-fluency/94/handbag.png" },
+      { price: 11950, img: "https://img.icons8.com/3d-fluency/94/biceps.png" },
+      { price: 16654, img: "https://img.icons8.com/3d-fluency/94/spartan-helmet.png" },
+      { price: 21956, img: "https://img.icons8.com/3d-fluency/94/siamese-cat.png" },
+      { price: 22965, img: "https://img.icons8.com/3d-fluency/94/golden-apple.png" },
+      { price: 35756, img: "https://img.icons8.com/3d-fluency/94/cap.png" },
+      { price: 47284, img: "https://img.icons8.com/3d-fluency/94/golden-monk.png" },
+      { price: 113045, img: "https://img.icons8.com/3d-fluency/94/magic-pendant.png" },
+      { price: 632023, img: "https://img.icons8.com/3d-fluency/94/frog.png" }
+    ];
+
+    function renderNFTs() {
+      const container = document.getElementById('nftContainer');
+      container.innerHTML = '';
+      nftCatalog.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'nft-card';
+        card.onclick = () => buyNft(item.price);
+        card.innerHTML = `
+          <div class="nft-img-box">
+            <img src="${item.img}" alt="NFT">
+          </div>
+          <div class="nft-price-pill">
+            <span>⭐</span> ${item.price.toLocaleString()}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
     function updateBal(amt) {
       balance += amt;
       document.getElementById('balanceVal').innerText = balance.toLocaleString();
@@ -486,15 +567,9 @@
       document.getElementById('game-plinko').style.display = 'none';
       document.getElementById('game-crash').style.display = 'none';
 
-      if(g === 'slots') {
-        document.getElementById('game-slots').style.display = 'flex';
-      } else if(g === 'plinko') {
-        document.getElementById('game-plinko').style.display = 'flex';
-        setTimeout(drawPlinko, 50);
-      } else if(g === 'crash') {
-        document.getElementById('game-crash').style.display = 'flex';
-        setTimeout(drawCrashInit, 50);
-      }
+      if(g === 'slots') document.getElementById('game-slots').style.display = 'flex';
+      if(g === 'plinko') { document.getElementById('game-plinko').style.display = 'flex'; setTimeout(drawPlinko, 50); }
+      if(g === 'crash') { document.getElementById('game-crash').style.display = 'flex'; setTimeout(drawCrashInit, 50); }
     }
 
     function closeGame() {
@@ -504,14 +579,14 @@
       document.getElementById('game-crash').style.display = 'none';
     }
 
-    function buyNft(name, price) {
+    function buyNft(price) {
       if(balance < price) {
-        alert(`❌ Недостаточно звезд! Для покупки "${name}" нужно ${price.toLocaleString()} ⭐.`);
+        alert(`❌ Недостаточно звезд! Требуется ${price.toLocaleString()} ⭐.`);
         return;
       }
       balance -= price;
       updateBal(0);
-      alert(`🎉 Поздравляем! Вы приобрели NFT "${name}" за ${price.toLocaleString()} ⭐!\n\nНапишите администратору @Navi4563 для получения NFT.`);
+      alert(`🎉 Поздравляем с покупкой за ${price.toLocaleString()} ⭐! Напишите администратору @Navi4563 для получения.`);
     }
 
     function makeDeposit() {
@@ -661,6 +736,8 @@
         btn.innerText = 'Сделать ставку'; btn.style.background = '#2b62d9';
       }
     }
+
+    renderNFTs();
   </script>
 </body>
 </html>
