@@ -9,8 +9,8 @@ from aiogram.filters import CommandStart
 # Ваш токен
 TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
 
-# Обновленная ссылка с параметром ?v=4 для сброса кеша Telegram
-WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=4"
+# Обновленная ссылка с версией ?v=5 для сброса кеша Telegram
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/?v=5"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
