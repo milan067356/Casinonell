@@ -1,47 +1,40 @@
+import logging
+from aiogram import Bot, Dispatcher, types
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
+from aiogram.filters import CommandStart
 import asyncio
-import threading
-from http.server import HTTPServer, BaseHTTPRequestHandler
-from aiogram import Bot, Dispatcher
-from aiogram.types import Message, WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.filters import Command
 
-TOKEN = "8823473148:AAHLZ8ndLQYGlmDjaCKtLXJEJrZjjiss5N0"
+# Токен вашего бота от BotFather
+TOKEN = "ВАШ_ТОКЕН_БОТА"
+
+# Ссылка на ваш GitHub Pages
+WEB_APP_URL = "https://milan067356.github.io/Casinonell/"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-class SimpleHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b"Bot is running!")
-
-    def log_message(self, format, *args):
-        pass
-
-def run_server():
-    server = HTTPServer(('0.0.0.0', 10000), SimpleHandler)
-    server.serve_forever()
-
-@dp.message(Command("start"))
-async def start(message: Message):
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(
-            text="🎮 Відкрити Gorilla Games", 
-            web_app=WebAppInfo(url="https://milan067356.github.io/Casinonell/")
-        )]
-    ])
-    
-    await message.answer(
-        "💎 Вітаю у Gorilla Games! 💎\n\nНатисни кнопку нижче, щоб запустити ігри (Слоти, Плинко, Краш):",
-        reply_markup=keyboard
+@dp.message(CommandStart())
+async def start_command(message: types.Message):
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="🎰 Открыть NellCasino",
+                    web_app=WebAppInfo(url=WEB_APP_URL)
+                )
+            ]
+        ]
     )
+    
+    welcome_text = (
+        "💎 **Добро пожаловать в NellCasino!** 💎\n\n"
+        "Нажмите кнопку ниже, чтобы запустить игры "
+        "(Слоты, Плинко, Краш):"
+    )
+    
+    await message.answer(welcome_text, reply_markup=keyboard, parse_mode="Markdown")
 
 async def main():
-    server_thread = threading.Thread(target=run_server, daemon=True)
-    server_thread.start()
-    
-    print("Бот та веб-сервер успішно запущено...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
