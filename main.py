@@ -9,7 +9,8 @@ import uvicorn
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 
-TOKEN = "8968346422:AAEvTRzVRD-5DFgbCL9tq8A8z2Lb9PjdWol"
+# Ваш виправлений токен бота
+TOKEN = "8968346422:AAEvTRzVRD-5DFgbCL9tq8A8z2Lb9PjdWoI"
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
