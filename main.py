@@ -1,6 +1,7 @@
 import os
 import time
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, FileResponse
 from pydantic import BaseModel
 from database import init_db, get_balance, change_balance
@@ -26,12 +27,15 @@ async def cmd_start(message: types.Message):
 
 app = FastAPI()
 
+# Роздача статичних файлів (HTML, JS, CSS) із папки webapp
+app.mount("/static", StaticFiles(directory="webapp"), name="static")
+
 @app.on_event("startup")
 async def startup():
     await init_db()
     if engine.current_round is None:
         engine.start_new_round()
-    # Автоматично реєструємо вебхук у Telegram при запуску
+    # Реєструємо вебхук у Telegram при запуску
     webhook_url = "https://casinonell-3.onrender.com/webhook"
     await bot.set_webhook(webhook_url)
 
