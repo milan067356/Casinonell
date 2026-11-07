@@ -1,5 +1,6 @@
 import os
 import time
+import asyncio
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -7,6 +8,24 @@ from pydantic import BaseModel
 from database import init_db, get_balance, change_balance
 from game_engine import engine
 import uvicorn
+from aiogram import Bot, Dispatcher, types
+from aiogram.filters import Command
+
+# Налаштування бота
+TOKEN = "8968346422:AAEvTRzVRD-5DFgbCL9tq8A8z2Lb9PjdWol"
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
+
+@dp.message(Command("start"))
+async def cmd_start(message: types.Message):
+    # Тут можна надіслати кнопку або вітання з посиланням на Web App
+    web_app_url = "https://casinonell-3.onrender.com"
+    kb = types.InlineKeyboardMarkup(
+        inline_keyboard=[
+            [types.InlineKeyboardButton(text="🎮 Грати в Casinonell", web_app=types.WebAppInfo(url=web_app_url))]
+        ]
+    )
+    await message.answer("Вітаємо у Casinonell! Натисніть кнопку нижче, щоб відкрити міні-апку:", reply_markup=kb)
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="webapp"), name="static")
@@ -24,6 +43,9 @@ async def startup():
     await init_db()
     if engine.current_round is None:
         engine.start_new_round()
+    
+    # Запускаємо бота у фоновому режимі, щоб він не блокував FastAPI
+    asyncio.create_task(dp.start_polling(bot))
 
 @app.get("/")
 async def index():
