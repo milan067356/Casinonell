@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            padding-bottom: 70px;
+            padding-bottom: 75px;
         }
         .header {
             display: flex;
@@ -32,34 +32,78 @@
         }
         .balance-box {
             background: #1e293b;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             color: #facc15;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
         .screen { display: none; padding: 20px; }
         .screen.active { display: block; }
         
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
         .game-card {
             background: linear-gradient(135deg, #1e293b, #0f172a);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
+            border-radius: 20px;
+            padding: 20px 10px;
+            text-align: center;
             border: 1px solid #334155;
             cursor: pointer;
             transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .game-card:active { transform: scale(0.98); }
-        .game-title { font-size: 20px; font-weight: bold; color: #38bdf8; margin-bottom: 5px; }
-        
+        .game-card:active { transform: scale(0.96); }
+        .game-icon { font-size: 45px; margin-bottom: 10px; }
+        .game-title { font-size: 18px; font-weight: bold; color: #ffffff; }
+
         .crash-screen { text-align: center; }
-        .multiplier { font-size: 52px; font-weight: bold; color: #4ade80; margin: 20px 0; }
-        .bets-list { background: #131b2e; border-radius: 12px; padding: 10px; margin: 15px 0; max-height: 150px; overflow-y: auto; text-align: left; }
-        .bet-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
+        .rocket-container {
+            position: relative;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            background: radial-gradient(circle, #1e293b 0%, #0b0f19 80%);
+            border-radius: 16px;
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+        .rocket {
+            font-size: 55px;
+            transition: transform 0.1s linear;
+        }
+        .fire {
+            font-size: 24px;
+            margin-top: -10px;
+            animation: flicker 0.2s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        .multiplier { font-size: 48px; font-weight: bold; color: #4ade80; margin: 10px 0; }
+        
+        .bets-list { 
+            background: #131b2e; 
+            border-radius: 12px; 
+            padding: 10px; 
+            margin: 15px 0; 
+            max-height: 140px; 
+            overflow-y: auto; 
+            text-align: left; 
+            border: 1px solid #1e293b;
+        }
+        .bet-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1e293b; font-size: 14px; color: #94a3b8; }
         
         input, button {
             width: 100%;
@@ -92,7 +136,7 @@
             background: none;
             border: none;
             color: #94a3b8;
-            font-size: 12px;
+            font-size: 13px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -104,14 +148,13 @@
         }
         .nav-item.active { color: #38bdf8; }
 
-        .case-box { background: #1e293b; border-radius: 16px; padding: 20px; text-align: center; margin-top: 20px; border: 1px solid #334155; }
-        .nft-roulette { display: flex; overflow: hidden; background: #0b0f19; padding: 15px; border-radius: 10px; margin: 15px 0; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .nft-item { background: #334155; padding: 8px; border-radius: 8px; font-size: 11px; width: 22%; text-align: center; }
+        .case-box { background: #1e293b; border-radius: 16px; padding: 20px; text-align: center; margin-top: 15px; border: 1px solid #334155; }
+        .nft-roulette { display: flex; overflow-x: auto; background: #0b0f19; padding: 12px; border-radius: 10px; margin: 15px 0; gap: 10px; }
+        .nft-item { background: #334155; padding: 10px; border-radius: 8px; font-size: 12px; min-width: 90px; text-align: center; color: #f8fafc; }
     </style>
 </head>
 <body>
 
-    <!-- Шапка -->
     <div class="header">
         <div class="logo">⚡ allDep</div>
         <div class="balance-box">
@@ -121,44 +164,52 @@
 
     <!-- ЕКРАН 1: ГОЛОВНЕ МЕНЮ -->
     <div id="screen-games" class="screen active">
-        <h2 style="margin-top: 0;">Ігри та сервіси</h2>
+        <h2 style="margin-top: 0; font-size: 20px;">Игры</h2>
         
-        <div class="game-card" onclick="switchScreen('crash')">
-            <div class="game-title">🚀 Краш (Ракета)</div>
-            <p style="color: #94a3b8; margin: 0; font-size: 14px;">Зростаючий коефіцієнт, встигни забрати виграш!</p>
-        </div>
+        <div class="games-grid">
+            <div class="game-card" onclick="switchScreen('crash')">
+                <div class="game-icon">🚀</div>
+                <div class="game-title">Краш</div>
+            </div>
 
-        <div class="game-card" onclick="switchScreen('cases')">
-            <div class="game-title">🎁 Кейси та NFT</div>
-            <p style="color: #94a3b8; margin: 0; font-size: 14px;">Безплатний кейс щодня за підписку!</p>
+            <div class="game-card" onclick="switchScreen('cases')">
+                <div class="game-icon">🎁</div>
+                <div class="game-title">Кейсы</div>
+            </div>
         </div>
     </div>
 
     <!-- ЕКРАН 2: КРАШ -->
     <div id="screen-crash" class="screen crash-screen">
-        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px;">← Назад у меню</button>
-        <div style="font-size: 14px; color: #94a3b8;" id="crashStatus">Очікування ставки (7с)</div>
-        <div class="multiplier" id="crashMultiplier">1.00x</div>
+        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад в меню</button>
+        
+        <div style="font-size: 15px; font-weight: bold; color: #facc15;" id="crashStatus">Ожидание ставки (7с)</div>
+        
+        <div class="rocket-container">
+            <div class="rocket" id="rocketIcon">🚀</div>
+            <div class="fire" id="rocketFire" style="display:none;">🔥</div>
+            <div class="multiplier" id="crashMultiplier" style="display:none;">1.00x</div>
+        </div>
 
         <div class="bets-list" id="betsList">
-            <div class="bet-item"><span>max1mb</span> <span>⭐ 200 (x1.00)</span></div>
-            <div class="bet-item"><span>twix027</span> <span>⭐ 51 (x1.00)</span></div>
+            <div class="bet-item"><span>Игроков в раунде:</span> <span>0</span></div>
         </div>
 
         <div id="betControl">
             <input type="number" id="betInput" min="5" max="10000" value="100" placeholder="Ставка (5 - 10000)">
-            <button class="btn-primary" onclick="placeCrashBet()">Зробити ставку</button>
+            <button class="btn-primary" onclick="placeCrashBet()">Сделать ставку</button>
         </div>
-        <button id="cashoutBtn" class="btn-success" style="display:none;" onclick="cashOut()">Забрати виграш</button>
+        <button id="cashoutBtn" class="btn-success" style="display:none;" onclick="cashOut()">Забрать выигрыш</button>
     </div>
 
-    <!-- ЕКРАН 3: КЕЙСИ ТА ІНВЕНТАР -->
+    <!-- ЕКРАН 3: КЕЙСЫ -->
     <div id="screen-cases" class="screen">
-        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px;">← Назад у меню</button>
-        <h2>Щоденний кейс</h2>
+        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад в меню</button>
+        <h2 style="margin-top:0;">Ежедневный кейс</h2>
+        
         <div class="case-box">
-            <p>Отримуйте 1 безплатний кейс щодня!</p>
-            <p style="font-size: 13px; color: #facc15;" id="subStatus">Умова: Підписатися на канал @allDep2</p>
+            <p style="margin-top:0;">Получайте 1 бесплатный кейс каждый день!</p>
+            <p style="font-size: 13px; color: #facc15;" id="subStatus">Условие: Подписаться на канал allDep2</p>
             
             <div class="nft-roulette" id="roulette">
                 <div class="nft-item">Bronze Coin</div>
@@ -173,23 +224,23 @@
                 <div class="nft-item">Paper Card</div>
             </div>
 
-            <button class="btn-primary" id="subBtn" onclick="checkSubscription()">Перевірити підписку</button>
-            <button class="btn-success" id="openCaseBtn" style="display:none;" onclick="openCase()">Відкрити кейс безплатно</button>
+            <button class="btn-primary" id="subBtn" onclick="checkSubscription()">Проверить подписку</button>
+            <button class="btn-success" id="openCaseBtn" style="display:none;" onclick="openCase()">Открыть кейс бесплатно</button>
         </div>
 
-        <h3 style="margin-top: 25px;">Мій інвентар NFT</h3>
-        <div id="inventory" style="background: #131b2e; padding: 15px; border-radius: 12px; min-height: 50px; font-size: 14px; color: #94a3b8;">
-            Поки пусто. Відкрийте кейс, щоб отримати NFT!
+        <h3 style="margin-top: 25px; font-size: 18px;">Мой инвентарь NFT</h3>
+        <div id="inventory" style="background: #131b2e; padding: 15px; border-radius: 12px; min-height: 50px; font-size: 14px; color: #94a3b8; border: 1px solid #1e293b;">
+            Пока пусто. Откройте кейс, чтобы получить NFT!
         </div>
     </div>
 
-    <!-- Нижня навігація -->
+    <!-- Навігація -->
     <div class="nav-bar">
         <button class="nav-item active" onclick="switchScreen('games')">
-            <span>🎮</span> Ігри
+            <span>🎮</span> Игры
         </button>
         <button class="nav-item" onclick="switchScreen('cases')">
-            <span>🎁</span> Кейси
+            <span>🎁</span> Кейсы
         </button>
     </div>
 
@@ -197,18 +248,20 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        let balance = 0; // Початковий баланс 0 зірок
+        let balance = 0;
         let myBet = 0;
         let inGame = false;
+        let hasBetThisRound = false;
         let multiplier = 1.00;
         let crashInterval = null;
         let isSubscribed = false;
 
-        // Рівно 10 найдешевших NFT
         const nfts = [
             "Bronze Coin", "Common Shard", "Dust Item", "Old Ticket", "Simple Gem", 
             "Basic Key", "Iron Badge", "Mini Star", "Gray Cube", "Paper Card"
         ];
+
+        const fakeUsers = ["vortex", "crypto_king", "satoshi99", "lucifer", "ton_holder", "max1mb", "twix027", "ali_g", "star_boy", "render_user"];
 
         function updateBalanceUI() {
             document.getElementById('userBalance').innerText = balance;
@@ -219,87 +272,151 @@
                 s.classList.remove('active');
                 if(s.id === 'screen-' + screenName) s.classList.add('active');
             });
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+            if(screenName === 'cases') document.querySelectorAll('.nav-item')[1].classList.add('active');
+            else document.querySelectorAll('.nav-item')[0].classList.add('active');
+        }
+
+        function initCrashGame() {
+            runWaitingPhase();
+        }
+
+        function runWaitingPhase() {
+            hasBetThisRound = false;
+            let countdown = 7;
+            document.getElementById('crashStatus').innerText = `Ожидание ставки (${countdown}с)`;
+            document.getElementById('crashMultiplier').style.display = 'none';
+            document.getElementById('rocketFire').style.display = 'none';
+            document.getElementById('rocketIcon').innerText = '🚀';
+            document.getElementById('rocketIcon').style.transform = 'translateY(0px)';
+
+            generateOnlineBets();
+
+            let timer = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    document.getElementById('crashStatus').innerText = `Ожидание ставки (${countdown}с)`;
+                } else {
+                    clearInterval(timer);
+                    startFlightPhase();
+                }
+            }, 1000);
+        }
+
+        function generateOnlineBets() {
+            let list = document.getElementById('betsList');
+            let html = '';
+            let count = Math.floor(Math.random() * 4) + 1;
+            for(let i=0; i<count; i++) {
+                let user = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+                let amt = Math.floor(Math.random() * 500) + 20;
+                html += `<div class="bet-item"><span>${user}</span> <span>⭐ ${amt}</span></div>`;
+            }
+            if (hasBetThisRound) {
+                html += `<div class="bet-item" style="color:#38bdf8; font-weight:bold;"><span>Вы (Ставка)</span> <span>⭐ ${myBet}</span></div>`;
+            }
+            list.innerHTML = html;
         }
 
         function placeCrashBet() {
             let amount = parseInt(document.getElementById('betInput').value);
             if (isNaN(amount) || amount < 5 || amount > 10000) {
-                alert("Ставка має бути від 5 до 10000 зірок!");
+                alert("Ставка должна быть от 5 до 10000 звезд!");
                 return;
             }
             if (balance < amount) {
-                alert("Недостатньо зірок на балансі! Ваш баланс: 0 ⭐");
+                alert("Недостаточно звезд на балансе! Ваш баланс: 0 ⭐");
                 return;
             }
 
             balance -= amount;
             myBet = amount;
+            hasBetThisRound = true;
             updateBalanceUI();
 
             document.getElementById('betControl').style.display = 'none';
-            document.getElementById('crashStatus').innerText = "Очікування старту раунду (7 сек)...";
-
-            setTimeout(startRocketFlight, 7000);
+            generateOnlineBets();
+            alert("Ставка принята на следующий раунд!");
         }
 
-        function startRocketFlight() {
-            inGame = true;
+        function startFlightPhase() {
+            inGame = hasBetThisRound;
             multiplier = 1.00;
-            document.getElementById('crashStatus').innerText = "🚀 Ракета летить!";
-            document.getElementById('cashoutBtn').style.display = 'block';
+            
+            document.getElementById('crashStatus').innerText = "🚀 Ракета летит!";
+            document.getElementById('crashMultiplier').style.display = 'block';
+            document.getElementById('crashMultiplier').innerText = "1.00x";
+            document.getElementById('rocketFire').style.display = 'block';
 
+            if (inGame) {
+                document.getElementById('cashoutBtn').style.display = 'block';
+            }
+
+            // Повністю рандомна генерація коефіцієнта вибуху на основі ваших значень без повторюваних шаблонів
             let rand = Math.random();
             let crashPoint;
-            if (rand < 0.6) {
+            
+            if (rand < 0.55) {
+                // Найчастіший діапазон від 1.35 до 1.87 (повний рандом всередині)
                 crashPoint = 1.35 + Math.random() * (1.87 - 1.35);
-            } else if (rand < 0.85) {
-                const rareMuls = [1.00, 1.02, 1.05, 1.12, 1.18, 1.23, 1.38, 1.49, 1.70, 1.90, 2.0, 2.40, 2.5, 2.70, 3.0];
-                crashPoint = rareMuls[Math.floor(Math.random() * rareMuls.length)];
-            } else if (rand < 0.95) {
+            } else if (rand < 0.75) {
+                // Діапазон низьких та середніх вибухів (1.00 - 2.70)
+                const baseMultipliers = [1.00, 1.02, 1.05, 1.12, 1.18, 1.23, 1.38, 1.49, 1.70, 1.90, 2.00, 2.40, 2.50, 2.70];
+                crashPoint = baseMultipliers[Math.floor(Math.random() * baseMultipliers.length)] + (Math.random() * 0.05);
+            } else if (rand < 0.92) {
+                // Вищі множники (3.0 до 10.0)
                 crashPoint = 3.0 + Math.random() * 7.0;
             } else {
+                // Рідкісний великий ікс до 100.0
                 crashPoint = 10.0 + Math.random() * 90.0;
             }
             crashPoint = parseFloat(crashPoint.toFixed(2));
 
+            let rocketPos = 0;
             crashInterval = setInterval(() => {
                 multiplier += 0.04;
                 document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
+                rocketPos -= 2;
+                if(rocketPos > -40) document.getElementById('rocketIcon').style.transform = `translateY(${rocketPos}px)`;
 
                 if (multiplier >= crashPoint) {
                     clearInterval(crashInterval);
-                    if (inGame) {
-                        document.getElementById('crashStatus').innerText = `💥 Ракета вибухнула на ${crashPoint.toFixed(2)}x! Ви програли ${myBet} ⭐`;
-                        endRoundClean();
-                    }
+                    explosionPhase(crashPoint);
                 }
             }, 100);
         }
 
         function cashOut() {
             if (!inGame) return;
+            inGame = false;
             clearInterval(crashInterval);
             let win = Math.floor(myBet * multiplier);
             balance += win;
             updateBalanceUI();
 
-            document.getElementById('crashStatus').innerText = `🎉 Ви забрали на ${multiplier.toFixed(2)}x та виграли ${win} ⭐! (Ставка: ${myBet})`;
-            endRoundClean();
+            document.getElementById('cashoutBtn').style.display = 'none';
+            document.getElementById('crashStatus').innerText = `🎉 Вы забрали на ${multiplier.toFixed(2)}x и выиграли ${win} ⭐!`;
+            
+            setTimeout(runWaitingPhase, 3000);
         }
 
-        function endRoundClean() {
-            inGame = false;
+        function explosionPhase(crashPoint) {
+            document.getElementById('rocketFire').style.display = 'none';
+            document.getElementById('rocketIcon').innerText = '💥';
+            document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x!`;
             document.getElementById('cashoutBtn').style.display = 'none';
-            setTimeout(() => {
-                document.getElementById('betControl').style.display = 'block';
-                document.getElementById('crashStatus').innerText = "Очікування ставки (7с)";
-                document.getElementById('multiplier').innerText = "1.00x";
-            }, 4000);
+
+            if (inGame) {
+                inGame = false;
+                document.getElementById('crashStatus').innerText += ` Вы проиграли ${myBet} ⭐`;
+            }
+
+            setTimeout(runWaitingPhase, 3500);
         }
 
         function checkSubscription() {
             isSubscribed = true;
-            document.getElementById('subStatus').innerText = "✅ Підтверджено! Можна відкрити кейс.";
+            document.getElementById('subStatus').innerText = "✅ Подтверждено! Можете открыть кейс.";
             document.getElementById('subBtn').style.display = 'none';
             document.getElementById('openCaseBtn').style.display = 'block';
         }
@@ -309,11 +426,13 @@
             let randomNft = nfts[Math.floor(Math.random() * nfts.length)];
             
             let inv = document.getElementById('inventory');
-            if (inv.innerText.includes("Поки пусто")) inv.innerHTML = "";
+            if (inv.innerText.includes("Пока пусто")) inv.innerHTML = "";
 
-            inv.innerHTML += `<div style="padding: 6px; border-bottom: 1px solid #334155;">🎁 Випало: <b>${randomNft}</b> (Дешева NFT)</div>`;
-            alert(`Вітаємо! Вам випала NFT: ${randomNft}`);
+            inv.innerHTML += `<div style="padding: 6px; border-bottom: 1px solid #334155;">🎁 Выпало: <b>${randomNft}</b> (Дешевая NFT)</div>`;
+            alert(`Поздравляем! Вам выпала NFT: ${randomNft}`);
         }
+
+        initCrashGame();
     </script>
 </body>
 </html>
