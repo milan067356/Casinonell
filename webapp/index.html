@@ -3,116 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casinonell</title>
+    <title>allDep</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            background-color: #0f172a;
+            background-color: #0b0f19;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            text-align: center;
             margin: 0;
+            padding: 0;
+            padding-bottom: 70px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #131b2e;
+            border-bottom: 1px solid #1e293b;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .balance-box {
+            background: #1e293b;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #facc15;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .screen { display: none; padding: 20px; }
+        .screen.active { display: block; }
+        
+        .game-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 16px;
             padding: 20px;
-        }
-        h1 { color: #38bdf8; margin-bottom: 5px; }
-        .balance-card {
-            background: #1e293b;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 20px 0;
-            font-size: 18px;
-        }
-        .multiplier {
-            font-size: 48px;
-            font-weight: bold;
-            color: #4ade80;
-            margin: 30px 0;
-        }
-        button {
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #334155;
             cursor: pointer;
-            width: 100%;
-            max-width: 300px;
-            margin-top: 10px;
+            transition: 0.2s;
         }
-        button:active { background-color: #1d4ed8; }
-        input {
+        .game-card:active { transform: scale(0.98); }
+        .game-title { font-size: 20px; font-weight: bold; color: #38bdf8; margin-bottom: 5px; }
+        
+        .crash-screen { text-align: center; }
+        .multiplier { font-size: 52px; font-weight: bold; color: #4ade80; margin: 20px 0; }
+        .bets-list { background: #131b2e; border-radius: 12px; padding: 10px; margin: 15px 0; max-height: 150px; overflow-y: auto; text-align: left; }
+        .bet-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
+        
+        input, button {
             width: 100%;
-            max-width: 300px;
-            padding: 12px;
+            padding: 14px;
             font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #475569;
-            background: #1e293b;
-            color: white;
+            border-radius: 12px;
+            border: none;
+            outline: none;
             box-sizing: border-box;
-            margin-bottom: 10px;
-            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
         }
+        input { background: #1e293b; color: white; border: 1px solid #475569; text-align: center; }
+        .btn-primary { background: #2563eb; color: white; cursor: pointer; }
+        .btn-primary:active { background: #1d4ed8; }
+        .btn-success { background: #16a34a; color: white; cursor: pointer; }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #131b2e;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #1e293b;
+        }
+        .nav-item {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            width: auto;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-item.active { color: #38bdf8; }
+
+        .case-box { background: #1e293b; border-radius: 16px; padding: 20px; text-align: center; margin-top: 20px; border: 1px solid #334155; }
+        .nft-roulette { display: flex; overflow: hidden; background: #0b0f19; padding: 15px; border-radius: 10px; margin: 15px 0; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .nft-item { background: #334155; padding: 8px; border-radius: 8px; font-size: 11px; width: 22%; text-align: center; }
     </style>
 </head>
 <body>
 
-    <h1>Casinonell</h1>
-    <p style="color: #94a3b8; font-size: 14px;">Додаток успішно підключено до Telegram!</p>
-
-    <div class="balance-card">
-        Баланс: <span id="balance">0</span> ⭐
+    <!-- Шапка -->
+    <div class="header">
+        <div class="logo">⚡ allDep</div>
+        <div class="balance-box">
+            ⭐ <span id="userBalance">0</span>
+        </div>
     </div>
 
-    <div class="multiplier" id="multiplier">1.00x</div>
+    <!-- ЕКРАН 1: ГОЛОВНЕ МЕНЮ -->
+    <div id="screen-games" class="screen active">
+        <h2 style="margin-top: 0;">Ігри та сервіси</h2>
+        
+        <div class="game-card" onclick="switchScreen('crash')">
+            <div class="game-title">🚀 Краш (Ракета)</div>
+            <p style="color: #94a3b8; margin: 0; font-size: 14px;">Зростаючий коефіцієнт, встигни забрати виграш!</p>
+        </div>
 
-    <div>
-        <input type="number" id="betAmount" placeholder="Сума ставки" value="10">
-        <br>
-        <button id="actionBtn" onclick="placeBet()">Зробити ставку</button>
+        <div class="game-card" onclick="switchScreen('cases')">
+            <div class="game-title">🎁 Кейси та NFT</div>
+            <p style="color: #94a3b8; margin: 0; font-size: 14px;">Безплатний кейс щодня за підписку!</p>
+        </div>
+    </div>
+
+    <!-- ЕКРАН 2: КРАШ -->
+    <div id="screen-crash" class="screen crash-screen">
+        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px;">← Назад у меню</button>
+        <div style="font-size: 14px; color: #94a3b8;" id="crashStatus">Очікування ставки (7с)</div>
+        <div class="multiplier" id="crashMultiplier">1.00x</div>
+
+        <div class="bets-list" id="betsList">
+            <div class="bet-item"><span>max1mb</span> <span>⭐ 200 (x1.00)</span></div>
+            <div class="bet-item"><span>twix027</span> <span>⭐ 51 (x1.00)</span></div>
+        </div>
+
+        <div id="betControl">
+            <input type="number" id="betInput" min="5" max="10000" value="100" placeholder="Ставка (5 - 10000)">
+            <button class="btn-primary" onclick="placeCrashBet()">Зробити ставку</button>
+        </div>
+        <button id="cashoutBtn" class="btn-success" style="display:none;" onclick="cashOut()">Забрати виграш</button>
+    </div>
+
+    <!-- ЕКРАН 3: КЕЙСИ ТА ІНВЕНТАР -->
+    <div id="screen-cases" class="screen">
+        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px;">← Назад у меню</button>
+        <h2>Щоденний кейс</h2>
+        <div class="case-box">
+            <p>Отримуйте 1 безплатний кейс щодня!</p>
+            <p style="font-size: 13px; color: #facc15;" id="subStatus">Умова: Підписатися на канал @allDep2</p>
+            
+            <div class="nft-roulette" id="roulette">
+                <div class="nft-item">Bronze Coin</div>
+                <div class="nft-item">Common Shard</div>
+                <div class="nft-item">Dust Item</div>
+                <div class="nft-item">Old Ticket</div>
+                <div class="nft-item">Simple Gem</div>
+                <div class="nft-item">Basic Key</div>
+                <div class="nft-item">Iron Badge</div>
+                <div class="nft-item">Mini Star</div>
+                <div class="nft-item">Gray Cube</div>
+                <div class="nft-item">Paper Card</div>
+            </div>
+
+            <button class="btn-primary" id="subBtn" onclick="checkSubscription()">Перевірити підписку</button>
+            <button class="btn-success" id="openCaseBtn" style="display:none;" onclick="openCase()">Відкрити кейс безплатно</button>
+        </div>
+
+        <h3 style="margin-top: 25px;">Мій інвентар NFT</h3>
+        <div id="inventory" style="background: #131b2e; padding: 15px; border-radius: 12px; min-height: 50px; font-size: 14px; color: #94a3b8;">
+            Поки пусто. Відкрийте кейс, щоб отримати NFT!
+        </div>
+    </div>
+
+    <!-- Нижня навігація -->
+    <div class="nav-bar">
+        <button class="nav-item active" onclick="switchScreen('games')">
+            <span>🎮</span> Ігри
+        </button>
+        <button class="nav-item" onclick="switchScreen('cases')">
+            <span>🎁</span> Кейси
+        </button>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Отримуємо user_id з Telegram або використовуємо тестовий
-        const userId = tg.initDataUnsafe?.user?.id || 123456789;
+        let balance = 0; // Початковий баланс 0 зірок
+        let myBet = 0;
+        let inGame = false;
+        let multiplier = 1.00;
+        let crashInterval = null;
+        let isSubscribed = false;
 
-        async function updateState() {
-            try {
-                let response = await fetch(`/api/state?user_id=${userId}`);
-                let data = await response.json();
-                
-                document.getElementById('balance').innerText = data.balance;
-                if (data.current_multiplier) {
-                    document.getElementById('multiplier').innerText = data.current_multiplier.toFixed(2) + 'x';
-                }
-            } catch (e) {
-                console.error("Помилка оновлення стану:", e);
-            }
+        // Рівно 10 найдешевших NFT
+        const nfts = [
+            "Bronze Coin", "Common Shard", "Dust Item", "Old Ticket", "Simple Gem", 
+            "Basic Key", "Iron Badge", "Mini Star", "Gray Cube", "Paper Card"
+        ];
+
+        function updateBalanceUI() {
+            document.getElementById('userBalance').innerText = balance;
         }
 
-        async function placeBet() {
-            let amount = parseFloat(document.getElementById('betAmount').value);
-            let response = await fetch('/api/bet', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user_id: userId, amount: amount })
+        function switchScreen(screenName) {
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+                if(s.id === 'screen-' + screenName) s.classList.add('active');
             });
-            let result = await response.json();
-            if (result.ok) {
-                alert("Ставку прийнято!");
-                updateState();
-            } else {
-                alert("Помилка: " + (result.error || "Не вдалося зробити ставку"));
-            }
         }
 
-        // Оновлюємо стан кожні 500 мс
-        setInterval(updateState, 500);
+        function placeCrashBet() {
+            let amount = parseInt(document.getElementById('betInput').value);
+            if (isNaN(amount) || amount < 5 || amount > 10000) {
+                alert("Ставка має бути від 5 до 10000 зірок!");
+                return;
+            }
+            if (balance < amount) {
+                alert("Недостатньо зірок на балансі! Ваш баланс: 0 ⭐");
+                return;
+            }
+
+            balance -= amount;
+            myBet = amount;
+            updateBalanceUI();
+
+            document.getElementById('betControl').style.display = 'none';
+            document.getElementById('crashStatus').innerText = "Очікування старту раунду (7 сек)...";
+
+            setTimeout(startRocketFlight, 7000);
+        }
+
+        function startRocketFlight() {
+            inGame = true;
+            multiplier = 1.00;
+            document.getElementById('crashStatus').innerText = "🚀 Ракета летить!";
+            document.getElementById('cashoutBtn').style.display = 'block';
+
+            let rand = Math.random();
+            let crashPoint;
+            if (rand < 0.6) {
+                crashPoint = 1.35 + Math.random() * (1.87 - 1.35);
+            } else if (rand < 0.85) {
+                const rareMuls = [1.00, 1.02, 1.05, 1.12, 1.18, 1.23, 1.38, 1.49, 1.70, 1.90, 2.0, 2.40, 2.5, 2.70, 3.0];
+                crashPoint = rareMuls[Math.floor(Math.random() * rareMuls.length)];
+            } else if (rand < 0.95) {
+                crashPoint = 3.0 + Math.random() * 7.0;
+            } else {
+                crashPoint = 10.0 + Math.random() * 90.0;
+            }
+            crashPoint = parseFloat(crashPoint.toFixed(2));
+
+            crashInterval = setInterval(() => {
+                multiplier += 0.04;
+                document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
+
+                if (multiplier >= crashPoint) {
+                    clearInterval(crashInterval);
+                    if (inGame) {
+                        document.getElementById('crashStatus').innerText = `💥 Ракета вибухнула на ${crashPoint.toFixed(2)}x! Ви програли ${myBet} ⭐`;
+                        endRoundClean();
+                    }
+                }
+            }, 100);
+        }
+
+        function cashOut() {
+            if (!inGame) return;
+            clearInterval(crashInterval);
+            let win = Math.floor(myBet * multiplier);
+            balance += win;
+            updateBalanceUI();
+
+            document.getElementById('crashStatus').innerText = `🎉 Ви забрали на ${multiplier.toFixed(2)}x та виграли ${win} ⭐! (Ставка: ${myBet})`;
+            endRoundClean();
+        }
+
+        function endRoundClean() {
+            inGame = false;
+            document.getElementById('cashoutBtn').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('betControl').style.display = 'block';
+                document.getElementById('crashStatus').innerText = "Очікування ставки (7с)";
+                document.getElementById('multiplier').innerText = "1.00x";
+            }, 4000);
+        }
+
+        function checkSubscription() {
+            isSubscribed = true;
+            document.getElementById('subStatus').innerText = "✅ Підтверджено! Можна відкрити кейс.";
+            document.getElementById('subBtn').style.display = 'none';
+            document.getElementById('openCaseBtn').style.display = 'block';
+        }
+
+        function openCase() {
+            document.getElementById('openCaseBtn').style.display = 'none';
+            let randomNft = nfts[Math.floor(Math.random() * nfts.length)];
+            
+            let inv = document.getElementById('inventory');
+            if (inv.innerText.includes("Поки пусто")) inv.innerHTML = "";
+
+            inv.innerHTML += `<div style="padding: 6px; border-bottom: 1px solid #334155;">🎁 Випало: <b>${randomNft}</b> (Дешева NFT)</div>`;
+            alert(`Вітаємо! Вам випала NFT: ${randomNft}`);
+        }
     </script>
 </body>
 </html>
