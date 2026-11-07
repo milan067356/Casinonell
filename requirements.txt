@@ -2,3 +2,4 @@ aiogram
 fastapi
 uvicorn
 pydantic
+aiosqlite
