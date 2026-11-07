@@ -1,9 +1,7 @@
 import os
 import time
-import asyncio
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse, FileResponse
 from pydantic import BaseModel
 from database import init_db, get_balance, change_balance
 from game_engine import engine
@@ -11,14 +9,12 @@ import uvicorn
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 
-# Налаштування бота
 TOKEN = "8968346422:AAEvTRzVRD-5DFgbCL9tq8A8z2Lb9PjdWol"
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message):
-    # Тут можна надіслати кнопку або вітання з посиланням на Web App
     web_app_url = "https://casinonell-3.onrender.com"
     kb = types.InlineKeyboardMarkup(
         inline_keyboard=[
@@ -28,7 +24,30 @@ async def cmd_start(message: types.Message):
     await message.answer("Вітаємо у Casinonell! Натисніть кнопку нижче, щоб відкрити міні-апку:", reply_markup=kb)
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="webapp"), name="static")
+
+@app.on_event("startup")
+async def startup():
+    await init_db()
+    if engine.current_round is None:
+        engine.start_new_round()
+    # Автоматично реєструємо вебхук у Telegram при запуску
+    webhook_url = "https://casinonell-3.onrender.com/webhook"
+    await bot.set_webhook(webhook_url)
+
+@app.on_event("shutdown")
+async def shutdown():
+    await bot.session.close()
+
+@app.post("/webhook")
+async def telegram_webhook(request: Request):
+    json_data = await request.json()
+    update = types.Update(**json_data)
+    await dp.feed_update(bot, update)
+    return JSONResponse(content={"ok": True})
+
+@app.get("/")
+async def index():
+    return FileResponse("webapp/index.html")
 
 class BetRequest(BaseModel):
     user_id: int
@@ -37,19 +56,6 @@ class BetRequest(BaseModel):
 class CashoutRequest(BaseModel):
     user_id: int
     multiplier: float
-
-@app.on_event("startup")
-async def startup():
-    await init_db()
-    if engine.current_round is None:
-        engine.start_new_round()
-    
-    # Запускаємо бота у фоновому режимі, щоб він не блокував FastAPI
-    asyncio.create_task(dp.start_polling(bot))
-
-@app.get("/")
-async def index():
-    return FileResponse("webapp/index.html")
 
 @app.get("/api/state")
 async def get_state(user_id: int = 0):
