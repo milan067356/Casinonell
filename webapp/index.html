@@ -460,7 +460,7 @@
                 ⭐ <span id="profileBalance">15</span>
             </div>
             
-            <!-- Кнопка пополнения (как в исходном коде) -->
+            <!-- Кнопка пополнения -->
             <button class="btn-action" onclick="showTopUpModal()">ПОПОЛНИТЬ ЗВЕЗДЫ</button>
 
             <!-- Реферальная ссылка -->
@@ -470,10 +470,10 @@
                 <button class="quick-btn" style="width:100%; padding: 10px; background:var(--accent-color); color:#0b0f19; font-weight:900;" onclick="copyRefLink()">Скопировать ссылку</button>
             </div>
 
-            <!-- Отдельный блок для промокода -->
+            <!-- Блок промокода без лишней надписи (POPY) -->
             <div class="promo-box">
-                <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px;">Активировать промокод</div>
-                <input type="text" id="promoInput" placeholder="Введите промокод (popy)" style="text-transform: uppercase;">
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Введите промокод</div>
+                <input type="text" id="promoInput" placeholder="Введите промокод" style="text-transform: uppercase;">
                 <button class="btn-action" onclick="activatePromo()" style="margin-top:8px;">Применить</button>
             </div>
         </div>
@@ -486,7 +486,7 @@
         </div>
     </div>
 
-    <!-- Модальное окно вывода NFT -->
+    <!-- Модальное окно вывода NFT (с исправленным текстом) -->
     <div class="modal-overlay" id="nftModal" onclick="closeNftModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <img id="modalNftImg" src="" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
@@ -494,9 +494,9 @@
             <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 15px;">
                 Чтобы вывести этот NFT, нужно пригласить <b>5 друзей</b> по вашей реферальной ссылке (они должны зайти в бота и прокрутить бесплатный кейс). 
                 <br><br>
-                Комиссия за вывод составляет <b>50 звезд</b>.
+                Скиньте скриншот 5 приглашенных людей и отправьте на аккаунт админу подарком 50 звезд — это за комиссию.
                 <br><br>
-                После этого напишите администратору на аккаунт <a href="https://t.me/allDepGame_bot2" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>, скиньте скриншот 5 приглашенных людей. После проверки вам отправят подарками 50 звезд и отдадут ваш NFT!
+                После проверки админ отправит вам NFT на аккаунт. Напишите сюда: <a href="https://t.me/allDepGame_bot2" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>
             </div>
             <button class="btn-action" onclick="document.getElementById('nftModal').style.display='none'">Понятно</button>
         </div>
@@ -550,12 +550,10 @@
         const userId = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'user_' + Math.floor(Math.random()*100000);
         const balanceKey = 'allDep_balance_' + userId;
         const inventoryKey = 'allDep_inventory_' + userId;
-        const promoKey = 'allDep_promo_used_' + userId;
         const caseTimeKey = 'allDep_case_time_' + userId;
 
         let balance = localStorage.getItem(balanceKey) !== null ? parseInt(localStorage.getItem(balanceKey)) : 15;
         let inventory = localStorage.getItem(inventoryKey) ? JSON.parse(localStorage.getItem(inventoryKey)) : [];
-        let isPromoUsed = localStorage.getItem(promoKey) === 'true';
 
         let myBet = 0;
         let inGame = false;
@@ -576,8 +574,7 @@
             { name: "satoshi99", avatar: "https://i.pravatar.cc/100?img=68" }
         ];
 
-        // Генерация персональной реферальной ссылки по ID бота
-        const botUsername = "allDepGame_bot"; // Замените при необходимости на имя вашего основного бота
+        const botUsername = "allDepGame_bot";
         const refLink = `https://t.me/${botUsername}?start=ref_${userId}`;
         document.getElementById('refLinkInput').value = refLink;
 
@@ -625,25 +622,19 @@
             }
         }
 
+        /* Бесконечный промокод popy */
         function activatePromo() {
             let code = document.getElementById('promoInput').value.trim().toLowerCase();
             if (code === 'popy') {
-                if (isPromoUsed) {
-                    alert("Вы уже использовали этот промокод!");
-                } else {
-                    balance += 5000;
-                    isPromoUsed = true;
-                    localStorage.setItem(promoKey, 'true');
-                    updateBalanceUI();
-                    alert("🎉 Промокод активирован! Вам зачислено +5000 ⭐!");
-                    document.getElementById('promoInput').value = '';
-                }
+                balance += 5000;
+                updateBalanceUI();
+                alert("🎉 Промокод активирован! Вам зачислено +5000 ⭐!");
+                document.getElementById('promoInput').value = '';
             } else {
                 alert("Неверный промокод!");
             }
         }
 
-        /* --- КЕЙСЫ И ТАЙМЕР --- */
         function checkSubscription() {
             let lastOpen = localStorage.getItem(caseTimeKey);
             let now = Date.now();
@@ -740,7 +731,7 @@
                 return;
             }
             let html = '';
-            inventory.forEach((item, index) => {
+            inventory.forEach((item) => {
                 html += `
                     <div class="gift-item" onclick="openNftModal('${item.name}', '${item.img}')">
                         <img src="${item.img}" alt="${item.name}">
@@ -761,7 +752,6 @@
             document.getElementById('nftModal').style.display = 'none';
         }
 
-        /* --- КРАШ ИГРА --- */
         function addBet(val) {
             let input = document.getElementById('betInput');
             let current = parseInt(input.value) || 0;
@@ -878,75 +868,4 @@
             if (rand < 0.55) {
                 crashPoint = 1.35 + Math.random() * (1.87 - 1.35);
             } else if (rand < 0.75) {
-                const baseMultipliers = [1.00, 1.02, 1.05, 1.12, 1.18, 1.23, 1.38, 1.49, 1.70, 1.90, 2.00, 2.40, 2.50, 2.70];
-                crashPoint = baseMultipliers[Math.floor(Math.random() * baseMultipliers.length)] + (Math.random() * 0.05);
-            } else {
-                crashPoint = 3.0 + Math.random() * 8.0;
-            }
-            crashPoint = parseFloat(crashPoint.toFixed(2));
-
-            let rocketPos = 0;
-            crashInterval = setInterval(() => {
-                multiplier += 0.04;
-                document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
-                
-                if (inGame) {
-                    updateCashoutButtonText();
-                }
-
-                rocketPos -= 3;
-                if(rocketPos > -65) document.getElementById('rocketIcon').style.transform = `translateY(${rocketPos}px)`;
-
-                if (multiplier >= crashPoint) {
-                    clearInterval(crashInterval);
-                    explosionPhase(crashPoint);
-                }
-            }, 100);
-        }
-
-        function updateCashoutButtonText() {
-            let potentialWin = Math.floor(myBet * multiplier);
-            let btn = document.getElementById('actionBtn');
-            btn.innerText = `Забрать (${potentialWin} ⭐)`;
-        }
-
-        function cashOut() {
-            if (!inGame) return;
-            inGame = false;
-            clearInterval(crashInterval);
-            let win = Math.floor(myBet * multiplier);
-            balance += win;
-            updateBalanceUI();
-
-            document.getElementById('crashStatus').innerText = `🎉 Вы забрали на ${multiplier.toFixed(2)}x и выиграли ${win} ⭐!`;
-            
-            let btn = document.getElementById('actionBtn');
-            btn.innerText = `Выиграно ${win} ⭐`;
-            btn.className = "btn-action";
-            btn.onclick = null;
-
-            setTimeout(runWaitingPhase, 3500);
-        }
-
-        function explosionPhase(crashPoint) {
-            document.getElementById('rocketFire').style.display = 'none';
-            document.getElementById('rocketIcon').innerText = '💥';
-            document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x!`;
-
-            let btn = document.getElementById('actionBtn');
-            if (inGame) {
-                inGame = false;
-                document.getElementById('crashStatus').innerText += ` Вы проиграли ${myBet} ⭐`;
-            }
-            btn.innerText = "Раунд завершен";
-            btn.className = "btn-action";
-            btn.onclick = null;
-
-            setTimeout(runWaitingPhase, 3500);
-        }
-
-        updateBalanceUI();
-        initCrashGame();
-    </script>
-</body>
-</html>
+                const baseMultipliers = [1.00, 1.02, 1.05, 1.12, 1.
