@@ -116,7 +116,6 @@
         .game-icon { font-size: 42px; margin-bottom: 8px; }
         .game-title { font-size: 16px; font-weight: bold; color: var(--text-color); font-family: 'Outfit', sans-serif; }
 
-        /* Краш игра в стиле скриншота */
         .crash-screen { text-align: center; }
         .rocket-container {
             position: relative;
@@ -218,7 +217,6 @@
         .bet-user { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: bold; }
         .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
 
-        /* Кейсы */
         .case-details {
             background: var(--header-bg);
             border-radius: 20px;
@@ -278,7 +276,6 @@
         }
         .roulette-item img { width: 45px; height: 45px; object-fit: contain; }
 
-        /* Профиль и подарки */
         .profile-card {
             background: var(--header-bg);
             border-radius: 20px;
@@ -305,7 +302,6 @@
         }
         .gift-item img { width: 55px; height: 55px; object-fit: contain; }
 
-        /* Нижняя навигация (4 кнопки как на скриншоте) */
         .nav-bar {
             position: fixed;
             bottom: 0;
@@ -336,7 +332,6 @@
 </head>
 <body id="appBody">
 
-    <!-- Шапка -->
     <div class="header">
         <div class="logo-font">allDep</div>
         <div class="header-right">
@@ -346,12 +341,12 @@
                 <option value="fire">🔥 Огонь</option>
             </select>
             <div class="balance-box">
-                ⭐ <span id="userBalance">10</span>
+                ⭐ <span id="userBalance">10000</span>
             </div>
         </div>
     </div>
 
-    <!-- 1. ГЛАВНАЯ (ИГРЫ) -->
+    <!-- 1. ИГРЫ -->
     <div id="screen-games" class="screen active">
         <div class="main-title">Игры</div>
         <div class="games-grid">
@@ -378,7 +373,7 @@
         </div>
     </div>
 
-    <!-- 3. ДЕТАЛИ БЕСПЛАТНОГО КЕЙСА -->
+    <!-- 3. КЕЙС ДЕТАЛИ -->
     <div id="screen-free-case-detail" class="screen">
         <button onclick="switchScreen('cases-list')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px; border:none; cursor:pointer;">← Назад к кейсам</button>
         <div class="case-details">
@@ -417,7 +412,7 @@
         <div class="profile-card">
             <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 4px;">Баланс звезд</div>
             <div style="font-size: 30px; font-weight: bold; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px;">
-                ⭐ <span id="profileBalance">10</span>
+                ⭐ <span id="profileBalance">10000</span>
             </div>
             <button class="btn-action" onclick="showTopUpModal()">Пополнить звезды</button>
         </div>
@@ -446,15 +441,14 @@
             <div class="bet-item"><span>Участники раунда</span> <span>0</span></div>
         </div>
 
-        <!-- Блок ставки -->
         <div class="bet-control-box" id="betControlBox">
             <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Введите сумму ставки</div>
-            <input type="number" id="betInput" min="5" max="10000" value="10">
+            <input type="number" id="betInput" min="5" max="10000" value="100">
             
             <div class="quick-btns">
-                <button class="quick-btn" onclick="addBet(-10)">-10</button>
-                <button class="quick-btn" onclick="addBet(10)">+10</button>
-                <button class="quick-btn" onclick="addBet(50)">+50</button>
+                <button class="quick-btn" onclick="addBet(-50)">-50</button>
+                <button class="quick-btn" onclick="addBet(100)">+100</button>
+                <button class="quick-btn" onclick="addBet(500)">+500</button>
                 <button class="quick-btn" onclick="setMaxBet()">MAX</button>
             </div>
 
@@ -462,7 +456,7 @@
         </div>
     </div>
 
-    <!-- Нижняя навигация (4 кнопки) -->
+    <!-- Нижняя навигация -->
     <div class="nav-bar">
         <button class="nav-item active" onclick="switchScreen('games')" id="navGames">
             <span>🏠</span> Головна
@@ -482,8 +476,8 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Загрузка данных из localStorage чтобы ничего не сбрасывалось при перезаходе
-        let balance = localStorage.getItem('allDep_balance') !== null ? parseInt(localStorage.getItem('allDep_balance')) : 10;
+        // Устанавливаем 10000 по умолчанию, если в localStorage еще нет данных
+        let balance = localStorage.getItem('allDep_balance') !== null ? parseInt(localStorage.getItem('allDep_balance')) : 10000;
         let inventory = localStorage.getItem('allDep_inventory') ? JSON.parse(localStorage.getItem('allDep_inventory')) : [];
 
         let myBet = 0;
@@ -544,7 +538,6 @@
             }
         }
 
-        /* --- КЕЙСЫ И РУЛЕТКА --- */
         function checkSubscription() {
             document.getElementById('checkSubBtn').style.display = 'none';
             document.getElementById('openCaseBtn').style.display = 'block';
@@ -609,7 +602,6 @@
             invContainer.innerHTML = html;
         }
 
-        /* --- КРАШ ИГРА --- */
         function addBet(val) {
             let input = document.getElementById('betInput');
             let current = parseInt(input.value) || 0;
@@ -636,7 +628,6 @@
             document.getElementById('rocketIcon').innerText = '🚀';
             document.getElementById('rocketIcon').style.transform = 'translateY(0px)';
 
-            // Возвращаем кнопку ставки для следующего раунда
             let btn = document.getElementById('actionBtn');
             btn.innerText = "Сделать ставку";
             btn.className = "btn-action";
@@ -661,7 +652,7 @@
             let count = Math.floor(Math.random() * 3) + 1;
             for(let i=0; i<count; i++) {
                 let u = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
-                let amt = Math.floor(Math.random() * 300) + 20;
+                let amt = Math.floor(Math.random() * 500) + 50;
                 html += `
                     <div class="bet-item">
                         <div class="bet-user"><img src="${u.avatar}"> ${u.name}</div>
