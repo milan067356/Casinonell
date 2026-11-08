@@ -116,7 +116,7 @@
         .game-icon { font-size: 46px; margin-bottom: 10px; }
         .game-title { font-size: 17px; font-weight: bold; color: var(--text-color); font-family: 'Outfit', sans-serif; }
 
-        /* Увеличенная красивейшая Краш игра */
+        /* Краш игра */
         .crash-screen { text-align: center; }
         .rocket-container {
             position: relative;
@@ -172,7 +172,7 @@
         input {
             width: 100%;
             padding: 14px;
-            font-size: 18px;
+            font-size: 16px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
             outline: none;
@@ -294,6 +294,14 @@
             margin-top: 15px;
             border: 1px solid var(--border-color);
         }
+        .ref-box {
+            background: #0b0f19;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
 
         .gifts-grid {
             display: grid;
@@ -310,10 +318,36 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
+        .gift-item:active { transform: scale(0.95); }
         .gift-item img { width: 60px; height: 60px; object-fit: contain; }
 
-        /* Только 2 кнопки снизу (Главная и Профиль) */
+        /* Модальное окно вывода NFT */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-content {
+            background: var(--header-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            max-width: 340px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        /* Навигация */
         .nav-bar {
             position: fixed;
             bottom: 0;
@@ -324,7 +358,7 @@
             justify-content: space-around;
             padding: 12px 0;
             border-top: 1px solid var(--border-color);
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            box-shadow: -4px 20px rgba(0,0,0,0.5);
             z-index: 100;
         }
         .nav-item {
@@ -360,7 +394,7 @@
         </div>
     </div>
 
-    <!-- 1. ИГРЫ (ГЛАВНАЯ) -->
+    <!-- 1. ИГРЫ -->
     <div id="screen-games" class="screen active">
         <div class="main-title">Игры</div>
         <div class="games-grid">
@@ -375,7 +409,7 @@
         </div>
     </div>
 
-    <!-- 2. КЕЙСЫ -->
+    <!-- 2. СПИСОК КЕЙСОВ -->
     <div id="screen-cases-list" class="screen">
         <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px; border:none; cursor:pointer;">← Назад в меню</button>
         <div class="main-title">Кейсы</div>
@@ -387,7 +421,7 @@
         </div>
     </div>
 
-    <!-- 3. КЕЙС ДЕТАЛИ -->
+    <!-- 3. ДЕТАЛИ КЕЙСА -->
     <div id="screen-free-case-detail" class="screen">
         <button onclick="switchScreen('cases-list')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px; border:none; cursor:pointer;">← Назад к кейсам</button>
         <div class="case-details">
@@ -405,9 +439,8 @@
             <button class="btn-action" id="checkSubBtn" onclick="checkSubscription()">Проверить подписку</button>
             <button class="btn-action btn-cashout" id="openCaseBtn" style="display:none;" onclick="startRoulette()">Открыть кейс</button>
             
-            <!-- Таймер на 24 часа -->
             <div id="caseCooldownBlock" style="display:none; color: #facc15; font-size: 15px; font-weight: bold; margin-top: 15px;">
-                ⏳ Следующий бесплатный кейс доступен через: <br>
+                ⏳ Следующий кейс доступен через: <br>
                 <span id="caseTimer" style="font-size: 20px;">24:00:00</span>
             </div>
 
@@ -426,16 +459,22 @@
             <div style="font-size: 32px; font-weight: bold; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px;">
                 ⭐ <span id="profileBalance">15</span>
             </div>
-            <button class="btn-action" onclick="toggleTopUpSection()">ПОПОЛНИТЬ ЗВЕЗДЫ</button>
+            
+            <!-- Кнопка пополнения (как в исходном коде) -->
+            <button class="btn-action" onclick="showTopUpModal()">ПОПОЛНИТЬ ЗВЕЗДЫ</button>
 
-            <!-- Блок пополнения и промокода -->
-            <div class="promo-box" id="topUpSection" style="display:none;">
-                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 10px;">Для покупки напишите в бот: <b style="color:var(--accent-color);">@allDepGame_bot1</b></div>
-                <hr style="border:0; border-top:1px solid var(--border-color); margin:12px 0;">
-                
-                <div style="font-size: 15px; font-weight: bold; margin-bottom: 8px;">Ввести промокод</div>
-                <input type="text" id="promoInput" placeholder="Введите промокод" style="text-transform: uppercase;">
-                <button class="btn-action" onclick="activatePromo()" style="margin-top:8px;">Активировать</button>
+            <!-- Реферальная ссылка -->
+            <div class="ref-box">
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Ваша реферальная ссылка:</div>
+                <input type="text" id="refLinkInput" readonly style="font-size: 13px; padding: 10px; margin-bottom: 8px;">
+                <button class="quick-btn" style="width:100%; padding: 10px; background:var(--accent-color); color:#0b0f19; font-weight:900;" onclick="copyRefLink()">Скопировать ссылку</button>
+            </div>
+
+            <!-- Отдельный блок для промокода -->
+            <div class="promo-box">
+                <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px;">Активировать промокод</div>
+                <input type="text" id="promoInput" placeholder="Введите промокод (popy)" style="text-transform: uppercase;">
+                <button class="btn-action" onclick="activatePromo()" style="margin-top:8px;">Применить</button>
             </div>
         </div>
 
@@ -444,6 +483,22 @@
             <div style="grid-column: span 2; text-align: center; color: var(--text-muted); padding: 20px; font-size: 13px;">
                 Пока пусто. Откройте бесплатный кейс!
             </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно вывода NFT -->
+    <div class="modal-overlay" id="nftModal" onclick="closeNftModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modalNftImg" src="" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
+            <div id="modalNftTitle" style="font-size: 18px; font-weight: bold; margin-bottom: 10px; font-family: 'Outfit', sans-serif;"></div>
+            <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 15px;">
+                Чтобы вывести этот NFT, нужно пригласить <b>5 друзей</b> по вашей реферальной ссылке (они должны зайти в бота и прокрутить бесплатный кейс). 
+                <br><br>
+                Комиссия за вывод составляет <b>50 звезд</b>.
+                <br><br>
+                После этого напишите администратору на аккаунт <a href="https://t.me/allDepGame_bot2" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>, скиньте скриншот 5 приглашенных людей. После проверки вам отправят подарками 50 звезд и отдадут ваш NFT!
+            </div>
+            <button class="btn-action" onclick="document.getElementById('nftModal').style.display='none'">Понятно</button>
         </div>
     </div>
 
@@ -478,7 +533,7 @@
         </div>
     </div>
 
-    <!-- Нижняя навигация (ТОЛЬКО 2 КНОПКИ) -->
+    <!-- Нижняя навигация -->
     <div class="nav-bar">
         <button class="nav-item active" onclick="switchScreen('games')" id="navGames">
             <span>🏠</span> Головна
@@ -492,7 +547,7 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        const userId = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'default_user';
+        const userId = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'user_' + Math.floor(Math.random()*100000);
         const balanceKey = 'allDep_balance_' + userId;
         const inventoryKey = 'allDep_inventory_' + userId;
         const promoKey = 'allDep_promo_used_' + userId;
@@ -520,6 +575,17 @@
             { name: "crypto_king", avatar: "https://i.pravatar.cc/100?img=53" },
             { name: "satoshi99", avatar: "https://i.pravatar.cc/100?img=68" }
         ];
+
+        // Генерация персональной реферальной ссылки по ID бота
+        const botUsername = "allDepGame_bot"; // Замените при необходимости на имя вашего основного бота
+        const refLink = `https://t.me/${botUsername}?start=ref_${userId}`;
+        document.getElementById('refLinkInput').value = refLink;
+
+        function copyRefLink() {
+            navigator.clipboard.writeText(refLink).then(() => {
+                alert("📋 Реферальная ссылка скопирована!");
+            });
+        }
 
         function saveUserData() {
             localStorage.setItem(balanceKey, balance);
@@ -552,9 +618,11 @@
             if(screenName === 'free-case-detail') checkCaseTimer();
         }
 
-        function toggleTopUpSection() {
-            let sec = document.getElementById('topUpSection');
-            sec.style.display = sec.style.display === 'none' ? 'block' : 'none';
+        function showTopUpModal() {
+            let amount = prompt("Выберите сумму звезд для пополнения:");
+            if (amount && !isNaN(amount) && amount > 0) {
+                alert(`Для пополнения на ${amount} звезд напишите в бот: @allDepGame_bot1\n\nПередайте сумму подарками и получите бонус +15%!`);
+            }
         }
 
         function activatePromo() {
@@ -575,7 +643,7 @@
             }
         }
 
-        /* --- БЕСПЛАТНЫЙ КЕЙС И ТАЙМЕР 24Ч --- */
+        /* --- КЕЙСЫ И ТАЙМЕР --- */
         function checkSubscription() {
             let lastOpen = localStorage.getItem(caseTimeKey);
             let now = Date.now();
@@ -672,15 +740,25 @@
                 return;
             }
             let html = '';
-            inventory.forEach((item) => {
+            inventory.forEach((item, index) => {
                 html += `
-                    <div class="gift-item">
+                    <div class="gift-item" onclick="openNftModal('${item.name}', '${item.img}')">
                         <img src="${item.img}" alt="${item.name}">
                         <span style="color:#fff; font-weight:bold; font-size:12px;">${item.name}</span>
                     </div>
                 `;
             });
             invContainer.innerHTML = html;
+        }
+
+        function openNftModal(name, img) {
+            document.getElementById('modalNftImg').src = img;
+            document.getElementById('modalNftTitle').innerText = name;
+            document.getElementById('nftModal').style.display = 'flex';
+        }
+
+        function closeNftModal(e) {
+            document.getElementById('nftModal').style.display = 'none';
         }
 
         /* --- КРАШ ИГРА --- */
