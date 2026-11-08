@@ -324,7 +324,7 @@
         .gift-item:active { transform: scale(0.95); }
         .gift-item img { width: 60px; height: 60px; object-fit: contain; }
 
-        /* Модальное окно вывода NFT */
+        /* Общие модальные окна */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -460,7 +460,7 @@
                 ⭐ <span id="profileBalance">15</span>
             </div>
             
-            <!-- Кнопка пополнения (как в исходном коде) -->
+            <!-- Кнопка пополнения звезд -->
             <button class="btn-action" onclick="showTopUpModal()">ПОПОЛНИТЬ ЗВЕЗДЫ</button>
 
             <!-- Реферальная ссылка -->
@@ -470,11 +470,11 @@
                 <button class="quick-btn" style="width:100%; padding: 10px; background:var(--accent-color); color:#0b0f19; font-weight:900;" onclick="copyRefLink()">Скопировать ссылку</button>
             </div>
 
-            <!-- Отдельный блок для промокода -->
+            <!-- Блок промокода (БЕЗ надписи POPY) -->
             <div class="promo-box">
-                <div style="font-size: 14px; font-weight: bold; margin-bottom: 8px;">Активировать промокод</div>
-                <input type="text" id="promoInput" placeholder="Введите промокод (popy)" style="text-transform: uppercase;">
-                <button class="btn-action" onclick="activatePromo()" style="margin-top:8px;">Применить</button>
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Активировать промокод</div>
+                <input type="text" id="promoInput" placeholder="ВВЕДИТЕ ПРОМОКОД" style="text-transform: uppercase;">
+                <button class="btn-action" onclick="activatePromo()" style="margin-top:8px;">ПРИМЕНИТЬ</button>
             </div>
         </div>
 
@@ -483,6 +483,20 @@
             <div style="grid-column: span 2; text-align: center; color: var(--text-muted); padding: 20px; font-size: 13px;">
                 Пока пусто. Откройте бесплатный кейс!
             </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно пополнения баланса -->
+    <div class="modal-overlay" id="topUpModal" onclick="closeTopUpModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px; font-family: 'Outfit', sans-serif;" id="topUpTitle">Пополнение баланса</div>
+            <div style="font-size: 14px; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 15px;" id="topUpText">
+                Для пополнения напишите в бот: <br>
+                <a href="https://t.me/allDepGame_bot1" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline; font-size: 16px;">@allDepGame_bot1</a>
+                <br><br>
+                Передайте сумму подарками и получите бонус +15%!
+            </div>
+            <button class="btn-action" onclick="document.getElementById('topUpModal').style.display='none'">Гаразд</button>
         </div>
     </div>
 
@@ -496,9 +510,9 @@
                 <br><br>
                 Комиссия за вывод составляет <b>50 звезд</b>.
                 <br><br>
-                После этого напишите администратору на аккаунт <a href="https://t.me/allDepGame_bot2" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>, скиньте скриншот 5 приглашенных людей. После проверки вам отправят подарками 50 звезд и отдадут ваш NFT!
+                После этого напишите администратору на аккаунт <a href="https://t.me/allDepGame_bot2" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>, скиньте скриншот 5 приглашенных людей и оплатите комиссию за вывод просто подарить подарок за 50 звезд. После проверки вам отдадут ваш NFT!
             </div>
-            <button class="btn-action" onclick="document.getElementById('nftModal').style.display='none'">Понятно</button>
+            <button class="btn-action" onclick="document.getElementById('nftModal').style.display='none'">ПОНЯТНО</button>
         </div>
     </div>
 
@@ -550,12 +564,10 @@
         const userId = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'user_' + Math.floor(Math.random()*100000);
         const balanceKey = 'allDep_balance_' + userId;
         const inventoryKey = 'allDep_inventory_' + userId;
-        const promoKey = 'allDep_promo_used_' + userId;
         const caseTimeKey = 'allDep_case_time_' + userId;
 
         let balance = localStorage.getItem(balanceKey) !== null ? parseInt(localStorage.getItem(balanceKey)) : 15;
         let inventory = localStorage.getItem(inventoryKey) ? JSON.parse(localStorage.getItem(inventoryKey)) : [];
-        let isPromoUsed = localStorage.getItem(promoKey) === 'true';
 
         let myBet = 0;
         let inGame = false;
@@ -576,8 +588,7 @@
             { name: "satoshi99", avatar: "https://i.pravatar.cc/100?img=68" }
         ];
 
-        // Генерация персональной реферальной ссылки по ID бота
-        const botUsername = "allDepGame_bot"; // Замените при необходимости на имя вашего основного бота
+        const botUsername = "allDepGame_bot";
         const refLink = `https://t.me/${botUsername}?start=ref_${userId}`;
         document.getElementById('refLinkInput').value = refLink;
 
@@ -621,29 +632,34 @@
         function showTopUpModal() {
             let amount = prompt("Выберите сумму звезд для пополнения:");
             if (amount && !isNaN(amount) && amount > 0) {
-                alert(`Для пополнения на ${amount} звезд напишите в бот: @allDepGame_bot1\n\nПередайте сумму подарками и получите бонус +15%!`);
+                document.getElementById('topUpTitle').innerText = `Пополнение на ${amount} звезд`;
+                document.getElementById('topUpText').innerHTML = `
+                    Для пополнения на <b>${amount} звезд</b> напишите в бот: <br><br>
+                    <a href="https://t.me/allDepGame_bot1" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline; font-size: 18px;">@allDepGame_bot1</a>
+                    <br><br>
+                    Передайте сумму подарками и получите бонус +15%!
+                `;
+                document.getElementById('topUpModal').style.display = 'flex';
             }
         }
 
+        function closeTopUpModal(e) {
+            document.getElementById('topUpModal').style.display = 'none';
+        }
+
+        /* Промокод popy работает БЕСКОНЕЧНО */
         function activatePromo() {
             let code = document.getElementById('promoInput').value.trim().toLowerCase();
             if (code === 'popy') {
-                if (isPromoUsed) {
-                    alert("Вы уже использовали этот промокод!");
-                } else {
-                    balance += 5000;
-                    isPromoUsed = true;
-                    localStorage.setItem(promoKey, 'true');
-                    updateBalanceUI();
-                    alert("🎉 Промокод активирован! Вам зачислено +5000 ⭐!");
-                    document.getElementById('promoInput').value = '';
-                }
+                balance += 5000;
+                updateBalanceUI();
+                alert("🎉 Промокод активирован! Вам зачислено +5000 ⭐!");
+                document.getElementById('promoInput').value = '';
             } else {
                 alert("Неверный промокод!");
             }
         }
 
-        /* --- КЕЙСЫ И ТАЙМЕР --- */
         function checkSubscription() {
             let lastOpen = localStorage.getItem(caseTimeKey);
             let now = Date.now();
@@ -740,7 +756,7 @@
                 return;
             }
             let html = '';
-            inventory.forEach((item, index) => {
+            inventory.forEach((item) => {
                 html += `
                     <div class="gift-item" onclick="openNftModal('${item.name}', '${item.img}')">
                         <img src="${item.img}" alt="${item.name}">
@@ -761,7 +777,6 @@
             document.getElementById('nftModal').style.display = 'none';
         }
 
-        /* --- КРАШ ИГРА --- */
         function addBet(val) {
             let input = document.getElementById('betInput');
             let current = parseInt(input.value) || 0;
