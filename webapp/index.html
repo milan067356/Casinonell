@@ -341,7 +341,7 @@
                 <option value="fire">🔥 Огонь</option>
             </select>
             <div class="balance-box">
-                ⭐ <span id="userBalance">10000</span>
+                ⭐ <span id="userBalance">15</span>
             </div>
         </div>
     </div>
@@ -412,7 +412,7 @@
         <div class="profile-card">
             <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 4px;">Баланс звезд</div>
             <div style="font-size: 30px; font-weight: bold; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px;">
-                ⭐ <span id="profileBalance">10000</span>
+                ⭐ <span id="profileBalance">15</span>
             </div>
             <button class="btn-action" onclick="showTopUpModal()">Пополнить звезды</button>
         </div>
@@ -443,12 +443,12 @@
 
         <div class="bet-control-box" id="betControlBox">
             <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Введите сумму ставки</div>
-            <input type="number" id="betInput" min="5" max="10000" value="100">
+            <input type="number" id="betInput" min="1" max="10000" value="5">
             
             <div class="quick-btns">
-                <button class="quick-btn" onclick="addBet(-50)">-50</button>
-                <button class="quick-btn" onclick="addBet(100)">+100</button>
-                <button class="quick-btn" onclick="addBet(500)">+500</button>
+                <button class="quick-btn" onclick="addBet(-5)">-5</button>
+                <button class="quick-btn" onclick="addBet(5)">+5</button>
+                <button class="quick-btn" onclick="addBet(10)">+10</button>
                 <button class="quick-btn" onclick="setMaxBet()">MAX</button>
             </div>
 
@@ -476,9 +476,15 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Устанавливаем 10000 по умолчанию, если в localStorage еще нет данных
-        let balance = localStorage.getItem('allDep_balance') !== null ? parseInt(localStorage.getItem('allDep_balance')) : 10000;
-        let inventory = localStorage.getItem('allDep_inventory') ? JSON.parse(localStorage.getItem('allDep_inventory')) : [];
+        // Унікальний ключ для кожного користувача Telegram (якщо задіяно WebApp) або спільний кеш
+        // Використовуємо Telegram ID, щоб у кожного гравця був свій незалежний баланс 15 зірок при першому вході
+        const userId = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'default_user';
+        const balanceKey = 'allDep_balance_' + userId;
+        const inventoryKey = 'allDep_inventory_' + userId;
+
+        // Якщо гравець заходить уперше, у нього автоматично буде рівно 15 зірок
+        let balance = localStorage.getItem(balanceKey) !== null ? parseInt(localStorage.getItem(balanceKey)) : 15;
+        let inventory = localStorage.getItem(inventoryKey) ? JSON.parse(localStorage.getItem(inventoryKey)) : [];
 
         let myBet = 0;
         let inGame = false;
@@ -500,8 +506,8 @@
         ];
 
         function saveUserData() {
-            localStorage.setItem('allDep_balance', balance);
-            localStorage.setItem('allDep_inventory', JSON.stringify(inventory));
+            localStorage.setItem(balanceKey, balance);
+            localStorage.setItem(inventoryKey, JSON.stringify(inventory));
         }
 
         function changeTheme() {
@@ -606,7 +612,7 @@
             let input = document.getElementById('betInput');
             let current = parseInt(input.value) || 0;
             let res = current + val;
-            if(res < 5) res = 5;
+            if(res < 1) res = 1;
             input.value = res;
         }
 
@@ -652,7 +658,7 @@
             let count = Math.floor(Math.random() * 3) + 1;
             for(let i=0; i<count; i++) {
                 let u = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
-                let amt = Math.floor(Math.random() * 500) + 50;
+                let amt = Math.floor(Math.random() * 10) + 2;
                 html += `
                     <div class="bet-item">
                         <div class="bet-user"><img src="${u.avatar}"> ${u.name}</div>
@@ -673,8 +679,8 @@
 
         function handleCrashAction() {
             let amount = parseInt(document.getElementById('betInput').value);
-            if (isNaN(amount) || amount < 5 || amount > 10000) {
-                alert("Ставка должна быть от 5 до 10000 звезд!");
+            if (isNaN(amount) || amount < 1 || amount > 10000) {
+                alert("Ставка должна быть от 1 звезды!");
                 return;
             }
             if (balance < amount) {
