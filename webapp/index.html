@@ -5,43 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>allDep</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #0b0f19;
+            --header-bg: #131b2e;
+            --card-bg: linear-gradient(145deg, #162032, #0f172a);
+            --border-color: #334155;
+            --accent-color: #38bdf8;
+            --text-color: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        body.theme-neon {
+            --bg-color: #0f071e;
+            --header-bg: #1c1033;
+            --card-bg: linear-gradient(145deg, #261742, #160c2b);
+            --border-color: #4c2d7a;
+            --accent-color: #d946ef;
+        }
+
+        body.theme-fire {
+            --bg-color: #160808;
+            --header-bg: #260d0d;
+            --card-bg: linear-gradient(145deg, #3d1414, #210a0a);
+            --border-color: #7f2222;
+            --accent-color: #ef4444;
+        }
+
+        body.theme-emerald {
+            --bg-color: #06160f;
+            --header-bg: #0d261b;
+            --card-bg: linear-gradient(145deg, #133827, #0a1f16);
+            --border-color: #1e5c3e;
+            --accent-color: #10b981;
+        }
+
         body {
-            background-color: #0b0f19;
-            color: #ffffff;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            padding-bottom: 75px;
+            padding-bottom: 85px;
+            transition: background-color 0.3s ease;
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            background: #131b2e;
-            border-bottom: 1px solid #1e293b;
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--border-color);
         }
         .logo-font {
             font-family: 'Outfit', sans-serif;
             font-size: 26px;
             font-weight: 900;
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            background: linear-gradient(135deg, var(--accent-color), #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 1px;
         }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .theme-select {
+            background: var(--header-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 6px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+        }
         .balance-box {
-            background: #1e293b;
-            padding: 6px 14px;
+            background: var(--header-bg);
+            padding: 8px 14px;
             border-radius: 20px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             color: #facc15;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .screen { display: none; padding: 20px; }
         .screen.active { display: block; }
@@ -49,12 +102,12 @@
         .main-title {
             text-align: center;
             font-family: 'Outfit', sans-serif;
-            font-size: 28px;
-            font-weight: 900;
+            font-size: 26px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #ffffff;
-            margin: 10px 0 20px 0;
+            letter-spacing: 1.5px;
+            color: var(--text-color);
+            margin: 15px 0 25px 0;
         }
 
         .games-grid {
@@ -63,18 +116,19 @@
             gap: 15px;
         }
         .game-card {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border-radius: 20px;
-            padding: 25px 10px;
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 25px 15px;
             text-align: center;
-            border: 1px solid #334155;
+            border: 1px solid var(--border-color);
             cursor: pointer;
-            transition: transform 0.2s;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            transition: transform 0.2s, border-color 0.2s;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
-        .game-card:active { transform: scale(0.95); }
-        .game-icon { font-size: 50px; margin-bottom: 10px; }
-        .game-title { font-size: 18px; font-weight: bold; color: #ffffff; }
+        .game-card:active { transform: scale(0.96); }
+        .game-card:hover { border-color: var(--accent-color); }
+        .game-icon { font-size: 48px; margin-bottom: 12px; }
+        .game-title { font-size: 17px; font-weight: bold; color: var(--text-color); font-family: 'Outfit', sans-serif; }
 
         .crash-screen { text-align: center; }
         .rocket-container {
@@ -85,9 +139,9 @@
             align-items: center;
             justify-content: center;
             margin: 15px 0;
-            background: radial-gradient(circle, #1e293b 0%, #0b0f19 80%);
-            border-radius: 16px;
-            border: 1px solid #334155;
+            background: radial-gradient(circle, var(--header-bg) 0%, var(--bg-color) 80%);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
             overflow: hidden;
         }
         .rocket { font-size: 55px; transition: transform 0.1s linear; }
@@ -100,63 +154,65 @@
             0% { opacity: 0.7; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.2); }
         }
-        .multiplier { font-size: 48px; font-weight: bold; color: #4ade80; margin: 10px 0; }
+        .multiplier { font-size: 48px; font-weight: bold; color: #4ade80; margin: 10px 0; font-family: 'Outfit', sans-serif; }
         
         .bets-list { 
-            background: #131b2e; 
-            border-radius: 12px; 
-            padding: 10px; 
+            background: var(--header-bg); 
+            border-radius: 16px; 
+            padding: 12px; 
             margin: 15px 0; 
             max-height: 140px; 
             overflow-y: auto; 
             text-align: left; 
-            border: 1px solid #1e293b;
+            border: 1px solid var(--border-color);
         }
-        .bet-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1e293b; font-size: 14px; color: #94a3b8; }
+        .bet-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border-color); font-size: 14px; color: var(--text-muted); }
         
         input, button {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             font-size: 16px;
-            border-radius: 12px;
+            border-radius: 14px;
             border: none;
             outline: none;
             box-sizing: border-box;
-            margin-top: 10px;
+            margin-top: 12px;
             font-weight: bold;
+            font-family: 'Outfit', sans-serif;
         }
-        input { background: #1e293b; color: white; border: 1px solid #475569; text-align: center; }
-        .btn-primary { background: #2563eb; color: white; cursor: pointer; text-decoration: none; display: block; text-align: center; }
-        .btn-primary:active { background: #1d4ed8; }
-        .btn-success { background: #16a34a; color: white; cursor: pointer; }
+        input { background: var(--header-bg); color: var(--text-color); border: 1px solid var(--border-color); text-align: center; }
+        .btn-primary { background: var(--accent-color); color: #000; cursor: pointer; text-decoration: none; display: block; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); font-weight: 800; }
+        .btn-primary:active { opacity: 0.8; }
+        .btn-success { background: #16a34a; color: white; cursor: pointer; box-shadow: 0 4px 15px rgba(22,163,74,0.4); }
 
-        /* Оформление карточки бесплатного кейса с обложкой */
         .case-details {
-            background: #131b2e;
-            border-radius: 20px;
+            background: var(--header-bg);
+            border-radius: 22px;
             padding: 20px;
             text-align: center;
-            border: 1px solid #1e293b;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
         }
         .case-main-img {
             width: 100%;
-            max-width: 280px;
+            max-width: 240px;
             height: auto;
-            border-radius: 16px;
+            border-radius: 18px;
             margin: 0 auto 15px auto;
             display: block;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            background: var(--header-bg);
+            object-fit: contain;
         }
 
-        /* Рулетка вращения */
         .roulette-wrapper {
             position: relative;
             width: 100%;
             height: 110px;
             overflow: hidden;
-            background: #0b0f19;
-            border-radius: 12px;
-            border: 2px solid #38bdf8;
+            background: var(--bg-color);
+            border-radius: 14px;
+            border: 2px solid var(--accent-color);
             margin: 20px 0;
             display: none;
         }
@@ -181,31 +237,69 @@
             min-width: 90px;
             height: 90px;
             margin: 0 5px;
-            background: #1e293b;
-            border-radius: 10px;
+            background: var(--header-bg);
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: 1px solid #334155;
+            border: 1px solid var(--border-color);
         }
-        .roulette-item img { width: 50px; height: 50px; object-fit: contain; }
+        .roulette-item img { width: 45px; height: 45px; object-fit: contain; }
+
+        .profile-card {
+            background: var(--header-bg);
+            border-radius: 22px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        .gifts-section-title {
+            text-align: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #facc15;
+            margin: 25px 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .gifts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .gift-item {
+            background: var(--header-bg);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .gift-item img { width: 55px; height: 55px; object-fit: contain; }
 
         .nav-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: #131b2e;
+            background: var(--header-bg);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            border-top: 1px solid #1e293b;
+            padding: 12px 0;
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            z-index: 100;
         }
         .nav-item {
             background: none;
             border: none;
-            color: #94a3b8;
+            color: var(--text-muted);
             font-size: 13px;
             cursor: pointer;
             display: flex;
@@ -215,23 +309,32 @@
             width: auto;
             padding: 0;
             margin: 0;
+            font-family: 'Outfit', sans-serif;
         }
-        .nav-item.active { color: #38bdf8; }
+        .nav-item.active { color: var(--accent-color); }
     </style>
 </head>
-<body>
+<body id="appBody">
 
     <!-- Шапка -->
     <div class="header">
         <div class="logo-font">allDep</div>
-        <div class="balance-box">
-            ⭐ <span id="userBalance">0</span>
+        <div class="header-right">
+            <select class="theme-select" id="themeSelector" onchange="changeTheme()">
+                <option value="space">🚀 Космос</option>
+                <option value="neon">💎 Неон</option>
+                <option value="fire">🔥 Огонь</option>
+                <option value="emerald">🌿 Смарагд</option>
+            </select>
+            <div class="balance-box">
+                ⭐ <span id="userBalance">10</span>
+            </div>
         </div>
     </div>
 
     <!-- 1. ГЛАВНОЕ МЕНЮ ИГР -->
     <div id="screen-games" class="screen active">
-        <div class="main-title">ИГРЫ</div>
+        <div class="main-title">Игры</div>
         
         <div class="games-grid">
             <div class="game-card" onclick="switchScreen('crash')">
@@ -248,12 +351,12 @@
 
     <!-- 2. СПИСОК КЕЙСОВ -->
     <div id="screen-cases-list" class="screen">
-        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад в меню</button>
-        <div class="main-title">КЕЙСЫ</div>
+        <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад в меню</button>
+        <div class="main-title">Кейсы</div>
 
         <div class="games-grid">
             <div class="game-card" onclick="switchScreen('free-case-detail')">
-                <div class="game-icon">📅</div>
+                <div class="game-icon">🎁</div>
                 <div class="game-title">Бесплатный кейс</div>
             </div>
         </div>
@@ -261,18 +364,16 @@
 
     <!-- 3. ДЕТАЛИ БЕСПЛАТНОГО КЕЙСА -->
     <div id="screen-free-case-detail" class="screen">
-        <button onclick="switchScreen('cases-list')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад к кейсам</button>
+        <button onclick="switchScreen('cases-list')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад к кейсам</button>
         
         <div class="case-details">
-            <!-- Картинка открытого кейса с 3 NFT -->
-            <img class="case-main-img" src="https://telegram.org/file/464/2/vX1t76P6kM8.30730/8816f15ef98533b3ca" alt="Бесплатный кейс">
+            <img class="case-main-img" src="https://i.ibb.co/3m372Y3/image.png" alt="Бесплатный кейс" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4248/4248443.png'">
 
-            <div style="font-size: 22px; font-weight: bold; margin-bottom: 8px;">Бесплатный кейс</div>
-            <div style="font-size: 14px; color: #94a3b8; margin-bottom: 15px;">
-                Подпишись на канал <a href="https://t.me/allDep2" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: bold;">https://t.me/allDep2</a>
+            <div style="font-size: 22px; font-weight: bold; margin-bottom: 8px; font-family: 'Outfit', sans-serif;">Бесплатный кейс</div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 15px;">
+                Подпишись на канал <a href="https://t.me/allDep2" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: bold;">https://t.me/allDep2</a>
             </div>
 
-            <!-- Рулетка вращения -->
             <div class="roulette-wrapper" id="rouletteWrapper">
                 <div class="roulette-center-line"></div>
                 <div class="roulette-track" id="rouletteTrack"></div>
@@ -281,26 +382,36 @@
             <button class="btn-primary" id="checkSubBtn" onclick="checkSubscription()">Проверить подписку</button>
             <button class="btn-success" id="openCaseBtn" style="display:none;" onclick="startRoulette()">Открыть кейс</button>
 
-            <!-- Результат выигрыша -->
             <div id="winResultBlock" style="display:none; margin-top: 15px;">
                 <div style="font-size: 16px; color: #4ade80; font-weight: bold; margin-bottom: 10px;" id="winNftName"></div>
-                <button class="btn-primary" onclick="goToInventory()">В инвентарь</button>
+                <button class="btn-primary" onclick="goToInventoryFromWin()">В инвентарь</button>
             </div>
         </div>
     </div>
 
-    <!-- 4. ИНВЕНТАРЬ -->
-    <div id="screen-inventory" class="screen">
-        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад в меню</button>
-        <div class="main-title">ИНВЕНТАРЬ</div>
-        <div id="inventoryItems" style="background: #131b2e; padding: 15px; border-radius: 12px; min-height: 80px; font-size: 14px; color: #94a3b8; border: 1px solid #1e293b;">
-            Пока пусто. Откройте бесплатный кейс!
+    <!-- 4. ПРОФИЛЬ -->
+    <div id="screen-profile" class="screen">
+        <div class="main-title">Профиль</div>
+        
+        <div class="profile-card">
+            <div style="font-size: 15px; color: var(--text-muted); margin-bottom: 5px;">Ваш баланс звезд</div>
+            <div style="font-size: 32px; font-weight: bold; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px;">
+                ⭐ <span id="profileBalance">10</span>
+            </div>
+            <button class="btn-primary" onclick="showTopUpModal()">Пополнить звезды</button>
+        </div>
+
+        <div class="gifts-section-title">Подарки</div>
+        <div class="gifts-grid" id="inventoryItems">
+            <div style="grid-column: span 2; text-align: center; color: var(--text-muted); padding: 20px; font-size: 14px;">
+                Пока пусто. Откройте бесплатный кейс, чтобы получить NFT!
+            </div>
         </div>
     </div>
 
     <!-- 5. КРАШ -->
     <div id="screen-crash" class="screen crash-screen">
-        <button onclick="switchScreen('games')" style="background:none; color:#38bdf8; width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад в меню</button>
+        <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px;">← Назад в меню</button>
         
         <div style="font-size: 15px; font-weight: bold; color: #facc15;" id="crashStatus">Ожидание ставки (7с)</div>
         
@@ -315,19 +426,19 @@
         </div>
 
         <div id="betControl">
-            <input type="number" id="betInput" min="5" max="10000" value="100" placeholder="Ставка (5 - 10000)">
+            <input type="number" id="betInput" min="5" max="10000" value="10" placeholder="Ставка (5 - 10000)">
             <button class="btn-primary" onclick="placeCrashBet()">Сделать ставку</button>
         </div>
         <button id="cashoutBtn" class="btn-success" style="display:none;" onclick="cashOut()">Забрать выигрыш</button>
     </div>
 
-    <!-- Нижняя навигация -->
+    <!-- Навигация -->
     <div class="nav-bar">
-        <button class="nav-item active" onclick="switchScreen('games')">
+        <button class="nav-item active" onclick="switchScreen('games')" id="navGames">
             <span>🎮</span> Игры
         </button>
-        <button class="nav-item" onclick="switchScreen('cases-list')">
-            <span>🎁</span> Кейсы
+        <button class="nav-item" onclick="switchScreen('profile')" id="navProfile">
+            <span>👤</span> Профиль
         </button>
     </div>
 
@@ -335,7 +446,7 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        let balance = 0;
+        let balance = 10;
         let myBet = 0;
         let inGame = false;
         let hasBetThisRound = false;
@@ -344,15 +455,25 @@
         let inventory = [];
 
         const nftList = [
-            { name: "Lucky Locket", img: "https://telegram.org/file/464/2/vX1t76P6kM8.30730/8816f15ef98533b3ca" },
-            { name: "Jelly Bunny", img: "https://telegram.org/file/464/3/yG4F10l-jCg.30731/c1bf603a1658b1480f" },
-            { name: "Eternal Candle", img: "https://telegram.org/file/464/1/sN6w_6JvGjU.30729/bf8d313ca16e254b03" }
+            { name: "Lucky Locket", img: "https://i.ibb.co/3m372Y3/image.png" },
+            { name: "Jelly Bunny", img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
+            { name: "Eternal Candle", img: "https://cdn-icons-png.flaticon.com/512/2933/2933934.png" }
         ];
 
         const fakeUsers = ["vortex", "crypto_king", "satoshi99", "lucifer", "ton_holder", "max1mb", "twix027"];
 
+        function changeTheme() {
+            let theme = document.getElementById('themeSelector').value;
+            let body = document.getElementById('appBody');
+            body.className = '';
+            if (theme === 'neon') body.classList.add('theme-neon');
+            else if (theme === 'fire') body.classList.add('theme-fire');
+            else if (theme === 'emerald') body.classList.add('theme-emerald');
+        }
+
         function updateBalanceUI() {
             document.getElementById('userBalance').innerText = balance;
+            document.getElementById('profileBalance').innerText = balance;
         }
 
         function switchScreen(screenName) {
@@ -360,9 +481,22 @@
                 s.classList.remove('active');
                 if(s.id === 'screen-' + screenName) s.classList.add('active');
             });
-            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-            if(screenName.includes('case')) document.querySelectorAll('.nav-item')[1].classList.add('active');
-            else document.querySelectorAll('.nav-item')[0].classList.add('active');
+            document.getElementById('navGames').classList.remove('active');
+            document.getElementById('navProfile').classList.remove('active');
+            
+            if(screenName === 'profile') {
+                document.getElementById('navProfile').classList.add('active');
+                renderInventory();
+            } else {
+                document.getElementById('navGames').classList.add('active');
+            }
+        }
+
+        function showTopUpModal() {
+            let amount = prompt("Выберите сумму звезд для пополнения:");
+            if (amount && !isNaN(amount) && amount > 0) {
+                alert(`Для пополнения на ${amount} звезд напишите в бот: @allDepGame_bot1\n\nПередайте сумму подарками и получите бонус +15%!`);
+            }
         }
 
         function checkSubscription() {
@@ -410,19 +544,26 @@
             }, 4500);
         }
 
-        function goToInventory() {
+        function goToInventoryFromWin() {
+            switchScreen('profile');
+        }
+
+        function renderInventory() {
             let invContainer = document.getElementById('inventoryItems');
+            if (inventory.length === 0) {
+                invContainer.innerHTML = `<div style="grid-column: span 2; text-align: center; color: var(--text-muted); padding: 20px; font-size: 14px;">Пока пусто. Откройте бесплатный кейс, чтобы получить NFT!</div>`;
+                return;
+            }
             let html = '';
             inventory.forEach((item) => {
                 html += `
-                    <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #1e293b;">
-                        <img src="${item.img}" style="width:35px; height:35px; object-fit:contain;">
-                        <span style="color:#fff; font-weight:bold;">${item.name}</span>
+                    <div class="gift-item">
+                        <img src="${item.img}" alt="${item.name}">
+                        <span style="color:#fff; font-weight:bold; font-size:13px;">${item.name}</span>
                     </div>
                 `;
             });
             invContainer.innerHTML = html;
-            switchScreen('inventory');
         }
 
         function initCrashGame() {
@@ -461,7 +602,7 @@
                 html += `<div class="bet-item"><span>${user}</span> <span>⭐ ${amt}</span></div>`;
             }
             if (hasBetThisRound) {
-                html += `<div class="bet-item" style="color:#38bdf8; font-weight:bold;"><span>Вы (Ставка)</span> <span>⭐ ${myBet}</span></div>`;
+                html += `<div class="bet-item" style="color:var(--accent-color); font-weight:bold;"><span>Вы (Ставка)</span> <span>⭐ ${myBet}</span></div>`;
             }
             list.innerHTML = html;
         }
@@ -473,7 +614,7 @@
                 return;
             }
             if (balance < amount) {
-                alert("Недостаточно звезд на балансе! Ваш баланс: 0 ⭐");
+                alert("Недостаточно звезд на балансе!");
                 return;
             }
 
@@ -556,6 +697,7 @@
             setTimeout(runWaitingPhase, 3500);
         }
 
+        updateBalanceUI();
         initCrashGame();
     </script>
 </body>
