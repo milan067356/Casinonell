@@ -10,7 +10,6 @@ import uvicorn
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 
-# Безпечно отримуємо токен зі змінних середовища Render
 TOKEN = os.getenv("BOT_TOKEN")
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
@@ -20,14 +19,13 @@ async def cmd_start(message: types.Message):
     web_app_url = "https://casinonell-3.onrender.com"
     kb = types.InlineKeyboardMarkup(
         inline_keyboard=[
-            [types.InlineKeyboardButton(text="🎮 Грати в Casinonell", web_app=types.WebAppInfo(url=web_app_url))]
+            [types.InlineKeyboardButton(text="🎮 Играть", web_app=types.WebAppInfo(url=web_app_url))]
         ]
     )
-    await message.answer("Вітаємо у Casinonell! Натисніть кнопку нижче, щоб відкрити міні-апку:", reply_markup=kb)
+    await message.answer("Добро пожаловать в allDep, что бы играть нажми играть", reply_markup=kb)
 
 app = FastAPI()
 
-# Роздача статичних файлів (HTML, JS, CSS) із папки webapp
 app.mount("/static", StaticFiles(directory="webapp"), name="static")
 
 @app.on_event("startup")
@@ -35,7 +33,6 @@ async def startup():
     await init_db()
     if engine.current_round is None:
         engine.start_new_round()
-    # Реєструємо вебхук у Telegram при запуску
     webhook_url = "https://casinonell-3.onrender.com/webhook"
     await bot.set_webhook(webhook_url)
 
@@ -94,11 +91,11 @@ async def get_state(user_id: int = 0):
 async def place_bet(data: BetRequest):
     balance = await get_balance(data.user_id)
     if balance < data.amount:
-        return {"ok": False, "error": "Недостатньо зірок"}
+        return {"ok": False, "error": "Недостаточно звезд"}
     if engine.place_bet(data.user_id, data.amount):
         await change_balance(data.user_id, -data.amount)
         return {"ok": True}
-    return {"ok": False, "error": "Ставки зараз не приймаються"}
+    return {"ok": False, "error": "Ставки сейчас не принимаются"}
 
 @app.post("/api/cashout")
 async def cashout(data: CashoutRequest):
