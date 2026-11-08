@@ -106,42 +106,43 @@
         .game-card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 20px 10px;
+            padding: 25px 10px;
             text-align: center;
             border: 1px solid var(--border-color);
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         .game-card:active { transform: scale(0.96); }
-        .game-icon { font-size: 42px; margin-bottom: 8px; }
-        .game-title { font-size: 16px; font-weight: bold; color: var(--text-color); font-family: 'Outfit', sans-serif; }
+        .game-icon { font-size: 46px; margin-bottom: 10px; }
+        .game-title { font-size: 17px; font-weight: bold; color: var(--text-color); font-family: 'Outfit', sans-serif; }
 
+        /* Увеличенная красивейшая Краш игра */
         .crash-screen { text-align: center; }
         .rocket-container {
             position: relative;
-            height: 180px;
+            height: 260px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 10px 0;
-            background: radial-gradient(circle, #1e293b 0%, #0b0f19 85%);
-            border-radius: 20px;
+            background: radial-gradient(circle at center, #1e293b 0%, #080c14 90%);
+            border-radius: 24px;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 8px 30px rgba(0,0,0,0.5);
         }
-        .rocket { font-size: 55px; transition: transform 0.1s linear; }
+        .rocket { font-size: 70px; transition: transform 0.1s linear; filter: drop-shadow(0 0 15px var(--accent-glow)); }
         .fire {
-            font-size: 24px;
-            margin-top: -10px;
-            animation: flicker 0.15s infinite alternate;
+            font-size: 32px;
+            margin-top: -15px;
+            animation: flicker 0.12s infinite alternate;
         }
         @keyframes flicker {
-            0% { opacity: 0.7; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.25); }
+            0% { opacity: 0.6; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1.3); }
         }
-        .multiplier { font-size: 46px; font-weight: 900; color: #4ade80; margin: 5px 0; font-family: 'Outfit', sans-serif; text-shadow: 0 0 15px rgba(74,222,128,0.4); }
+        .multiplier { font-size: 52px; font-weight: 900; color: #4ade80; margin: 5px 0; font-family: 'Outfit', sans-serif; text-shadow: 0 0 20px rgba(74,222,128,0.5); }
         
         .bet-control-box {
             background: var(--header-bg);
@@ -208,7 +209,7 @@
             border-radius: 16px; 
             padding: 12px; 
             margin: 15px 0; 
-            max-height: 150px; 
+            max-height: 130px; 
             overflow-y: auto; 
             text-align: left; 
             border: 1px solid var(--border-color);
@@ -217,6 +218,7 @@
         .bet-user { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: bold; }
         .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
 
+        /* Кейсы */
         .case-details {
             background: var(--header-bg);
             border-radius: 20px;
@@ -226,7 +228,7 @@
         }
         .case-main-img {
             width: 100%;
-            max-width: 220px;
+            max-width: 200px;
             height: auto;
             border-radius: 16px;
             margin: 0 auto 15px auto;
@@ -274,8 +276,9 @@
             justify-content: center;
             border: 1px solid var(--border-color);
         }
-        .roulette-item img { width: 45px; height: 45px; object-fit: contain; }
+        .roulette-item img { width: 48px; height: 48px; object-fit: contain; }
 
+        /* Профиль */
         .profile-card {
             background: var(--header-bg);
             border-radius: 20px;
@@ -284,6 +287,14 @@
             border: 1px solid var(--border-color);
             margin-bottom: 20px;
         }
+        .promo-box {
+            background: #0b0f19;
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid var(--border-color);
+        }
+
         .gifts-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -300,8 +311,9 @@
             align-items: center;
             gap: 8px;
         }
-        .gift-item img { width: 55px; height: 55px; object-fit: contain; }
+        .gift-item img { width: 60px; height: 60px; object-fit: contain; }
 
+        /* Только 2 кнопки снизу (Главная и Профиль) */
         .nav-bar {
             position: fixed;
             bottom: 0;
@@ -310,7 +322,7 @@
             background: var(--header-bg);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 12px 0;
             border-top: 1px solid var(--border-color);
             box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
             z-index: 100;
@@ -319,19 +331,21 @@
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 13px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 4px;
             font-family: 'Outfit', sans-serif;
+            width: 50%;
         }
         .nav-item.active { color: var(--accent-color); }
     </style>
 </head>
 <body id="appBody">
 
+    <!-- Шапка -->
     <div class="header">
         <div class="logo-font">allDep</div>
         <div class="header-right">
@@ -346,7 +360,7 @@
         </div>
     </div>
 
-    <!-- 1. ИГРЫ -->
+    <!-- 1. ИГРЫ (ГЛАВНАЯ) -->
     <div id="screen-games" class="screen active">
         <div class="main-title">Игры</div>
         <div class="games-grid">
@@ -377,7 +391,7 @@
     <div id="screen-free-case-detail" class="screen">
         <button onclick="switchScreen('cases-list')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px; border:none; cursor:pointer;">← Назад к кейсам</button>
         <div class="case-details">
-            <img class="case-main-img" src="https://i.ibb.co/3m372Y3/image.png" alt="Кейс" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4248/4248443.png'">
+            <img class="case-main-img" src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png" alt="Кейс">
             <div style="font-size: 20px; font-weight: bold; margin-bottom: 6px; font-family: 'Outfit', sans-serif;">Бесплатный кейс</div>
             <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
                 Подпишись на канал <a href="https://t.me/allDep2" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: bold;">https://t.me/allDep2</a>
@@ -390,31 +404,39 @@
 
             <button class="btn-action" id="checkSubBtn" onclick="checkSubscription()">Проверить подписку</button>
             <button class="btn-action btn-cashout" id="openCaseBtn" style="display:none;" onclick="startRoulette()">Открыть кейс</button>
+            
+            <!-- Таймер на 24 часа -->
+            <div id="caseCooldownBlock" style="display:none; color: #facc15; font-size: 15px; font-weight: bold; margin-top: 15px;">
+                ⏳ Следующий бесплатный кейс доступен через: <br>
+                <span id="caseTimer" style="font-size: 20px;">24:00:00</span>
+            </div>
 
             <div id="winResultBlock" style="display:none; margin-top: 15px;">
-                <div style="font-size: 15px; color: #4ade80; font-weight: bold; margin-bottom: 10px;" id="winNftName"></div>
+                <div style="font-size: 16px; color: #4ade80; font-weight: bold; margin-bottom: 10px;" id="winNftName"></div>
                 <button class="btn-action" onclick="switchScreen('profile')">В инвентарь</button>
             </div>
         </div>
     </div>
 
-    <!-- 4. ЛИДЕРЫ -->
-    <div id="screen-leaders" class="screen">
-        <div class="main-title">Лидеры</div>
-        <div style="background: var(--header-bg); border-radius: 16px; padding: 20px; text-align: center; border: 1px solid var(--border-color); color: var(--text-muted);">
-            👑 Топ игроков формируется в реальном времени...
-        </div>
-    </div>
-
-    <!-- 5. ПРОФИЛЬ -->
+    <!-- 4. ПРОФИЛЬ -->
     <div id="screen-profile" class="screen">
         <div class="main-title">Профиль</div>
         <div class="profile-card">
             <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 4px;">Баланс звезд</div>
-            <div style="font-size: 30px; font-weight: bold; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px;">
+            <div style="font-size: 32px; font-weight: bold; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px;">
                 ⭐ <span id="profileBalance">15</span>
             </div>
-            <button class="btn-action" onclick="showTopUpModal()">Пополнить звезды</button>
+            <button class="btn-action" onclick="toggleTopUpSection()">ПОПОЛНИТЬ ЗВЕЗДЫ</button>
+
+            <!-- Блок пополнения и промокода -->
+            <div class="promo-box" id="topUpSection" style="display:none;">
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 10px;">Для покупки напишите в бот: <b style="color:var(--accent-color);">@allDepGame_bot1</b></div>
+                <hr style="border:0; border-top:1px solid var(--border-color); margin:12px 0;">
+                
+                <div style="font-size: 15px; font-weight: bold; margin-bottom: 8px;">Ввести промокод</div>
+                <input type="text" id="promoInput" placeholder="Введите промокод" style="text-transform: uppercase;">
+                <button class="btn-action" onclick="activatePromo()" style="margin-top:8px;">Активировать</button>
+            </div>
         </div>
 
         <div style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #facc15; margin: 20px 0 10px 0; text-transform: uppercase;">Подарки (Инвентарь)</div>
@@ -425,7 +447,7 @@
         </div>
     </div>
 
-    <!-- 6. КРАШ ИГРА -->
+    <!-- 5. КРАШ ИГРА -->
     <div id="screen-crash" class="screen crash-screen">
         <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:8px; font-size:14px; border:none; cursor:pointer;">← Назад в меню</button>
         
@@ -456,16 +478,10 @@
         </div>
     </div>
 
-    <!-- Нижняя навигация -->
+    <!-- Нижняя навигация (ТОЛЬКО 2 КНОПКИ) -->
     <div class="nav-bar">
         <button class="nav-item active" onclick="switchScreen('games')" id="navGames">
             <span>🏠</span> Головна
-        </button>
-        <button class="nav-item" onclick="switchScreen('cases-list')" id="navCases">
-            <span>🎁</span> Кейсы
-        </button>
-        <button class="nav-item" onclick="switchScreen('leaders')" id="navLeaders">
-            <span>🏆</span> Лидери
         </button>
         <button class="nav-item" onclick="switchScreen('profile')" id="navProfile">
             <span>👤</span> Профиль
@@ -476,15 +492,15 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Унікальний ключ для кожного користувача Telegram (якщо задіяно WebApp) або спільний кеш
-        // Використовуємо Telegram ID, щоб у кожного гравця був свій незалежний баланс 15 зірок при першому вході
         const userId = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'default_user';
         const balanceKey = 'allDep_balance_' + userId;
         const inventoryKey = 'allDep_inventory_' + userId;
+        const promoKey = 'allDep_promo_used_' + userId;
+        const caseTimeKey = 'allDep_case_time_' + userId;
 
-        // Якщо гравець заходить уперше, у нього автоматично буде рівно 15 зірок
         let balance = localStorage.getItem(balanceKey) !== null ? parseInt(localStorage.getItem(balanceKey)) : 15;
         let inventory = localStorage.getItem(inventoryKey) ? JSON.parse(localStorage.getItem(inventoryKey)) : [];
+        let isPromoUsed = localStorage.getItem(promoKey) === 'true';
 
         let myBet = 0;
         let inGame = false;
@@ -493,7 +509,7 @@
         let crashInterval = null;
 
         const nftList = [
-            { name: "Lucky Locket", img: "https://i.ibb.co/3m372Y3/image.png" },
+            { name: "Lucky Plush", img: "https://cdn-icons-png.flaticon.com/512/3082/3082060.png" },
             { name: "Jelly Bunny", img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
             { name: "Eternal Candle", img: "https://cdn-icons-png.flaticon.com/512/2933/2933934.png" }
         ];
@@ -530,24 +546,81 @@
             
             document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
             if(screenName === 'profile') document.getElementById('navProfile').classList.add('active');
-            else if(screenName.includes('case')) document.getElementById('navCases').classList.add('active');
-            else if(screenName === 'leaders') document.getElementById('navLeaders').classList.add('active');
             else document.getElementById('navGames').classList.add('active');
 
             if(screenName === 'profile') renderInventory();
+            if(screenName === 'free-case-detail') checkCaseTimer();
         }
 
-        function showTopUpModal() {
-            let amount = prompt("Выберите сумму звезд для пополнения:");
-            if (amount && !isNaN(amount) && amount > 0) {
-                alert(`Для пополнения на ${amount} звезд напишите в бот: @allDepGame_bot1\n\nПередайте сумму подарками и получите бонус +15%!`);
+        function toggleTopUpSection() {
+            let sec = document.getElementById('topUpSection');
+            sec.style.display = sec.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function activatePromo() {
+            let code = document.getElementById('promoInput').value.trim().toLowerCase();
+            if (code === 'popy') {
+                if (isPromoUsed) {
+                    alert("Вы уже использовали этот промокод!");
+                } else {
+                    balance += 5000;
+                    isPromoUsed = true;
+                    localStorage.setItem(promoKey, 'true');
+                    updateBalanceUI();
+                    alert("🎉 Промокод активирован! Вам зачислено +5000 ⭐!");
+                    document.getElementById('promoInput').value = '';
+                }
+            } else {
+                alert("Неверный промокод!");
             }
         }
 
+        /* --- БЕСПЛАТНЫЙ КЕЙС И ТАЙМЕР 24Ч --- */
         function checkSubscription() {
+            let lastOpen = localStorage.getItem(caseTimeKey);
+            let now = Date.now();
+
+            if (lastOpen && (now - parseInt(lastOpen) < 24 * 60 * 60 * 1000)) {
+                alert("Вы уже открывали кейс сегодня! Дождитесь окончания таймера.");
+                return;
+            }
+
             document.getElementById('checkSubBtn').style.display = 'none';
             document.getElementById('openCaseBtn').style.display = 'block';
-            alert("Подписка подтверждена! Теперь вы можете открыть кейс.");
+            alert("Подписка подтверждена! Открывайте кейс!");
+        }
+
+        function checkCaseTimer() {
+            let lastOpen = localStorage.getItem(caseTimeKey);
+            let now = Date.now();
+            let cdBlock = document.getElementById('caseCooldownBlock');
+            let checkBtn = document.getElementById('checkSubBtn');
+
+            if (lastOpen && (now - parseInt(lastOpen) < 24 * 60 * 60 * 1000)) {
+                checkBtn.style.display = 'none';
+                document.getElementById('openCaseBtn').style.display = 'none';
+                cdBlock.style.display = 'block';
+                startCaseTimer(24 * 60 * 60 * 1000 - (now - parseInt(lastOpen)));
+            } else {
+                cdBlock.style.display = 'none';
+                checkBtn.style.display = 'block';
+            }
+        }
+
+        function startCaseTimer(timeLeft) {
+            let timerElem = document.getElementById('caseTimer');
+            let interval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    checkCaseTimer();
+                    return;
+                }
+                timeLeft -= 1000;
+                let hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                timerElem.innerText = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
         }
 
         function startRoulette() {
@@ -584,9 +657,11 @@
 
             setTimeout(() => {
                 inventory.push(wonNft);
+                localStorage.setItem(caseTimeKey, Date.now());
                 saveUserData();
                 document.getElementById('winNftName').innerText = `🎉 Вам выпало: ${wonNft.name}`;
                 document.getElementById('winResultBlock').style.display = 'block';
+                checkCaseTimer();
             }, 4500);
         }
 
@@ -608,6 +683,7 @@
             invContainer.innerHTML = html;
         }
 
+        /* --- КРАШ ИГРА --- */
         function addBet(val) {
             let input = document.getElementById('betInput');
             let current = parseInt(input.value) || 0;
@@ -740,8 +816,8 @@
                     updateCashoutButtonText();
                 }
 
-                rocketPos -= 2;
-                if(rocketPos > -40) document.getElementById('rocketIcon').style.transform = `translateY(${rocketPos}px)`;
+                rocketPos -= 3;
+                if(rocketPos > -65) document.getElementById('rocketIcon').style.transform = `translateY(${rocketPos}px)`;
 
                 if (multiplier >= crashPoint) {
                     clearInterval(crashInterval);
