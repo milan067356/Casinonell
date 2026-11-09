@@ -13,7 +13,8 @@
             --card-bg: linear-gradient(145deg, #162032, #0f172a);
             --border-color: #2a374a;
             --accent-color: #00ffcc;
-            --accent-glow: rgba(0,255,204,0.4);
+            --accent-glow: 0 0 15px rgba(0,255,204,0.5), inset 0 0 10px rgba(0,255,204,0.2);
+            --btn-glow: 0 4px 20px rgba(0,255,204,0.4);
             --text-color: #ffffff;
             --text-muted: #94a3b8;
         }
@@ -24,7 +25,8 @@
             --card-bg: linear-gradient(145deg, #261742, #160c2b);
             --border-color: #4c2d7a;
             --accent-color: #d946ef;
-            --accent-glow: rgba(217,70,239,0.4);
+            --accent-glow: 0 0 15px rgba(217,70,239,0.5), inset 0 0 10px rgba(217,70,239,0.2);
+            --btn-glow: 0 4px 20px rgba(217,70,239,0.4);
         }
 
         body.theme-fire {
@@ -33,7 +35,8 @@
             --card-bg: linear-gradient(145deg, #3d1414, #210a0a);
             --border-color: #7f2222;
             --accent-color: #ef4444;
-            --accent-glow: rgba(239,68,68,0.4);
+            --accent-glow: 0 0 15px rgba(239,68,68,0.5), inset 0 0 10px rgba(239,68,68,0.2);
+            --btn-glow: 0 4px 20px rgba(239,68,68,0.4);
         }
 
         body {
@@ -71,6 +74,7 @@
             font-size: 12px;
             outline: none;
             cursor: pointer;
+            box-shadow: var(--btn-glow);
         }
         .balance-box {
             background: var(--header-bg);
@@ -83,6 +87,7 @@
             align-items: center;
             gap: 5px;
             border: 1px solid var(--border-color);
+            box-shadow: var(--btn-glow);
         }
         .screen { display: none; padding: 16px; }
         .screen.active { display: block; }
@@ -110,13 +115,36 @@
             text-align: center;
             border: 1px solid var(--border-color);
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: var(--btn-glow);
+            transition: transform 0.2s;
         }
         .game-card:active { transform: scale(0.96); }
         .game-icon { font-size: 46px; margin-bottom: 10px; }
         .game-title { font-size: 17px; font-weight: bold; color: var(--text-color); font-family: 'Outfit', sans-serif; }
 
-        /* Краш игра */
+        /* Ряд последних коэффициентов */
+        .history-bar {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 6px 10px;
+            background: rgba(19, 27, 46, 0.7);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+            white-space: nowrap;
+        }
+        .history-chip {
+            background: #0b0f19;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #4ade80;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Краш игра с графиком и неоном */
         .crash-screen { text-align: center; }
         .rocket-container {
             position: relative;
@@ -130,19 +158,30 @@
             border-radius: 24px;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 8px 30px rgba(0,0,0,0.5);
+            box-shadow: var(--accent-glow);
         }
-        .rocket { font-size: 70px; transition: transform 0.1s linear; filter: drop-shadow(0 0 15px var(--accent-glow)); }
+        /* Динамическая линия графики */
+        .curve-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+        .rocket { font-size: 70px; transition: transform 0.1s linear; filter: drop-shadow(0 0 15px var(--accent-color)); z-index: 2; }
         .fire {
             font-size: 32px;
             margin-top: -15px;
             animation: flicker 0.12s infinite alternate;
+            z-index: 2;
         }
         @keyframes flicker {
             0% { opacity: 0.6; transform: scale(0.9); }
             100% { opacity: 1; transform: scale(1.3); }
         }
-        .multiplier { font-size: 52px; font-weight: 900; color: #4ade80; margin: 5px 0; font-family: 'Outfit', sans-serif; text-shadow: 0 0 20px rgba(74,222,128,0.5); }
+        .multiplier { font-size: 52px; font-weight: 900; color: #4ade80; margin: 5px 0; font-family: 'Outfit', sans-serif; text-shadow: 0 0 20px rgba(74,222,128,0.5); z-index: 2; }
         
         .bet-control-box {
             background: var(--header-bg);
@@ -150,6 +189,7 @@
             padding: 15px;
             border: 1px solid var(--border-color);
             margin-top: 15px;
+            box-shadow: var(--btn-glow);
         }
         .quick-btns {
             display: flex;
@@ -182,6 +222,7 @@
             text-align: center;
             font-weight: bold;
             font-family: 'Outfit', sans-serif;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
         }
         
         .btn-action {
@@ -198,8 +239,9 @@
             background: var(--accent-color);
             color: #0b0f19;
             cursor: pointer;
-            box-shadow: 0 4px 20px var(--accent-glow);
+            box-shadow: var(--btn-glow);
             text-transform: uppercase;
+            transition: all 0.2s ease;
         }
         .btn-action:active { opacity: 0.8; transform: scale(0.98); }
         .btn-cashout { background: #10b981; color: #fff; box-shadow: 0 4px 20px rgba(16,185,129,0.5); }
@@ -218,22 +260,23 @@
         .bet-user { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: bold; }
         .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
 
-        /* Кейсы */
+        /* Кейсы со стикерами/картинками */
         .case-details {
             background: var(--header-bg);
             border-radius: 20px;
             padding: 20px;
             text-align: center;
             border: 1px solid var(--border-color);
+            box-shadow: var(--btn-glow);
         }
         .case-main-img {
             width: 100%;
-            max-width: 200px;
+            max-width: 180px;
             height: auto;
             border-radius: 16px;
             margin: 0 auto 15px auto;
             display: block;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
         }
 
         .roulette-wrapper {
@@ -246,6 +289,7 @@
             border: 2px solid var(--accent-color);
             margin: 15px 0;
             display: none;
+            box-shadow: var(--accent-glow);
         }
         .roulette-center-line {
             position: absolute;
@@ -256,6 +300,7 @@
             background: #facc15;
             z-index: 10;
             transform: translateX(-50%);
+            box-shadow: 0 0 10px #facc15;
         }
         .roulette-track {
             display: flex;
@@ -268,7 +313,7 @@
             min-width: 90px;
             height: 90px;
             margin: 0 5px;
-            background: var(--header-bg);
+            background: var(--card-bg);
             border-radius: 12px;
             display: flex;
             flex-direction: column;
@@ -276,7 +321,7 @@
             justify-content: center;
             border: 1px solid var(--border-color);
         }
-        .roulette-item img { width: 48px; height: 48px; object-fit: contain; }
+        .roulette-item img { width: 50px; height: 50px; object-fit: contain; }
 
         /* Профиль */
         .profile-card {
@@ -286,6 +331,7 @@
             text-align: center;
             border: 1px solid var(--border-color);
             margin-bottom: 20px;
+            box-shadow: var(--btn-glow);
         }
         .promo-box {
             background: #0b0f19;
@@ -319,12 +365,13 @@
             align-items: center;
             gap: 8px;
             cursor: pointer;
+            box-shadow: var(--btn-glow);
             transition: transform 0.2s;
         }
         .gift-item:active { transform: scale(0.95); }
-        .gift-item img { width: 60px; height: 60px; object-fit: contain; }
+        .gift-item img { width: 65px; height: 65px; object-fit: contain; }
 
-        /* Общие модальные окна */
+        /* Модальные окна */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -344,7 +391,7 @@
             text-align: center;
             max-width: 340px;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), var(--accent-glow);
         }
 
         /* Навигация */
@@ -358,7 +405,7 @@
             justify-content: space-around;
             padding: 12px 0;
             border-top: 1px solid var(--border-color);
-            box-shadow: -4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
             z-index: 100;
         }
         .nav-item {
@@ -425,7 +472,8 @@
     <div id="screen-free-case-detail" class="screen">
         <button onclick="switchScreen('cases-list')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px; border:none; cursor:pointer;">← Назад к кейсам</button>
         <div class="case-details">
-            <img class="case-main-img" src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png" alt="Кейс">
+            <!-- Красивая реальная картинка кейса с пачки изображений -->
+            <img class="case-main-img" src="https://cdn-icons-png.flaticon.com/512/3082/3082060.png" alt="Кейс">
             <div style="font-size: 20px; font-weight: bold; margin-bottom: 6px; font-family: 'Outfit', sans-serif;">Бесплатный кейс</div>
             <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
                 Подпишись на канал <a href="https://t.me/allDep2" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: bold;">https://t.me/allDep2</a>
@@ -470,7 +518,7 @@
                 <button class="quick-btn" style="width:100%; padding: 10px; background:var(--accent-color); color:#0b0f19; font-weight:900;" onclick="copyRefLink()">Скопировать ссылку</button>
             </div>
 
-            <!-- Блок промокода (БЕЗ надписи POPY) -->
+            <!-- Блок промокода (чистое поле ввода без лишних подсказок) -->
             <div class="promo-box">
                 <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Активировать промокод</div>
                 <input type="text" id="promoInput" placeholder="ВВЕДИТЕ ПРОМОКОД" style="text-transform: uppercase;">
@@ -508,9 +556,7 @@
             <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 15px;">
                 Чтобы вывести этот NFT, нужно пригласить <b>5 друзей</b> по вашей реферальной ссылке (они должны зайти в бота и прокрутить бесплатный кейс). 
                 <br><br>
-                Комиссия за вывод составляет <b>50 звезд</b>.
-                <br><br>
-                После этого напишите администратору на аккаунт <a href="https://t.me/allDepGame_bot2" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>, скиньте скриншот 5 приглашенных людей и оплатите комиссию за вывод просто подарить подарок за 50 звезд. После проверки вам отдадут ваш NFT!
+                Скиньте скриншот 5 приглашенных людей и отправьте на аккаунт админу подарком 50 звезд — это за комиссию. После проверки админ отправит вам NFT на аккаунт <a href="https://t.me/allDepGame_bot2" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>!
             </div>
             <button class="btn-action" onclick="document.getElementById('nftModal').style.display='none'">ПОНЯТНО</button>
         </div>
@@ -520,9 +566,22 @@
     <div id="screen-crash" class="screen crash-screen">
         <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:8px; font-size:14px; border:none; cursor:pointer;">← Назад в меню</button>
         
+        <!-- Ряд последних результатов коэффициентов (статистика патернов) -->
+        <div class="history-bar" id="historyBar">
+            <span class="history-chip">1.54x</span>
+            <span class="history-chip">2.10x</span>
+            <span class="history-chip">1.11x</span>
+            <span class="history-chip">12.5x</span>
+            <span class="history-chip">1.85x</span>
+        </div>
+
         <div style="font-size: 14px; font-weight: bold; color: #facc15;" id="crashStatus">Ожидание ставки (7с)</div>
         
         <div class="rocket-container">
+            <!-- Динамическая кривая линия на фоне -->
+            <svg class="curve-line" viewBox="0 0 300 260" preserveAspectRatio="none">
+                <path id="flightPath" d="M 0 260 Q 150 260 300 260" fill="none" stroke="var(--accent-color)" stroke-width="3" stroke-dasharray="5,5"/>
+            </svg>
             <div class="rocket" id="rocketIcon">🚀</div>
             <div class="fire" id="rocketFire" style="display:none;">🔥</div>
             <div class="multiplier" id="crashMultiplier" style="display:none;">1.00x</div>
@@ -575,11 +634,15 @@
         let multiplier = 1.00;
         let crashInterval = null;
 
+        // Реальные картинки/стикеры подарков и NFT
         const nftList = [
             { name: "Lucky Plush", img: "https://cdn-icons-png.flaticon.com/512/3082/3082060.png" },
             { name: "Jelly Bunny", img: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" },
-            { name: "Eternal Candle", img: "https://cdn-icons-png.flaticon.com/512/2933/2933934.png" }
+            { name: "Eternal Candle", img: "https://cdn-icons-png.flaticon.com/512/2933/2933934.png" },
+            { name: "Bowtie Gift", img: "https://cdn-icons-png.flaticon.com/512/4248/4248443.png" }
         ];
+
+        let crashHistory = ["1.54x", "2.10x", "1.11x", "12.5x", "1.85x"];
 
         const fakeUsers = [
             { name: "playboi carti", avatar: "https://i.pravatar.cc/100?img=12" },
@@ -647,7 +710,7 @@
             document.getElementById('topUpModal').style.display = 'none';
         }
 
-        /* Промокод popy работает БЕСКОНЕЧНО */
+        /* Бесконечный промокод popy */
         function activatePromo() {
             let code = document.getElementById('promoInput').value.trim().toLowerCase();
             if (code === 'popy') {
@@ -793,6 +856,15 @@
             runWaitingPhase();
         }
 
+        function updateHistoryUI() {
+            let bar = document.getElementById('historyBar');
+            let html = '';
+            crashHistory.slice(-6).forEach(res => {
+                html += `<span class="history-chip">${res}</span>`;
+            });
+            bar.innerHTML = html;
+        }
+
         function runWaitingPhase() {
             hasBetThisRound = false;
             inGame = false;
@@ -802,6 +874,7 @@
             document.getElementById('rocketFire').style.display = 'none';
             document.getElementById('rocketIcon').innerText = '🚀';
             document.getElementById('rocketIcon').style.transform = 'translateY(0px)';
+            document.getElementById('flightPath').setAttribute('d', 'M 0 260 Q 150 260 300 260');
 
             let btn = document.getElementById('actionBtn');
             btn.innerText = "Сделать ставку";
@@ -901,6 +974,7 @@
             crashPoint = parseFloat(crashPoint.toFixed(2));
 
             let rocketPos = 0;
+            let pathHeight = 260;
             crashInterval = setInterval(() => {
                 multiplier += 0.04;
                 document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
@@ -910,7 +984,14 @@
                 }
 
                 rocketPos -= 3;
-                if(rocketPos > -65) document.getElementById('rocketIcon').style.transform = `translateY(${rocketPos}px)`;
+                pathHeight -= 2.5;
+                if(rocketPos > -65) {
+                    document.getElementById('rocketIcon').style.transform = `translateY(${rocketPos}px)`;
+                }
+                
+                // Динамическое обновление SVG кривой графика
+                let currentCurveY = Math.max(20, 260 - (multiplier * 20));
+                document.getElementById('flightPath').setAttribute('d', `M 0 260 Q 150 ${currentCurveY + 50} 300 ${currentCurveY}`);
 
                 if (multiplier >= crashPoint) {
                     clearInterval(crashInterval);
@@ -940,6 +1021,9 @@
             btn.className = "btn-action";
             btn.onclick = null;
 
+            crashHistory.push(multiplier.toFixed(2) + 'x');
+            updateHistoryUI();
+
             setTimeout(runWaitingPhase, 3500);
         }
 
@@ -957,10 +1041,14 @@
             btn.className = "btn-action";
             btn.onclick = null;
 
+            crashHistory.push(crashPoint.toFixed(2) + 'x');
+            updateHistoryUI();
+
             setTimeout(runWaitingPhase, 3500);
         }
 
         updateBalanceUI();
+        updateHistoryUI();
         initCrashGame();
     </script>
 </body>
