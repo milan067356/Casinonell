@@ -374,7 +374,6 @@
         }
         .btn-secondary:active { transform: scale(0.98); opacity: 0.85; }
 
-        /* Игра Белочка — стиль как на референсе RubUP */
         .sq-stage {
             position: relative;
             border-radius: 22px;
@@ -888,27 +887,21 @@
 
                     <circle cx="96" cy="74" r="54" fill="url(#sqCardGlow)"/>
 
-                    <!-- Дорожные плитки под белочкой -->
                     <rect x="28" y="108" width="124" height="22" rx="11" fill="#1e293b" stroke="#6366f1" stroke-width="1.4" opacity="0.9"/>
                     <circle cx="56" cy="119" r="7" fill="#facc15" stroke="#fef08a" stroke-width="1.5"/>
                     <circle cx="92" cy="119" r="7" fill="#334155" stroke="#64748b" stroke-width="1.2"/>
                     <circle cx="128" cy="119" r="7" fill="#334155" stroke="#64748b" stroke-width="1.2"/>
 
-                    <!-- Фирменная белочка с золотым орешком -->
                     <g transform="translate(86, 68)">
-                        <!-- Пушистый хвост -->
                         <path d="M-12 22 C-38 18, -42 -22, -16 -28 C-2 -31, 2 -14, -8 -4 C-16 4, -8 14, -4 20 Z" fill="url(#sqTail)" stroke="#fed7aa" stroke-width="1.5"/>
-                        <!-- Тело -->
                         <ellipse cx="4" cy="14" rx="15" ry="19" fill="url(#sqFur)" stroke="#fed7aa" stroke-width="1.4"/>
                         <ellipse cx="9" cy="16" rx="8" ry="12" fill="#ffedd5"/>
-                        <!-- Голова и ушки -->
                         <polygon points="-2,-16 -6,-29 5,-20" fill="#ea580c" stroke="#fed7aa" stroke-width="1.2"/>
                         <polygon points="10,-16 14,-29 21,-18" fill="#ea580c" stroke="#fed7aa" stroke-width="1.2"/>
                         <circle cx="9" cy="-7" r="13.5" fill="url(#sqFur)" stroke="#fed7aa" stroke-width="1.4"/>
                         <circle cx="13" cy="-9" r="3.4" fill="#0f172a"/>
                         <circle cx="14" cy="-10" r="1.2" fill="#ffffff"/>
                         <circle cx="21" cy="-5" r="2.2" fill="#451a03"/>
-                        <!-- Золотая звезда / орешек в лапках -->
                         <circle cx="22" cy="11" r="8.5" fill="#facc15" stroke="#fef9c3" stroke-width="1.6"/>
                         <path d="M22 6 L23.5 9.2 L27 9.7 L24.5 12.1 L25.1 15.5 L22 13.9 L18.9 15.5 L19.5 12.1 L17 9.7 L20.5 9.2 Z" fill="#a16207"/>
                     </g>
@@ -2163,7 +2156,7 @@
                 setTimeout(runWaitingPhase, 3500);
             }
 
-            /* ================= ИГРА БЕЛОЧКА (CROSSY ROAD КАК НА ВИДЕО) ================= */
+            /* ================= ИГРА БЕЛОЧКА ================= */
             const sqCanvas = document.getElementById('squirrelRoadCanvas');
             const sqCtx = sqCanvas.getContext('2d');
 
@@ -2171,50 +2164,46 @@
                 easy: {
                     label: 'Лёгкий',
                     multipliers: [1.08, 1.22, 1.38, 1.57, 1.79, 2.06, 2.38, 2.78, 3.28, 3.92],
-                    baseSpeed: 135,
-                    fastSpeed: 260,
-                    fastChance: 0.22,
-                    pauseChance: 0.50,
-                    pauseMin: 1.2,
-                    pauseMax: 2.3,
-                    spawnMin: 1.5,
-                    spawnMax: 2.7
+                    baseSpeed: 165,
+                    ultraFastSpeed: 390,
+                    ultraFastChance: 0.16,
+                    doublePairChance: 0.42,
+                    burstGap: 0.48,
+                    waveGapMin: 1.55,
+                    waveGapMax: 2.85
                 },
                 medium: {
                     label: 'Средний',
                     multipliers: [1.22, 1.50, 1.88, 2.38, 3.05, 3.95, 5.15, 6.80, 9.10, 12.50],
-                    baseSpeed: 195,
-                    fastSpeed: 365,
-                    fastChance: 0.40,
-                    pauseChance: 0.34,
-                    pauseMin: 0.85,
-                    pauseMax: 1.65,
-                    spawnMin: 1.15,
-                    spawnMax: 2.15
+                    baseSpeed: 225,
+                    ultraFastSpeed: 495,
+                    ultraFastChance: 0.24,
+                    doublePairChance: 0.50,
+                    burstGap: 0.42,
+                    waveGapMin: 1.20,
+                    waveGapMax: 2.30
                 },
                 hard: {
                     label: 'Тяжёлый',
                     multipliers: [1.45, 2.15, 3.25, 4.95, 7.65, 12.10, 19.50, 31.80, 52.00, 88.00],
-                    baseSpeed: 265,
-                    fastSpeed: 480,
-                    fastChance: 0.58,
-                    pauseChance: 0.22,
-                    pauseMin: 0.55,
-                    pauseMax: 1.15,
-                    spawnMin: 0.90,
-                    spawnMax: 1.75
+                    baseSpeed: 295,
+                    ultraFastSpeed: 610,
+                    ultraFastChance: 0.34,
+                    doublePairChance: 0.58,
+                    burstGap: 0.36,
+                    waveGapMin: 0.95,
+                    waveGapMax: 1.85
                 },
                 impossible: {
                     label: 'Невозможный',
                     multipliers: [1.95, 3.90, 8.20, 17.50, 38.00, 85.00, 195.00, 450.00, 1050.00, 2500.00],
-                    baseSpeed: 345,
-                    fastSpeed: 620,
-                    fastChance: 0.75,
-                    pauseChance: 0.14,
-                    pauseMin: 0.35,
-                    pauseMax: 0.75,
-                    spawnMin: 0.72,
-                    spawnMax: 1.40
+                    baseSpeed: 375,
+                    ultraFastSpeed: 740,
+                    ultraFastChance: 0.46,
+                    doublePairChance: 0.68,
+                    burstGap: 0.32,
+                    waveGapMin: 0.72,
+                    waveGapMax: 1.45
                 }
             };
 
@@ -2226,9 +2215,9 @@
             let sqPlaying = false;
             let sqCrashed = false;
             let sqBet = 50;
-            let sqCurrentStep = 0; // 0 = стартовый тротуар, 1..10 = люки на полосах
+            let sqCurrentStep = 0;
             let sqCameraX = 0;
-            let sqHopProgress = 0; // 0..1 анимация прыжка
+            let sqHopProgress = 0;
             let sqRoadLanes = [];
             let sqLastTs = 0;
 
@@ -2287,6 +2276,30 @@
                 return Math.floor(base * getSqMultiplier(step));
             }
 
+            function spawnLaneCar(lane, forceUltraFast) {
+                const cfg = SQ_CONFIGS[sqDiff];
+                const isUltraFast = Boolean(forceUltraFast) || (Math.random() < cfg.ultraFastChance);
+                const carStyles = isUltraFast
+                    ? [
+                        { body: '#ef4444', roof: '#991b1b', stripe: '#fef08a', fast: true },
+                        { body: '#f59e0b', roof: '#b45309', stripe: '#ffffff', fast: true }
+                      ]
+                    : [
+                        { body: '#f8fafc', roof: '#cbd5e1', stripe: '#38bdf8', fast: false },
+                        { body: '#3b82f6', roof: '#1d4ed8', stripe: '#93c5fd', fast: false },
+                        { body: '#1e293b', roof: '#0f172a', stripe: '#64748b', fast: false }
+                      ];
+                const st = carStyles[Math.floor(Math.random() * carStyles.length)];
+                const speedJitter = (Math.random() - 0.5) * 28;
+                lane.cars.push({
+                    y: -58,
+                    w: 44,
+                    h: isUltraFast ? 66 : 74,
+                    speed: (isUltraFast ? cfg.ultraFastSpeed : cfg.baseSpeed) + speedJitter,
+                    style: st
+                });
+            }
+
             function initSquirrelRoadLanes() {
                 const cfg = SQ_CONFIGS[sqDiff];
                 sqRoadLanes = [];
@@ -2294,10 +2307,8 @@
                     sqRoadLanes.push({
                         step: step,
                         blocked: false,
-                        paused: false,
-                        pauseTimer: 0,
-                        driveTimer: 1.2 + Math.random() * 1.8,
-                        spawnTimer: Math.random() * 1.2,
+                        burstRemaining: 0,
+                        spawnTimer: Math.random() * 1.4,
                         cars: []
                     });
                 }
@@ -2367,7 +2378,6 @@
                     return;
                 }
 
-                // Предыдущая полоса закрывается шлагбаумом — машины туда больше не въедут
                 if (sqCurrentStep >= 1) {
                     const prevLane = sqRoadLanes[sqCurrentStep - 1];
                     if (prevLane) prevLane.blocked = true;
@@ -2379,9 +2389,8 @@
                 const lane = sqRoadLanes[sqCurrentStep - 1];
                 const squirrelY = 232;
 
-                // Проверяем, не едет ли машина прямо по этому люку в момент прыжка
                 const hit = lane && lane.cars.find(function(c) {
-                    return Math.abs(c.y - squirrelY) < (c.h * 0.5 + 18);
+                    return Math.abs(c.y - squirrelY) < (c.h * 0.46 + 16);
                 });
 
                 if (hit) {
@@ -2433,7 +2442,6 @@
                     sqHopProgress = Math.max(0, sqHopProgress - dt * 6.5);
                 }
 
-                // Плавное смещение камеры по горизонтали, как на видео
                 const w = sqCanvas.clientWidth || 340;
                 const targetPlayerScreenX = Math.min(148, w * 0.36);
                 const playerWorldX = sqCurrentStep === 0
@@ -2443,63 +2451,38 @@
                 sqCameraX += (desiredCameraX - sqCameraX) * Math.min(1, dt * 8);
 
                 sqRoadLanes.forEach(function(lane) {
-                    // Логика «машины едут / машины перестали ехать (пауза)»
-                    if (lane.paused) {
-                        lane.pauseTimer -= dt;
-                        if (lane.pauseTimer <= 0) {
-                            lane.paused = false;
-                            lane.driveTimer = 1.1 + Math.random() * 1.6;
-                        }
-                    } else {
-                        lane.driveTimer -= dt;
-                        if (lane.driveTimer <= 0 && Math.random() < cfg.pauseChance) {
-                            lane.paused = true;
-                            lane.pauseTimer = cfg.pauseMin + Math.random() * (cfg.pauseMax - cfg.pauseMin);
-                        }
-                    }
-
-                    // Спавн новых машин сверху на незаблокированных полосах
-                    if (!lane.blocked && !lane.paused) {
+                    if (!lane.blocked) {
                         lane.spawnTimer -= dt;
                         if (lane.spawnTimer <= 0) {
-                            const hasTopCar = lane.cars.some(function(c) { return c.y < 85; });
-                            if (!hasTopCar) {
-                                const isFast = Math.random() < cfg.fastChance;
-                                const carStyles = isFast
-                                    ? [
-                                        { body: '#ef4444', roof: '#991b1b', stripe: '#fef08a', fast: true },
-                                        { body: '#f59e0b', roof: '#b45309', stripe: '#ffffff', fast: true }
-                                      ]
-                                    : [
-                                        { body: '#f8fafc', roof: '#cbd5e1', stripe: '#38bdf8', fast: false },
-                                        { body: '#3b82f6', roof: '#1d4ed8', stripe: '#93c5fd', fast: false },
-                                        { body: '#1e293b', roof: '#0f172a', stripe: '#64748b', fast: false }
-                                      ];
-                                const st = carStyles[Math.floor(Math.random() * carStyles.length)];
-                                lane.cars.push({
-                                    y: -55,
-                                    w: 44,
-                                    h: isFast ? 68 : 74,
-                                    speed: isFast ? cfg.fastSpeed : cfg.baseSpeed,
-                                    style: st
-                                });
+                            const hasSpawnOverlap = lane.cars.some(function(c) { return c.y < 24; });
+                            if (!hasSpawnOverlap) {
+                                const isFastShot = lane.burstRemaining > 0 && Math.random() < 0.65;
+                                spawnLaneCar(lane, isFastShot);
                             }
-                            lane.spawnTimer = cfg.spawnMin + Math.random() * (cfg.spawnMax - cfg.spawnMin);
+
+                            if (lane.burstRemaining > 0) {
+                                lane.burstRemaining--;
+                                lane.spawnTimer = cfg.burstGap + Math.random() * 0.14;
+                            } else {
+                                // С вероятностью ~42-68% запускаем пачку из 2 машин подряд
+                                if (Math.random() < cfg.doublePairChance) {
+                                    lane.burstRemaining = 1;
+                                    lane.spawnTimer = cfg.burstGap + Math.random() * 0.15;
+                                } else {
+                                    lane.spawnTimer = cfg.waveGapMin + Math.random() * (cfg.waveGapMax - cfg.waveGapMin);
+                                }
+                            }
                         }
                     }
 
-                    // Движение машин сверху вниз
                     for (let i = lane.cars.length - 1; i >= 0; i--) {
                         const c = lane.cars[i];
-                        if (!lane.paused) {
-                            c.y += c.speed * dt;
-                        }
+                        c.y += c.speed * dt;
                         if (c.y - c.h > h + 70) {
                             lane.cars.splice(i, 1);
                             continue;
                         }
 
-                        // Столкновение с белочкой на активном люке
                         if (sqPlaying && sqCurrentStep === lane.step) {
                             if (Math.abs(c.y - squirrelY) < (c.h * 0.46 + 15)) {
                                 triggerSquirrelLose();
@@ -2513,31 +2496,26 @@
                 ctx.save();
                 ctx.translate(cx, cy);
 
-                // Тень машины
                 ctx.fillStyle = 'rgba(0,0,0,0.42)';
                 ctx.beginPath();
                 ctx.roundRect(-car.w * 0.5 + 3, -car.h * 0.5 + 4, car.w, car.h, 12);
                 ctx.fill();
 
-                // Кузов
                 ctx.fillStyle = car.style.body;
                 ctx.beginPath();
                 ctx.roundRect(-car.w * 0.5, -car.h * 0.5, car.w, car.h, 11);
                 ctx.fill();
 
-                // Лобовое стекло (снизу, т.к. машина едет вниз)
                 ctx.fillStyle = '#0f172a';
                 ctx.beginPath();
                 ctx.roundRect(-car.w * 0.36, car.h * 0.06, car.w * 0.72, car.h * 0.22, 5);
                 ctx.fill();
 
-                // Крыша
                 ctx.fillStyle = car.style.roof;
                 ctx.beginPath();
                 ctx.roundRect(-car.w * 0.34, -car.h * 0.24, car.w * 0.68, car.h * 0.28, 6);
                 ctx.fill();
 
-                // Фары спереди
                 ctx.fillStyle = '#fef08a';
                 ctx.fillRect(-car.w * 0.36, car.h * 0.44, 8, 4);
                 ctx.fillRect(car.w * 0.36 - 8, car.h * 0.44, 8, 4);
@@ -2558,7 +2536,6 @@
                 ctx.translate(x, y - hopOffset);
 
                 if (crashed) {
-                    // Расплющенный след как на видео при проигрыше
                     ctx.fillStyle = 'rgba(254, 243, 199, 0.9)';
                     ctx.beginPath();
                     ctx.ellipse(0, 12, 26, 8, 0, 0, Math.PI * 2);
@@ -2571,13 +2548,11 @@
                     return;
                 }
 
-                // Тень под белочкой
                 ctx.fillStyle = 'rgba(0,0,0,0.4)';
                 ctx.beginPath();
                 ctx.ellipse(0, 20 + hopOffset * 0.6, 17, 6, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Пышный хвост слева
                 ctx.fillStyle = '#ea580c';
                 ctx.beginPath();
                 ctx.moveTo(-8, 12);
@@ -2589,7 +2564,6 @@
                 ctx.lineWidth = 1.5;
                 ctx.stroke();
 
-                // Тельце
                 ctx.fillStyle = '#f97316';
                 ctx.beginPath();
                 ctx.ellipse(2, 6, 12, 15, 0, 0, Math.PI * 2);
@@ -2599,7 +2573,6 @@
                 ctx.ellipse(6, 8, 6.5, 10, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Голова и ушки
                 ctx.fillStyle = '#ea580c';
                 ctx.beginPath();
                 ctx.moveTo(-2, -16);
@@ -2620,7 +2593,6 @@
                 ctx.arc(6, -10, 10.5, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Глаз и носик
                 ctx.fillStyle = '#0f172a';
                 ctx.beginPath();
                 ctx.arc(9.5, -11.5, 2.5, 0, Math.PI * 2);
@@ -2656,7 +2628,6 @@
                 sqCtx.save();
                 sqCtx.translate(-sqCameraX, 0);
 
-                // 1. Левый стартовый тротуар (как на скриншоте RubUP)
                 sqCtx.fillStyle = '#2d6a4f';
                 sqCtx.fillRect(0, 0, 18, h);
                 sqCtx.fillStyle = '#9aa5b4';
@@ -2664,7 +2635,6 @@
                 sqCtx.fillStyle = '#cbd5e1';
                 sqCtx.fillRect(SQ_SIDEWALK_WIDTH - 6, 0, 6, h);
 
-                // Плитки тротуара
                 sqCtx.strokeStyle = 'rgba(71, 85, 105, 0.35)';
                 sqCtx.lineWidth = 1.5;
                 for (let py = 36; py < h; py += 58) {
@@ -2674,7 +2644,6 @@
                     sqCtx.stroke();
                 }
 
-                // Знак запрета машин внизу тротуара (как на видео)
                 sqCtx.fillStyle = '#e2e8f0';
                 sqCtx.beginPath();
                 sqCtx.arc(54, 316, 21, 0, Math.PI * 2);
@@ -2685,9 +2654,8 @@
                 sqCtx.beginPath();
                 sqCtx.moveTo(40, 302);
                 sqCtx.lineTo(68, 330);
-                ctx_sign_line: sqCtx.stroke();
+                sqCtx.stroke();
 
-                // 2. Полосы дороги с люками, наградами в звёздах и коэффициентами
                 const manholeY = 232;
                 const badgeY = 148;
 
@@ -2695,11 +2663,9 @@
                     const laneX = SQ_SIDEWALK_WIDTH + (lane.step - 1) * SQ_STEP_WIDTH;
                     const centerX = laneX + SQ_STEP_WIDTH * 0.5;
 
-                    // Асфальт полосы
                     sqCtx.fillStyle = '#1b1f33';
                     sqCtx.fillRect(laneX, 0, SQ_STEP_WIDTH, h);
 
-                    // Пунктирная разметка справа от полосы
                     sqCtx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
                     sqCtx.lineWidth = 2.5;
                     sqCtx.setLineDash([14, 14]);
@@ -2713,7 +2679,6 @@
                     const isCurrent = lane.step === sqCurrentStep;
                     const isNext = sqPlaying && (lane.step === sqCurrentStep + 1);
 
-                    // Верхний кружок с призом (звездой) и суммой выигрыша на этом шаге
                     const rewardStars = formatStars(getSqReward(lane.step));
                     sqCtx.fillStyle = isPassed || isCurrent ? 'rgba(250, 204, 21, 0.16)' : '#141726';
                     sqCtx.beginPath();
@@ -2728,7 +2693,6 @@
                     sqCtx.textBaseline = 'middle';
                     sqCtx.fillText('⭐', centerX, badgeY);
 
-                    // Плашка со звёздами под верхним кружком (например "540 ⭐")
                     sqCtx.fillStyle = '#111422';
                     sqCtx.beginPath();
                     sqCtx.roundRect(centerX - 30, badgeY + 27, 60, 18, 9);
@@ -2737,7 +2701,6 @@
                     sqCtx.fillStyle = '#ffffff';
                     sqCtx.fillText(rewardStars + ' ⭐', centerX, badgeY + 36);
 
-                    // Люк на проезжей части
                     sqCtx.fillStyle = (isPassed || isCurrent) ? '#d97706' : '#262b42';
                     sqCtx.beginPath();
                     sqCtx.arc(centerX, manholeY, 27, 0, Math.PI * 2);
@@ -2753,7 +2716,6 @@
                     sqCtx.arc(centerX, manholeY, 17, 0, Math.PI * 2);
                     sqCtx.stroke();
 
-                    // Плашка коэффициента под люком (например "×1,08")
                     const multText = '×' + getSqMultiplier(lane.step).toFixed(2).replace('.', ',');
                     sqCtx.fillStyle = (isPassed || isCurrent) ? '#3730a3' : '#282d45';
                     sqCtx.beginPath();
@@ -2763,7 +2725,6 @@
                     sqCtx.fillStyle = '#ffffff';
                     sqCtx.fillText(multText, centerX, manholeY + 45);
 
-                    // Жёлто-чёрный барьер над пройденным люком (как на видео!)
                     if (lane.blocked) {
                         const barX = centerX - 28;
                         const barY = manholeY - 46;
@@ -2777,20 +2738,11 @@
                         }
                     }
 
-                    // Индикатор паузы, когда машины на этой полосе остановились
-                    if (lane.paused && !lane.blocked) {
-                        sqCtx.font = '800 10px Outfit, sans-serif';
-                        sqCtx.fillStyle = '#38bdf8';
-                        sqCtx.fillText('ПАУЗА', centerX, 24);
-                    }
-
-                    // Машины на этой полосе
                     lane.cars.forEach(function(car) {
                         drawCarTopDown(sqCtx, centerX, car.y, car);
                     });
                 });
 
-                // 3. Персонаж — Белочка
                 const playerX = sqCurrentStep === 0
                     ? SQ_SIDEWALK_WIDTH * 0.52
                     : SQ_SIDEWALK_WIDTH + (sqCurrentStep - 0.5) * SQ_STEP_WIDTH;
