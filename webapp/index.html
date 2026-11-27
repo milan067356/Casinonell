@@ -91,7 +91,7 @@
         }
         .screen { display: none; padding: 16px; }
         .screen.active { display: block; }
-        
+
         .main-title {
             text-align: center;
             font-family: 'Outfit', sans-serif;
@@ -108,7 +108,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 14px;
         }
-        
+
         .game-card {
             position: relative;
             background: var(--card-bg);
@@ -176,7 +176,6 @@
             text-shadow: 0 2px 12px rgba(0,0,0,0.75);
         }
 
-        /* Арена Краш на Canvas */
         .crash-screen { text-align: center; }
         .rocket-container {
             position: relative;
@@ -215,7 +214,6 @@
             font-weight: 800;
             color: rgba(203, 213, 225, 0.78);
             background: rgba(15, 23, 42, 0.68);
-            backdrop-filter: blur(4px);
             padding: 3px 8px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.2);
@@ -228,7 +226,6 @@
             display: inline-block;
             margin-top: 18px;
             background: rgba(11, 19, 36, 0.78);
-            backdrop-filter: blur(6px);
             border: 1.5px solid rgba(56, 189, 248, 0.42);
             border-radius: 20px;
             padding: 8px 26px;
@@ -285,7 +282,7 @@
             color: #cbd5e1;
             border-color: rgba(148, 163, 184, 0.25);
         }
-        
+
         .bet-control-box {
             background: var(--header-bg);
             border-radius: 20px;
@@ -327,7 +324,7 @@
             font-family: 'Outfit', sans-serif;
             box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
         }
-        
+
         .btn-action {
             width: 100%;
             padding: 16px;
@@ -368,20 +365,20 @@
         }
         .btn-secondary:active { transform: scale(0.98); opacity: 0.85; }
 
-        .bets-list { 
-            background: var(--header-bg); 
-            border-radius: 16px; 
-            padding: 12px; 
-            margin: 15px 0; 
-            max-height: 185px; 
-            overflow-y: auto; 
-            text-align: left; 
+        .bets-list {
+            background: var(--header-bg);
+            border-radius: 16px;
+            padding: 12px;
+            margin: 15px 0;
+            max-height: 185px;
+            overflow-y: auto;
+            text-align: left;
             border: 1px solid var(--border-color);
         }
         .bet-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-color); font-size: 14px; color: var(--text-muted); }
         .bet-item:last-child { border-bottom: none; }
         .bet-user { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: bold; }
-        .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.18); }
+        .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.18); background: #1e293b; }
         .bet-amount { color: #facc15; font-weight: 800; font-family: 'Outfit', sans-serif; }
         .bet-amount.mid { color: #fde047; }
 
@@ -534,7 +531,6 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.82);
-            backdrop-filter: blur(4px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -627,9 +623,6 @@
                             <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.5"/>
                             <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
                         </radialGradient>
-                        <filter id="softShadow" x="-25%" y="-25%" width="150%" height="150%">
-                            <feDropShadow dx="0" dy="5" stdDeviation="4.5" flood-color="#020617" flood-opacity="0.65"/>
-                        </filter>
                     </defs>
 
                     <circle cx="18" cy="20" r="1.4" fill="#ffffff" opacity="0.85"/>
@@ -653,13 +646,13 @@
                     <path d="M162 114 L163.5 117.5 L167 119 L163.5 120.5 L162 124 L160.5 120.5 L157 119 L160.5 117.5 Z" fill="#ffffff" opacity="0.85"/>
 
                     <circle cx="64" cy="48" r="28" fill="#facc15" opacity="0.22"/>
-                    <circle cx="64" cy="48" r="21" fill="url(#goldMoon)" stroke="#fef9c3" stroke-width="1.5" filter="url(#softShadow)"/>
+                    <circle cx="64" cy="48" r="21" fill="url(#goldMoon)" stroke="#fef9c3" stroke-width="1.5"/>
                     <circle cx="55" cy="42" r="3" fill="#ca8a04" opacity="0.35"/>
                     <circle cx="59" cy="57" r="2.2" fill="#ca8a04" opacity="0.35"/>
                     <path d="M64 36 L75 43 L69 58 L64 62 L59 58 L53 43 Z" fill="none" stroke="#a16207" stroke-width="2.2" stroke-linejoin="round"/>
                     <line x1="64" y1="36" x2="64" y2="62" stroke="#a16207" stroke-width="2"/>
 
-                    <g transform="translate(106, 86) rotate(-38)" filter="url(#softShadow)">
+                    <g transform="translate(106, 86) rotate(-38)">
                         <circle cx="0" cy="36" r="20" fill="url(#exhaustGlow)"/>
                         <path d="M-8 25 Q0 45 8 25 Z" fill="#e0f2fe" opacity="0.95"/>
 
@@ -685,7 +678,7 @@
                 </svg>
                 <div class="game-title-text">Краш</div>
             </div>
-            
+
             <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('cases-list')">
                 <svg class="crash-art-wrap" viewBox="0 0 180 180">
                     <circle cx="22" cy="24" r="1.4" fill="#ffffff" opacity="0.8"/>
@@ -746,7 +739,7 @@
             <div style="font-size: 32px; font-weight: bold; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px;">
                 ⭐ <span id="profileBalance">15</span>
             </div>
-            
+
             <button class="btn-action" onclick="showTopUpModal()">ПОПОЛНИТЬ ЗВЕЗДЫ</button>
 
             <div class="ref-box">
@@ -771,7 +764,7 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="topUpModal" onclick="closeTopUpModal(event)">
+    <div class="modal-overlay" id="topUpModal" onclick="closeTopUpModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px; font-family: 'Outfit', sans-serif;" id="topUpTitle">Пополнение баланса</div>
             <div style="font-size: 14px; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 15px;" id="topUpText">
@@ -784,12 +777,12 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="nftModal" onclick="closeNftModal(event)">
+    <div class="modal-overlay" id="nftModal" onclick="closeNftModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div id="modalNftArt" style="width: 132px; height: 132px; margin: 0 auto 12px auto; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 8px 22px rgba(0,0,0,0.45);"></div>
             <div id="modalNftTitle" style="font-size: 19px; font-weight: 900; margin-bottom: 12px; font-family: 'Outfit', sans-serif;"></div>
             <div style="font-size: 13px; color: var(--text-muted); line-height: 1.55; text-align: left; margin-bottom: 14px;">
-                Чтобы вывести этот NFT, нужно пригласить <b>5 друзей</b> по вашей реферальной ссылке (они должны зайти в бота и прокрутить бесплатный кейс). 
+                Чтобы вывести этот NFT, нужно пригласить <b>5 друзей</b> по вашей реферальной ссылке (они должны зайти в бота и прокрутить бесплатный кейс).
                 <br><br>
                 Комиссия за вывод составляет <b>50 звезд</b>.
                 <br><br>
@@ -804,7 +797,7 @@
         <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:6px; font-size:14px; border:none; cursor:pointer;">← Назад в меню</button>
 
         <div style="font-size: 14px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;" id="crashStatus">Ожидание ставки (7с)</div>
-        
+
         <div class="rocket-container" id="rocketArena">
             <canvas id="crashCanvas"></canvas>
 
@@ -830,7 +823,7 @@
         <div class="bet-control-box" id="betControlBox">
             <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Сумма ставки (без лимита)</div>
             <input type="text" inputmode="numeric" id="betInput" value="1000">
-            
+
             <div class="quick-btns">
                 <button class="quick-btn" onclick="addBet(-500)">-500</button>
                 <button class="quick-btn" onclick="addBet(1000)">+1K</button>
@@ -852,1199 +845,1057 @@
     </div>
 
     <script>
-        const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
-        if (tg && typeof tg.expand === 'function') {
-            tg.expand();
-        }
-
-        const userId = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id)
-            ? tg.initDataUnsafe.user.id
-            : 'user_v6_default';
-        const balanceKey = 'allDep_balance_v6_' + userId;
-        const inventoryKey = 'allDep_inventory_v6_' + userId;
-
-        let balance = localStorage.getItem(balanceKey) !== null ? Number(localStorage.getItem(balanceKey)) : 15;
-        if (!Number.isFinite(balance) || balance < 0) balance = 15;
-
-        let inventory = [];
-        try {
-            const rawInv = localStorage.getItem(inventoryKey);
-            if (rawInv) inventory = JSON.parse(rawInv);
-        } catch (e) {
-            inventory = [];
-        }
-
-        let myBet = 0;
-        let inGame = false;
-        let hasBetThisRound = false;
-        let multiplier = 1.00;
-        let crashInterval = null;
-        let botFeedInterval = null;
-        let isSpinningCase = false;
-        let selectedWithdrawNft = "";
-        let roundBots = [];
-        let lastRoundBotNames = new Set();
-
-        let crashState = 'waiting';
-        let canvasStars = [];
-        let exhaustParticles = [];
-        let explosionParticles = [];
-        let shockwaveRadius = 0;
-        let shockwaveAlpha = 0;
-        let lastExplosionPos = { x: 180, y: 180 };
-
-        function formatStars(num) {
-            return Math.floor(Number(num) || 0).toLocaleString('ru-RU');
-        }
-
-        function parseAmountInput(val) {
-            const cleaned = String(val || '').replace(/[^0-9]/g, '');
-            const parsed = Number(cleaned);
-            return Number.isFinite(parsed) ? Math.floor(parsed) : 0;
-        }
-
-        function openWithdrawChat(e) {
-            if (e) e.preventDefault();
-            const withdrawUrl = "https://t.me/allDepGame_bot2";
-            if (tg && typeof tg.openTelegramLink === "function") {
-                tg.openTelegramLink(withdrawUrl);
-            } else {
-                window.open(withdrawUrl, "_blank");
+        (function() {
+            const tg = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
+            if (tg && typeof tg.expand === 'function') {
+                try { tg.expand(); } catch (e) {}
             }
-        }
 
-        function getCaseChestSvg() {
-            return `
-            <svg viewBox="0 0 240 200" style="width:100%;height:100%;display:block;">
-                <defs>
-                    <radialGradient id="chestInnerGlow" cx="50%" cy="46%" r="52%">
-                        <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="28%" stop-color="#f5d0fe"/>
-                        <stop offset="68%" stop-color="#a855f7" stop-opacity="0.45"/>
-                        <stop offset="100%" stop-color="#9333ea" stop-opacity="0"/>
-                    </radialGradient>
-                    <linearGradient id="chestBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#60a5fa"/>
-                        <stop offset="45%" stop-color="#2563eb"/>
-                        <stop offset="100%" stop-color="#172554"/>
-                    </linearGradient>
-                    <linearGradient id="chestWhite" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="65%" stop-color="#e2e8f0"/>
-                        <stop offset="100%" stop-color="#94a3b8"/>
-                    </linearGradient>
-                </defs>
-                <polygon points="120,96 24,12 66,12" fill="#e879f9" opacity="0.22"/>
-                <polygon points="120,96 96,8 144,8" fill="#fae8ff" opacity="0.26"/>
-                <polygon points="120,96 174,12 216,12" fill="#e879f9" opacity="0.22"/>
-                <circle cx="120" cy="88" r="76" fill="url(#chestInnerGlow)"/>
+            const userId = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id)
+                ? tg.initDataUnsafe.user.id
+                : 'user_v7_default';
+            const balanceKey = 'allDep_balance_v7_' + userId;
+            const inventoryKey = 'allDep_inventory_v7_' + userId;
 
-                <path d="M46 76 C44 34, 196 34, 194 76 L178 88 L62 88 Z" fill="#1e3a8a" stroke="#93c5fd" stroke-width="2.5"/>
-                <path d="M54 74 C54 42, 186 42, 186 74 L174 82 L66 82 Z" fill="url(#chestWhite)"/>
-                <path d="M46 76 L62 76 L62 88 L46 88 Z" fill="url(#chestBlue)"/>
-                <path d="M178 76 L194 76 L194 88 L178 88 Z" fill="url(#chestBlue)"/>
-                <path d="M106 38 L111 50 L120 44 L129 50 L134 38 L130 56 L110 56 Z" fill="#2563eb"/>
-
-                <g transform="translate(68, 76) rotate(-14)">
-                    <path d="M0 27 C-25 11, -27 -14, -9 -18 C-2 -19, 0 -12, 0 -12 C0 -12, 2 -19, 9 -18 C27 -14, 25 11, 0 27 Z" fill="#f472b6" stroke="#fbcfe8" stroke-width="2.5"/>
-                    <path d="M0 21 C-18 9, -19 -9, -6 -12 C-2 -13, 0 -8, 0 -8 C0 -8, 2 -13, 6 -12 C19 -9, 18 9, 0 21 Z" fill="#fdf2f8"/>
-                    <circle cx="-6" cy="2" r="7" fill="#94a3b8"/>
-                    <polygon points="-12,-3 -10,-12 -4,-6" fill="#94a3b8"/>
-                    <circle cx="6.5" cy="3" r="7" fill="#fb923c"/>
-                    <polygon points="1,-2 3,-11 9,-5" fill="#fb923c"/>
-                    <path d="M-9 -18 L2 -25 L11 -16 L2 -13 Z" fill="#ec4899"/>
-                </g>
-
-                <g transform="translate(120, 75)">
-                    <ellipse cx="0" cy="18" rx="30" ry="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
-                    <ellipse cx="0" cy="16" rx="22" ry="5.5" fill="#cbd5e1"/>
-                    <path d="M-19 14 C-21 -5, -14 -22, -7 -19 C-2 -17, -3 -6, 0 -6 C3 -6, 2 -17, 7 -19 C14 -22, 21 -5, 19 14 C12 19, -12 19, -19 14 Z" fill="#fffbeb" stroke="#fde68a" stroke-width="1.8"/>
-                    <ellipse cx="-12" cy="-5" rx="2.2" ry="7.5" fill="#fbcfe8"/>
-                    <ellipse cx="12" cy="-5" rx="2.2" ry="7.5" fill="#fbcfe8"/>
-                    <circle cx="-5" cy="3" r="2" fill="#1e293b"/>
-                    <circle cx="5" cy="3" r="2" fill="#1e293b"/>
-                </g>
-
-                <g transform="translate(172, 78) rotate(14)">
-                    <path d="M0 25 C-24 10, -25 -14, -8 -18 C-2 -19, 0 -12, 0 -12 C0 -12, 2 -19, 8 -18 C25 -14, 24 10, 0 25 Z" fill="#d97706" stroke="#fde68a" stroke-width="2.2"/>
-                    <path d="M0 19 C-16 7, -17 -9, -5 -12 C-1 -13, 0 -8, 0 -8 C0 -8, 1 -13, 5 -12 C17 -9, 16 7, 0 19 Z" fill="#ef4444"/>
-                    <circle cx="0" cy="4" r="2.8" fill="#fffbeb"/>
-                </g>
-
-                <rect x="40" y="90" width="160" height="78" rx="18" fill="url(#chestWhite)" stroke="#93c5fd" stroke-width="2.5"/>
-                <rect x="40" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
-                <rect x="176" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
-                <rect x="36" y="144" width="168" height="24" rx="11" fill="url(#chestBlue)"/>
-                <rect x="96" y="106" width="48" height="40" rx="9" fill="#2563eb" stroke="#bfdbfe" stroke-width="2.2"/>
-                <path d="M104 117 L110 130 L120 121 L130 130 L136 117 L132 138 L108 138 Z" fill="#ffffff"/>
-
-                <path d="M32 44 L34 49 L39 51 L34 53 L32 58 L30 53 L25 51 L30 49 Z" fill="#fef08a"/>
-                <path d="M208 48 L210 53 L215 55 L210 57 L208 62 L206 57 L201 55 L206 53 Z" fill="#fef08a"/>
-                <circle cx="120" cy="20" r="3" fill="#ffffff"/>
-            </svg>`;
-        }
-
-        function getNftArtworkSvg(nftName) {
-            switch (nftName) {
-                case "Lucky Locket":
-                    return `
-                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <defs>
-                            <radialGradient id="locketBg" cx="50%" cy="40%" r="70%">
-                                <stop offset="0%" stop-color="#582c6e"/>
-                                <stop offset="55%" stop-color="#271936"/>
-                                <stop offset="100%" stop-color="#131520"/>
-                            </radialGradient>
-                            <linearGradient id="heartRim" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#fce7f3"/>
-                                <stop offset="45%" stop-color="#f472b6"/>
-                                <stop offset="100%" stop-color="#be185d"/>
-                            </linearGradient>
-                            <radialGradient id="greyCatGrad" cx="35%" cy="30%" r="70%">
-                                <stop offset="0%" stop-color="#cbd5e1"/>
-                                <stop offset="100%" stop-color="#64748b"/>
-                            </radialGradient>
-                            <radialGradient id="orangeCatGrad" cx="35%" cy="30%" r="70%">
-                                <stop offset="0%" stop-color="#fdba74"/>
-                                <stop offset="100%" stop-color="#ea580c"/>
-                            </radialGradient>
-                        </defs>
-                        <rect width="140" height="140" fill="url(#locketBg)"/>
-                        <circle cx="70" cy="68" r="46" fill="#ec4899" opacity="0.16"/>
-                        <ellipse cx="70" cy="120" rx="34" ry="7" fill="#000000" opacity="0.45"/>
-                        <path d="M70 113 C26 82, 20 36, 49 26 C61 22, 70 34, 70 34 C70 34, 79 22, 91 26 C120 36, 114 82, 70 113 Z" fill="url(#heartRim)" stroke="#fdf2f8" stroke-width="2.6"/>
-                        <path d="M70 104 C36 78, 32 42, 54 35 C62 32, 70 41, 70 41 C70 41, 78 32, 86 35 C108 42, 104 78, 70 104 Z" fill="#fff1f2"/>
-                        <circle cx="55" cy="67" r="16.5" fill="url(#greyCatGrad)"/>
-                        <polygon points="41,57 44,41 54,52" fill="#94a3b8"/>
-                        <polygon points="60,52 68,41 71,57" fill="#94a3b8"/>
-                        <polygon points="44,55 46,45 52,52" fill="#fbcfe8"/>
-                        <circle cx="50" cy="66" r="2.4" fill="#0f172a"/>
-                        <circle cx="60" cy="66" r="2.4" fill="#0f172a"/>
-                        <circle cx="49.2" cy="65.2" r="0.9" fill="#ffffff"/>
-                        <circle cx="59.2" cy="65.2" r="0.9" fill="#ffffff"/>
-                        <ellipse cx="55" cy="70.5" rx="2.3" ry="1.6" fill="#f472b6"/>
-                        <circle cx="84" cy="69" r="16.5" fill="url(#orangeCatGrad)"/>
-                        <polygon points="70,59 73,43 82,54" fill="#fb923c"/>
-                        <polygon points="88,54 96,43 99,59" fill="#fb923c"/>
-                        <polygon points="89,54 94,46 96,57" fill="#fed7aa"/>
-                        <circle cx="79" cy="68" r="2.4" fill="#0f172a"/>
-                        <circle cx="89" cy="68" r="2.4" fill="#0f172a"/>
-                        <circle cx="78.2" cy="67.2" r="0.9" fill="#ffffff"/>
-                        <circle cx="88.2" cy="67.2" r="0.9" fill="#ffffff"/>
-                        <ellipse cx="84" cy="72.5" rx="2.3" ry="1.6" fill="#e11d48"/>
-                        <path d="M51 27 C42 14, 62 12, 70 24 C78 12, 98 14, 89 27 L70 33 Z" fill="#ec4899" stroke="#fbcfe8" stroke-width="1.6"/>
-                        <circle cx="70" cy="26" r="4.2" fill="#f9a8d4"/>
-                        <circle cx="28" cy="28" r="2" fill="#fbcfe8" opacity="0.85"/>
-                        <circle cx="112" cy="30" r="2.2" fill="#fef08a" opacity="0.85"/>
-                    </svg>`;
-                case "Jelly Bunny":
-                    return `
-                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <defs>
-                            <radialGradient id="bunnyBg" cx="50%" cy="40%" r="70%">
-                                <stop offset="0%" stop-color="#4338ca"/>
-                                <stop offset="55%" stop-color="#232946"/>
-                                <stop offset="100%" stop-color="#131520"/>
-                            </radialGradient>
-                            <linearGradient id="jellyBody" x1="15%" y1="0%" x2="85%" y2="100%">
-                                <stop offset="0%" stop-color="#fefce8"/>
-                                <stop offset="50%" stop-color="#fef08a"/>
-                                <stop offset="100%" stop-color="#eab308"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="140" height="140" fill="url(#bunnyBg)"/>
-                        <circle cx="70" cy="68" r="44" fill="#facc15" opacity="0.14"/>
-                        <ellipse cx="70" cy="114" rx="46" ry="14" fill="#000000" opacity="0.45"/>
-                        <ellipse cx="70" cy="103" rx="45" ry="13" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                        <ellipse cx="70" cy="101" rx="33" ry="8" fill="#e2e8f0"/>
-                        <path d="M38 97 C36 62, 45 25, 55 28 C62 30, 59 54, 70 54 C81 54, 78 30, 85 28 C95 25, 104 62, 102 97 C88 105, 52 105, 38 97 Z" fill="url(#jellyBody)" stroke="#fef9c3" stroke-width="2.2"/>
-                        <ellipse cx="52" cy="45" rx="3.2" ry="9.5" fill="#f472b6" opacity="0.75"/>
-                        <ellipse cx="88" cy="45" rx="3.2" ry="9.5" fill="#f472b6" opacity="0.75"/>
-                        <path d="M47 64 C51 53, 62 53, 64 62" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" opacity="0.85"/>
-                        <circle cx="60" cy="75" r="3.4" fill="#0f172a"/>
-                        <circle cx="80" cy="75" r="3.4" fill="#0f172a"/>
-                        <circle cx="58.8" cy="73.6" r="1.2" fill="#ffffff"/>
-                        <circle cx="78.8" cy="73.6" r="1.2" fill="#ffffff"/>
-                        <ellipse cx="53.5" cy="80.5" rx="5" ry="2.8" fill="#fb7185" opacity="0.78"/>
-                        <ellipse cx="86.5" cy="80.5" rx="5" ry="2.8" fill="#fb7185" opacity="0.78"/>
-                    </svg>`;
-                case "Eternal Candle":
-                    return `
-                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <defs>
-                            <radialGradient id="candleBg" cx="50%" cy="35%" r="70%">
-                                <stop offset="0%" stop-color="#78350f"/>
-                                <stop offset="55%" stop-color="#27211d"/>
-                                <stop offset="100%" stop-color="#131520"/>
-                            </radialGradient>
-                            <radialGradient id="candleGlow" cx="50%" cy="32%" r="55%">
-                                <stop offset="0%" stop-color="#fde047" stop-opacity="0.55"/>
-                                <stop offset="60%" stop-color="#f97316" stop-opacity="0.16"/>
-                                <stop offset="100%" stop-color="#131520" stop-opacity="0"/>
-                            </radialGradient>
-                        </defs>
-                        <rect width="140" height="140" fill="url(#candleBg)"/>
-                        <circle cx="70" cy="42" r="56" fill="url(#candleGlow)"/>
-                        <ellipse cx="70" cy="114" rx="36" ry="9" fill="#000000" opacity="0.45"/>
-                        <ellipse cx="70" cy="111" rx="35" ry="9" fill="#475569" stroke="#94a3b8" stroke-width="1.6"/>
-                        <path d="M99 108 C115 108, 115 85, 96 87" fill="none" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-                        <rect x="53" y="48" width="34" height="58" rx="7" fill="#fef3c7" stroke="#fde68a" stroke-width="1.6"/>
-                        <rect x="76" y="48" width="11" height="58" rx="5" fill="#fde68a" opacity="0.55"/>
-                        <path d="M53 53 C59 65, 63 51, 68 64 C73 52, 79 65, 87 52 L87 48 L53 48 Z" fill="#ffffff"/>
-                        <line x1="70" y1="40" x2="70" y2="48" stroke="#1e293b" stroke-width="2.6"/>
-                        <path d="M70 15 C81 27, 81 40, 70 45 C59 40, 59 27, 70 15 Z" fill="#f97316"/>
-                        <path d="M70 23 C75.5 29.5, 75.5 38, 70 42 C64.5 38, 64.5 29.5, 70 23 Z" fill="#fef08a"/>
-                    </svg>`;
-                case "Bowtie Gift":
-                    return `
-                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <defs>
-                            <radialGradient id="bowtieBg" cx="50%" cy="42%" r="70%">
-                                <stop offset="0%" stop-color="#1e3a8a"/>
-                                <stop offset="58%" stop-color="#1e2436"/>
-                                <stop offset="100%" stop-color="#131520"/>
-                            </radialGradient>
-                            <linearGradient id="leftWing" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#60a5fa"/>
-                                <stop offset="100%" stop-color="#2563eb"/>
-                            </linearGradient>
-                            <linearGradient id="rightWing" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#3b82f6"/>
-                                <stop offset="100%" stop-color="#1d4ed8"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="140" height="140" fill="url(#bowtieBg)"/>
-                        <ellipse cx="70" cy="111" rx="45" ry="8" fill="#000000" opacity="0.45"/>
-                        <polygon points="70,46 22,31 22,109 70,94" fill="url(#leftWing)" stroke="#93c5fd" stroke-width="2.2" stroke-linejoin="round"/>
-                        <line x1="28" y1="41" x2="64" y2="52" stroke="#e0f2fe" stroke-width="1.8" opacity="0.65"/>
-                        <polygon points="70,46 118,31 118,109 70,94" fill="url(#rightWing)" stroke="#60a5fa" stroke-width="2.2" stroke-linejoin="round"/>
-                        <rect x="58" y="53" width="24" height="34" rx="7" fill="#f8fafc" stroke="#93c5fd" stroke-width="2.2"/>
-                    </svg>`;
-                case "Heart Cookie":
-                    return `
-                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <defs>
-                            <radialGradient id="cookieBg" cx="50%" cy="42%" r="70%">
-                                <stop offset="0%" stop-color="#7c2d12"/>
-                                <stop offset="55%" stop-color="#2c1916"/>
-                                <stop offset="100%" stop-color="#131520"/>
-                            </radialGradient>
-                        </defs>
-                        <rect width="140" height="140" fill="url(#cookieBg)"/>
-                        <circle cx="70" cy="68" r="44" fill="#f59e0b" opacity="0.16"/>
-                        <ellipse cx="70" cy="118" rx="35" ry="7" fill="#000000" opacity="0.45"/>
-                        <path d="M70 112 C26 82, 20 38, 49 28 C60 24, 70 35, 70 35 C70 35, 80 24, 91 28 C120 38, 114 82, 70 112 Z" fill="#f59e0b" stroke="#fef08a" stroke-width="3"/>
-                        <path d="M70 100 C37 76, 33 44, 54 38 C62 35, 70 43, 70 43 C70 43, 78 35, 86 38 C107 44, 103 76, 70 100 Z" fill="#ef4444"/>
-                        <path d="M44 48 C48 40, 58 40, 62 46" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="4 4"/>
-                        <path d="M96 48 C92 40, 82 40, 78 46" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="4 4"/>
-                        <circle cx="70" cy="68" r="6" fill="#ffffff"/>
-                    </svg>`;
-                default:
-                    return `
-                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <defs>
-                            <radialGradient id="bdayBg" cx="50%" cy="42%" r="70%">
-                                <stop offset="0%" stop-color="#1d4ed8"/>
-                                <stop offset="55%" stop-color="#1b2642"/>
-                                <stop offset="100%" stop-color="#131520"/>
-                            </radialGradient>
-                            <linearGradient id="bdayBadge" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#60a5fa"/>
-                                <stop offset="50%" stop-color="#2563eb"/>
-                                <stop offset="100%" stop-color="#1e40af"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="140" height="140" fill="url(#bdayBg)"/>
-                        <circle cx="70" cy="66" r="44" fill="#38bdf8" opacity="0.16"/>
-                        <ellipse cx="70" cy="110" rx="46" ry="8" fill="#000000" opacity="0.45"/>
-                        <rect x="17" y="42" width="106" height="58" rx="16" fill="url(#bdayBadge)" stroke="#bfdbfe" stroke-width="2.5"/>
-                        <path d="M70 14 C78 23, 78 33, 70 38 C62 33, 62 23, 70 14 Z" fill="#facc15"/>
-                        <path d="M70 21 C73.5 26.5, 73.5 32, 70 35.5 C66.5 32, 66.5 26.5, 70 21 Z" fill="#fef9c3"/>
-                        <text x="70" y="67" text-anchor="middle" fill="#fef08a" font-size="15" font-weight="900" font-family="Outfit, sans-serif">HAPPY</text>
-                        <text x="70" y="87" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="900" font-family="Outfit, sans-serif">B-DAY</text>
-                    </svg>`;
+            function safeGetStorage(key) {
+                try { return localStorage.getItem(key); } catch (e) { return null; }
             }
-        }
 
-        function initCaseBanners() {
-            const chestSvg = getCaseChestSvg();
-            const mainCard = document.getElementById('mainCaseCardArt');
-            const subCard = document.getElementById('subCaseCardArt');
-            const detailBanner = document.getElementById('detailCaseBannerArt');
-            if (mainCard) mainCard.innerHTML = chestSvg;
-            if (subCard) subCard.innerHTML = chestSvg;
-            if (detailBanner) detailBanner.innerHTML = chestSvg;
-        }
-
-        const nftList = [
-            { name: "Lucky Locket" },
-            { name: "Jelly Bunny" },
-            { name: "Eternal Candle" },
-            { name: "Bowtie Gift" },
-            { name: "Heart Cookie" },
-            { name: "Happy B-Day" }
-        ];
-
-        let crashHistory = ["1.41x", "6.11x", "4.63x", "22.91x", "3.10x", "9.19x", "2.84x", "1.88x"];
-
-        const fakeUsers = [
-            { name: "playboi carti", avatar: "https://i.pravatar.cc/100?img=12" },
-            { name: "vortex", avatar: "https://i.pravatar.cc/100?img=32" },
-            { name: "crypto_king", avatar: "https://i.pravatar.cc/100?img=53" },
-            { name: "satoshi99", avatar: "https://i.pravatar.cc/100?img=68" },
-            { name: "neon_whale", avatar: "https://i.pravatar.cc/100?img=15" },
-            { name: "ton_lord", avatar: "https://i.pravatar.cc/100?img=24" },
-            { name: "star_hunter", avatar: "https://i.pravatar.cc/100?img=41" },
-            { name: "lunar_x", avatar: "https://i.pravatar.cc/100?img=47" },
-            { name: "blaze_99", avatar: "https://i.pravatar.cc/100?img=59" },
-            { name: "phantom_z", avatar: "https://i.pravatar.cc/100?img=61" },
-            { name: "hyper_nova", avatar: "https://i.pravatar.cc/100?img=65" },
-            { name: "velvet_star", avatar: "https://i.pravatar.cc/100?img=44" },
-            { name: "orbit_fox", avatar: "https://i.pravatar.cc/100?img=18" },
-            { name: "nova_drift", avatar: "https://i.pravatar.cc/100?img=29" },
-            { name: "zenith_pro", avatar: "https://i.pravatar.cc/100?img=37" },
-            { name: "echo_wave", avatar: "https://i.pravatar.cc/100?img=51" },
-            { name: "krypton_7", avatar: "https://i.pravatar.cc/100?img=56" },
-            { name: "mirage_sky", avatar: "https://i.pravatar.cc/100?img=63" },
-            { name: "solaris_8", avatar: "https://i.pravatar.cc/100?img=22" },
-            { name: "frost_byte", avatar: "https://i.pravatar.cc/100?img=35" }
-        ];
-
-        const botUsername = "allDepGame_bot";
-        const refLink = `https://t.me/${botUsername}?start=ref_${userId}`;
-        document.getElementById('refLinkInput').value = refLink;
-
-        function copyRefLink() {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(refLink).catch(() => {});
+            function safeSetStorage(key, val) {
+                try { localStorage.setItem(key, val); } catch (e) {}
             }
-            const input = document.getElementById('refLinkInput');
-            input.select();
-            try { document.execCommand('copy'); } catch (e) {}
-            alert("📋 Реферальная ссылка скопирована!");
-        }
 
-        function saveUserData() {
+            let savedBalance = safeGetStorage(balanceKey);
+            let balance = savedBalance !== null ? Number(savedBalance) : 15;
+            if (!Number.isFinite(balance) || balance < 0) balance = 15;
+
+            let inventory = [];
             try {
-                localStorage.setItem(balanceKey, String(balance));
-                localStorage.setItem(inventoryKey, JSON.stringify(inventory));
-            } catch (e) {}
-        }
-
-        function changeTheme() {
-            let theme = document.getElementById('themeSelector').value;
-            let body = document.getElementById('appBody');
-            body.className = '';
-            if (theme === 'neon') body.classList.add('theme-neon');
-            else if (theme === 'fire') body.classList.add('theme-fire');
-        }
-
-        function updateBalanceUI() {
-            document.getElementById('userBalance').innerText = formatStars(balance);
-            document.getElementById('profileBalance').innerText = formatStars(balance);
-            saveUserData();
-        }
-
-        function switchScreen(screenName) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('screen-' + screenName).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-            if(screenName === 'profile') document.getElementById('navProfile').classList.add('active');
-            else document.getElementById('navGames').classList.add('active');
-
-            if(screenName === 'profile') renderInventory();
-            if(screenName === 'free-case-detail') {
-                initCaseBanners();
-                resetCaseControls();
+                const rawInv = safeGetStorage(inventoryKey);
+                if (rawInv) inventory = JSON.parse(rawInv);
+            } catch (e) {
+                inventory = [];
             }
-            if(screenName === 'crash') resizeCrashCanvas();
-        }
 
-        function showTopUpModal() {
-            let amount = prompt("Выберите сумму звезд для пополнения:");
-            if (amount && !isNaN(amount) && Number(amount) > 0) {
-                document.getElementById('topUpTitle').innerText = `Пополнение на ${formatStars(amount)} звезд`;
-                document.getElementById('topUpText').innerHTML = `
-                    Для пополнения на <b>${formatStars(amount)} звезд</b> напишите в бот: <br><br>
-                    <a href="https://t.me/allDepGame_bot1" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline; font-size: 18px;">@allDepGame_bot1</a>
-                    <br><br>
-                    Передайте сумму подарками и получите бонус +15%!
-                `;
-                document.getElementById('topUpModal').style.display = 'flex';
+            let myBet = 0;
+            let inGame = false;
+            let hasBetThisRound = false;
+            let multiplier = 1.00;
+            let crashInterval = null;
+            let botFeedInterval = null;
+            let roundTimerInterval = null;
+            let isSpinningCase = false;
+            let roundBots = [];
+            let lastRoundBotNames = new Set();
+
+            let crashState = 'waiting';
+            let canvasStars = [];
+            let exhaustParticles = [];
+            let explosionParticles = [];
+            let shockwaveRadius = 0;
+            let shockwaveAlpha = 0;
+            let lastExplosionPos = { x: 180, y: 180 };
+
+            function formatStars(num) {
+                return Math.floor(Number(num) || 0).toLocaleString('ru-RU');
             }
-        }
 
-        function closeTopUpModal() {
-            document.getElementById('topUpModal').style.display = 'none';
-        }
-
-        function activatePromo() {
-            const input = document.getElementById('promoInput');
-            const statusEl = document.getElementById('promoStatus');
-            const code = String(input.value || '').trim().toLowerCase();
-
-            if (code === 's') {
-                balance += 1000000;
-                updateBalanceUI();
-                input.value = '';
-                statusEl.style.color = '#4ade80';
-                statusEl.innerText = '✅ Промокод «S»: +1 000 000 ⭐ начислено';
-            } else if (code === 'popy') {
-                balance += 5000;
-                updateBalanceUI();
-                input.value = '';
-                statusEl.style.color = '#4ade80';
-                statusEl.innerText = '✅ Промокод «POPY»: +5 000 ⭐ начислено';
-            } else {
-                statusEl.style.color = '#f87171';
-                statusEl.innerText = 'Неверный промокод';
+            function parseAmountInput(val) {
+                const cleaned = String(val || '').replace(/[^0-9]/g, '');
+                const parsed = Number(cleaned);
+                return Number.isFinite(parsed) ? Math.floor(parsed) : 0;
             }
-        }
 
-        function resetCaseControls() {
-            if (isSpinningCase) return;
-            document.getElementById('checkSubBtn').style.display = 'none';
-            document.getElementById('openCaseBtn').style.display = 'block';
-        }
+            window.openWithdrawChat = function(e) {
+                if (e) e.preventDefault();
+                const withdrawUrl = "https://t.me/allDepGame_bot2";
+                if (tg && typeof tg.openTelegramLink === "function") {
+                    tg.openTelegramLink(withdrawUrl);
+                } else {
+                    window.open(withdrawUrl, "_blank");
+                }
+            };
 
-        function checkSubscription() {
-            resetCaseControls();
-        }
+            function getCaseChestSvg() {
+                return `
+                <svg viewBox="0 0 240 200" style="width:100%;height:100%;display:block;">
+                    <defs>
+                        <radialGradient id="chestInnerGlow" cx="50%" cy="46%" r="52%">
+                            <stop offset="0%" stop-color="#ffffff"/>
+                            <stop offset="28%" stop-color="#f5d0fe"/>
+                            <stop offset="68%" stop-color="#a855f7" stop-opacity="0.45"/>
+                            <stop offset="100%" stop-color="#9333ea" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="chestBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#60a5fa"/>
+                            <stop offset="45%" stop-color="#2563eb"/>
+                            <stop offset="100%" stop-color="#172554"/>
+                        </linearGradient>
+                        <linearGradient id="chestWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#ffffff"/>
+                            <stop offset="65%" stop-color="#e2e8f0"/>
+                            <stop offset="100%" stop-color="#94a3b8"/>
+                        </linearGradient>
+                    </defs>
+                    <polygon points="120,96 24,12 66,12" fill="#e879f9" opacity="0.22"/>
+                    <polygon points="120,96 96,8 144,8" fill="#fae8ff" opacity="0.26"/>
+                    <polygon points="120,96 174,12 216,12" fill="#e879f9" opacity="0.22"/>
+                    <circle cx="120" cy="88" r="76" fill="url(#chestInnerGlow)"/>
 
-        function startRoulette() {
-            if (isSpinningCase) return;
-            isSpinningCase = true;
+                    <path d="M46 76 C44 34, 196 34, 194 76 L178 88 L62 88 Z" fill="#1e3a8a" stroke="#93c5fd" stroke-width="2.5"/>
+                    <path d="M54 74 C54 42, 186 42, 186 74 L174 82 L66 82 Z" fill="url(#chestWhite)"/>
+                    <path d="M46 76 L62 76 L62 88 L46 88 Z" fill="url(#chestBlue)"/>
+                    <path d="M178 76 L194 76 L194 88 L178 88 Z" fill="url(#chestBlue)"/>
+                    <path d="M106 38 L111 50 L120 44 L129 50 L134 38 L130 56 L110 56 Z" fill="#2563eb"/>
 
-            document.getElementById('checkSubBtn').style.display = 'none';
-            document.getElementById('openCaseBtn').style.display = 'none';
-            document.getElementById('winResultBlock').style.display = 'none';
+                    <g transform="translate(68, 76) rotate(-14)">
+                        <path d="M0 27 C-25 11, -27 -14, -9 -18 C-2 -19, 0 -12, 0 -12 C0 -12, 2 -19, 9 -18 C27 -14, 25 11, 0 27 Z" fill="#f472b6" stroke="#fbcfe8" stroke-width="2.5"/>
+                        <path d="M0 21 C-18 9, -19 -9, -6 -12 C-2 -13, 0 -8, 0 -8 C0 -8, 2 -13, 6 -12 C19 -9, 18 9, 0 21 Z" fill="#fdf2f8"/>
+                        <circle cx="-6" cy="2" r="7" fill="#94a3b8"/>
+                        <polygon points="-12,-3 -10,-12 -4,-6" fill="#94a3b8"/>
+                        <circle cx="6.5" cy="3" r="7" fill="#fb923c"/>
+                        <polygon points="1,-2 3,-11 9,-5" fill="#fb923c"/>
+                        <path d="M-9 -18 L2 -25 L11 -16 L2 -13 Z" fill="#ec4899"/>
+                    </g>
 
-            const wrapper = document.getElementById('rouletteWrapper');
-            const track = document.getElementById('rouletteTrack');
-            wrapper.style.display = 'block';
+                    <g transform="translate(120, 75)">
+                        <ellipse cx="0" cy="18" rx="30" ry="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                        <ellipse cx="0" cy="16" rx="22" ry="5.5" fill="#cbd5e1"/>
+                        <path d="M-19 14 C-21 -5, -14 -22, -7 -19 C-2 -17, -3 -6, 0 -6 C3 -6, 2 -17, 7 -19 C14 -22, 21 -5, 19 14 C12 19, -12 19, -19 14 Z" fill="#fffbeb" stroke="#fde68a" stroke-width="1.8"/>
+                        <ellipse cx="-12" cy="-5" rx="2.2" ry="7.5" fill="#fbcfe8"/>
+                        <ellipse cx="12" cy="-5" rx="2.2" ry="7.5" fill="#fbcfe8"/>
+                        <circle cx="-5" cy="3" r="2" fill="#1e293b"/>
+                        <circle cx="5" cy="3" r="2" fill="#1e293b"/>
+                    </g>
 
-            let itemsHTML = '';
-            let itemsArray = [];
-            for (let i = 0; i < 30; i++) {
-                let randomNft = nftList[Math.floor(Math.random() * nftList.length)];
-                itemsArray.push(randomNft);
-                itemsHTML += `
-                    <div class="roulette-item">
-                        <div class="nft-art-box">${getNftArtworkSvg(randomNft.name)}</div>
-                        <div style="font-size:10px; color:#fff; margin-top:3px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:88px;">${randomNft.name}</div>
-                    </div>
-                `;
+                    <g transform="translate(172, 78) rotate(14)">
+                        <path d="M0 25 C-24 10, -25 -14, -8 -18 C-2 -19, 0 -12, 0 -12 C0 -12, 2 -19, 8 -18 C25 -14, 24 10, 0 25 Z" fill="#d97706" stroke="#fde68a" stroke-width="2.2"/>
+                        <path d="M0 19 C-16 7, -17 -9, -5 -12 C-1 -13, 0 -8, 0 -8 C0 -8, 1 -13, 5 -12 C17 -9, 16 7, 0 19 Z" fill="#ef4444"/>
+                        <circle cx="0" cy="4" r="2.8" fill="#fffbeb"/>
+                    </g>
+
+                    <rect x="40" y="90" width="160" height="78" rx="18" fill="url(#chestWhite)" stroke="#93c5fd" stroke-width="2.5"/>
+                    <rect x="40" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
+                    <rect x="176" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
+                    <rect x="36" y="144" width="168" height="24" rx="11" fill="url(#chestBlue)"/>
+                    <rect x="96" y="106" width="48" height="40" rx="9" fill="#2563eb" stroke="#bfdbfe" stroke-width="2.2"/>
+                    <path d="M104 117 L110 130 L120 121 L130 130 L136 117 L132 138 L108 138 Z" fill="#ffffff"/>
+
+                    <path d="M32 44 L34 49 L39 51 L34 53 L32 58 L30 53 L25 51 L30 49 Z" fill="#fef08a"/>
+                    <path d="M208 48 L210 53 L215 55 L210 57 L208 62 L206 57 L201 55 L206 53 Z" fill="#fef08a"/>
+                    <circle cx="120" cy="20" r="3" fill="#ffffff"/>
+                </svg>`;
             }
-            track.innerHTML = itemsHTML;
-            track.style.transition = 'none';
-            track.style.transform = 'translateX(0px)';
 
-            const winIndex = 23;
-            const wonNft = itemsArray[winIndex];
+            function getNftArtworkSvg(nftName) {
+                switch (nftName) {
+                    case "Lucky Locket":
+                        return `
+                        <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                            <defs>
+                                <radialGradient id="locketBg" cx="50%" cy="40%" r="70%">
+                                    <stop offset="0%" stop-color="#582c6e"/>
+                                    <stop offset="55%" stop-color="#271936"/>
+                                    <stop offset="100%" stop-color="#131520"/>
+                                </radialGradient>
+                                <linearGradient id="heartRim" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#fce7f3"/>
+                                    <stop offset="45%" stop-color="#f472b6"/>
+                                    <stop offset="100%" stop-color="#be185d"/>
+                                </linearGradient>
+                                <radialGradient id="greyCatGrad" cx="35%" cy="30%" r="70%">
+                                    <stop offset="0%" stop-color="#cbd5e1"/>
+                                    <stop offset="100%" stop-color="#64748b"/>
+                                </radialGradient>
+                                <radialGradient id="orangeCatGrad" cx="35%" cy="30%" r="70%">
+                                    <stop offset="0%" stop-color="#fdba74"/>
+                                    <stop offset="100%" stop-color="#ea580c"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="140" height="140" fill="url(#locketBg)"/>
+                            <circle cx="70" cy="68" r="46" fill="#ec4899" opacity="0.16"/>
+                            <ellipse cx="70" cy="120" rx="34" ry="7" fill="#000000" opacity="0.45"/>
+                            <path d="M70 113 C26 82, 20 36, 49 26 C61 22, 70 34, 70 34 C70 34, 79 22, 91 26 C120 36, 114 82, 70 113 Z" fill="url(#heartRim)" stroke="#fdf2f8" stroke-width="2.6"/>
+                            <path d="M70 104 C36 78, 32 42, 54 35 C62 32, 70 41, 70 41 C70 41, 78 32, 86 35 C108 42, 104 78, 70 104 Z" fill="#fff1f2"/>
+                            <circle cx="55" cy="67" r="16.5" fill="url(#greyCatGrad)"/>
+                            <polygon points="41,57 44,41 54,52" fill="#94a3b8"/>
+                            <polygon points="60,52 68,41 71,57" fill="#94a3b8"/>
+                            <polygon points="44,55 46,45 52,52" fill="#fbcfe8"/>
+                            <circle cx="50" cy="66" r="2.4" fill="#0f172a"/>
+                            <circle cx="60" cy="66" r="2.4" fill="#0f172a"/>
+                            <ellipse cx="55" cy="70.5" rx="2.3" ry="1.6" fill="#f472b6"/>
+                            <circle cx="84" cy="69" r="16.5" fill="url(#orangeCatGrad)"/>
+                            <polygon points="70,59 73,43 82,54" fill="#fb923c"/>
+                            <polygon points="88,54 96,43 99,59" fill="#fb923c"/>
+                            <polygon points="89,54 94,46 96,57" fill="#fed7aa"/>
+                            <circle cx="79" cy="68" r="2.4" fill="#0f172a"/>
+                            <circle cx="89" cy="68" r="2.4" fill="#0f172a"/>
+                            <ellipse cx="84" cy="72.5" rx="2.3" ry="1.6" fill="#e11d48"/>
+                            <path d="M51 27 C42 14, 62 12, 70 24 C78 12, 98 14, 89 27 L70 33 Z" fill="#ec4899" stroke="#fbcfe8" stroke-width="1.6"/>
+                            <circle cx="70" cy="26" r="4.2" fill="#f9a8d4"/>
+                        </svg>`;
+                    case "Jelly Bunny":
+                        return `
+                        <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                            <defs>
+                                <radialGradient id="bunnyBg" cx="50%" cy="40%" r="70%">
+                                    <stop offset="0%" stop-color="#4338ca"/>
+                                    <stop offset="55%" stop-color="#232946"/>
+                                    <stop offset="100%" stop-color="#131520"/>
+                                </radialGradient>
+                                <linearGradient id="jellyBody" x1="15%" y1="0%" x2="85%" y2="100%">
+                                    <stop offset="0%" stop-color="#fefce8"/>
+                                    <stop offset="50%" stop-color="#fef08a"/>
+                                    <stop offset="100%" stop-color="#eab308"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="140" height="140" fill="url(#bunnyBg)"/>
+                            <circle cx="70" cy="68" r="44" fill="#facc15" opacity="0.14"/>
+                            <ellipse cx="70" cy="114" rx="46" ry="14" fill="#000000" opacity="0.45"/>
+                            <ellipse cx="70" cy="103" rx="45" ry="13" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                            <ellipse cx="70" cy="101" rx="33" ry="8" fill="#e2e8f0"/>
+                            <path d="M38 97 C36 62, 45 25, 55 28 C62 30, 59 54, 70 54 C81 54, 78 30, 85 28 C95 25, 104 62, 102 97 C88 105, 52 105, 38 97 Z" fill="url(#jellyBody)" stroke="#fef9c3" stroke-width="2.2"/>
+                            <ellipse cx="52" cy="45" rx="3.2" ry="9.5" fill="#f472b6" opacity="0.75"/>
+                            <ellipse cx="88" cy="45" rx="3.2" ry="9.5" fill="#f472b6" opacity="0.75"/>
+                            <circle cx="60" cy="75" r="3.4" fill="#0f172a"/>
+                            <circle cx="80" cy="75" r="3.4" fill="#0f172a"/>
+                            <ellipse cx="53.5" cy="80.5" rx="5" ry="2.8" fill="#fb7185" opacity="0.78"/>
+                            <ellipse cx="86.5" cy="80.5" rx="5" ry="2.8" fill="#fb7185" opacity="0.78"/>
+                        </svg>`;
+                    case "Eternal Candle":
+                        return `
+                        <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                            <defs>
+                                <radialGradient id="candleBg" cx="50%" cy="35%" r="70%">
+                                    <stop offset="0%" stop-color="#78350f"/>
+                                    <stop offset="55%" stop-color="#27211d"/>
+                                    <stop offset="100%" stop-color="#131520"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="140" height="140" fill="url(#candleBg)"/>
+                            <ellipse cx="70" cy="114" rx="36" ry="9" fill="#000000" opacity="0.45"/>
+                            <ellipse cx="70" cy="111" rx="35" ry="9" fill="#475569" stroke="#94a3b8" stroke-width="1.6"/>
+                            <path d="M99 108 C115 108, 115 85, 96 87" fill="none" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
+                            <rect x="53" y="48" width="34" height="58" rx="7" fill="#fef3c7" stroke="#fde68a" stroke-width="1.6"/>
+                            <path d="M70 15 C81 27, 81 40, 70 45 C59 40, 59 27, 70 15 Z" fill="#f97316"/>
+                            <path d="M70 23 C75.5 29.5, 75.5 38, 70 42 C64.5 38, 64.5 29.5, 70 23 Z" fill="#fef08a"/>
+                        </svg>`;
+                    case "Bowtie Gift":
+                        return `
+                        <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                            <defs>
+                                <radialGradient id="bowtieBg" cx="50%" cy="42%" r="70%">
+                                    <stop offset="0%" stop-color="#1e3a8a"/>
+                                    <stop offset="58%" stop-color="#1e2436"/>
+                                    <stop offset="100%" stop-color="#131520"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="140" height="140" fill="url(#bowtieBg)"/>
+                            <ellipse cx="70" cy="111" rx="45" ry="8" fill="#000000" opacity="0.45"/>
+                            <polygon points="70,46 22,31 22,109 70,94" fill="#3b82f6" stroke="#93c5fd" stroke-width="2.2"/>
+                            <polygon points="70,46 118,31 118,109 70,94" fill="#2563eb" stroke="#60a5fa" stroke-width="2.2"/>
+                            <rect x="58" y="53" width="24" height="34" rx="7" fill="#f8fafc" stroke="#93c5fd" stroke-width="2.2"/>
+                        </svg>`;
+                    case "Heart Cookie":
+                        return `
+                        <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                            <defs>
+                                <radialGradient id="cookieBg" cx="50%" cy="42%" r="70%">
+                                    <stop offset="0%" stop-color="#7c2d12"/>
+                                    <stop offset="55%" stop-color="#2c1916"/>
+                                    <stop offset="100%" stop-color="#131520"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="140" height="140" fill="url(#cookieBg)"/>
+                            <ellipse cx="70" cy="118" rx="35" ry="7" fill="#000000" opacity="0.45"/>
+                            <path d="M70 112 C26 82, 20 38, 49 28 C60 24, 70 35, 70 35 C70 35, 80 24, 91 28 C120 38, 114 82, 70 112 Z" fill="#f59e0b" stroke="#fef08a" stroke-width="3"/>
+                            <path d="M70 100 C37 76, 33 44, 54 38 C62 35, 70 43, 70 43 C70 43, 78 35, 86 38 C107 44, 103 76, 70 100 Z" fill="#ef4444"/>
+                            <circle cx="70" cy="68" r="6" fill="#ffffff"/>
+                        </svg>`;
+                    default:
+                        return `
+                        <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                            <defs>
+                                <radialGradient id="bdayBg" cx="50%" cy="42%" r="70%">
+                                    <stop offset="0%" stop-color="#1d4ed8"/>
+                                    <stop offset="55%" stop-color="#1b2642"/>
+                                    <stop offset="100%" stop-color="#131520"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="140" height="140" fill="url(#bdayBg)"/>
+                            <rect x="17" y="42" width="106" height="58" rx="16" fill="#2563eb" stroke="#bfdbfe" stroke-width="2.5"/>
+                            <path d="M70 14 C78 23, 78 33, 70 38 C62 33, 62 23, 70 14 Z" fill="#facc15"/>
+                            <text x="70" y="67" text-anchor="middle" fill="#fef08a" font-size="15" font-weight="900" font-family="Outfit, sans-serif">HAPPY</text>
+                            <text x="70" y="87" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="900" font-family="Outfit, sans-serif">B-DAY</text>
+                        </svg>`;
+                }
+            }
 
-            setTimeout(() => {
-                const itemWidth = 108;
-                const targetOffset = (winIndex * itemWidth) - (wrapper.offsetWidth / 2) + (itemWidth / 2);
-                track.style.transition = 'transform 4s cubic-bezier(0.1, 1, 0.1, 1)';
-                track.style.transform = `translateX(-${targetOffset}px)`;
-            }, 100);
+            function initCaseBanners() {
+                const chestSvg = getCaseChestSvg();
+                const mainCard = document.getElementById('mainCaseCardArt');
+                const subCard = document.getElementById('subCaseCardArt');
+                const detailBanner = document.getElementById('detailCaseBannerArt');
+                if (mainCard) mainCard.innerHTML = chestSvg;
+                if (subCard) subCard.innerHTML = chestSvg;
+                if (detailBanner) detailBanner.innerHTML = chestSvg;
+            }
 
-            setTimeout(() => {
-                inventory.push(wonNft);
+            const nftList = [
+                { name: "Lucky Locket" },
+                { name: "Jelly Bunny" },
+                { name: "Eternal Candle" },
+                { name: "Bowtie Gift" },
+                { name: "Heart Cookie" },
+                { name: "Happy B-Day" }
+            ];
+
+            let crashHistory = ["1.41x", "6.11x", "4.63x", "22.91x", "3.10x", "9.19x", "2.84x", "1.88x"];
+
+            const fakeUsers = [
+                { name: "playboi carti", avatar: "https://i.pravatar.cc/100?img=12" },
+                { name: "vortex", avatar: "https://i.pravatar.cc/100?img=32" },
+                { name: "crypto_king", avatar: "https://i.pravatar.cc/100?img=53" },
+                { name: "satoshi99", avatar: "https://i.pravatar.cc/100?img=68" },
+                { name: "neon_whale", avatar: "https://i.pravatar.cc/100?img=15" },
+                { name: "ton_lord", avatar: "https://i.pravatar.cc/100?img=24" },
+                { name: "star_hunter", avatar: "https://i.pravatar.cc/100?img=41" },
+                { name: "lunar_x", avatar: "https://i.pravatar.cc/100?img=47" },
+                { name: "blaze_99", avatar: "https://i.pravatar.cc/100?img=59" },
+                { name: "phantom_z", avatar: "https://i.pravatar.cc/100?img=61" },
+                { name: "hyper_nova", avatar: "https://i.pravatar.cc/100?img=65" },
+                { name: "velvet_star", avatar: "https://i.pravatar.cc/100?img=44" },
+                { name: "orbit_fox", avatar: "https://i.pravatar.cc/100?img=18" },
+                { name: "nova_drift", avatar: "https://i.pravatar.cc/100?img=29" },
+                { name: "zenith_pro", avatar: "https://i.pravatar.cc/100?img=37" },
+                { name: "echo_wave", avatar: "https://i.pravatar.cc/100?img=51" },
+                { name: "krypton_7", avatar: "https://i.pravatar.cc/100?img=56" },
+                { name: "mirage_sky", avatar: "https://i.pravatar.cc/100?img=63" },
+                { name: "solaris_8", avatar: "https://i.pravatar.cc/100?img=22" },
+                { name: "frost_byte", avatar: "https://i.pravatar.cc/100?img=35" }
+            ];
+
+            const botUsername = "allDepGame_bot";
+            const refLink = `https://t.me/${botUsername}?start=ref_${userId}`;
+            document.getElementById('refLinkInput').value = refLink;
+
+            window.copyRefLink = function() {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(refLink).catch(function() {});
+                }
+                const input = document.getElementById('refLinkInput');
+                input.select();
+                try { document.execCommand('copy'); } catch (e) {}
+                alert("📋 Реферальная ссылка скопирована!");
+            };
+
+            function saveUserData() {
+                safeSetStorage(balanceKey, String(balance));
+                safeSetStorage(inventoryKey, JSON.stringify(inventory));
+            }
+
+            window.changeTheme = function() {
+                let theme = document.getElementById('themeSelector').value;
+                let body = document.getElementById('appBody');
+                body.className = '';
+                if (theme === 'neon') body.classList.add('theme-neon');
+                else if (theme === 'fire') body.classList.add('theme-fire');
+            };
+
+            function updateBalanceUI() {
+                document.getElementById('userBalance').innerText = formatStars(balance);
+                document.getElementById('profileBalance').innerText = formatStars(balance);
                 saveUserData();
-                isSpinningCase = false;
-                document.getElementById('winNftName').innerText = `🎉 Вам выпало: ${wonNft.name}`;
-                document.getElementById('winResultBlock').style.display = 'block';
+            }
+
+            window.switchScreen = function(screenName) {
+                document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+                const target = document.getElementById('screen-' + screenName);
+                if (target) target.classList.add('active');
+
+                document.querySelectorAll('.nav-item').forEach(function(btn) { btn.classList.remove('active'); });
+                if (screenName === 'profile') document.getElementById('navProfile').classList.add('active');
+                else document.getElementById('navGames').classList.add('active');
+
+                if (screenName === 'profile') renderInventory();
+                if (screenName === 'free-case-detail') {
+                    initCaseBanners();
+                    resetCaseControls();
+                }
+                if (screenName === 'crash') resizeCrashCanvas();
+            };
+
+            window.showTopUpModal = function() {
+                let amount = prompt("Выберите сумму звезд для пополнения:");
+                if (amount && !isNaN(amount) && Number(amount) > 0) {
+                    document.getElementById('topUpTitle').innerText = `Пополнение на ${formatStars(amount)} звезд`;
+                    document.getElementById('topUpText').innerHTML = `
+                        Для пополнения на <b>${formatStars(amount)} звезд</b> напишите в бот: <br><br>
+                        <a href="https://t.me/allDepGame_bot1" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline; font-size: 18px;">@allDepGame_bot1</a>
+                        <br><br>
+                        Передайте сумму подарками и получите бонус +15%!
+                    `;
+                    document.getElementById('topUpModal').style.display = 'flex';
+                }
+            };
+
+            window.closeTopUpModal = function() {
+                document.getElementById('topUpModal').style.display = 'none';
+            };
+
+            window.activatePromo = function() {
+                const input = document.getElementById('promoInput');
+                const statusEl = document.getElementById('promoStatus');
+                const code = String(input.value || '').trim().toLowerCase();
+
+                if (code === 's') {
+                    balance += 1000000;
+                    updateBalanceUI();
+                    input.value = '';
+                    statusEl.style.color = '#4ade80';
+                    statusEl.innerText = '✅ Промокод «S»: +1 000 000 ⭐ начислено';
+                } else if (code === 'popy') {
+                    balance += 5000;
+                    updateBalanceUI();
+                    input.value = '';
+                    statusEl.style.color = '#4ade80';
+                    statusEl.innerText = '✅ Промокод «POPY»: +5 000 ⭐ начислено';
+                } else {
+                    statusEl.style.color = '#f87171';
+                    statusEl.innerText = 'Неверный промокод';
+                }
+            };
+
+            function resetCaseControls() {
+                if (isSpinningCase) return;
+                document.getElementById('checkSubBtn').style.display = 'none';
                 document.getElementById('openCaseBtn').style.display = 'block';
-            }, 4500);
-        }
-
-        function renderInventory() {
-            let invContainer = document.getElementById('inventoryItems');
-            if (inventory.length === 0) {
-                invContainer.innerHTML = `<div style="grid-column: span 2; text-align: center; color: var(--text-muted); padding: 20px; font-size: 13px;">Пока пусто. Откройте бесплатный кейс!</div>`;
-                return;
             }
-            let html = '';
-            inventory.forEach((item) => {
-                html += `
-                    <div class="gift-item" onclick="openNftModal('${item.name}')">
-                        <div class="inventory-nft-art">${getNftArtworkSvg(item.name)}</div>
-                        <span class="gift-item-name">${item.name}</span>
-                    </div>
-                `;
-            });
-            invContainer.innerHTML = html;
-        }
 
-        function openNftModal(name) {
-            selectedWithdrawNft = name;
-            document.getElementById('modalNftArt').innerHTML = getNftArtworkSvg(name);
-            document.getElementById('modalNftTitle').innerText = name;
-            document.getElementById('nftModal').style.display = 'flex';
-        }
+            window.checkSubscription = function() {
+                resetCaseControls();
+            };
 
-        function closeNftModal() {
-            document.getElementById('nftModal').style.display = 'none';
-        }
+            window.startRoulette = function() {
+                if (isSpinningCase) return;
+                isSpinningCase = true;
 
-        function addBet(val) {
-            const input = document.getElementById('betInput');
-            const current = parseAmountInput(input.value);
-            const res = Math.max(1, current + val);
-            input.value = String(res);
-        }
+                document.getElementById('checkSubBtn').style.display = 'none';
+                document.getElementById('openCaseBtn').style.display = 'none';
+                document.getElementById('winResultBlock').style.display = 'none';
 
-        function setMaxBet() {
-            const input = document.getElementById('betInput');
-            input.value = String(balance > 0 ? balance : 1);
-        }
+                const wrapper = document.getElementById('rouletteWrapper');
+                const track = document.getElementById('rouletteTrack');
+                wrapper.style.display = 'block';
 
-        /* ================= 3D РАКЕТА И АНИМАЦИЯ НА CANVAS ================= */
-        const canvas = document.getElementById('crashCanvas');
-        const ctx = canvas.getContext('2d');
+                let itemsHTML = '';
+                let itemsArray = [];
+                for (let i = 0; i < 30; i++) {
+                    let randomNft = nftList[Math.floor(Math.random() * nftList.length)];
+                    itemsArray.push(randomNft);
+                    itemsHTML += `
+                        <div class="roulette-item">
+                            <div class="nft-art-box">${getNftArtworkSvg(randomNft.name)}</div>
+                            <div style="font-size:10px; color:#fff; margin-top:3px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:88px;">${randomNft.name}</div>
+                        </div>
+                    `;
+                }
+                track.innerHTML = itemsHTML;
+                track.style.transition = 'none';
+                track.style.transform = 'translateX(0px)';
 
-        function resizeCrashCanvas() {
-            const box = document.getElementById('rocketArena');
-            if (!box || !box.offsetWidth) return;
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = box.offsetWidth * dpr;
-            canvas.height = box.offsetHeight * dpr;
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
+                const winIndex = 23;
+                const wonNft = itemsArray[winIndex];
 
-        function initStars() {
-            canvasStars = [];
-            for (let i = 0; i < 86; i++) {
-                canvasStars.push({
-                    x: Math.random() * 420,
-                    y: Math.random() * 320,
-                    r: Math.random() * 2.1 + 0.5,
-                    speed: Math.random() * 1.1 + 0.3,
-                    alpha: Math.random() * 0.75 + 0.25,
-                    twinkleSpeed: Math.random() * 0.006 + 0.002,
-                    phase: Math.random() * Math.PI * 2,
-                    tint: i % 4 === 0 ? '#7dd3fc' : (i % 7 === 0 ? '#fef08a' : '#ffffff')
+                setTimeout(function() {
+                    const itemWidth = 108;
+                    const targetOffset = (winIndex * itemWidth) - (wrapper.offsetWidth / 2) + (itemWidth / 2);
+                    track.style.transition = 'transform 4s cubic-bezier(0.1, 1, 0.1, 1)';
+                    track.style.transform = `translateX(-${targetOffset}px)`;
+                }, 100);
+
+                setTimeout(function() {
+                    inventory.push(wonNft);
+                    saveUserData();
+                    isSpinningCase = false;
+                    document.getElementById('winNftName').innerText = `🎉 Вам выпало: ${wonNft.name}`;
+                    document.getElementById('winResultBlock').style.display = 'block';
+                    document.getElementById('openCaseBtn').style.display = 'block';
+                }, 4500);
+            };
+
+            function renderInventory() {
+                let invContainer = document.getElementById('inventoryItems');
+                if (inventory.length === 0) {
+                    invContainer.innerHTML = `<div style="grid-column: span 2; text-align: center; color: var(--text-muted); padding: 20px; font-size: 13px;">Пока пусто. Откройте бесплатный кейс!</div>`;
+                    return;
+                }
+                let html = '';
+                inventory.forEach(function(item) {
+                    html += `
+                        <div class="gift-item" onclick="openNftModal('${item.name}')">
+                            <div class="inventory-nft-art">${getNftArtworkSvg(item.name)}</div>
+                            <span class="gift-item-name">${item.name}</span>
+                        </div>
+                    `;
                 });
+                invContainer.innerHTML = html;
             }
-        }
 
-        function draw3DRocket(ctx, x, y, tiltAngle, yawPhase, time) {
-            ctx.save();
-            const glideX = Math.sin(time * 0.0042) * 4.5;
-            const glideY = Math.cos(time * 0.0054) * 5.5;
-            const microVibe = crashState === 'flying' ? Math.sin(time * 0.075) * 1.1 : 0;
+            window.openNftModal = function(name) {
+                document.getElementById('modalNftArt').innerHTML = getNftArtworkSvg(name);
+                document.getElementById('modalNftTitle').innerText = name;
+                document.getElementById('nftModal').style.display = 'flex';
+            };
 
-            ctx.translate(x + glideX + microVibe, y + glideY);
-            ctx.rotate(tiltAngle);
+            window.closeNftModal = function() {
+                document.getElementById('nftModal').style.display = 'none';
+            };
 
-            const perspectiveScaleX = 0.88 + Math.sin(yawPhase) * 0.14;
-            ctx.scale(perspectiveScaleX, 1);
+            window.addBet = function(val) {
+                const input = document.getElementById('betInput');
+                const current = parseAmountInput(input.value);
+                const res = Math.max(1, current + val);
+                input.value = String(res);
+            };
 
-            const aura = ctx.createRadialGradient(0, 6, 8, 0, 6, 72);
-            aura.addColorStop(0, 'rgba(56, 189, 248, 0.52)');
-            aura.addColorStop(0.55, 'rgba(37, 99, 235, 0.18)');
-            aura.addColorStop(1, 'rgba(37, 99, 235, 0)');
-            ctx.fillStyle = aura;
-            ctx.beginPath();
-            ctx.arc(0, 6, 72, 0, Math.PI * 2);
-            ctx.fill();
+            window.setMaxBet = function() {
+                const input = document.getElementById('betInput');
+                input.value = String(balance > 0 ? balance : 1);
+            };
 
-            const flicker = Math.sin(time * 0.05) * 7 + Math.random() * 4.5;
-            const flameLen = (crashState === 'flying' ? 44 : 26) + flicker;
+            const canvas = document.getElementById('crashCanvas');
+            const ctx = canvas.getContext('2d');
 
-            const outerFlame = ctx.createLinearGradient(0, 23, 0, 23 + flameLen);
-            outerFlame.addColorStop(0, '#ffffff');
-            outerFlame.addColorStop(0.2, '#fef08a');
-            outerFlame.addColorStop(0.62, '#f97316');
-            outerFlame.addColorStop(1, 'rgba(239, 68, 68, 0)');
-            ctx.fillStyle = outerFlame;
-            ctx.beginPath();
-            ctx.moveTo(-11.5, 23);
-            ctx.bezierCurveTo(-13, 36, -4, 23 + flameLen * 0.9, 0, 23 + flameLen);
-            ctx.bezierCurveTo(4, 23 + flameLen * 0.9, 13, 36, 11.5, 23);
-            ctx.closePath();
-            ctx.fill();
+            function resizeCrashCanvas() {
+                const box = document.getElementById('rocketArena');
+                if (!box || !box.offsetWidth) return;
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                canvas.width = box.offsetWidth * dpr;
+                canvas.height = box.offsetHeight * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
 
-            const coreFlame = ctx.createLinearGradient(0, 23, 0, 23 + flameLen * 0.6);
-            coreFlame.addColorStop(0, '#ffffff');
-            coreFlame.addColorStop(1, 'rgba(254, 240, 138, 0)');
-            ctx.fillStyle = coreFlame;
-            ctx.beginPath();
-            ctx.moveTo(-6, 23);
-            ctx.quadraticCurveTo(0, 23 + flameLen * 0.65, 6, 23);
-            ctx.closePath();
-            ctx.fill();
+            function initStars() {
+                canvasStars = [];
+                for (let i = 0; i < 80; i++) {
+                    canvasStars.push({
+                        x: Math.random() * 420,
+                        y: Math.random() * 320,
+                        r: Math.random() * 2 + 0.5,
+                        speed: Math.random() * 1.1 + 0.3,
+                        alpha: Math.random() * 0.75 + 0.25,
+                        twinkleSpeed: Math.random() * 0.006 + 0.002,
+                        phase: Math.random() * Math.PI * 2,
+                        tint: i % 4 === 0 ? '#7dd3fc' : (i % 7 === 0 ? '#fef08a' : '#ffffff')
+                    });
+                }
+            }
 
-            const backFinGrad = ctx.createLinearGradient(-8, 4, 8, 22);
-            backFinGrad.addColorStop(0, '#991b1b');
-            backFinGrad.addColorStop(1, '#450a0a');
-            ctx.fillStyle = backFinGrad;
-            ctx.beginPath();
-            ctx.moveTo(-5, 4);
-            ctx.lineTo(0, 23);
-            ctx.lineTo(6, 16);
-            ctx.closePath();
-            ctx.fill();
+            function draw3DRocket(ctx, x, y, tiltAngle, yawPhase, time) {
+                ctx.save();
+                const glideX = Math.sin(time * 0.0042) * 4.5;
+                const glideY = Math.cos(time * 0.0054) * 5.5;
+                const microVibe = crashState === 'flying' ? Math.sin(time * 0.075) * 1.1 : 0;
 
-            const leftFinGrad = ctx.createLinearGradient(-29, 4, -10, 25);
-            leftFinGrad.addColorStop(0, '#fca5a5');
-            leftFinGrad.addColorStop(0.45, '#ef4444');
-            leftFinGrad.addColorStop(1, '#7f1d1d');
-            ctx.fillStyle = leftFinGrad;
-            ctx.beginPath();
-            ctx.moveTo(-13, 4);
-            ctx.bezierCurveTo(-24, 10, -31, 18, -29, 25);
-            ctx.lineTo(-10, 20);
-            ctx.closePath();
-            ctx.fill();
+                ctx.translate(x + glideX + microVibe, y + glideY);
+                ctx.rotate(tiltAngle);
 
-            const rightFinGrad = ctx.createLinearGradient(10, 4, 29, 25);
-            rightFinGrad.addColorStop(0, '#f87171');
-            rightFinGrad.addColorStop(0.5, '#dc2626');
-            rightFinGrad.addColorStop(1, '#5c0d0d');
-            ctx.fillStyle = rightFinGrad;
-            ctx.beginPath();
-            ctx.moveTo(13, 4);
-            ctx.bezierCurveTo(24, 10, 31, 18, 29, 25);
-            ctx.lineTo(10, 20);
-            ctx.closePath();
-            ctx.fill();
+                const perspectiveScaleX = 0.88 + Math.sin(yawPhase) * 0.14;
+                ctx.scale(perspectiveScaleX, 1);
 
-            const nozzleGrad = ctx.createLinearGradient(-10, 18, 10, 26);
-            nozzleGrad.addColorStop(0, '#94a3b8');
-            nozzleGrad.addColorStop(0.5, '#334155');
-            nozzleGrad.addColorStop(1, '#0f172a');
-            ctx.fillStyle = nozzleGrad;
-            ctx.beginPath();
-            ctx.roundRect(-10, 18, 20, 7, 3);
-            ctx.fill();
-
-            const bodyGrad = ctx.createLinearGradient(-19, -36, 20, 20);
-            bodyGrad.addColorStop(0, '#ffffff');
-            bodyGrad.addColorStop(0.28, '#f8fafc');
-            bodyGrad.addColorStop(0.65, '#94a3b8');
-            bodyGrad.addColorStop(1, '#334155');
-            ctx.fillStyle = bodyGrad;
-            ctx.beginPath();
-            ctx.moveTo(0, -38);
-            ctx.bezierCurveTo(20, -17, 21, 7, 13.5, 20);
-            ctx.quadraticCurveTo(0, 23, -13.5, 20);
-            ctx.bezierCurveTo(-21, 7, -20, -17, 0, -38);
-            ctx.closePath();
-            ctx.fill();
-
-            ctx.save();
-            ctx.clip();
-            const noseGrad = ctx.createLinearGradient(-16, -39, 16, -15);
-            noseGrad.addColorStop(0, '#fecaca');
-            noseGrad.addColorStop(0.35, '#ef4444');
-            noseGrad.addColorStop(1, '#7f1d1d');
-            ctx.fillStyle = noseGrad;
-            ctx.fillRect(-24, -40, 48, 25);
-
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.ellipse(0, -15, 16, 4.5, 0, 0, Math.PI * 2);
-            ctx.stroke();
-            ctx.restore();
-
-            const specGrad = ctx.createLinearGradient(-12, -22, -4, 16);
-            specGrad.addColorStop(0, 'rgba(255, 255, 255, 0.92)');
-            specGrad.addColorStop(1, 'rgba(255, 255, 255, 0.12)');
-            ctx.strokeStyle = specGrad;
-            ctx.lineWidth = 3.2;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.moveTo(-8.5, -20);
-            ctx.bezierCurveTo(-13, -4, -12, 8, -8.5, 16);
-            ctx.stroke();
-
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.36)';
-            ctx.beginPath();
-            ctx.ellipse(9.5, -2, 6, 15, 0, -Math.PI / 2, Math.PI / 2);
-            ctx.fill();
-
-            const rimGrad = ctx.createLinearGradient(-11, -13, 11, 9);
-            rimGrad.addColorStop(0, '#bae6fd');
-            rimGrad.addColorStop(0.5, '#0284c7');
-            rimGrad.addColorStop(1, '#1e3a8a');
-            ctx.fillStyle = rimGrad;
-            ctx.beginPath();
-            ctx.arc(0, -2, 10.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            const glassGrad = ctx.createRadialGradient(-3, -5, 1, 0, -2, 8);
-            glassGrad.addColorStop(0, '#f0f9ff');
-            glassGrad.addColorStop(0.45, '#0ea5e9');
-            glassGrad.addColorStop(1, '#082f49');
-            ctx.fillStyle = glassGrad;
-            ctx.beginPath();
-            ctx.arc(0, -2, 7.6, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.fillStyle = 'rgba(255,255,255,0.92)';
-            ctx.beginPath();
-            ctx.ellipse(-2.8, -4.8, 2.8, 1.5, -0.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.restore();
-        }
-
-        function renderCrashScene(time) {
-            const box = document.getElementById('rocketArena');
-            if (!box) return;
-            const w = box.offsetWidth || 340;
-            const h = box.offsetHeight || 305;
-            if (canvas.width === 0) resizeCrashCanvas();
-
-            ctx.clearRect(0, 0, w, h);
-
-            const bgGrad = ctx.createRadialGradient(w * 0.68, h * 0.42, 10, w * 0.5, h * 0.5, w * 0.88);
-            bgGrad.addColorStop(0, crashState === 'crashed' ? 'rgba(220, 38, 38, 0.24)' : 'rgba(29, 78, 216, 0.3)');
-            bgGrad.addColorStop(0.55, 'rgba(13, 25, 52, 0.94)');
-            bgGrad.addColorStop(1, '#060b16');
-            ctx.fillStyle = bgGrad;
-            ctx.fillRect(0, 0, w, h);
-
-            const speedMult = crashState === 'flying' ? 3.2 : 0.65;
-            canvasStars.forEach(s => {
-                s.x -= s.speed * speedMult;
-                s.y += s.speed * speedMult * 0.42;
-                if (s.x < 0) s.x = w;
-                if (s.y > h) s.y = 0;
-
-                const twinkle = 0.65 + 0.35 * Math.sin(time * s.twinkleSpeed + s.phase);
-                ctx.fillStyle = s.tint;
-                ctx.globalAlpha = s.alpha * twinkle;
+                const aura = ctx.createRadialGradient(0, 6, 8, 0, 6, 68);
+                aura.addColorStop(0, 'rgba(56, 189, 248, 0.5)');
+                aura.addColorStop(0.55, 'rgba(37, 99, 235, 0.16)');
+                aura.addColorStop(1, 'rgba(37, 99, 235, 0)');
+                ctx.fillStyle = aura;
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.arc(0, 6, 68, 0, Math.PI * 2);
                 ctx.fill();
 
-                if (s.r > 2.1) {
-                    ctx.strokeStyle = s.tint;
-                    ctx.lineWidth = 0.8;
-                    ctx.beginPath();
-                    ctx.moveTo(s.x - s.r * 2.2, s.y);
-                    ctx.lineTo(s.x + s.r * 2.2, s.y);
-                    ctx.moveTo(s.x, s.y - s.r * 2.2);
-                    ctx.lineTo(s.x, s.y + s.r * 2.2);
-                    ctx.stroke();
-                }
-            });
-            ctx.globalAlpha = 1;
+                const flicker = Math.sin(time * 0.05) * 6.5 + Math.random() * 4;
+                const flameLen = (crashState === 'flying' ? 42 : 25) + flicker;
 
-            const startX = 64;
-            const startY = h - 34;
-
-            if (crashState === 'waiting') {
-                const rx = startX + 30;
-                const ry = startY - 24;
-
-                const lineGrad = ctx.createLinearGradient(startX, startY, rx, ry);
-                lineGrad.addColorStop(0, 'rgba(56, 189, 248, 0.12)');
-                lineGrad.addColorStop(1, '#38bdf8');
-                ctx.strokeStyle = lineGrad;
-                ctx.lineWidth = 4;
-                ctx.lineCap = 'round';
+                const outerFlame = ctx.createLinearGradient(0, 23, 0, 23 + flameLen);
+                outerFlame.addColorStop(0, '#ffffff');
+                outerFlame.addColorStop(0.22, '#fef08a');
+                outerFlame.addColorStop(0.62, '#f97316');
+                outerFlame.addColorStop(1, 'rgba(239, 68, 68, 0)');
+                ctx.fillStyle = outerFlame;
                 ctx.beginPath();
-                ctx.moveTo(startX, startY);
-                ctx.quadraticCurveTo(startX + 16, startY - 4, rx, ry);
-                ctx.stroke();
+                ctx.moveTo(-11, 23);
+                ctx.quadraticCurveTo(0, 23 + flameLen, 11, 23);
+                ctx.closePath();
+                ctx.fill();
 
-                draw3DRocket(ctx, rx, ry, 0.68, time * 0.003, time);
-            } else if (crashState === 'flying') {
-                const progress = Math.min(1, Math.max(0.06, (multiplier - 1) / 3.8));
-                const endX = startX + 34 + progress * (w - 148);
-                const endY = startY - 26 - progress * (h - 138);
-                const ctrlX = startX + (endX - startX) * 0.56;
-                const ctrlY = startY - (startY - endY) * 0.18;
-
-                lastExplosionPos = { x: endX, y: endY };
-
-                const areaGrad = ctx.createLinearGradient(0, endY, 0, startY);
-                areaGrad.addColorStop(0, 'rgba(56, 189, 248, 0.36)');
-                areaGrad.addColorStop(0.7, 'rgba(37, 99, 235, 0.14)');
-                areaGrad.addColorStop(1, 'rgba(37, 99, 235, 0)');
-                ctx.fillStyle = areaGrad;
+                ctx.fillStyle = '#dc2626';
                 ctx.beginPath();
-                ctx.moveTo(startX, startY);
-                ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
-                ctx.lineTo(endX, startY);
+                ctx.moveTo(-13, 4);
+                ctx.lineTo(-28, 24);
+                ctx.lineTo(-10, 20);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#b91c1c';
+                ctx.beginPath();
+                ctx.moveTo(13, 4);
+                ctx.lineTo(28, 24);
+                ctx.lineTo(10, 20);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(-9.5, 18, 19, 6.5);
+
+                const bodyGrad = ctx.createLinearGradient(-18, -36, 18, 20);
+                bodyGrad.addColorStop(0, '#ffffff');
+                bodyGrad.addColorStop(0.35, '#f1f5f9');
+                bodyGrad.addColorStop(0.75, '#94a3b8');
+                bodyGrad.addColorStop(1, '#475569');
+                ctx.fillStyle = bodyGrad;
+                ctx.beginPath();
+                ctx.moveTo(0, -37);
+                ctx.bezierCurveTo(19, -16, 20, 7, 13, 20);
+                ctx.lineTo(-13, 20);
+                ctx.bezierCurveTo(-20, 7, -19, -16, 0, -37);
                 ctx.closePath();
                 ctx.fill();
 
                 ctx.save();
-                ctx.strokeStyle = 'rgba(0, 255, 204, 0.38)';
-                ctx.lineWidth = 12;
-                ctx.lineCap = 'round';
-                ctx.beginPath();
-                ctx.moveTo(startX, startY);
-                ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
-                ctx.stroke();
-
-                const strokeGrad = ctx.createLinearGradient(startX, startY, endX, endY);
-                strokeGrad.addColorStop(0, '#2563eb');
-                strokeGrad.addColorStop(0.6, '#38bdf8');
-                strokeGrad.addColorStop(1, '#a5f3fc');
-                ctx.strokeStyle = strokeGrad;
-                ctx.lineWidth = 4.8;
-                ctx.beginPath();
-                ctx.moveTo(startX, startY);
-                ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
-                ctx.stroke();
+                ctx.clip();
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(-24, -40, 48, 24);
                 ctx.restore();
 
-                const dx = endX - ctrlX;
-                const dy = endY - ctrlY;
-                const angle = Math.atan2(dy, dx) + Math.PI / 2;
+                ctx.fillStyle = '#0284c7';
+                ctx.beginPath();
+                ctx.arc(0, -2, 10, 0, Math.PI * 2);
+                ctx.fill();
 
-                if (Math.random() < 0.85) {
-                    const tailX = endX - Math.sin(angle) * 25;
-                    const tailY = endY + Math.cos(angle) * 25;
-                    exhaustParticles.push({
-                        x: tailX + (Math.random() - 0.5) * 6,
-                        y: tailY + (Math.random() - 0.5) * 6,
-                        vx: -Math.sin(angle) * (2.0 + Math.random() * 2.2) + (Math.random() - 0.5) * 1.4,
-                        vy: Math.cos(angle) * (2.0 + Math.random() * 2.2) + (Math.random() - 0.5) * 1.4,
+                ctx.fillStyle = '#38bdf8';
+                ctx.beginPath();
+                ctx.arc(0, -2, 7.2, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = 'rgba(255,255,255,0.88)';
+                ctx.beginPath();
+                ctx.arc(-2.5, -4.5, 2.3, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            function renderCrashScene(time) {
+                const box = document.getElementById('rocketArena');
+                if (!box) return;
+                const w = box.offsetWidth || 340;
+                const h = box.offsetHeight || 305;
+                if (canvas.width === 0) resizeCrashCanvas();
+
+                ctx.clearRect(0, 0, w, h);
+
+                const bgGrad = ctx.createRadialGradient(w * 0.68, h * 0.42, 10, w * 0.5, h * 0.5, w * 0.88);
+                bgGrad.addColorStop(0, crashState === 'crashed' ? 'rgba(220, 38, 38, 0.24)' : 'rgba(29, 78, 216, 0.3)');
+                bgGrad.addColorStop(0.55, 'rgba(13, 25, 52, 0.94)');
+                bgGrad.addColorStop(1, '#060b16');
+                ctx.fillStyle = bgGrad;
+                ctx.fillRect(0, 0, w, h);
+
+                const speedMult = crashState === 'flying' ? 3.2 : 0.65;
+                canvasStars.forEach(function(s) {
+                    s.x -= s.speed * speedMult;
+                    s.y += s.speed * speedMult * 0.42;
+                    if (s.x < 0) s.x = w;
+                    if (s.y > h) s.y = 0;
+
+                    const twinkle = 0.65 + 0.35 * Math.sin(time * s.twinkleSpeed + s.phase);
+                    ctx.fillStyle = s.tint;
+                    ctx.globalAlpha = s.alpha * twinkle;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+
+                const startX = 64;
+                const startY = h - 34;
+
+                if (crashState === 'waiting') {
+                    const rx = startX + 30;
+                    const ry = startY - 24;
+
+                    ctx.strokeStyle = '#38bdf8';
+                    ctx.lineWidth = 4;
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.quadraticCurveTo(startX + 16, startY - 4, rx, ry);
+                    ctx.stroke();
+
+                    draw3DRocket(ctx, rx, ry, 0.68, time * 0.003, time);
+                } else if (crashState === 'flying') {
+                    const progress = Math.min(1, Math.max(0.06, (multiplier - 1) / 3.8));
+                    const endX = startX + 34 + progress * (w - 148);
+                    const endY = startY - 26 - progress * (h - 138);
+                    const ctrlX = startX + (endX - startX) * 0.56;
+                    const ctrlY = startY - (startY - endY) * 0.18;
+
+                    lastExplosionPos = { x: endX, y: endY };
+
+                    ctx.strokeStyle = '#38bdf8';
+                    ctx.lineWidth = 4.5;
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
+                    ctx.stroke();
+
+                    const dx = endX - ctrlX;
+                    const dy = endY - ctrlY;
+                    const angle = Math.atan2(dy, dx) + Math.PI / 2;
+
+                    if (Math.random() < 0.8) {
+                        exhaustParticles.push({
+                            x: endX - Math.sin(angle) * 24,
+                            y: endY + Math.cos(angle) * 24,
+                            vx: -Math.sin(angle) * 2.5 + (Math.random() - 0.5),
+                            vy: Math.cos(angle) * 2.5 + (Math.random() - 0.5),
+                            life: 1,
+                            size: Math.random() * 3 + 1.5,
+                            color: Math.random() < 0.5 ? '#facc15' : '#38bdf8'
+                        });
+                    }
+
+                    for (let i = exhaustParticles.length - 1; i >= 0; i--) {
+                        const p = exhaustParticles[i];
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.life -= 0.035;
+                        if (p.life <= 0) {
+                            exhaustParticles.splice(i, 1);
+                            continue;
+                        }
+                        ctx.globalAlpha = p.life;
+                        ctx.fillStyle = p.color;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    ctx.globalAlpha = 1;
+
+                    draw3DRocket(ctx, endX, endY, angle, time * 0.0045, time);
+                } else if (crashState === 'crashed') {
+                    if (shockwaveAlpha > 0) {
+                        shockwaveRadius += 4.5;
+                        shockwaveAlpha -= 0.025;
+                        ctx.strokeStyle = `rgba(248, 113, 113, ${Math.max(0, shockwaveAlpha)})`;
+                        ctx.lineWidth = 3.5;
+                        ctx.beginPath();
+                        ctx.arc(lastExplosionPos.x, lastExplosionPos.y, shockwaveRadius, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+
+                    for (let i = explosionParticles.length - 1; i >= 0; i--) {
+                        const p = explosionParticles[i];
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.08;
+                        p.life -= 0.025;
+                        if (p.life <= 0) {
+                            explosionParticles.splice(i, 1);
+                            continue;
+                        }
+                        ctx.globalAlpha = p.life;
+                        ctx.fillStyle = p.color;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    ctx.globalAlpha = 1;
+                }
+
+                requestAnimationFrame(renderCrashScene);
+            }
+
+            function triggerExplosionEffect() {
+                crashState = 'crashed';
+                shockwaveRadius = 10;
+                shockwaveAlpha = 0.95;
+                explosionParticles = [];
+                const colors = ['#ffffff', '#facc15', '#f97316', '#ef4444', '#38bdf8'];
+                for (let i = 0; i < 32; i++) {
+                    const ang = (Math.PI * 2 * i) / 32;
+                    const spd = 1.5 + Math.random() * 4.2;
+                    explosionParticles.push({
+                        x: lastExplosionPos.x,
+                        y: lastExplosionPos.y,
+                        vx: Math.cos(ang) * spd,
+                        vy: Math.sin(ang) * spd,
                         life: 1,
-                        size: Math.random() * 3.5 + 1.5,
-                        color: Math.random() < 0.5 ? '#facc15' : '#38bdf8'
+                        size: Math.random() * 4 + 2,
+                        color: colors[Math.floor(Math.random() * colors.length)]
                     });
                 }
-
-                for (let i = exhaustParticles.length - 1; i >= 0; i--) {
-                    const p = exhaustParticles[i];
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.life -= 0.032;
-                    if (p.life <= 0) {
-                        exhaustParticles.splice(i, 1);
-                        continue;
-                    }
-                    ctx.globalAlpha = p.life;
-                    ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                ctx.globalAlpha = 1;
-
-                draw3DRocket(ctx, endX, endY, angle, time * 0.0045, time);
-            } else if (crashState === 'crashed') {
-                if (shockwaveAlpha > 0) {
-                    shockwaveRadius += 4.5;
-                    shockwaveAlpha -= 0.025;
-                    ctx.strokeStyle = `rgba(248, 113, 113, ${Math.max(0, shockwaveAlpha)})`;
-                    ctx.lineWidth = 3.5;
-                    ctx.beginPath();
-                    ctx.arc(lastExplosionPos.x, lastExplosionPos.y, shockwaveRadius, 0, Math.PI * 2);
-                    ctx.stroke();
-                }
-
-                for (let i = explosionParticles.length - 1; i >= 0; i--) {
-                    const p = explosionParticles[i];
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.vy += 0.08;
-                    p.life -= 0.024;
-                    if (p.life <= 0) {
-                        explosionParticles.splice(i, 1);
-                        continue;
-                    }
-                    ctx.globalAlpha = p.life;
-                    ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                ctx.globalAlpha = 1;
             }
 
-            requestAnimationFrame(renderCrashScene);
-        }
-
-        function triggerExplosionEffect() {
-            crashState = 'crashed';
-            shockwaveRadius = 10;
-            shockwaveAlpha = 0.95;
-            explosionParticles = [];
-            const colors = ['#ffffff', '#facc15', '#f97316', '#ef4444', '#38bdf8'];
-            for (let i = 0; i < 36; i++) {
-                const ang = (Math.PI * 2 * i) / 36 + Math.random() * 0.2;
-                const spd = 1.5 + Math.random() * 4.5;
-                explosionParticles.push({
-                    x: lastExplosionPos.x,
-                    y: lastExplosionPos.y,
-                    vx: Math.cos(ang) * spd,
-                    vy: Math.sin(ang) * spd,
-                    life: 1,
-                    size: Math.random() * 4.5 + 2,
-                    color: colors[Math.floor(Math.random() * colors.length)]
+            function updateHistoryUI() {
+                let bar = document.getElementById('historyBar');
+                let html = '';
+                crashHistory.slice(-8).forEach(function(res) {
+                    const num = parseFloat(res);
+                    let cls = '';
+                    if (num >= 5) cls = 'high';
+                    else if (num < 1.8) cls = 'low';
+                    html += `<span class="history-chip ${cls}">${res}</span>`;
                 });
+                bar.innerHTML = html;
             }
-        }
 
-        function initCrashGame() {
+            function randomBotBetAmount() {
+                const roll = Math.random();
+                if (roll < 0.35) {
+                    return Math.floor(Math.random() * 235) + 15;
+                } else if (roll < 0.75) {
+                    return Math.floor(Math.random() * 1750) + 250;
+                } else {
+                    return Math.floor(Math.random() * 8000) + 2000;
+                }
+            }
+
+            function pickNextRoundBot() {
+                const currentNames = new Set(roundBots.map(function(b) { return b.name; }));
+                let pool = fakeUsers.filter(function(u) {
+                    return !currentNames.has(u.name) && !lastRoundBotNames.has(u.name);
+                });
+                if (pool.length === 0) {
+                    pool = fakeUsers.filter(function(u) { return !currentNames.has(u.name); });
+                }
+                if (pool.length === 0) {
+                    pool = fakeUsers;
+                }
+                return pool[Math.floor(Math.random() * pool.length)];
+            }
+
+            function addBotEntry(maxBotsInRound) {
+                if (roundBots.length >= maxBotsInRound) return false;
+                const bot = pickNextRoundBot();
+                roundBots.unshift({
+                    name: bot.name,
+                    avatar: bot.avatar,
+                    amount: randomBotBetAmount()
+                });
+                return true;
+            }
+
+            function clearRoundTimers() {
+                if (botFeedInterval) { clearInterval(botFeedInterval); botFeedInterval = null; }
+                if (roundTimerInterval) { clearInterval(roundTimerInterval); roundTimerInterval = null; }
+                if (crashInterval) { clearInterval(crashInterval); crashInterval = null; }
+            }
+
+            function runWaitingPhase() {
+                clearRoundTimers();
+                hasBetThisRound = false;
+                inGame = false;
+                crashState = 'waiting';
+                exhaustParticles = [];
+                document.getElementById('multiplierPill').classList.remove('crashed');
+
+                const maxBotsInRound = Math.floor(Math.random() * 6) + 4;
+                const initialBotsCount = Math.min(maxBotsInRound, Math.floor(Math.random() * 3) + 2);
+                roundBots = [];
+                for (let i = 0; i < initialBotsCount; i++) {
+                    addBotEntry(maxBotsInRound);
+                }
+
+                let countdown = 7;
+                document.getElementById('crashStatus').innerText = `Ожидание ставки (${countdown}с)`;
+                document.getElementById('crashMultiplier').innerText = "1.00x";
+
+                let btn = document.getElementById('actionBtn');
+                btn.innerText = "Сделать ставку";
+                btn.className = "btn-action";
+                btn.style.opacity = "1";
+                btn.onclick = window.handleCrashAction;
+
+                renderBetsList();
+
+                botFeedInterval = setInterval(function() {
+                    if (crashState === 'waiting' && addBotEntry(maxBotsInRound)) {
+                        renderBetsList();
+                    }
+                }, 1050);
+
+                roundTimerInterval = setInterval(function() {
+                    countdown--;
+                    if (countdown > 0) {
+                        document.getElementById('crashStatus').innerText = `Ожидание ставки (${countdown}с)`;
+                    } else {
+                        clearInterval(roundTimerInterval);
+                        roundTimerInterval = null;
+                        if (botFeedInterval) {
+                            clearInterval(botFeedInterval);
+                            botFeedInterval = null;
+                        }
+                        lastRoundBotNames = new Set(roundBots.map(function(b) { return b.name; }));
+                        startFlightPhase();
+                    }
+                }, 1000);
+            }
+
+            function renderBetsList() {
+                let list = document.getElementById('betsList');
+                let html = '';
+
+                if (hasBetThisRound) {
+                    html += `
+                        <div class="bet-item" style="color:var(--accent-color); font-weight:bold;">
+                            <div class="bet-user"><span>Вы (Ставка)</span></div>
+                            <span class="bet-amount">⭐ ${formatStars(myBet)}</span>
+                        </div>
+                    `;
+                }
+
+                roundBots.forEach(function(b) {
+                    const isMid = b.amount >= 2000;
+                    html += `
+                        <div class="bet-item">
+                            <div class="bet-user"><img src="${b.avatar}" alt=""> ${b.name}</div>
+                            <span class="bet-amount ${isMid ? 'mid' : ''}">⭐ ${formatStars(b.amount)}</span>
+                        </div>
+                    `;
+                });
+
+                list.innerHTML = html || `<div class="bet-item"><span>Участники раунда</span> <span>0</span></div>`;
+            }
+
+            window.handleCrashAction = function() {
+                const amount = parseAmountInput(document.getElementById('betInput').value);
+                if (!amount || amount < 1) {
+                    alert("Введите сумму ставки от 1 звезды.");
+                    return;
+                }
+                if (balance < amount) {
+                    alert("Недостаточно звезд на балансе.");
+                    return;
+                }
+
+                balance -= amount;
+                myBet = amount;
+                hasBetThisRound = true;
+                updateBalanceUI();
+                renderBetsList();
+
+                let btn = document.getElementById('actionBtn');
+                btn.innerText = "Ставка принята";
+                btn.style.opacity = "0.7";
+            };
+
+            function startFlightPhase() {
+                inGame = hasBetThisRound;
+                multiplier = 1.00;
+                crashState = 'flying';
+
+                document.getElementById('crashStatus').innerText = "🚀 Ракета летит!";
+                document.getElementById('crashMultiplier').innerText = "1.00x";
+
+                let btn = document.getElementById('actionBtn');
+                if (inGame) {
+                    btn.className = "btn-action btn-cashout";
+                    btn.style.opacity = "1";
+                    updateCashoutButtonText();
+                    btn.onclick = window.cashOut;
+                } else {
+                    btn.innerText = "Раунд идет...";
+                    btn.onclick = null;
+                }
+
+                let rand = Math.random();
+                let crashPoint;
+                if (rand < 0.55) {
+                    crashPoint = 1.35 + Math.random() * (1.87 - 1.35);
+                } else if (rand < 0.75) {
+                    const baseMultipliers = [1.00, 1.02, 1.05, 1.12, 1.18, 1.23, 1.38, 1.49, 1.70, 1.90, 2.00, 2.40, 2.50, 2.70];
+                    crashPoint = baseMultipliers[Math.floor(Math.random() * baseMultipliers.length)] + (Math.random() * 0.05);
+                } else {
+                    crashPoint = 3.0 + Math.random() * 8.0;
+                }
+                crashPoint = parseFloat(crashPoint.toFixed(2));
+
+                crashInterval = setInterval(function() {
+                    multiplier += 0.04;
+                    document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
+
+                    if (inGame) {
+                        updateCashoutButtonText();
+                    }
+
+                    if (multiplier >= crashPoint) {
+                        clearInterval(crashInterval);
+                        crashInterval = null;
+                        explosionPhase(crashPoint);
+                    }
+                }, 100);
+            }
+
+            function updateCashoutButtonText() {
+                let potentialWin = Math.floor(myBet * multiplier);
+                let btn = document.getElementById('actionBtn');
+                btn.innerText = `Забрать (${formatStars(potentialWin)} ⭐)`;
+            }
+
+            window.cashOut = function() {
+                if (!inGame) return;
+                inGame = false;
+                if (crashInterval) {
+                    clearInterval(crashInterval);
+                    crashInterval = null;
+                }
+                let win = Math.floor(myBet * multiplier);
+                balance += win;
+                updateBalanceUI();
+
+                document.getElementById('crashStatus').innerText = `🎉 Вы забрали на ${multiplier.toFixed(2)}x и выиграли ${formatStars(win)} ⭐!`;
+
+                let btn = document.getElementById('actionBtn');
+                btn.innerText = `Выиграно ${formatStars(win)} ⭐`;
+                btn.className = "btn-action";
+                btn.onclick = null;
+
+                crashHistory.push(multiplier.toFixed(2) + 'x');
+                updateHistoryUI();
+
+                setTimeout(runWaitingPhase, 3500);
+            };
+
+            function explosionPhase(crashPoint) {
+                triggerExplosionEffect();
+                document.getElementById('multiplierPill').classList.add('crashed');
+                document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x!`;
+
+                let btn = document.getElementById('actionBtn');
+                if (inGame) {
+                    inGame = false;
+                    document.getElementById('crashStatus').innerText += ` Вы проиграли ${formatStars(myBet)} ⭐`;
+                }
+                btn.innerText = "Раунд завершен";
+                btn.className = "btn-action";
+                btn.onclick = null;
+
+                crashHistory.push(crashPoint.toFixed(2) + 'x');
+                updateHistoryUI();
+
+                setTimeout(runWaitingPhase, 3500);
+            }
+
+            initCaseBanners();
+            updateBalanceUI();
+            updateHistoryUI();
             initStars();
             resizeCrashCanvas();
             window.addEventListener('resize', resizeCrashCanvas);
             requestAnimationFrame(renderCrashScene);
             runWaitingPhase();
-        }
-
-        function updateHistoryUI() {
-            let bar = document.getElementById('historyBar');
-            let html = '';
-            crashHistory.slice(-8).forEach(res => {
-                const num = parseFloat(res);
-                let cls = '';
-                if (num >= 5) cls = 'high';
-                else if (num < 1.8) cls = 'low';
-                html += `<span class="history-chip ${cls}">${res}</span>`;
-            });
-            bar.innerHTML = html;
-        }
-
-        /* ================= БОТЫ В КРАШ: ОТ 4 ДО 9, БЕЗ ПОВТОРОВ МЕЖДУ РАУНДАМИ, СТАВКИ ДО 10 000 ================= */
-        function randomBotBetAmount() {
-            const roll = Math.random();
-            if (roll < 0.35) {
-                return Math.floor(Math.random() * 235) + 15;
-            } else if (roll < 0.75) {
-                return Math.floor(Math.random() * 1750) + 250;
-            } else {
-                return Math.floor(Math.random() * 8000) + 2000;
-            }
-        }
-
-        function pickNextRoundBot() {
-            const currentNames = new Set(roundBots.map(b => b.name));
-            let pool = fakeUsers.filter(u => !currentNames.has(u.name) && !lastRoundBotNames.has(u.name));
-            if (pool.length === 0) {
-                pool = fakeUsers.filter(u => !currentNames.has(u.name));
-            }
-            if (pool.length === 0) {
-                pool = fakeUsers;
-            }
-            return pool[Math.floor(Math.random() * pool.length)];
-        }
-
-        function addBotEntry(maxBotsInRound) {
-            if (roundBots.length >= maxBotsInRound) return false;
-            const bot = pickNextRoundBot();
-            const amt = randomBotBetAmount();
-            roundBots.unshift({
-                name: bot.name,
-                avatar: bot.avatar,
-                amount: amt
-            });
-            return true;
-        }
-
-        function runWaitingPhase() {
-            hasBetThisRound = false;
-            inGame = false;
-            crashState = 'waiting';
-            exhaustParticles = [];
-            document.getElementById('multiplierPill').classList.remove('crashed');
-
-            if (botFeedInterval) {
-                clearInterval(botFeedInterval);
-                botFeedInterval = null;
-            }
-
-            const maxBotsInRound = Math.floor(Math.random() * 6) + 4;
-            const initialBotsCount = Math.min(maxBotsInRound, Math.floor(Math.random() * 3) + 2);
-            roundBots = [];
-            for (let i = 0; i < initialBotsCount; i++) {
-                addBotEntry(maxBotsInRound);
-            }
-
-            let countdown = 7;
-            document.getElementById('crashStatus').innerText = `Ожидание ставки (${countdown}с)`;
-            document.getElementById('crashMultiplier').innerText = "1.00x";
-
-            let btn = document.getElementById('actionBtn');
-            btn.innerText = "Сделать ставку";
-            btn.className = "btn-action";
-            btn.style.opacity = "1";
-            btn.onclick = handleCrashAction;
-
-            renderBetsList();
-
-            botFeedInterval = setInterval(() => {
-                if (crashState === 'waiting') {
-                    const added = addBotEntry(maxBotsInRound);
-                    if (added) {
-                        renderBetsList();
-                    }
-                }
-            }, 1050);
-
-            let timer = setInterval(() => {
-                countdown--;
-                if (countdown > 0) {
-                    document.getElementById('crashStatus').innerText = `Ожидание ставки (${countdown}с)`;
-                } else {
-                    clearInterval(timer);
-                    if (botFeedInterval) {
-                        clearInterval(botFeedInterval);
-                        botFeedInterval = null;
-                    }
-                    lastRoundBotNames = new Set(roundBots.map(b => b.name));
-                    startFlightPhase();
-                }
-            }, 1000);
-        }
-
-        function renderBetsList() {
-            let list = document.getElementById('betsList');
-            let html = '';
-
-            if (hasBetThisRound) {
-                html += `
-                    <div class="bet-item" style="color:var(--accent-color); font-weight:bold;">
-                        <div class="bet-user"><span>Вы (Ставка)</span></div>
-                        <span class="bet-amount">⭐ ${formatStars(myBet)}</span>
-                    </div>
-                `;
-            }
-
-            roundBots.forEach(b => {
-                const isMid = b.amount >= 2000;
-                html += `
-                    <div class="bet-item">
-                        <div class="bet-user"><img src="${b.avatar}"> ${b.name}</div>
-                        <span class="bet-amount ${isMid ? 'mid' : ''}">⭐ ${formatStars(b.amount)}</span>
-                    </div>
-                `;
-            });
-
-            list.innerHTML = html || `<div class="bet-item"><span>Участники раунда</span> <span>0</span></div>`;
-        }
-
-        function handleCrashAction() {
-            const amount = parseAmountInput(document.getElementById('betInput').value);
-            if (!amount || amount < 1) {
-                alert("Введите сумму ставки от 1 звезды.");
-                return;
-            }
-            if (balance < amount) {
-                alert("Недостаточно звезд на балансе.");
-                return;
-            }
-
-            balance -= amount;
-            myBet = amount;
-            hasBetThisRound = true;
-            updateBalanceUI();
-            renderBetsList();
-
-            let btn = document.getElementById('actionBtn');
-            btn.innerText = "Ставка принята";
-            btn.style.opacity = "0.7";
-        }
-
-        function startFlightPhase() {
-            inGame = hasBetThisRound;
-            multiplier = 1.00;
-            crashState = 'flying';
-            
-            document.getElementById('crashStatus').innerText = "🚀 Ракета летит!";
-            document.getElementById('crashMultiplier').innerText = "1.00x";
-
-            let btn = document.getElementById('actionBtn');
-            if (inGame) {
-                btn.className = "btn-action btn-cashout";
-                btn.style.opacity = "1";
-                updateCashoutButtonText();
-                btn.onclick = cashOut;
-            } else {
-                btn.innerText = "Раунд идет...";
-                btn.onclick = null;
-            }
-
-            let rand = Math.random();
-            let crashPoint;
-            if (rand < 0.55) {
-                crashPoint = 1.35 + Math.random() * (1.87 - 1.35);
-            } else if (rand < 0.75) {
-                const baseMultipliers = [1.00, 1.02, 1.05, 1.12, 1.18, 1.23, 1.38, 1.49, 1.70, 1.90, 2.00, 2.40, 2.50, 2.70];
-                crashPoint = baseMultipliers[Math.floor(Math.random() * baseMultipliers.length)] + (Math.random() * 0.05);
-            } else {
-                crashPoint = 3.0 + Math.random() * 8.0;
-            }
-            crashPoint = parseFloat(crashPoint.toFixed(2));
-
-            crashInterval = setInterval(() => {
-                multiplier += 0.04;
-                document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
-                
-                if (inGame) {
-                    updateCashoutButtonText();
-                }
-
-                if (multiplier >= crashPoint) {
-                    clearInterval(crashInterval);
-                    explosionPhase(crashPoint);
-                }
-            }, 100);
-        }
-
-        function updateCashoutButtonText() {
-            let potentialWin = Math.floor(myBet * multiplier);
-            let btn = document.getElementById('actionBtn');
-            btn.innerText = `Забрать (${formatStars(potentialWin)} ⭐)`;
-        }
-
-        function cashOut() {
-            if (!inGame) return;
-            inGame = false;
-            clearInterval(crashInterval);
-            let win = Math.floor(myBet * multiplier);
-            balance += win;
-            updateBalanceUI();
-
-            document.getElementById('crashStatus').innerText = `🎉 Вы забрали на ${multiplier.toFixed(2)}x и выиграли ${formatStars(win)} ⭐!`;
-            
-            let btn = document.getElementById('actionBtn');
-            btn.innerText = `Выиграно ${formatStars(win)} ⭐`;
-            btn.className = "btn-action";
-            btn.onclick = null;
-
-            crashHistory.push(multiplier.toFixed(2) + 'x');
-            updateHistoryUI();
-
-            setTimeout(runWaitingPhase, 3500);
-        }
-
-        function explosionPhase(crashPoint) {
-            triggerExplosionEffect();
-            document.getElementById('multiplierPill').classList.add('crashed');
-            document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x!`;
-
-            let btn = document.getElementById('actionBtn');
-            if (inGame) {
-                inGame = false;
-                document.getElementById('crashStatus').innerText += ` Вы проиграли ${formatStars(myBet)} ⭐`;
-            }
-            btn.innerText = "Раунд завершен";
-            btn.className = "btn-action";
-            btn.onclick = null;
-
-            crashHistory.push(crashPoint.toFixed(2) + 'x');
-            updateHistoryUI();
-
-            setTimeout(runWaitingPhase, 3500);
-        }
-
-        initCaseBanners();
-        updateBalanceUI();
-        updateHistoryUI();
-        initCrashGame();
+        })();
     </script>
 </body>
 </html>
