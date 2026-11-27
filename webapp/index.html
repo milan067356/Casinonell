@@ -146,6 +146,15 @@
             box-shadow: 0 8px 26px rgba(37, 99, 235, 0.35), inset 0 1px 1px rgba(255,255,255,0.22);
         }
 
+        .game-card.squirrel-style {
+            background:
+                radial-gradient(circle at 72% 25%, rgba(250, 204, 21, 0.28) 0%, transparent 48%),
+                radial-gradient(circle at 25% 75%, rgba(16, 185, 129, 0.26) 0%, transparent 55%),
+                linear-gradient(155deg, #113a36 0%, #0b1d2e 55%, #060d1b 100%);
+            border: 1.5px solid rgba(52, 211, 153, 0.62);
+            box-shadow: 0 8px 26px rgba(16, 185, 129, 0.32), inset 0 1px 1px rgba(255,255,255,0.22);
+        }
+
         .crash-art-wrap {
             position: absolute;
             inset: 0;
@@ -162,6 +171,15 @@
             margin: 2px auto 0 auto;
             pointer-events: none;
             filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
+        }
+
+        .squirrel-card-hero {
+            position: relative;
+            z-index: 2;
+            font-size: 56px;
+            line-height: 1;
+            margin: 8px auto 0 auto;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.55));
         }
 
         .game-title-text {
@@ -345,6 +363,7 @@
         }
         .btn-action:active { opacity: 0.8; transform: scale(0.98); }
         .btn-cashout { background: #10b981; color: #fff; box-shadow: 0 4px 20px rgba(16,185,129,0.5); }
+        .btn-jump { background: #38bdf8; color: #071024; box-shadow: 0 4px 20px rgba(56,189,248,0.45); }
 
         .btn-secondary {
             width: 100%;
@@ -364,6 +383,74 @@
             transition: all 0.2s ease;
         }
         .btn-secondary:active { transform: scale(0.98); opacity: 0.85; }
+
+        /* Игра Белочка */
+        .squirrel-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--header-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .squirrel-road-wrap {
+            position: relative;
+            background: #091120;
+            border: 1.5px solid rgba(56, 189, 248, 0.35);
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: var(--accent-glow);
+        }
+        #squirrelCanvas {
+            display: block;
+            width: 100%;
+            height: 330px;
+            cursor: pointer;
+        }
+        .squirrel-banner {
+            text-align: center;
+            padding: 10px 12px;
+            font-weight: 900;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            background: rgba(16, 25, 45, 0.92);
+        }
+        .squirrel-banner.lose {
+            color: #fca5a5;
+            background: rgba(127, 29, 29, 0.65);
+        }
+        .squirrel-banner.win {
+            color: #6ee7b7;
+            background: rgba(6, 78, 59, 0.65);
+        }
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .diff-btn {
+            padding: 10px 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: #142038;
+            color: #cbd5e1;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+        }
+        .diff-btn.active {
+            border-color: var(--accent-color);
+            background: rgba(0, 255, 204, 0.16);
+            color: #ffffff;
+            box-shadow: var(--btn-glow);
+        }
 
         .bets-list {
             background: var(--header-bg);
@@ -693,6 +780,52 @@
                 <div class="cases-chest-card-art" id="mainCaseCardArt"></div>
                 <div class="game-title-text" style="text-align: left; width: 100%;">Кейсы</div>
             </div>
+
+            <div class="game-card squirrel-style" onclick="switchScreen('squirrel')">
+                <div class="squirrel-card-hero">🐿️</div>
+                <div class="game-title-text">Белочка</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-squirrel" class="screen">
+        <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:6px; font-size:14px; border:none; cursor:pointer;">← Назад в меню</button>
+
+        <div class="squirrel-hud">
+            <span id="sqDiffBadge">Уровень: Лёгкий</span>
+            <span id="sqMultBadge" style="color:#facc15;">Коэф: 1.00x</span>
+            <span id="sqWinBadge" style="color:#4ade80;">Выигрыш: 0 ⭐</span>
+        </div>
+
+        <div class="squirrel-road-wrap">
+            <canvas id="squirrelCanvas"></canvas>
+            <div class="squirrel-banner" id="squirrelBanner">Сделайте ставку и выберите уровень сложности</div>
+        </div>
+
+        <div class="bet-control-box" id="squirrelSetupBox">
+            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Ставка в звёздах</div>
+            <input type="text" inputmode="numeric" id="sqBetInput" value="50">
+
+            <div class="quick-btns">
+                <button class="quick-btn" onclick="addSqBet(-10)">-10</button>
+                <button class="quick-btn" onclick="addSqBet(50)">+50</button>
+                <button class="quick-btn" onclick="addSqBet(250)">+250</button>
+                <button class="quick-btn" onclick="setMaxSqBet()">MAX</button>
+            </div>
+
+            <div class="diff-grid">
+                <button class="diff-btn active" id="sqDiff-easy" onclick="selectSqDifficulty('easy')">Лёгкий</button>
+                <button class="diff-btn" id="sqDiff-medium" onclick="selectSqDifficulty('medium')">Средний</button>
+                <button class="diff-btn" id="sqDiff-hard" onclick="selectSqDifficulty('hard')">Тяжёлый</button>
+                <button class="diff-btn" id="sqDiff-impossible" onclick="selectSqDifficulty('impossible')">Невозможный</button>
+            </div>
+
+            <button class="btn-action" onclick="startSquirrelRound()">Поставить ставку</button>
+        </div>
+
+        <div class="bet-control-box" id="squirrelPlayBox" style="display:none;">
+            <button class="btn-action btn-jump" id="sqJumpBtn" onclick="jumpSquirrelForward()">Прыгнуть вперёд</button>
+            <button class="btn-action btn-cashout" id="sqCashoutBtn" onclick="cashoutSquirrelRound()">Забрать выигрыш</button>
         </div>
     </div>
 
@@ -821,14 +954,16 @@
         </div>
 
         <div class="bet-control-box" id="betControlBox">
-            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Сумма ставки (без лимита)</div>
-            <input type="text" inputmode="numeric" id="betInput" value="1000">
+            <div id="crashBetInputWrap">
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Сумма ставки (без лимита)</div>
+                <input type="text" inputmode="numeric" id="betInput" value="1000">
 
-            <div class="quick-btns">
-                <button class="quick-btn" onclick="addBet(-500)">-500</button>
-                <button class="quick-btn" onclick="addBet(1000)">+1K</button>
-                <button class="quick-btn" onclick="addBet(10000)">+10K</button>
-                <button class="quick-btn" onclick="setMaxBet()">MAX</button>
+                <div class="quick-btns">
+                    <button class="quick-btn" onclick="addBet(-500)">-500</button>
+                    <button class="quick-btn" onclick="addBet(1000)">+1K</button>
+                    <button class="quick-btn" onclick="addBet(10000)">+10K</button>
+                    <button class="quick-btn" onclick="setMaxBet()">MAX</button>
+                </div>
             </div>
 
             <button class="btn-action" id="actionBtn" onclick="handleCrashAction()">Сделать ставку</button>
@@ -1223,6 +1358,7 @@
                     resetCaseControls();
                 }
                 if (screenName === 'crash') resizeCrashCanvas();
+                if (screenName === 'squirrel') resizeSquirrelCanvas();
             };
 
             window.showTopUpModal = function() {
@@ -1352,6 +1488,7 @@
                 document.getElementById('nftModal').style.display = 'none';
             };
 
+            /* ================= КРАШ ================= */
             window.addBet = function(val) {
                 const input = document.getElementById('betInput');
                 const current = parseAmountInput(input.value);
@@ -1363,6 +1500,12 @@
                 const input = document.getElementById('betInput');
                 input.value = String(balance > 0 ? balance : 1);
             };
+
+            function syncCrashInputVisibility() {
+                const wrap = document.getElementById('crashBetInputWrap');
+                if (!wrap) return;
+                wrap.style.display = (hasBetThisRound && crashState !== 'crashed') ? 'none' : 'block';
+            }
 
             const canvas = document.getElementById('crashCanvas');
             const ctx = canvas.getContext('2d');
@@ -1698,6 +1841,7 @@
                 inGame = false;
                 crashState = 'waiting';
                 exhaustParticles = [];
+                syncCrashInputVisibility();
                 document.getElementById('multiplierPill').classList.remove('crashed');
 
                 const maxBotsInRound = Math.floor(Math.random() * 6) + 4;
@@ -1784,6 +1928,7 @@
                 hasBetThisRound = true;
                 updateBalanceUI();
                 renderBetsList();
+                syncCrashInputVisibility();
 
                 let btn = document.getElementById('actionBtn');
                 btn.innerText = "Ставка принята";
@@ -1794,6 +1939,7 @@
                 inGame = hasBetThisRound;
                 multiplier = 1.00;
                 crashState = 'flying';
+                syncCrashInputVisibility();
 
                 document.getElementById('crashStatus').innerText = "🚀 Ракета летит!";
                 document.getElementById('crashMultiplier').innerText = "1.00x";
@@ -1846,6 +1992,8 @@
             window.cashOut = function() {
                 if (!inGame) return;
                 inGame = false;
+                hasBetThisRound = false;
+                syncCrashInputVisibility();
                 if (crashInterval) {
                     clearInterval(crashInterval);
                     crashInterval = null;
@@ -1869,6 +2017,8 @@
 
             function explosionPhase(crashPoint) {
                 triggerExplosionEffect();
+                hasBetThisRound = false;
+                syncCrashInputVisibility();
                 document.getElementById('multiplierPill').classList.add('crashed');
                 document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x!`;
 
@@ -1887,14 +2037,458 @@
                 setTimeout(runWaitingPhase, 3500);
             }
 
+            /* ================= ИГРА БЕЛОЧКА ================= */
+            const sqCanvas = document.getElementById('squirrelCanvas');
+            const sqCtx = sqCanvas.getContext('2d');
+
+            const SQ_LEVELS = {
+                easy: {
+                    label: 'Лёгкий',
+                    multStep: 1.24,
+                    baseSpeed: 92,
+                    fastSpeed: 155,
+                    fastChance: 0.18,
+                    pauseChance: 0.45,
+                    pauseMin: 1.2,
+                    pauseMax: 2.4,
+                    carGapMin: 170,
+                    carGapMax: 260
+                },
+                medium: {
+                    label: 'Средний',
+                    multStep: 1.46,
+                    baseSpeed: 132,
+                    fastSpeed: 220,
+                    fastChance: 0.34,
+                    pauseChance: 0.32,
+                    pauseMin: 0.8,
+                    pauseMax: 1.7,
+                    carGapMin: 145,
+                    carGapMax: 225
+                },
+                hard: {
+                    label: 'Тяжёлый',
+                    multStep: 1.82,
+                    baseSpeed: 178,
+                    fastSpeed: 295,
+                    fastChance: 0.5,
+                    pauseChance: 0.22,
+                    pauseMin: 0.55,
+                    pauseMax: 1.25,
+                    carGapMin: 125,
+                    carGapMax: 195
+                },
+                impossible: {
+                    label: 'Невозможный',
+                    multStep: 2.45,
+                    baseSpeed: 235,
+                    fastSpeed: 380,
+                    fastChance: 0.7,
+                    pauseChance: 0.14,
+                    pauseMin: 0.35,
+                    pauseMax: 0.85,
+                    carGapMin: 105,
+                    carGapMax: 165
+                }
+            };
+
+            const SQ_TOTAL_LANES = 6; // полоса 0 = старт/тротуар, полосы 1..6 = дорога
+            let sqDiff = 'easy';
+            let sqPlaying = false;
+            let sqLost = false;
+            let sqBet = 0;
+            let sqLane = 0; // 0..6
+            let sqMult = 1.00;
+            let sqLanes = [];
+            let sqJumpAnim = 0; // 0..1
+            let sqHitCar = null;
+            let sqLastFrame = 0;
+
+            function resizeSquirrelCanvas() {
+                const wrap = document.querySelector('.squirrel-road-wrap');
+                if (!wrap || !wrap.offsetWidth) return;
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                const w = wrap.offsetWidth;
+                const h = 330;
+                sqCanvas.width = w * dpr;
+                sqCanvas.height = h * dpr;
+                sqCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            window.addSqBet = function(delta) {
+                const inp = document.getElementById('sqBetInput');
+                const cur = parseAmountInput(inp.value);
+                inp.value = String(Math.max(1, cur + delta));
+            };
+
+            window.setMaxSqBet = function() {
+                const inp = document.getElementById('sqBetInput');
+                inp.value = String(balance > 0 ? balance : 1);
+            };
+
+            window.selectSqDifficulty = function(key) {
+                if (sqPlaying) return;
+                sqDiff = key;
+                document.querySelectorAll('.diff-btn').forEach(function(b) { b.classList.remove('active'); });
+                const activeBtn = document.getElementById('sqDiff-' + key);
+                if (activeBtn) activeBtn.classList.add('active');
+                updateSquirrelHud();
+                initSquirrelLanes();
+            };
+
+            function getSqLaneMultiplier(laneIdx) {
+                if (laneIdx <= 0) return 1.00;
+                return parseFloat(Math.pow(SQ_LEVELS[sqDiff].multStep, laneIdx).toFixed(2));
+            }
+
+            function getSqLaneReward(laneIdx) {
+                if (laneIdx <= 0) return 0;
+                return Math.floor(sqBet * getSqLaneMultiplier(laneIdx));
+            }
+
+            function updateSquirrelHud() {
+                const cfg = SQ_LEVELS[sqDiff];
+                document.getElementById('sqDiffBadge').innerText = 'Уровень: ' + cfg.label;
+                document.getElementById('sqMultBadge').innerText = 'Коэф: ' + sqMult.toFixed(2) + 'x';
+                const winNow = sqLane > 0 ? getSqLaneReward(sqLane) : 0;
+                document.getElementById('sqWinBadge').innerText = 'Выигрыш: ' + formatStars(winNow) + ' ⭐';
+
+                const cashBtn = document.getElementById('sqCashoutBtn');
+                const jumpBtn = document.getElementById('sqJumpBtn');
+                if (cashBtn) {
+                    cashBtn.disabled = (sqLane <= 0 || !sqPlaying);
+                    cashBtn.innerText = sqLane > 0
+                        ? `Забрать выигрыш (${formatStars(winNow)} ⭐)`
+                        : 'Сделайте хотя бы 1 прыжок';
+                }
+                if (jumpBtn) {
+                    jumpBtn.disabled = !sqPlaying;
+                    if (sqPlaying) {
+                        const nextLane = Math.min(SQ_TOTAL_LANES, sqLane + 1);
+                        const nextMult = getSqLaneMultiplier(nextLane);
+                        const nextReward = Math.floor(sqBet * nextMult);
+                        jumpBtn.innerText = `Прыгнуть вперёд → ${nextMult.toFixed(2)}x (${formatStars(nextReward)} ⭐)`;
+                    }
+                }
+            }
+
+            function createCarsForLane(laneIdx, width) {
+                const cfg = SQ_LEVELS[sqDiff];
+                const dir = (laneIdx % 2 === 1) ? 1 : -1;
+                const cars = [];
+                let cursor = Math.random() * 120;
+                while (cursor < width + 180) {
+                    const isFast = Math.random() < cfg.fastChance;
+                    const speed = isFast
+                        ? cfg.fastSpeed * (0.9 + Math.random() * 0.25)
+                        : cfg.baseSpeed * (0.85 + Math.random() * 0.3);
+                    const carW = isFast ? 46 : 54;
+                    cars.push({
+                        x: cursor,
+                        w: carW,
+                        h: 22,
+                        dir: dir,
+                        speed: speed,
+                        isFast: isFast,
+                        color: isFast ? '#f43f5e' : (laneIdx % 2 === 1 ? '#38bdf8' : '#facc15')
+                    });
+                    const gap = cfg.carGapMin + Math.random() * (cfg.carGapMax - cfg.carGapMin);
+                    cursor += carW + gap;
+                }
+                return {
+                    lane: laneIdx,
+                    cars: cars,
+                    paused: false,
+                    pauseTimer: 0,
+                    activeTimer: 1.2 + Math.random() * 1.8
+                };
+            }
+
+            function initSquirrelLanes() {
+                const w = sqCanvas.clientWidth || 340;
+                sqLanes = [];
+                for (let i = 1; i <= SQ_TOTAL_LANES; i++) {
+                    sqLanes.push(createCarsForLane(i, w));
+                }
+            }
+
+            window.startSquirrelRound = function() {
+                const amt = parseAmountInput(document.getElementById('sqBetInput').value);
+                if (!amt || amt < 1) {
+                    alert("Введите ставку в звёздах от 1.");
+                    return;
+                }
+                if (balance < amt) {
+                    alert("Недостаточно звезд на балансе.");
+                    return;
+                }
+
+                balance -= amt;
+                sqBet = amt;
+                sqPlaying = true;
+                sqLost = false;
+                sqLane = 0;
+                sqMult = 1.00;
+                sqJumpAnim = 0;
+                sqHitCar = null;
+                updateBalanceUI();
+                initSquirrelLanes();
+                updateSquirrelHud();
+
+                document.getElementById('squirrelSetupBox').style.display = 'none';
+                document.getElementById('squirrelPlayBox').style.display = 'block';
+                const banner = document.getElementById('squirrelBanner');
+                banner.className = 'squirrel-banner';
+                banner.innerText = '🐿️ Белочка на старте! Жми «Прыгнуть вперёд» или тапни по дороге';
+            };
+
+            function finishSquirrelLoss() {
+                sqPlaying = false;
+                sqLost = true;
+                document.getElementById('squirrelSetupBox').style.display = 'block';
+                document.getElementById('squirrelPlayBox').style.display = 'none';
+                const banner = document.getElementById('squirrelBanner');
+                banner.className = 'squirrel-banner lose';
+                banner.innerText = `💥 Вы проиграли! Машина сбила белочку (-${formatStars(sqBet)} ⭐)`;
+                updateSquirrelHud();
+            }
+
+            window.jumpSquirrelForward = function() {
+                if (!sqPlaying) return;
+                if (sqLane >= SQ_TOTAL_LANES) {
+                    window.cashoutSquirrelRound();
+                    return;
+                }
+
+                const nextLane = sqLane + 1;
+                const w = sqCanvas.clientWidth || 340;
+                const squirrelX = w * 0.5;
+                const laneObj = sqLanes[nextLane - 1];
+
+                // Проверяем, не едет ли машина прямо под лапами белочки в момент прыжка
+                const hit = laneObj && laneObj.cars.find(function(c) {
+                    return Math.abs(c.x - squirrelX) < (c.w * 0.5 + 14);
+                });
+
+                sqLane = nextLane;
+                sqJumpAnim = 1;
+
+                if (hit) {
+                    sqHitCar = hit;
+                    finishSquirrelLoss();
+                    return;
+                }
+
+                sqMult = getSqLaneMultiplier(sqLane);
+                const rewardNow = getSqLaneReward(sqLane);
+                updateSquirrelHud();
+
+                const banner = document.getElementById('squirrelBanner');
+                banner.className = 'squirrel-banner';
+                if (sqLane === SQ_TOTAL_LANES) {
+                    banner.innerText = `🏆 Финиш! На клетке: ${formatStars(rewardNow)} ⭐ (${sqMult.toFixed(2)}x) — забирай!`;
+                } else {
+                    banner.innerText = `🐿️ Шаг ${sqLane}/${SQ_TOTAL_LANES}: на клетке ${formatStars(rewardNow)} ⭐ (${sqMult.toFixed(2)}x)`;
+                }
+            };
+
+            window.cashoutSquirrelRound = function() {
+                if (!sqPlaying || sqLane <= 0) return;
+                const win = getSqLaneReward(sqLane);
+                balance += win;
+                updateBalanceUI();
+                sqPlaying = false;
+
+                document.getElementById('squirrelSetupBox').style.display = 'block';
+                document.getElementById('squirrelPlayBox').style.display = 'none';
+                const banner = document.getElementById('squirrelBanner');
+                banner.className = 'squirrel-banner win';
+                banner.innerText = `✅ Вы забрали выигрыш: +${formatStars(win)} ⭐ (${sqMult.toFixed(2)}x)!`;
+                updateSquirrelHud();
+            };
+
+            sqCanvas.addEventListener('click', function() {
+                if (sqPlaying) {
+                    window.jumpSquirrelForward();
+                }
+            });
+
+            function updateSquirrelSimulation(dt) {
+                const w = sqCanvas.clientWidth || 340;
+                const cfg = SQ_LEVELS[sqDiff];
+                if (sqJumpAnim > 0) {
+                    sqJumpAnim = Math.max(0, sqJumpAnim - dt * 5.5);
+                }
+
+                const squirrelX = w * 0.5;
+                const squirrelY = getSquirrelY(sqLane);
+
+                sqLanes.forEach(function(laneObj) {
+                    // Переключаем состояние «машины едут / машины встали (пауза)»
+                    if (laneObj.paused) {
+                        laneObj.pauseTimer -= dt;
+                        if (laneObj.pauseTimer <= 0) {
+                            laneObj.paused = false;
+                            laneObj.activeTimer = 1.1 + Math.random() * 1.7;
+                        }
+                        return;
+                    } else {
+                        laneObj.activeTimer -= dt;
+                        if (laneObj.activeTimer <= 0 && Math.random() < cfg.pauseChance) {
+                            laneObj.paused = true;
+                            laneObj.pauseTimer = cfg.pauseMin + Math.random() * (cfg.pauseMax - cfg.pauseMin);
+                            return;
+                        }
+                    }
+
+                    laneObj.cars.forEach(function(car) {
+                        car.x += car.dir * car.speed * dt;
+                        if (car.dir > 0 && car.x - car.w * 0.5 > w + 30) {
+                            car.x = -car.w * 0.5 - 20;
+                        } else if (car.dir < 0 && car.x + car.w * 0.5 < -30) {
+                            car.x = w + car.w * 0.5 + 20;
+                        }
+
+                        // Столкновение с белочкой на текущей полосе
+                        if (sqPlaying && laneObj.lane === sqLane && sqLane > 0) {
+                            const carY = getSquirrelY(laneObj.lane);
+                            if (Math.abs(car.x - squirrelX) < (car.w * 0.45 + 12) && Math.abs(carY - squirrelY) < 12) {
+                                sqHitCar = car;
+                                finishSquirrelLoss();
+                            }
+                        }
+                    });
+                });
+            }
+
+            function getSquirrelY(laneIdx) {
+                const h = 330;
+                const topPad = 26;
+                const bottomPad = 28;
+                const usableH = h - topPad - bottomPad;
+                const stepH = usableH / SQ_TOTAL_LANES;
+                const baseY = h - bottomPad - laneIdx * stepH;
+                const hopOffset = Math.sin(sqJumpAnim * Math.PI) * 12;
+                return baseY - hopOffset;
+            }
+
+            function renderSquirrelScene(now) {
+                if (!sqLastFrame) sqLastFrame = now;
+                const dt = Math.min(0.05, (now - sqLastFrame) / 1000);
+                sqLastFrame = now;
+
+                if (sqCanvas.width === 0) resizeSquirrelCanvas();
+                const w = sqCanvas.clientWidth || 340;
+                const h = 330;
+
+                updateSquirrelSimulation(dt);
+
+                sqCtx.clearRect(0, 0, w, h);
+                sqCtx.fillStyle = '#0b1324';
+                sqCtx.fillRect(0, 0, w, h);
+
+                const topPad = 26;
+                const bottomPad = 28;
+                const usableH = h - topPad - bottomPad;
+                const stepH = usableH / SQ_TOTAL_LANES;
+
+                // Рисуем полосы дороги и на каждом шаге пишем сколько звёзд получишь
+                for (let i = 1; i <= SQ_TOTAL_LANES; i++) {
+                    const yCenter = h - bottomPad - i * stepH;
+                    const yTop = yCenter - stepH * 0.5;
+
+                    sqCtx.fillStyle = (i % 2 === 1) ? '#111c33' : '#15223d';
+                    sqCtx.fillRect(0, yTop, w, stepH - 2);
+
+                    // Разметка полосы
+                    sqCtx.strokeStyle = 'rgba(148, 163, 184, 0.22)';
+                    sqCtx.setLineDash([8, 8]);
+                    sqCtx.beginPath();
+                    sqCtx.moveTo(0, yTop);
+                    sqCtx.lineTo(w, yTop);
+                    sqCtx.stroke();
+                    sqCtx.setLineDash([]);
+
+                    // Подпись награды за этот шаг прямо на полосе
+                    const multVal = getSqLaneMultiplier(i).toFixed(2) + 'x';
+                    const rewardStars = sqBet > 0 ? formatStars(getSqLaneReward(i)) + ' ⭐' : multVal;
+                    const isNextStep = sqPlaying && (i === sqLane + 1);
+
+                    sqCtx.fillStyle = isNextStep ? 'rgba(0, 255, 204, 0.22)' : 'rgba(15, 23, 42, 0.72)';
+                    sqCtx.beginPath();
+                    sqCtx.roundRect(8, yCenter - 11, 86, 22, 7);
+                    sqCtx.fill();
+
+                    sqCtx.font = '800 11px Outfit, sans-serif';
+                    sqCtx.fillStyle = isNextStep ? '#00ffcc' : '#facc15';
+                    sqCtx.textAlign = 'left';
+                    sqCtx.textBaseline = 'middle';
+                    sqCtx.fillText(rewardStars, 13, yCenter);
+
+                    const laneObj = sqLanes[i - 1];
+                    if (laneObj && laneObj.paused) {
+                        sqCtx.font = '700 10px Outfit, sans-serif';
+                        sqCtx.fillStyle = '#38bdf8';
+                        sqCtx.textAlign = 'right';
+                        sqCtx.fillText('ПАУЗА', w - 10, yCenter);
+                    }
+                }
+
+                // Стартовая зона
+                sqCtx.fillStyle = '#182844';
+                sqCtx.fillRect(0, h - bottomPad - stepH * 0.5, w, stepH * 0.5 + bottomPad);
+
+                // Машины
+                sqLanes.forEach(function(laneObj) {
+                    const yCenter = h - bottomPad - laneObj.lane * stepH;
+                    laneObj.cars.forEach(function(car) {
+                        sqCtx.save();
+                        sqCtx.translate(car.x, yCenter);
+                        sqCtx.fillStyle = car.color;
+                        sqCtx.beginPath();
+                        sqCtx.roundRect(-car.w * 0.5, -car.h * 0.5, car.w, car.h, 6);
+                        sqCtx.fill();
+
+                        // Окно и быстрый знак
+                        sqCtx.fillStyle = '#0f172a';
+                        sqCtx.fillRect(-car.w * 0.22, -car.h * 0.3, car.w * 0.44, car.h * 0.6);
+
+                        if (car.isFast) {
+                            sqCtx.font = '900 11px sans-serif';
+                            sqCtx.fillStyle = '#ffffff';
+                            sqCtx.textAlign = 'center';
+                            sqCtx.textBaseline = 'middle';
+                            sqCtx.fillText('⚡', 0, 1);
+                        }
+                        sqCtx.restore();
+                    });
+                });
+
+                // Персонаж — Белочка
+                const sx = w * 0.5;
+                const sy = getSquirrelY(sqLane);
+                sqCtx.font = '30px sans-serif';
+                sqCtx.textAlign = 'center';
+                sqCtx.textBaseline = 'middle';
+                sqCtx.fillText(sqLost ? '💥' : '🐿️', sx, sy);
+
+                requestAnimationFrame(renderSquirrelScene);
+            }
+
             initCaseBanners();
             updateBalanceUI();
             updateHistoryUI();
             initStars();
             resizeCrashCanvas();
-            window.addEventListener('resize', resizeCrashCanvas);
+            resizeSquirrelCanvas();
+            window.addEventListener('resize', function() {
+                resizeCrashCanvas();
+                resizeSquirrelCanvas();
+            });
             requestAnimationFrame(renderCrashScene);
+            requestAnimationFrame(renderSquirrelScene);
             runWaitingPhase();
+            selectSqDifficulty('easy');
         })();
     </script>
 </body>
