@@ -155,8 +155,8 @@
         }
 
         .cases-chest-card-art {
-            width: 118px;
-            height: 104px;
+            width: 122px;
+            height: 108px;
             margin: -2px auto 0 auto;
             border-radius: 18px;
             overflow: hidden;
@@ -372,8 +372,8 @@
             box-shadow: var(--btn-glow);
         }
         .gift-badge-art {
-            width: 164px;
-            height: 148px;
+            width: 176px;
+            height: 154px;
             margin: 0 auto 14px auto;
             border-radius: 22px;
             overflow: hidden;
@@ -384,7 +384,7 @@
         .roulette-wrapper {
             position: relative;
             width: 100%;
-            height: 124px;
+            height: 126px;
             overflow: hidden;
             background: #0b0f19;
             border-radius: 14px;
@@ -412,10 +412,10 @@
             transition: transform 4s cubic-bezier(0.1, 1, 0.1, 1);
         }
         .roulette-item {
-            min-width: 96px;
-            height: 104px;
+            min-width: 98px;
+            height: 106px;
             margin: 0 5px;
-            background: #141b2d;
+            background: #1b1d26;
             border-radius: 14px;
             padding: 5px;
             box-sizing: border-box;
@@ -423,11 +423,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid rgba(148, 163, 184, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .nft-art-box {
-            width: 68px;
-            height: 68px;
+            width: 72px;
+            height: 72px;
             border-radius: 12px;
             overflow: hidden;
             flex-shrink: 0;
@@ -464,24 +464,23 @@
             gap: 12px;
         }
         .gift-item {
-            background: #151c2e;
+            background: #1e2029;
             border-radius: 18px;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
-            border: 1px solid rgba(148, 163, 184, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             transition: transform 0.2s;
         }
         .gift-item:active { transform: scale(0.95); }
         .inventory-nft-art {
             width: 100%;
             aspect-ratio: 1 / 1;
-            max-width: 124px;
             border-radius: 14px;
             overflow: hidden;
         }
@@ -642,7 +641,7 @@
                 <div class="game-title-text">Краш</div>
             </div>
             
-            <!-- Картка Кейси: заставка скрині з подарунками -->
+            <!-- Картка Кейси -->
             <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('cases-list')">
                 <div class="cases-chest-card-art" id="mainCaseCardArt"></div>
                 <div class="game-title-text" style="text-align: center; width: 100%;">Кейсы</div>
@@ -677,14 +676,10 @@
 
             <button class="btn-action" id="checkSubBtn" onclick="checkSubscription()">Проверить подписку</button>
             <button class="btn-action btn-cashout" id="openCaseBtn" style="display:none;" onclick="startRoulette()">Открыть кейс</button>
-            
-            <div id="caseCooldownBlock" style="display:none; color: #facc15; font-size: 15px; font-weight: bold; margin-top: 15px;">
-                ⏳ Следующий кейс доступен через: <br>
-                <span id="caseTimer" style="font-size: 20px;">24:00:00</span>
-            </div>
 
             <div id="winResultBlock" style="display:none; margin-top: 15px;">
                 <div style="font-size: 16px; color: #4ade80; font-weight: bold; margin-bottom: 10px;" id="winNftName"></div>
+                <button class="btn-action btn-cashout" onclick="startRoulette()" style="margin-top: 4px;">Крутить еще раз</button>
                 <button class="btn-action" onclick="switchScreen('profile')">В инвентарь</button>
             </div>
         </div>
@@ -736,7 +731,7 @@
 
     <div class="modal-overlay" id="nftModal" onclick="closeNftModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <div id="modalNftArt" style="width: 112px; height: 112px; margin: 0 auto 12px auto; border-radius: 18px; overflow: hidden;"></div>
+            <div id="modalNftArt" style="width: 124px; height: 124px; margin: 0 auto 12px auto; border-radius: 18px; overflow: hidden;"></div>
             <div id="modalNftTitle" style="font-size: 18px; font-weight: bold; margin-bottom: 10px; font-family: 'Outfit', sans-serif;"></div>
             <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 15px;">
                 Чтобы вывести этот NFT, нужно пригласить <b>5 друзей</b> по вашей реферальной ссылке (они должны зайти в бота и прокрутить бесплатный кейс). 
@@ -807,7 +802,6 @@
         const userId = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'user_' + Math.floor(Math.random()*100000);
         const balanceKey = 'allDep_balance_' + userId;
         const inventoryKey = 'allDep_inventory_' + userId;
-        const caseTimeKey = 'allDep_case_time_' + userId;
 
         let balance = localStorage.getItem(balanceKey) !== null ? parseInt(localStorage.getItem(balanceKey)) : 15;
         let inventory = localStorage.getItem(inventoryKey) ? JSON.parse(localStorage.getItem(inventoryKey)) : [];
@@ -817,6 +811,7 @@
         let hasBetThisRound = false;
         let multiplier = 1.00;
         let crashInterval = null;
+        let isSpinningCase = false;
 
         // Стан Canvas-сцени Краш
         let crashState = 'waiting';
@@ -827,79 +822,87 @@
         let shockwaveAlpha = 0;
         let lastExplosionPos = { x: 180, y: 180 };
 
-        /* ================= ЗАСТАВКА КЕЙСУ ТА NFT-КАРТКИ ================= */
+        /* ================= ЗАСТАВКА КЕЙСУ ТА ДЕТАЛІЗОВАНІ NFT-КАРТКИ ================= */
         function getCaseChestSvg() {
             return `
-            <svg viewBox="0 0 220 190" style="width:100%;height:100%;display:block;">
+            <svg viewBox="0 0 240 200" style="width:100%;height:100%;display:block;">
                 <defs>
-                    <radialGradient id="chestBg" cx="50%" cy="55%" r="65%">
-                        <stop offset="0%" stop-color="#9333ea"/>
-                        <stop offset="55%" stop-color="#3b0764"/>
-                        <stop offset="100%" stop-color="#090517"/>
+                    <radialGradient id="chestBg" cx="50%" cy="52%" r="68%">
+                        <stop offset="0%" stop-color="#a855f7"/>
+                        <stop offset="52%" stop-color="#3b0764"/>
+                        <stop offset="100%" stop-color="#070412"/>
                     </radialGradient>
-                    <radialGradient id="innerLight" cx="50%" cy="48%" r="45%">
+                    <radialGradient id="innerLight" cx="50%" cy="46%" r="48%">
                         <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="35%" stop-color="#f0abfc"/>
-                        <stop offset="75%" stop-color="#9333ea" stop-opacity="0.4"/>
+                        <stop offset="32%" stop-color="#f5d0fe"/>
+                        <stop offset="72%" stop-color="#9333ea" stop-opacity="0.45"/>
                         <stop offset="100%" stop-color="#9333ea" stop-opacity="0"/>
                     </radialGradient>
                     <linearGradient id="chestBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#3b82f6"/>
-                        <stop offset="100%" stop-color="#1d4ed8"/>
+                        <stop offset="0%" stop-color="#60a5fa"/>
+                        <stop offset="45%" stop-color="#2563eb"/>
+                        <stop offset="100%" stop-color="#172554"/>
                     </linearGradient>
                     <linearGradient id="chestWhite" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="100%" stop-color="#cbd5e1"/>
+                        <stop offset="65%" stop-color="#e2e8f0"/>
+                        <stop offset="100%" stop-color="#94a3b8"/>
                     </linearGradient>
                 </defs>
-                <rect width="220" height="190" fill="url(#chestBg)"/>
-                <!-- Промені світла зі скрині -->
-                <polygon points="110,92 22,12 58,12" fill="#e879f9" opacity="0.22"/>
-                <polygon points="110,92 88,6 132,6" fill="#f5d0fe" opacity="0.26"/>
-                <polygon points="110,92 162,12 198,12" fill="#e879f9" opacity="0.22"/>
-                <circle cx="110" cy="86" r="68" fill="url(#innerLight)"/>
+                <rect width="240" height="200" fill="url(#chestBg)"/>
+                <polygon points="120,96 18,8 62,8" fill="#e879f9" opacity="0.24"/>
+                <polygon points="120,96 92,4 148,4" fill="#fae8ff" opacity="0.28"/>
+                <polygon points="120,96 178,8 222,8" fill="#e879f9" opacity="0.24"/>
+                <circle cx="120" cy="88" r="76" fill="url(#innerLight)"/>
 
-                <!-- Відкрита кришка ззаду -->
-                <path d="M44 74 C42 36, 178 36, 176 74 L162 84 L58 84 Z" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2"/>
-                <path d="M52 72 C52 44, 168 44, 168 72 L158 79 L62 79 Z" fill="url(#chestWhite)"/>
-                <path d="M98 42 L102 52 L110 47 L118 52 L122 42 L119 57 L101 57 Z" fill="#2563eb"/>
+                <!-- Кришка скрині -->
+                <path d="M46 76 C44 34, 196 34, 194 76 L178 88 L62 88 Z" fill="#1e3a8a" stroke="#93c5fd" stroke-width="2.5"/>
+                <path d="M54 74 C54 42, 186 42, 186 74 L174 82 L66 82 Z" fill="url(#chestWhite)"/>
+                <path d="M46 76 L62 76 L62 88 L46 88 Z" fill="url(#chestBlue)"/>
+                <path d="M178 76 L194 76 L194 88 L178 88 Z" fill="url(#chestBlue)"/>
+                <path d="M106 38 L111 50 L120 44 L129 50 L134 38 L130 56 L110 56 Z" fill="#2563eb"/>
 
-                <!-- Лівий подарунок: котики в серці -->
-                <g transform="translate(64, 76) rotate(-14)">
-                    <path d="M0 24 C-22 10, -24 -12, -8 -16 C-2 -17, 0 -11, 0 -11 C0 -11, 2 -17, 8 -16 C24 -12, 22 10, 0 24 Z" fill="#f9a8d4" stroke="#ec4899" stroke-width="2.5"/>
-                    <path d="M0 19 C-16 8, -17 -8, -6 -11 C-2 -12, 0 -7, 0 -7 C0 -7, 2 -12, 6 -11 C17 -8, 16 8, 0 19 Z" fill="#fce7f3"/>
-                    <circle cx="-5" cy="1" r="6" fill="#94a3b8"/>
-                    <circle cx="6" cy="2" r="6" fill="#fb923c"/>
-                    <path d="M-8 -16 L2 -22 L10 -15 L2 -12 Z" fill="#f472b6"/>
+                <!-- Лівий NFT: котики в рожевому серці -->
+                <g transform="translate(68, 76) rotate(-14)">
+                    <path d="M0 27 C-25 11, -27 -14, -9 -18 C-2 -19, 0 -12, 0 -12 C0 -12, 2 -19, 9 -18 C27 -14, 25 11, 0 27 Z" fill="#f472b6" stroke="#fbcfe8" stroke-width="2.5"/>
+                    <path d="M0 21 C-18 9, -19 -9, -6 -12 C-2 -13, 0 -8, 0 -8 C0 -8, 2 -13, 6 -12 C19 -9, 18 9, 0 21 Z" fill="#fdf2f8"/>
+                    <circle cx="-6" cy="2" r="7" fill="#94a3b8"/>
+                    <polygon points="-12,-3 -10,-12 -4,-6" fill="#94a3b8"/>
+                    <circle cx="6.5" cy="3" r="7" fill="#fb923c"/>
+                    <polygon points="1,-2 3,-11 9,-5" fill="#fb923c"/>
+                    <path d="M-9 -18 L2 -25 L11 -16 L2 -13 Z" fill="#ec4899"/>
                 </g>
 
-                <!-- Центральний подарунок: білий кролик на тарілці -->
-                <g transform="translate(110, 74)">
-                    <ellipse cx="0" cy="16" rx="26" ry="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
-                    <path d="M-16 12 C-18 -4, -12 -18, -6 -16 C-2 -15, -3 -6, 0 -6 C3 -6, 2 -15, 6 -16 C12 -18, 18 -4, 16 12 Z" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
-                    <circle cx="-4" cy="2" r="1.8" fill="#1e293b"/>
-                    <circle cx="4" cy="2" r="1.8" fill="#1e293b"/>
+                <!-- Центральний NFT: білий кролик на тарілці -->
+                <g transform="translate(120, 75)">
+                    <ellipse cx="0" cy="18" rx="30" ry="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+                    <ellipse cx="0" cy="16" rx="22" ry="5.5" fill="#cbd5e1"/>
+                    <path d="M-19 14 C-21 -5, -14 -22, -7 -19 C-2 -17, -3 -6, 0 -6 C3 -6, 2 -17, 7 -19 C14 -22, 21 -5, 19 14 C12 19, -12 19, -19 14 Z" fill="#fffbeb" stroke="#fde68a" stroke-width="1.8"/>
+                    <ellipse cx="-12" cy="-5" rx="2.2" ry="7.5" fill="#fbcfe8"/>
+                    <ellipse cx="12" cy="-5" rx="2.2" ry="7.5" fill="#fbcfe8"/>
+                    <circle cx="-5" cy="3" r="2" fill="#1e293b"/>
+                    <circle cx="5" cy="3" r="2" fill="#1e293b"/>
                 </g>
 
-                <!-- Правий подарунок: червоне серце-пряник -->
-                <g transform="translate(156, 78) rotate(14)">
-                    <path d="M0 22 C-21 8, -22 -13, -7 -16 C-2 -17, 0 -11, 0 -11 C0 -11, 2 -17, 7 -16 C22 -13, 21 8, 0 22 Z" fill="#f59e0b" stroke="#fde68a" stroke-width="2"/>
-                    <path d="M0 16 C-14 6, -15 -8, -5 -10 C-1 -11, 0 -7, 0 -7 C0 -7, 1 -11, 5 -10 C15 -8, 14 6, 0 16 Z" fill="#ef4444"/>
+                <!-- Правий NFT: серце-пряник -->
+                <g transform="translate(172, 78) rotate(14)">
+                    <path d="M0 25 C-24 10, -25 -14, -8 -18 C-2 -19, 0 -12, 0 -12 C0 -12, 2 -19, 8 -18 C25 -14, 24 10, 0 25 Z" fill="#d97706" stroke="#fde68a" stroke-width="2.2"/>
+                    <path d="M0 19 C-16 7, -17 -9, -5 -12 C-1 -13, 0 -8, 0 -8 C0 -8, 1 -13, 5 -12 C17 -9, 16 7, 0 19 Z" fill="#ef4444"/>
+                    <circle cx="0" cy="4" r="2.8" fill="#fffbeb"/>
                 </g>
 
-                <!-- Основний корпус скрині -->
-                <rect x="38" y="88" width="144" height="72" rx="16" fill="url(#chestWhite)" stroke="#60a5fa" stroke-width="2.5"/>
-                <rect x="38" y="88" width="22" height="72" rx="10" fill="url(#chestBlue)"/>
-                <rect x="160" y="88" width="22" height="72" rx="10" fill="url(#chestBlue)"/>
-                <rect x="34" y="138" width="152" height="22" rx="10" fill="url(#chestBlue)"/>
-                <!-- Замок-корона по центру -->
-                <rect x="88" y="102" width="44" height="36" rx="8" fill="#2563eb" stroke="#93c5fd" stroke-width="2"/>
-                <path d="M95 112 L100 123 L110 115 L120 123 L125 112 L122 130 L98 130 Z" fill="#ffffff"/>
+                <!-- Корпус скрині -->
+                <rect x="40" y="90" width="160" height="78" rx="18" fill="url(#chestWhite)" stroke="#93c5fd" stroke-width="2.5"/>
+                <rect x="40" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
+                <rect x="176" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
+                <rect x="36" y="144" width="168" height="24" rx="11" fill="url(#chestBlue)"/>
+                <rect x="96" y="106" width="48" height="40" rx="9" fill="#2563eb" stroke="#bfdbfe" stroke-width="2.2"/>
+                <path d="M104 117 L110 130 L120 121 L130 130 L136 117 L132 138 L108 138 Z" fill="#ffffff"/>
 
-                <!-- Зірочки -->
-                <circle cx="34" cy="48" r="3" fill="#fef08a"/>
-                <circle cx="186" cy="54" r="3.5" fill="#fef08a"/>
-                <circle cx="110" cy="24" r="2.5" fill="#ffffff"/>
+                <!-- Іскри -->
+                <path d="M32 44 L34 49 L39 51 L34 53 L32 58 L30 53 L25 51 L30 49 Z" fill="#fef08a"/>
+                <path d="M208 48 L210 53 L215 55 L210 57 L208 62 L206 57 L201 55 L206 53 Z" fill="#fef08a"/>
+                <circle cx="120" cy="20" r="3" fill="#ffffff"/>
             </svg>`;
         }
 
@@ -907,80 +910,127 @@
             switch (nftName) {
                 case "Lucky Locket":
                     return `
-                    <svg viewBox="0 0 120 120" style="width:100%;height:100%;display:block;">
-                        <rect width="120" height="120" fill="#242731"/>
-                        <path d="M60 98 C24 72, 20 34, 44 26 C53 23, 60 32, 60 32 C60 32, 67 23, 76 26 C100 34, 96 72, 60 98 Z" fill="#f9a8d4" stroke="#f472b6" stroke-width="3"/>
-                        <path d="M60 90 C32 68, 29 40, 47 34 C54 32, 60 39, 60 39 C60 39, 66 32, 73 34 C91 40, 88 68, 60 90 Z" fill="#fce7f3"/>
+                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                        <defs>
+                            <radialGradient id="locketBg" cx="50%" cy="45%" r="65%">
+                                <stop offset="0%" stop-color="#353945"/>
+                                <stop offset="100%" stop-color="#1d2027"/>
+                            </radialGradient>
+                            <linearGradient id="heartRim" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fbcfe8"/>
+                                <stop offset="50%" stop-color="#f472b6"/>
+                                <stop offset="100%" stop-color="#db2777"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="140" height="140" fill="url(#locketBg)"/>
+                        <ellipse cx="70" cy="116" rx="34" ry="7" fill="#000000" opacity="0.35"/>
+                        <!-- Медальйон-серце -->
+                        <path d="M70 112 C28 82, 22 38, 50 28 C61 24, 70 35, 70 35 C70 35, 79 24, 90 28 C118 38, 112 82, 70 112 Z" fill="url(#heartRim)" stroke="#fce7f3" stroke-width="2.5"/>
+                        <path d="M70 103 C37 78, 33 44, 54 37 C62 34, 70 42, 70 42 C70 42, 78 34, 86 37 C107 44, 103 78, 70 103 Z" fill="#fff1f2"/>
                         <!-- Сірий котик зліва -->
-                        <circle cx="48" cy="58" r="14" fill="#94a3b8"/>
-                        <polygon points="36,49 39,37 47,45" fill="#94a3b8"/>
-                        <polygon points="52,45 58,37 60,49" fill="#94a3b8"/>
-                        <circle cx="44" cy="57" r="1.8" fill="#0f172a"/>
-                        <circle cx="52" cy="57" r="1.8" fill="#0f172a"/>
+                        <circle cx="56" cy="67" r="16" fill="#94a3b8"/>
+                        <polygon points="42,57 45,42 54,52" fill="#94a3b8"/>
+                        <polygon points="60,52 67,42 70,57" fill="#94a3b8"/>
+                        <polygon points="45,55 46,46 52,52" fill="#fbcfe8"/>
+                        <circle cx="51" cy="66" r="2.2" fill="#0f172a"/>
+                        <circle cx="61" cy="66" r="2.2" fill="#0f172a"/>
+                        <circle cx="50.2" cy="65.2" r="0.8" fill="#ffffff"/>
+                        <circle cx="60.2" cy="65.2" r="0.8" fill="#ffffff"/>
+                        <ellipse cx="56" cy="70" rx="2.2" ry="1.5" fill="#f472b6"/>
                         <!-- Рудий котик справа -->
-                        <circle cx="71" cy="60" r="14" fill="#fb923c"/>
-                        <polygon points="59,51 62,39 70,47" fill="#fb923c"/>
-                        <polygon points="75,47 81,39 83,51" fill="#fb923c"/>
-                        <circle cx="67" cy="59" r="1.8" fill="#0f172a"/>
-                        <circle cx="75" cy="59" r="1.8" fill="#0f172a"/>
-                        <!-- Рожевий бантик зверху -->
-                        <path d="M44 26 L60 17 L76 26 L60 31 Z" fill="#f472b6"/>
+                        <circle cx="83" cy="69" r="16" fill="#fb923c"/>
+                        <polygon points="69,59 72,44 81,54" fill="#fb923c"/>
+                        <polygon points="87,54 94,44 97,59" fill="#fb923c"/>
+                        <polygon points="88,54 93,47 94,57" fill="#fed7aa"/>
+                        <circle cx="78" cy="68" r="2.2" fill="#0f172a"/>
+                        <circle cx="88" cy="68" r="2.2" fill="#0f172a"/>
+                        <circle cx="77.2" cy="67.2" r="0.8" fill="#ffffff"/>
+                        <circle cx="87.2" cy="67.2" r="0.8" fill="#ffffff"/>
+                        <ellipse cx="83" cy="72" rx="2.2" ry="1.5" fill="#e11d48"/>
+                        <!-- Рожевий бантик на верхівці -->
+                        <path d="M52 28 C44 16, 62 14, 70 25 C78 14, 96 16, 88 28 L70 33 Z" fill="#ec4899" stroke="#fbcfe8" stroke-width="1.5"/>
+                        <circle cx="70" cy="27" r="4" fill="#f472b6"/>
                     </svg>`;
                 case "Jelly Bunny":
                     return `
-                    <svg viewBox="0 0 120 120" style="width:100%;height:100%;display:block;">
-                        <rect width="120" height="120" fill="#242731"/>
+                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                        <defs>
+                            <radialGradient id="bunnyBg" cx="50%" cy="45%" r="65%">
+                                <stop offset="0%" stop-color="#353945"/>
+                                <stop offset="100%" stop-color="#1d2027"/>
+                            </radialGradient>
+                            <linearGradient id="jellyBody" x1="20%" y1="0%" x2="80%" y2="100%">
+                                <stop offset="0%" stop-color="#fefce8"/>
+                                <stop offset="55%" stop-color="#fef08a"/>
+                                <stop offset="100%" stop-color="#fde047"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="140" height="140" fill="url(#bunnyBg)"/>
+                        <ellipse cx="70" cy="112" rx="46" ry="14" fill="#0f172a" opacity="0.45"/>
                         <!-- Тарілка -->
-                        <ellipse cx="60" cy="88" rx="38" ry="12" fill="#e2e8f0"/>
-                        <ellipse cx="60" cy="86" rx="28" ry="7" fill="#cbd5e1"/>
+                        <ellipse cx="70" cy="103" rx="44" ry="13" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                        <ellipse cx="70" cy="101" rx="32" ry="8" fill="#e2e8f0"/>
                         <!-- Желейний кролик -->
-                        <path d="M34 83 C32 54, 40 24, 48 27 C54 29, 51 48, 60 48 C69 48, 66 29, 72 27 C80 24, 88 54, 86 83 C74 89, 46 89, 34 83 Z" fill="#fef9c3" stroke="#fde047" stroke-width="2"/>
-                        <ellipse cx="45" cy="40" rx="2.5" ry="7" fill="#fbcfe8" opacity="0.75"/>
-                        <ellipse cx="75" cy="40" rx="2.5" ry="7" fill="#fbcfe8" opacity="0.75"/>
-                        <circle cx="52" cy="64" r="2.8" fill="#1e293b"/>
-                        <circle cx="68" cy="64" r="2.8" fill="#1e293b"/>
-                        <circle cx="47" cy="68" r="3.5" fill="#fda4af" opacity="0.7"/>
-                        <circle cx="73" cy="68" r="3.5" fill="#fda4af" opacity="0.7"/>
+                        <path d="M38 97 C36 62, 45 26, 55 29 C62 31, 59 54, 70 54 C81 54, 78 31, 85 29 C95 26, 104 62, 102 97 C88 105, 52 105, 38 97 Z" fill="url(#jellyBody)" stroke="#fef9c3" stroke-width="2"/>
+                        <ellipse cx="52" cy="45" rx="3" ry="9" fill="#f9a8d4" opacity="0.7"/>
+                        <ellipse cx="88" cy="45" rx="3" ry="9" fill="#f9a8d4" opacity="0.7"/>
+                        <path d="M48 64 C52 54, 62 54, 64 62" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+                        <circle cx="60" cy="75" r="3.2" fill="#1e293b"/>
+                        <circle cx="80" cy="75" r="3.2" fill="#1e293b"/>
+                        <circle cx="59" cy="73.8" r="1.1" fill="#ffffff"/>
+                        <circle cx="79" cy="73.8" r="1.1" fill="#ffffff"/>
+                        <ellipse cx="54" cy="80" rx="4.5" ry="2.5" fill="#fda4af" opacity="0.75"/>
+                        <ellipse cx="86" cy="80" rx="4.5" ry="2.5" fill="#fda4af" opacity="0.75"/>
                     </svg>`;
                 case "Eternal Candle":
                     return `
-                    <svg viewBox="0 0 120 120" style="width:100%;height:100%;display:block;">
-                        <rect width="120" height="120" fill="#242731"/>
-                        <circle cx="60" cy="34" r="24" fill="#facc15" opacity="0.22"/>
-                        <!-- Підсвічник -->
-                        <ellipse cx="60" cy="94" rx="28" ry="8" fill="#475569"/>
-                        <path d="M84 92 C98 92, 98 74, 82 76" fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
-                        <!-- Свічка -->
-                        <rect x="46" y="42" width="28" height="48" rx="6" fill="#fef3c7"/>
-                        <path d="M46 46 Q51 56 54 46 Q58 58 62 46 Q67 55 74 45 L74 42 L46 42 Z" fill="#fde68a"/>
-                        <!-- Полум'я -->
-                        <path d="M60 15 C68 24, 68 35, 60 39 C52 35, 52 24, 60 15 Z" fill="#f97316"/>
-                        <path d="M60 22 C64 27, 64 33, 60 36 C56 33, 56 27, 60 22 Z" fill="#fef08a"/>
+                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                        <defs>
+                            <radialGradient id="candleGlow" cx="50%" cy="32%" r="48%">
+                                <stop offset="0%" stop-color="#facc15" stop-opacity="0.35"/>
+                                <stop offset="65%" stop-color="#ca8a04" stop-opacity="0.08"/>
+                                <stop offset="100%" stop-color="#1d2027" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                        <rect width="140" height="140" fill="#21242c"/>
+                        <circle cx="70" cy="42" r="46" fill="url(#candleGlow)"/>
+                        <ellipse cx="70" cy="112" rx="34" ry="9" fill="#334155" stroke="#64748b" stroke-width="1.5"/>
+                        <path d="M98 109 C114 109, 114 86, 95 88" fill="none" stroke="#64748b" stroke-width="4.5" stroke-linecap="round"/>
+                        <rect x="53" y="48" width="34" height="58" rx="7" fill="#fef3c7" stroke="#fde68a" stroke-width="1.5"/>
+                        <path d="M53 53 C59 65, 63 51, 68 64 C73 52, 79 65, 87 52 L87 48 L53 48 Z" fill="#fffbeb"/>
+                        <line x1="70" y1="40" x2="70" y2="48" stroke="#1e293b" stroke-width="2.5"/>
+                        <path d="M70 16 C80 27, 80 40, 70 45 C60 40, 60 27, 70 16 Z" fill="#f97316"/>
+                        <path d="M70 24 C75 30, 75 38, 70 42 C65 38, 65 30, 70 24 Z" fill="#fef08a"/>
                     </svg>`;
                 case "Bowtie Gift":
                     return `
-                    <svg viewBox="0 0 120 120" style="width:100%;height:100%;display:block;">
-                        <rect width="120" height="120" fill="#242731"/>
-                        <polygon points="60,38 22,26 22,94 60,82" fill="#334155" stroke="#64748b" stroke-width="2" stroke-linejoin="round"/>
-                        <polygon points="60,38 98,26 98,94 60,82" fill="#1e293b" stroke="#64748b" stroke-width="2" stroke-linejoin="round"/>
-                        <rect x="51" y="46" width="18" height="28" rx="5" fill="#475569" stroke="#94a3b8" stroke-width="1.5"/>
+                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                        <rect width="140" height="140" fill="#21242c"/>
+                        <ellipse cx="70" cy="108" rx="44" ry="8" fill="#000000" opacity="0.35"/>
+                        <polygon points="70,46 24,32 24,108 70,94" fill="#334155" stroke="#64748b" stroke-width="2.2" stroke-linejoin="round"/>
+                        <line x1="30" y1="42" x2="64" y2="52" stroke="#94a3b8" stroke-width="1.5" opacity="0.5"/>
+                        <polygon points="70,46 116,32 116,108 70,94" fill="#1e293b" stroke="#475569" stroke-width="2.2" stroke-linejoin="round"/>
+                        <rect x="59" y="54" width="22" height="32" rx="6" fill="#475569" stroke="#94a3b8" stroke-width="2"/>
                     </svg>`;
                 case "Heart Cookie":
                     return `
-                    <svg viewBox="0 0 120 120" style="width:100%;height:100%;display:block;">
-                        <rect width="120" height="120" fill="#242731"/>
-                        <path d="M60 98 C22 72, 18 34, 43 26 C52 23, 60 32, 60 32 C60 32, 68 23, 77 26 C102 34, 98 72, 60 98 Z" fill="#d97706" stroke="#fde68a" stroke-width="3"/>
-                        <path d="M60 88 C32 67, 29 40, 47 34 C54 32, 60 39, 60 39 C60 39, 66 32, 73 34 C91 40, 88 67, 60 88 Z" fill="#dc2626"/>
-                        <circle cx="60" cy="60" r="5" fill="#fffbeb"/>
+                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                        <rect width="140" height="140" fill="#21242c"/>
+                        <path d="M70 112 C26 82, 20 38, 49 28 C60 24, 70 35, 70 35 C70 35, 80 24, 91 28 C120 38, 114 82, 70 112 Z" fill="#d97706" stroke="#fde68a" stroke-width="3"/>
+                        <path d="M70 100 C37 76, 33 44, 54 38 C62 35, 70 43, 70 43 C70 43, 78 35, 86 38 C107 44, 103 76, 70 100 Z" fill="#dc2626"/>
+                        <path d="M44 48 C48 40, 58 40, 62 46" fill="none" stroke="#fffbeb" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4"/>
+                        <path d="M96 48 C92 40, 82 40, 78 46" fill="none" stroke="#fffbeb" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4"/>
+                        <circle cx="70" cy="68" r="5.5" fill="#fffbeb"/>
                     </svg>`;
                 default:
                     return `
-                    <svg viewBox="0 0 120 120" style="width:100%;height:100%;display:block;">
-                        <rect width="120" height="120" fill="#242731"/>
-                        <rect x="18" y="34" width="84" height="52" rx="14" fill="#1d4ed8" stroke="#60a5fa" stroke-width="2.5"/>
-                        <path d="M60 14 C65 20, 65 27, 60 31 C55 27, 55 20, 60 14 Z" fill="#facc15"/>
-                        <text x="60" y="58" text-anchor="middle" fill="#fde047" font-size="14" font-weight="900" font-family="Outfit, sans-serif">HAPPY</text>
-                        <text x="60" y="76" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="900" font-family="Outfit, sans-serif">B-DAY</text>
+                    <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
+                        <rect width="140" height="140" fill="#21242c"/>
+                        <rect x="18" y="42" width="104" height="58" rx="16" fill="#2563eb" stroke="#93c5fd" stroke-width="2.5"/>
+                        <path d="M70 16 C77 24, 77 33, 70 38 C63 33, 63 24, 70 16 Z" fill="#facc15"/>
+                        <path d="M70 22 C73 27, 73 32, 70 35 C67 32, 67 27, 70 22 Z" fill="#fef08a"/>
+                        <text x="70" y="67" text-anchor="middle" fill="#fde047" font-size="15" font-weight="900" font-family="Outfit, sans-serif">HAPPY</text>
+                        <text x="70" y="87" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="900" font-family="Outfit, sans-serif">B-DAY</text>
                     </svg>`;
             }
         }
@@ -1053,7 +1103,7 @@
             if(screenName === 'profile') renderInventory();
             if(screenName === 'free-case-detail') {
                 initCaseBanners();
-                checkCaseTimer();
+                resetCaseControls();
             }
             if(screenName === 'crash') resizeCrashCanvas();
         }
@@ -1088,55 +1138,24 @@
             }
         }
 
-        function checkSubscription() {
-            let lastOpen = localStorage.getItem(caseTimeKey);
-            let now = Date.now();
-
-            if (lastOpen && (now - parseInt(lastOpen) < 24 * 60 * 60 * 1000)) {
-                alert("Вы уже открывали кейс сегодня! Дождитесь окончания таймера.");
-                return;
-            }
-
+        function resetCaseControls() {
+            if (isSpinningCase) return;
             document.getElementById('checkSubBtn').style.display = 'none';
             document.getElementById('openCaseBtn').style.display = 'block';
-            alert("Подписка подтверждена! Открывайте кейс!");
         }
 
-        function checkCaseTimer() {
-            let lastOpen = localStorage.getItem(caseTimeKey);
-            let now = Date.now();
-            let cdBlock = document.getElementById('caseCooldownBlock');
-            let checkBtn = document.getElementById('checkSubBtn');
-
-            if (lastOpen && (now - parseInt(lastOpen) < 24 * 60 * 60 * 1000)) {
-                checkBtn.style.display = 'none';
-                document.getElementById('openCaseBtn').style.display = 'none';
-                cdBlock.style.display = 'block';
-                startCaseTimer(24 * 60 * 60 * 1000 - (now - parseInt(lastOpen)));
-            } else {
-                cdBlock.style.display = 'none';
-                checkBtn.style.display = 'block';
-            }
-        }
-
-        function startCaseTimer(timeLeft) {
-            let timerElem = document.getElementById('caseTimer');
-            let interval = setInterval(() => {
-                if (timeLeft <= 0) {
-                    clearInterval(interval);
-                    checkCaseTimer();
-                    return;
-                }
-                timeLeft -= 1000;
-                let hours = Math.floor(timeLeft / (1000 * 60 * 60));
-                let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                timerElem.innerText = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
+        function checkSubscription() {
+            resetCaseControls();
         }
 
         function startRoulette() {
+            if (isSpinningCase) return;
+            isSpinningCase = true;
+
+            document.getElementById('checkSubBtn').style.display = 'none';
             document.getElementById('openCaseBtn').style.display = 'none';
+            document.getElementById('winResultBlock').style.display = 'none';
+
             const wrapper = document.getElementById('rouletteWrapper');
             const track = document.getElementById('rouletteTrack');
             wrapper.style.display = 'block';
@@ -1149,7 +1168,7 @@
                 itemsHTML += `
                     <div class="roulette-item">
                         <div class="nft-art-box">${getNftArtworkSvg(randomNft.name)}</div>
-                        <div style="font-size:10px; color:#fff; margin-top:3px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:86px;">${randomNft.name}</div>
+                        <div style="font-size:10px; color:#fff; margin-top:3px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:88px;">${randomNft.name}</div>
                     </div>
                 `;
             }
@@ -1161,7 +1180,7 @@
             const wonNft = itemsArray[winIndex];
 
             setTimeout(() => {
-                const itemWidth = 106;
+                const itemWidth = 108;
                 const targetOffset = (winIndex * itemWidth) - (wrapper.offsetWidth / 2) + (itemWidth / 2);
                 track.style.transition = 'transform 4s cubic-bezier(0.1, 1, 0.1, 1)';
                 track.style.transform = `translateX(-${targetOffset}px)`;
@@ -1169,11 +1188,11 @@
 
             setTimeout(() => {
                 inventory.push(wonNft);
-                localStorage.setItem(caseTimeKey, Date.now());
                 saveUserData();
+                isSpinningCase = false;
                 document.getElementById('winNftName').innerText = `🎉 Вам выпало: ${wonNft.name}`;
                 document.getElementById('winResultBlock').style.display = 'block';
-                checkCaseTimer();
+                document.getElementById('openCaseBtn').style.display = 'block';
             }, 4500);
         }
 
