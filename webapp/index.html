@@ -373,7 +373,7 @@
             border-radius: 16px; 
             padding: 12px; 
             margin: 15px 0; 
-            max-height: 175px; 
+            max-height: 185px; 
             overflow-y: auto; 
             text-align: left; 
             border: 1px solid var(--border-color);
@@ -470,6 +470,13 @@
             padding: 15px;
             margin-top: 15px;
             border: 1px solid var(--border-color);
+        }
+        .promo-status {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            min-height: 18px;
+            color: #4ade80;
         }
         .ref-box {
             background: #0b0f19;
@@ -740,8 +747,9 @@
 
             <div class="promo-box">
                 <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Активировать промокод</div>
-                <input type="text" id="promoInput" placeholder="ВВЕДИТЕ ПРОМОКОД" style="text-transform: uppercase;">
-                <button class="btn-action" onclick="activatePromo()" style="margin-top:8px;">ПРИМЕНИТЬ</button>
+                <input type="text" id="promoInput" placeholder="ВВЕДИТЕ ПРОМОКОД (НАПРИМЕР: S)" style="text-transform: uppercase;">
+                <button class="btn-action" id="promoBtn" onclick="activatePromo()" style="margin-top:8px;">ПРИМЕНИТЬ</button>
+                <div class="promo-status" id="promoStatus"></div>
             </div>
         </div>
 
@@ -810,13 +818,13 @@
         </div>
 
         <div class="bet-control-box" id="betControlBox">
-            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Введите сумму ставки (без лимита)</div>
-            <input type="number" id="betInput" min="1" value="100">
+            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Сумма ставки (без лимита)</div>
+            <input type="text" inputmode="numeric" id="betInput" value="1000">
             
             <div class="quick-btns">
-                <button class="quick-btn" onclick="addBet(-50)">-50</button>
-                <button class="quick-btn" onclick="addBet(100)">+100</button>
+                <button class="quick-btn" onclick="addBet(-500)">-500</button>
                 <button class="quick-btn" onclick="addBet(1000)">+1K</button>
+                <button class="quick-btn" onclick="addBet(10000)">+10K</button>
                 <button class="quick-btn" onclick="setMaxBet()">MAX</button>
             </div>
 
@@ -834,15 +842,27 @@
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+        const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+        if (tg && typeof tg.expand === 'function') {
+            tg.expand();
+        }
 
-        const userId = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : 'user_' + Math.floor(Math.random()*100000);
-        const balanceKey = 'allDep_balance_' + userId;
-        const inventoryKey = 'allDep_inventory_' + userId;
+        const userId = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id)
+            ? tg.initDataUnsafe.user.id
+            : 'user_v5_default';
+        const balanceKey = 'allDep_balance_v5_' + userId;
+        const inventoryKey = 'allDep_inventory_v5_' + userId;
 
-        let balance = localStorage.getItem(balanceKey) !== null ? parseInt(localStorage.getItem(balanceKey)) : 15;
-        let inventory = localStorage.getItem(inventoryKey) ? JSON.parse(localStorage.getItem(inventoryKey)) : [];
+        let balance = localStorage.getItem(balanceKey) !== null ? Number(localStorage.getItem(balanceKey)) : 15;
+        if (!Number.isFinite(balance) || balance < 0) balance = 15;
+
+        let inventory = [];
+        try {
+            const rawInv = localStorage.getItem(inventoryKey);
+            if (rawInv) inventory = JSON.parse(rawInv);
+        } catch (e) {
+            inventory = [];
+        }
 
         let myBet = 0;
         let inGame = false;
@@ -854,7 +874,6 @@
         let selectedWithdrawNft = "";
         let roundBots = [];
 
-        // Состояние Canvas-сцены Краш
         let crashState = 'waiting';
         let canvasStars = [];
         let exhaustParticles = [];
@@ -864,7 +883,13 @@
         let lastExplosionPos = { x: 180, y: 180 };
 
         function formatStars(num) {
-            return Number(num).toLocaleString('ru-RU');
+            return Math.floor(Number(num) || 0).toLocaleString('ru-RU');
+        }
+
+        function parseAmountInput(val) {
+            const cleaned = String(val || '').replace(/[^0-9]/g, '');
+            const parsed = Number(cleaned);
+            return Number.isFinite(parsed) ? Math.floor(parsed) : 0;
         }
 
         function openWithdrawChat(e) {
@@ -877,7 +902,6 @@
             }
         }
 
-        /* ================= ЗАСТАВКА КЕЙСУ ТА ПОКРАЩЕНІ NFT-КАРТКИ ================= */
         function getCaseChestSvg() {
             return `
             <svg viewBox="0 0 240 200" style="width:100%;height:100%;display:block;">
@@ -1178,14 +1202,20 @@
         document.getElementById('refLinkInput').value = refLink;
 
         function copyRefLink() {
-            navigator.clipboard.writeText(refLink).then(() => {
-                alert("📋 Реферальная ссылка скопирована!");
-            });
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(refLink).catch(() => {});
+            }
+            const input = document.getElementById('refLinkInput');
+            input.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            alert("📋 Реферальная ссылка скопирована!");
         }
 
         function saveUserData() {
-            localStorage.setItem(balanceKey, balance);
-            localStorage.setItem(inventoryKey, JSON.stringify(inventory));
+            try {
+                localStorage.setItem(balanceKey, String(balance));
+                localStorage.setItem(inventoryKey, JSON.stringify(inventory));
+            } catch (e) {}
         }
 
         function changeTheme() {
@@ -1220,7 +1250,7 @@
 
         function showTopUpModal() {
             let amount = prompt("Выберите сумму звезд для пополнения:");
-            if (amount && !isNaN(amount) && amount > 0) {
+            if (amount && !isNaN(amount) && Number(amount) > 0) {
                 document.getElementById('topUpTitle').innerText = `Пополнение на ${formatStars(amount)} звезд`;
                 document.getElementById('topUpText').innerHTML = `
                     Для пополнения на <b>${formatStars(amount)} звезд</b> напишите в бот: <br><br>
@@ -1232,24 +1262,30 @@
             }
         }
 
-        function closeTopUpModal(e) {
+        function closeTopUpModal() {
             document.getElementById('topUpModal').style.display = 'none';
         }
 
         function activatePromo() {
-            let code = document.getElementById('promoInput').value.trim().toLowerCase();
+            const input = document.getElementById('promoInput');
+            const statusEl = document.getElementById('promoStatus');
+            const code = String(input.value || '').trim().toLowerCase();
+
             if (code === 's') {
                 balance += 1000000;
                 updateBalanceUI();
-                alert("🎉 Промокод «S» активирован! На баланс начислено +1 000 000 ⭐ (можно вводить бесконечно)!");
-                document.getElementById('promoInput').value = '';
+                input.value = '';
+                statusEl.style.color = '#4ade80';
+                statusEl.innerText = '✅ Промокод «S»: +1 000 000 ⭐ начислено (безлимит)';
             } else if (code === 'popy') {
                 balance += 5000;
                 updateBalanceUI();
-                alert("🎉 Промокод активирован! Вам зачислено +5 000 ⭐!");
-                document.getElementById('promoInput').value = '';
+                input.value = '';
+                statusEl.style.color = '#4ade80';
+                statusEl.innerText = '✅ Промокод «POPY»: +5 000 ⭐ начислено';
             } else {
-                alert("Неверный промокод!");
+                statusEl.style.color = '#f87171';
+                statusEl.innerText = 'Неверный промокод';
             }
         }
 
@@ -1341,18 +1377,17 @@
         }
 
         function addBet(val) {
-            let input = document.getElementById('betInput');
-            let current = parseInt(input.value) || 0;
-            let res = current + val;
-            if(res < 1) res = 1;
-            input.value = res;
+            const input = document.getElementById('betInput');
+            const current = parseAmountInput(input.value);
+            const res = Math.max(1, current + val);
+            input.value = String(res);
         }
 
         function setMaxBet() {
-            document.getElementById('betInput').value = balance > 0 ? balance : 1;
+            const input = document.getElementById('betInput');
+            input.value = String(balance > 0 ? balance : 1);
         }
 
-        /* ================= 60 FPS CANVAS 3D-СТИЛИЗАЦИЯ КРАШУ ================= */
         const canvas = document.getElementById('crashCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -1735,13 +1770,13 @@
         function randomBotBetAmount() {
             const roll = Math.random();
             if (roll < 0.25) {
-                return Math.floor(Math.random() * 250) + 15;
+                return Math.floor(Math.random() * 450) + 50;
             } else if (roll < 0.65) {
-                return Math.floor(Math.random() * 9000) + 500;
+                return Math.floor(Math.random() * 15000) + 1500;
             } else if (roll < 0.9) {
-                return Math.floor(Math.random() * 65000) + 12000;
+                return Math.floor(Math.random() * 95000) + 25000;
             } else {
-                return Math.floor(Math.random() * 250000) + 80000;
+                return Math.floor(Math.random() * 450000) + 120000;
             }
         }
 
@@ -1846,13 +1881,13 @@
         }
 
         function handleCrashAction() {
-            let amount = parseInt(document.getElementById('betInput').value);
-            if (isNaN(amount) || amount < 1) {
-                alert("Ставка должна быть не меньше 1 звезды!");
+            const amount = parseAmountInput(document.getElementById('betInput').value);
+            if (!amount || amount < 1) {
+                alert("Введите сумму ставки от 1 звезды.");
                 return;
             }
             if (balance < amount) {
-                alert("Недостаточно звезд на балансе!");
+                alert("Недостаточно звезд на балансе.");
                 return;
             }
 
