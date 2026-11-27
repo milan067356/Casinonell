@@ -148,11 +148,11 @@
 
         .game-card.squirrel-style {
             background:
-                radial-gradient(circle at 72% 25%, rgba(250, 204, 21, 0.28) 0%, transparent 48%),
-                radial-gradient(circle at 25% 75%, rgba(16, 185, 129, 0.26) 0%, transparent 55%),
-                linear-gradient(155deg, #113a36 0%, #0b1d2e 55%, #060d1b 100%);
-            border: 1.5px solid rgba(52, 211, 153, 0.62);
-            box-shadow: 0 8px 26px rgba(16, 185, 129, 0.32), inset 0 1px 1px rgba(255,255,255,0.22);
+                radial-gradient(circle at 74% 24%, rgba(250, 204, 21, 0.34) 0%, transparent 46%),
+                radial-gradient(circle at 26% 72%, rgba(99, 102, 241, 0.38) 0%, transparent 56%),
+                linear-gradient(155deg, #252b7a 0%, #111847 55%, #060b24 100%);
+            border: 1.5px solid rgba(129, 140, 248, 0.68);
+            box-shadow: 0 8px 26px rgba(79, 70, 229, 0.42), inset 0 1px 1px rgba(255,255,255,0.24);
         }
 
         .crash-art-wrap {
@@ -171,15 +171,6 @@
             margin: 2px auto 0 auto;
             pointer-events: none;
             filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
-        }
-
-        .squirrel-card-hero {
-            position: relative;
-            z-index: 2;
-            font-size: 56px;
-            line-height: 1;
-            margin: 8px auto 0 auto;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.55));
         }
 
         .game-title-text {
@@ -363,7 +354,6 @@
         }
         .btn-action:active { opacity: 0.8; transform: scale(0.98); }
         .btn-cashout { background: #10b981; color: #fff; box-shadow: 0 4px 20px rgba(16,185,129,0.5); }
-        .btn-jump { background: #38bdf8; color: #071024; box-shadow: 0 4px 20px rgba(56,189,248,0.45); }
 
         .btn-secondary {
             width: 100%;
@@ -384,73 +374,161 @@
         }
         .btn-secondary:active { transform: scale(0.98); opacity: 0.85; }
 
-        /* Игра Белочка */
-        .squirrel-hud {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--header-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 10px 14px;
-            margin-bottom: 10px;
-            font-size: 13px;
-            font-weight: 800;
-        }
-        .squirrel-road-wrap {
+        /* Игра Белочка — стиль как на референсе RubUP */
+        .sq-stage {
             position: relative;
-            background: #091120;
-            border: 1.5px solid rgba(56, 189, 248, 0.35);
             border-radius: 22px;
             overflow: hidden;
-            box-shadow: var(--accent-glow);
+            border: 1.5px solid rgba(129, 140, 248, 0.42);
+            background: #171a2b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.55);
         }
-        #squirrelCanvas {
+        #squirrelRoadCanvas {
             display: block;
             width: 100%;
-            height: 330px;
+            height: 360px;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        .sq-status-strip {
+            text-align: center;
+            padding: 9px 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 15px;
+            background: #121626;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: #e2e8f0;
+        }
+        .sq-status-strip.lose {
+            background: rgba(127, 29, 29, 0.82);
+            color: #fecaca;
+        }
+        .sq-status-strip.win {
+            background: rgba(6, 78, 59, 0.82);
+            color: #a7f3d0;
+        }
+        .sq-panel {
+            background: #161929;
+            border-radius: 22px;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .sq-bet-row {
+            display: flex;
+            align-items: center;
+            background: #1f2336;
+            border-radius: 14px;
+            padding: 6px 8px;
+            border: 1px solid rgba(255,255,255,0.07);
+            gap: 6px;
+        }
+        .sq-bet-star {
+            font-size: 18px;
+            padding-left: 4px;
+        }
+        .sq-bet-input {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            text-align: left;
+            padding: 6px 4px;
+            font-size: 18px;
+            font-weight: 900;
+            color: #ffffff;
+            flex: 1;
+            min-width: 0;
+        }
+        .sq-mini-btn {
+            background: #2a2f47;
+            color: #cbd5e1;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 11px;
+            font-size: 13px;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
             cursor: pointer;
         }
-        .squirrel-banner {
+        .sq-mini-btn:active { background: #3b4263; color: #fff; }
+
+        .sq-diff-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .sq-diff-pill {
+            background: #1f2336;
+            color: #94a3b8;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 10px 4px;
+            font-size: 12px;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
             text-align: center;
-            padding: 10px 12px;
+            transition: all 0.15s ease;
+        }
+        .sq-diff-pill.active {
+            background: #2f355c;
+            color: #ffffff;
+            border-color: #6366f1;
+            box-shadow: 0 0 14px rgba(99, 102, 241, 0.35);
+        }
+
+        .sq-start-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #6366f1, #7c3aed);
+            color: #ffffff;
+            font-size: 17px;
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
-            font-size: 16px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            background: rgba(16, 25, 45, 0.92);
+            cursor: pointer;
+            box-shadow: 0 6px 22px rgba(99, 102, 241, 0.45);
         }
-        .squirrel-banner.lose {
-            color: #fca5a5;
-            background: rgba(127, 29, 29, 0.65);
-        }
-        .squirrel-banner.win {
-            color: #6ee7b7;
-            background: rgba(6, 78, 59, 0.65);
-        }
-        .diff-grid {
+        .sq-start-btn:active { transform: scale(0.98); }
+
+        .sq-active-actions {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1.45fr 1fr;
             gap: 8px;
             margin-top: 10px;
         }
-        .diff-btn {
-            padding: 10px 8px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background: #142038;
-            color: #cbd5e1;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-            font-family: 'Outfit', sans-serif;
-        }
-        .diff-btn.active {
-            border-color: var(--accent-color);
-            background: rgba(0, 255, 204, 0.16);
+        .sq-collect-btn {
+            padding: 15px 10px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: #ffffff;
-            box-shadow: var(--btn-glow);
+            font-size: 16px;
+            font-weight: 900;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
         }
+        .sq-collect-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .sq-step-btn {
+            padding: 15px 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 15px;
+            background: #252a40;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 900;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+        }
+        .sq-step-btn:active { background: #343b59; transform: scale(0.98); }
 
         .bets-list {
             background: var(--header-bg);
@@ -782,50 +860,98 @@
             </div>
 
             <div class="game-card squirrel-style" onclick="switchScreen('squirrel')">
-                <div class="squirrel-card-hero">🐿️</div>
+                <svg class="crash-art-wrap" viewBox="0 0 180 180">
+                    <defs>
+                        <radialGradient id="sqCardGlow" cx="50%" cy="42%" r="55%">
+                            <stop offset="0%" stop-color="#facc15" stop-opacity="0.38"/>
+                            <stop offset="60%" stop-color="#6366f1" stop-opacity="0.2"/>
+                            <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="sqFur" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fdba74"/>
+                            <stop offset="55%" stop-color="#ea580c"/>
+                            <stop offset="100%" stop-color="#9a3412"/>
+                        </linearGradient>
+                        <linearGradient id="sqTail" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fed7aa"/>
+                            <stop offset="50%" stop-color="#f97316"/>
+                            <stop offset="100%" stop-color="#7c2d12"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="24" cy="22" r="1.5" fill="#ffffff" opacity="0.85"/>
+                    <circle cx="58" cy="15" r="2" fill="#fde047" opacity="0.9"/>
+                    <circle cx="136" cy="20" r="2.2" fill="#a5b4fc"/>
+                    <circle cx="156" cy="46" r="1.5" fill="#ffffff" opacity="0.8"/>
+                    <circle cx="20" cy="78" r="1.7" fill="#bae6fd" opacity="0.75"/>
+                    <path d="M142 30 L144 35 L149 37 L144 39 L142 44 L140 39 L135 37 L140 35 Z" fill="#fef08a"/>
+                    <path d="M32 36 L33.5 40 L37.5 41.5 L33.5 43 L32 47 L30.5 43 L26.5 41.5 L30.5 40 Z" fill="#c7d2fe"/>
+
+                    <circle cx="96" cy="74" r="54" fill="url(#sqCardGlow)"/>
+
+                    <!-- Дорожные плитки под белочкой -->
+                    <rect x="28" y="108" width="124" height="22" rx="11" fill="#1e293b" stroke="#6366f1" stroke-width="1.4" opacity="0.9"/>
+                    <circle cx="56" cy="119" r="7" fill="#facc15" stroke="#fef08a" stroke-width="1.5"/>
+                    <circle cx="92" cy="119" r="7" fill="#334155" stroke="#64748b" stroke-width="1.2"/>
+                    <circle cx="128" cy="119" r="7" fill="#334155" stroke="#64748b" stroke-width="1.2"/>
+
+                    <!-- Фирменная белочка с золотым орешком -->
+                    <g transform="translate(86, 68)">
+                        <!-- Пушистый хвост -->
+                        <path d="M-12 22 C-38 18, -42 -22, -16 -28 C-2 -31, 2 -14, -8 -4 C-16 4, -8 14, -4 20 Z" fill="url(#sqTail)" stroke="#fed7aa" stroke-width="1.5"/>
+                        <!-- Тело -->
+                        <ellipse cx="4" cy="14" rx="15" ry="19" fill="url(#sqFur)" stroke="#fed7aa" stroke-width="1.4"/>
+                        <ellipse cx="9" cy="16" rx="8" ry="12" fill="#ffedd5"/>
+                        <!-- Голова и ушки -->
+                        <polygon points="-2,-16 -6,-29 5,-20" fill="#ea580c" stroke="#fed7aa" stroke-width="1.2"/>
+                        <polygon points="10,-16 14,-29 21,-18" fill="#ea580c" stroke="#fed7aa" stroke-width="1.2"/>
+                        <circle cx="9" cy="-7" r="13.5" fill="url(#sqFur)" stroke="#fed7aa" stroke-width="1.4"/>
+                        <circle cx="13" cy="-9" r="3.4" fill="#0f172a"/>
+                        <circle cx="14" cy="-10" r="1.2" fill="#ffffff"/>
+                        <circle cx="21" cy="-5" r="2.2" fill="#451a03"/>
+                        <!-- Золотая звезда / орешек в лапках -->
+                        <circle cx="22" cy="11" r="8.5" fill="#facc15" stroke="#fef9c3" stroke-width="1.6"/>
+                        <path d="M22 6 L23.5 9.2 L27 9.7 L24.5 12.1 L25.1 15.5 L22 13.9 L18.9 15.5 L19.5 12.1 L17 9.7 L20.5 9.2 Z" fill="#a16207"/>
+                    </g>
+                </svg>
                 <div class="game-title-text">Белочка</div>
             </div>
         </div>
     </div>
 
     <div id="screen-squirrel" class="screen">
-        <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:6px; font-size:14px; border:none; cursor:pointer;">← Назад в меню</button>
+        <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:8px; font-size:14px; border:none; cursor:pointer;">← Назад в меню</button>
 
-        <div class="squirrel-hud">
-            <span id="sqDiffBadge">Уровень: Лёгкий</span>
-            <span id="sqMultBadge" style="color:#facc15;">Коэф: 1.00x</span>
-            <span id="sqWinBadge" style="color:#4ade80;">Выигрыш: 0 ⭐</span>
+        <div class="sq-stage">
+            <canvas id="squirrelRoadCanvas"></canvas>
+            <div class="sq-status-strip" id="sqStatusStrip">Выберите ставку и уровень сложности</div>
         </div>
 
-        <div class="squirrel-road-wrap">
-            <canvas id="squirrelCanvas"></canvas>
-            <div class="squirrel-banner" id="squirrelBanner">Сделайте ставку и выберите уровень сложности</div>
-        </div>
+        <div class="sq-panel">
+            <div id="sqSetupControls">
+                <div class="sq-bet-row">
+                    <span class="sq-bet-star">⭐</span>
+                    <input type="text" inputmode="numeric" id="sqBetInput" class="sq-bet-input" value="50">
+                    <button class="sq-mini-btn" onclick="mulSqBet(0.5)">½</button>
+                    <button class="sq-mini-btn" onclick="mulSqBet(2)">2×</button>
+                    <button class="sq-mini-btn" onclick="setMaxSqBet()">МАКС</button>
+                </div>
 
-        <div class="bet-control-box" id="squirrelSetupBox">
-            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Ставка в звёздах</div>
-            <input type="text" inputmode="numeric" id="sqBetInput" value="50">
+                <div class="sq-diff-row">
+                    <button class="sq-diff-pill active" id="sqDiff-easy" onclick="selectSqDifficulty('easy')">Лёгкий</button>
+                    <button class="sq-diff-pill" id="sqDiff-medium" onclick="selectSqDifficulty('medium')">Средний</button>
+                    <button class="sq-diff-pill" id="sqDiff-hard" onclick="selectSqDifficulty('hard')">Тяжёлый</button>
+                    <button class="sq-diff-pill" id="sqDiff-impossible" onclick="selectSqDifficulty('impossible')">Невозможный</button>
+                </div>
 
-            <div class="quick-btns">
-                <button class="quick-btn" onclick="addSqBet(-10)">-10</button>
-                <button class="quick-btn" onclick="addSqBet(50)">+50</button>
-                <button class="quick-btn" onclick="addSqBet(250)">+250</button>
-                <button class="quick-btn" onclick="setMaxSqBet()">MAX</button>
+                <button class="sq-start-btn" onclick="startSquirrelGame()">Начать игру</button>
             </div>
 
-            <div class="diff-grid">
-                <button class="diff-btn active" id="sqDiff-easy" onclick="selectSqDifficulty('easy')">Лёгкий</button>
-                <button class="diff-btn" id="sqDiff-medium" onclick="selectSqDifficulty('medium')">Средний</button>
-                <button class="diff-btn" id="sqDiff-hard" onclick="selectSqDifficulty('hard')">Тяжёлый</button>
-                <button class="diff-btn" id="sqDiff-impossible" onclick="selectSqDifficulty('impossible')">Невозможный</button>
+            <div id="sqPlayControls" style="display:none;">
+                <div class="sq-active-actions">
+                    <button class="sq-collect-btn" id="sqCollectBtn" onclick="collectSquirrelWin()">Забрать 0 ⭐</button>
+                    <button class="sq-step-btn" id="sqStepBtn" onclick="stepSquirrelForward()">→ Шаг</button>
+                </div>
             </div>
-
-            <button class="btn-action" onclick="startSquirrelRound()">Поставить ставку</button>
-        </div>
-
-        <div class="bet-control-box" id="squirrelPlayBox" style="display:none;">
-            <button class="btn-action btn-jump" id="sqJumpBtn" onclick="jumpSquirrelForward()">Прыгнуть вперёд</button>
-            <button class="btn-action btn-cashout" id="sqCashoutBtn" onclick="cashoutSquirrelRound()">Забрать выигрыш</button>
         </div>
     </div>
 
@@ -1358,7 +1484,7 @@
                     resetCaseControls();
                 }
                 if (screenName === 'crash') resizeCrashCanvas();
-                if (screenName === 'squirrel') resizeSquirrelCanvas();
+                if (screenName === 'squirrel') resizeSquirrelRoadCanvas();
             };
 
             window.showTopUpModal = function() {
@@ -2037,182 +2163,163 @@
                 setTimeout(runWaitingPhase, 3500);
             }
 
-            /* ================= ИГРА БЕЛОЧКА ================= */
-            const sqCanvas = document.getElementById('squirrelCanvas');
+            /* ================= ИГРА БЕЛОЧКА (CROSSY ROAD КАК НА ВИДЕО) ================= */
+            const sqCanvas = document.getElementById('squirrelRoadCanvas');
             const sqCtx = sqCanvas.getContext('2d');
 
-            const SQ_LEVELS = {
+            const SQ_CONFIGS = {
                 easy: {
                     label: 'Лёгкий',
-                    multStep: 1.24,
-                    baseSpeed: 92,
-                    fastSpeed: 155,
-                    fastChance: 0.18,
-                    pauseChance: 0.45,
+                    multipliers: [1.08, 1.22, 1.38, 1.57, 1.79, 2.06, 2.38, 2.78, 3.28, 3.92],
+                    baseSpeed: 135,
+                    fastSpeed: 260,
+                    fastChance: 0.22,
+                    pauseChance: 0.50,
                     pauseMin: 1.2,
-                    pauseMax: 2.4,
-                    carGapMin: 170,
-                    carGapMax: 260
+                    pauseMax: 2.3,
+                    spawnMin: 1.5,
+                    spawnMax: 2.7
                 },
                 medium: {
                     label: 'Средний',
-                    multStep: 1.46,
-                    baseSpeed: 132,
-                    fastSpeed: 220,
-                    fastChance: 0.34,
-                    pauseChance: 0.32,
-                    pauseMin: 0.8,
-                    pauseMax: 1.7,
-                    carGapMin: 145,
-                    carGapMax: 225
+                    multipliers: [1.22, 1.50, 1.88, 2.38, 3.05, 3.95, 5.15, 6.80, 9.10, 12.50],
+                    baseSpeed: 195,
+                    fastSpeed: 365,
+                    fastChance: 0.40,
+                    pauseChance: 0.34,
+                    pauseMin: 0.85,
+                    pauseMax: 1.65,
+                    spawnMin: 1.15,
+                    spawnMax: 2.15
                 },
                 hard: {
                     label: 'Тяжёлый',
-                    multStep: 1.82,
-                    baseSpeed: 178,
-                    fastSpeed: 295,
-                    fastChance: 0.5,
+                    multipliers: [1.45, 2.15, 3.25, 4.95, 7.65, 12.10, 19.50, 31.80, 52.00, 88.00],
+                    baseSpeed: 265,
+                    fastSpeed: 480,
+                    fastChance: 0.58,
                     pauseChance: 0.22,
                     pauseMin: 0.55,
-                    pauseMax: 1.25,
-                    carGapMin: 125,
-                    carGapMax: 195
+                    pauseMax: 1.15,
+                    spawnMin: 0.90,
+                    spawnMax: 1.75
                 },
                 impossible: {
                     label: 'Невозможный',
-                    multStep: 2.45,
-                    baseSpeed: 235,
-                    fastSpeed: 380,
-                    fastChance: 0.7,
+                    multipliers: [1.95, 3.90, 8.20, 17.50, 38.00, 85.00, 195.00, 450.00, 1050.00, 2500.00],
+                    baseSpeed: 345,
+                    fastSpeed: 620,
+                    fastChance: 0.75,
                     pauseChance: 0.14,
                     pauseMin: 0.35,
-                    pauseMax: 0.85,
-                    carGapMin: 105,
-                    carGapMax: 165
+                    pauseMax: 0.75,
+                    spawnMin: 0.72,
+                    spawnMax: 1.40
                 }
             };
 
-            const SQ_TOTAL_LANES = 6; // полоса 0 = старт/тротуар, полосы 1..6 = дорога
+            const SQ_STEPS_TOTAL = 10;
+            const SQ_STEP_WIDTH = 96;
+            const SQ_SIDEWALK_WIDTH = 94;
+
             let sqDiff = 'easy';
             let sqPlaying = false;
-            let sqLost = false;
-            let sqBet = 0;
-            let sqLane = 0; // 0..6
-            let sqMult = 1.00;
-            let sqLanes = [];
-            let sqJumpAnim = 0; // 0..1
-            let sqHitCar = null;
-            let sqLastFrame = 0;
+            let sqCrashed = false;
+            let sqBet = 50;
+            let sqCurrentStep = 0; // 0 = стартовый тротуар, 1..10 = люки на полосах
+            let sqCameraX = 0;
+            let sqHopProgress = 0; // 0..1 анимация прыжка
+            let sqRoadLanes = [];
+            let sqLastTs = 0;
 
-            function resizeSquirrelCanvas() {
-                const wrap = document.querySelector('.squirrel-road-wrap');
-                if (!wrap || !wrap.offsetWidth) return;
+            function resizeSquirrelRoadCanvas() {
+                const stage = document.querySelector('.sq-stage');
+                if (!stage || !stage.offsetWidth) return;
                 const dpr = Math.min(window.devicePixelRatio || 1, 2);
-                const w = wrap.offsetWidth;
-                const h = 330;
+                const w = stage.offsetWidth;
+                const h = 360;
                 sqCanvas.width = w * dpr;
                 sqCanvas.height = h * dpr;
                 sqCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
             }
 
-            window.addSqBet = function(delta) {
+            window.mulSqBet = function(factor) {
                 const inp = document.getElementById('sqBetInput');
-                const cur = parseAmountInput(inp.value);
-                inp.value = String(Math.max(1, cur + delta));
+                const cur = parseAmountInput(inp.value) || 1;
+                const next = Math.max(1, Math.floor(cur * factor));
+                inp.value = String(next);
+                if (!sqPlaying) sqBet = next;
             };
 
             window.setMaxSqBet = function() {
                 const inp = document.getElementById('sqBetInput');
-                inp.value = String(balance > 0 ? balance : 1);
+                const maxVal = balance > 0 ? balance : 1;
+                inp.value = String(maxVal);
+                if (!sqPlaying) sqBet = maxVal;
             };
+
+            document.getElementById('sqBetInput').addEventListener('input', function() {
+                if (!sqPlaying) {
+                    sqBet = parseAmountInput(this.value) || 0;
+                }
+            });
 
             window.selectSqDifficulty = function(key) {
                 if (sqPlaying) return;
                 sqDiff = key;
-                document.querySelectorAll('.diff-btn').forEach(function(b) { b.classList.remove('active'); });
-                const activeBtn = document.getElementById('sqDiff-' + key);
-                if (activeBtn) activeBtn.classList.add('active');
-                updateSquirrelHud();
-                initSquirrelLanes();
+                document.querySelectorAll('.sq-diff-pill').forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                const el = document.getElementById('sqDiff-' + key);
+                if (el) el.classList.add('active');
+                initSquirrelRoadLanes();
             };
 
-            function getSqLaneMultiplier(laneIdx) {
-                if (laneIdx <= 0) return 1.00;
-                return parseFloat(Math.pow(SQ_LEVELS[sqDiff].multStep, laneIdx).toFixed(2));
+            function getSqMultiplier(step) {
+                if (step <= 0) return 1.00;
+                const list = SQ_CONFIGS[sqDiff].multipliers;
+                return list[Math.min(list.length - 1, step - 1)];
             }
 
-            function getSqLaneReward(laneIdx) {
-                if (laneIdx <= 0) return 0;
-                return Math.floor(sqBet * getSqLaneMultiplier(laneIdx));
+            function getSqReward(step) {
+                if (step <= 0) return 0;
+                const base = sqPlaying ? sqBet : (parseAmountInput(document.getElementById('sqBetInput').value) || 10);
+                return Math.floor(base * getSqMultiplier(step));
             }
 
-            function updateSquirrelHud() {
-                const cfg = SQ_LEVELS[sqDiff];
-                document.getElementById('sqDiffBadge').innerText = 'Уровень: ' + cfg.label;
-                document.getElementById('sqMultBadge').innerText = 'Коэф: ' + sqMult.toFixed(2) + 'x';
-                const winNow = sqLane > 0 ? getSqLaneReward(sqLane) : 0;
-                document.getElementById('sqWinBadge').innerText = 'Выигрыш: ' + formatStars(winNow) + ' ⭐';
-
-                const cashBtn = document.getElementById('sqCashoutBtn');
-                const jumpBtn = document.getElementById('sqJumpBtn');
-                if (cashBtn) {
-                    cashBtn.disabled = (sqLane <= 0 || !sqPlaying);
-                    cashBtn.innerText = sqLane > 0
-                        ? `Забрать выигрыш (${formatStars(winNow)} ⭐)`
-                        : 'Сделайте хотя бы 1 прыжок';
-                }
-                if (jumpBtn) {
-                    jumpBtn.disabled = !sqPlaying;
-                    if (sqPlaying) {
-                        const nextLane = Math.min(SQ_TOTAL_LANES, sqLane + 1);
-                        const nextMult = getSqLaneMultiplier(nextLane);
-                        const nextReward = Math.floor(sqBet * nextMult);
-                        jumpBtn.innerText = `Прыгнуть вперёд → ${nextMult.toFixed(2)}x (${formatStars(nextReward)} ⭐)`;
-                    }
-                }
-            }
-
-            function createCarsForLane(laneIdx, width) {
-                const cfg = SQ_LEVELS[sqDiff];
-                const dir = (laneIdx % 2 === 1) ? 1 : -1;
-                const cars = [];
-                let cursor = Math.random() * 120;
-                while (cursor < width + 180) {
-                    const isFast = Math.random() < cfg.fastChance;
-                    const speed = isFast
-                        ? cfg.fastSpeed * (0.9 + Math.random() * 0.25)
-                        : cfg.baseSpeed * (0.85 + Math.random() * 0.3);
-                    const carW = isFast ? 46 : 54;
-                    cars.push({
-                        x: cursor,
-                        w: carW,
-                        h: 22,
-                        dir: dir,
-                        speed: speed,
-                        isFast: isFast,
-                        color: isFast ? '#f43f5e' : (laneIdx % 2 === 1 ? '#38bdf8' : '#facc15')
+            function initSquirrelRoadLanes() {
+                const cfg = SQ_CONFIGS[sqDiff];
+                sqRoadLanes = [];
+                for (let step = 1; step <= SQ_STEPS_TOTAL; step++) {
+                    sqRoadLanes.push({
+                        step: step,
+                        blocked: false,
+                        paused: false,
+                        pauseTimer: 0,
+                        driveTimer: 1.2 + Math.random() * 1.8,
+                        spawnTimer: Math.random() * 1.2,
+                        cars: []
                     });
-                    const gap = cfg.carGapMin + Math.random() * (cfg.carGapMax - cfg.carGapMin);
-                    cursor += carW + gap;
-                }
-                return {
-                    lane: laneIdx,
-                    cars: cars,
-                    paused: false,
-                    pauseTimer: 0,
-                    activeTimer: 1.2 + Math.random() * 1.8
-                };
-            }
-
-            function initSquirrelLanes() {
-                const w = sqCanvas.clientWidth || 340;
-                sqLanes = [];
-                for (let i = 1; i <= SQ_TOTAL_LANES; i++) {
-                    sqLanes.push(createCarsForLane(i, w));
                 }
             }
 
-            window.startSquirrelRound = function() {
+            function syncSquirrelButtons() {
+                const collectBtn = document.getElementById('sqCollectBtn');
+                const stepBtn = document.getElementById('sqStepBtn');
+                if (!collectBtn || !stepBtn) return;
+
+                if (sqCurrentStep <= 0) {
+                    collectBtn.disabled = true;
+                    collectBtn.innerText = 'Забрать';
+                } else {
+                    const winAmt = getSqReward(sqCurrentStep);
+                    collectBtn.disabled = false;
+                    collectBtn.innerText = `Забрать ${formatStars(winAmt)} ⭐`;
+                }
+                stepBtn.innerText = sqCurrentStep >= SQ_STEPS_TOTAL ? 'Финиш!' : '→ Шаг';
+            }
+
+            window.startSquirrelGame = function() {
                 const amt = parseAmountInput(document.getElementById('sqBetInput').value);
                 if (!amt || amt < 1) {
                     alert("Введите ставку в звёздах от 1.");
@@ -2226,253 +2333,472 @@
                 balance -= amt;
                 sqBet = amt;
                 sqPlaying = true;
-                sqLost = false;
-                sqLane = 0;
-                sqMult = 1.00;
-                sqJumpAnim = 0;
-                sqHitCar = null;
+                sqCrashed = false;
+                sqCurrentStep = 0;
+                sqCameraX = 0;
+                sqHopProgress = 0;
                 updateBalanceUI();
-                initSquirrelLanes();
-                updateSquirrelHud();
+                initSquirrelRoadLanes();
+                syncSquirrelButtons();
 
-                document.getElementById('squirrelSetupBox').style.display = 'none';
-                document.getElementById('squirrelPlayBox').style.display = 'block';
-                const banner = document.getElementById('squirrelBanner');
-                banner.className = 'squirrel-banner';
-                banner.innerText = '🐿️ Белочка на старте! Жми «Прыгнуть вперёд» или тапни по дороге';
+                document.getElementById('sqSetupControls').style.display = 'none';
+                document.getElementById('sqPlayControls').style.display = 'block';
+
+                const strip = document.getElementById('sqStatusStrip');
+                strip.className = 'sq-status-strip';
+                strip.innerText = '🐿️ Белочка готова! Жми «→ Шаг» или нажми на люк';
             };
 
-            function finishSquirrelLoss() {
+            function triggerSquirrelLose() {
                 sqPlaying = false;
-                sqLost = true;
-                document.getElementById('squirrelSetupBox').style.display = 'block';
-                document.getElementById('squirrelPlayBox').style.display = 'none';
-                const banner = document.getElementById('squirrelBanner');
-                banner.className = 'squirrel-banner lose';
-                banner.innerText = `💥 Вы проиграли! Машина сбила белочку (-${formatStars(sqBet)} ⭐)`;
-                updateSquirrelHud();
+                sqCrashed = true;
+                document.getElementById('sqSetupControls').style.display = 'block';
+                document.getElementById('sqPlayControls').style.display = 'none';
+
+                const strip = document.getElementById('sqStatusStrip');
+                strip.className = 'sq-status-strip lose';
+                strip.innerText = `💥 Вы проиграли! Машина сбила белочку (-${formatStars(sqBet)} ⭐)`;
             }
 
-            window.jumpSquirrelForward = function() {
+            window.stepSquirrelForward = function() {
                 if (!sqPlaying) return;
-                if (sqLane >= SQ_TOTAL_LANES) {
-                    window.cashoutSquirrelRound();
+                if (sqCurrentStep >= SQ_STEPS_TOTAL) {
+                    window.collectSquirrelWin();
                     return;
                 }
 
-                const nextLane = sqLane + 1;
-                const w = sqCanvas.clientWidth || 340;
-                const squirrelX = w * 0.5;
-                const laneObj = sqLanes[nextLane - 1];
+                // Предыдущая полоса закрывается шлагбаумом — машины туда больше не въедут
+                if (sqCurrentStep >= 1) {
+                    const prevLane = sqRoadLanes[sqCurrentStep - 1];
+                    if (prevLane) prevLane.blocked = true;
+                }
 
-                // Проверяем, не едет ли машина прямо под лапами белочки в момент прыжка
-                const hit = laneObj && laneObj.cars.find(function(c) {
-                    return Math.abs(c.x - squirrelX) < (c.w * 0.5 + 14);
+                sqCurrentStep++;
+                sqHopProgress = 1;
+
+                const lane = sqRoadLanes[sqCurrentStep - 1];
+                const squirrelY = 232;
+
+                // Проверяем, не едет ли машина прямо по этому люку в момент прыжка
+                const hit = lane && lane.cars.find(function(c) {
+                    return Math.abs(c.y - squirrelY) < (c.h * 0.5 + 18);
                 });
 
-                sqLane = nextLane;
-                sqJumpAnim = 1;
-
                 if (hit) {
-                    sqHitCar = hit;
-                    finishSquirrelLoss();
+                    triggerSquirrelLose();
                     return;
                 }
 
-                sqMult = getSqLaneMultiplier(sqLane);
-                const rewardNow = getSqLaneReward(sqLane);
-                updateSquirrelHud();
+                syncSquirrelButtons();
+                const rewardNow = getSqReward(sqCurrentStep);
+                const multNow = getSqMultiplier(sqCurrentStep).toFixed(2);
+                const strip = document.getElementById('sqStatusStrip');
+                strip.className = 'sq-status-strip';
 
-                const banner = document.getElementById('squirrelBanner');
-                banner.className = 'squirrel-banner';
-                if (sqLane === SQ_TOTAL_LANES) {
-                    banner.innerText = `🏆 Финиш! На клетке: ${formatStars(rewardNow)} ⭐ (${sqMult.toFixed(2)}x) — забирай!`;
+                if (sqCurrentStep >= SQ_STEPS_TOTAL) {
+                    strip.innerText = `🏆 Финиш! Выигрыш ${formatStars(rewardNow)} ⭐ (×${multNow}) — жми «Забрать»!`;
                 } else {
-                    banner.innerText = `🐿️ Шаг ${sqLane}/${SQ_TOTAL_LANES}: на клетке ${formatStars(rewardNow)} ⭐ (${sqMult.toFixed(2)}x)`;
+                    strip.innerText = `🐿️ Люк ${sqCurrentStep}/${SQ_STEPS_TOTAL}: ×${multNow} (${formatStars(rewardNow)} ⭐)`;
                 }
             };
 
-            window.cashoutSquirrelRound = function() {
-                if (!sqPlaying || sqLane <= 0) return;
-                const win = getSqLaneReward(sqLane);
+            window.collectSquirrelWin = function() {
+                if (!sqPlaying || sqCurrentStep <= 0) return;
+                const win = getSqReward(sqCurrentStep);
+                const multNow = getSqMultiplier(sqCurrentStep).toFixed(2);
                 balance += win;
                 updateBalanceUI();
                 sqPlaying = false;
 
-                document.getElementById('squirrelSetupBox').style.display = 'block';
-                document.getElementById('squirrelPlayBox').style.display = 'none';
-                const banner = document.getElementById('squirrelBanner');
-                banner.className = 'squirrel-banner win';
-                banner.innerText = `✅ Вы забрали выигрыш: +${formatStars(win)} ⭐ (${sqMult.toFixed(2)}x)!`;
-                updateSquirrelHud();
+                document.getElementById('sqSetupControls').style.display = 'block';
+                document.getElementById('sqPlayControls').style.display = 'none';
+
+                const strip = document.getElementById('sqStatusStrip');
+                strip.className = 'sq-status-strip win';
+                strip.innerText = `✅ Вы забрали выигрыш: +${formatStars(win)} ⭐ (×${multNow})!`;
             };
 
             sqCanvas.addEventListener('click', function() {
                 if (sqPlaying) {
-                    window.jumpSquirrelForward();
+                    window.stepSquirrelForward();
                 }
             });
 
-            function updateSquirrelSimulation(dt) {
-                const w = sqCanvas.clientWidth || 340;
-                const cfg = SQ_LEVELS[sqDiff];
-                if (sqJumpAnim > 0) {
-                    sqJumpAnim = Math.max(0, sqJumpAnim - dt * 5.5);
+            function updateSquirrelPhysics(dt) {
+                const cfg = SQ_CONFIGS[sqDiff];
+                const h = 360;
+                const squirrelY = 232;
+
+                if (sqHopProgress > 0) {
+                    sqHopProgress = Math.max(0, sqHopProgress - dt * 6.5);
                 }
 
-                const squirrelX = w * 0.5;
-                const squirrelY = getSquirrelY(sqLane);
+                // Плавное смещение камеры по горизонтали, как на видео
+                const w = sqCanvas.clientWidth || 340;
+                const targetPlayerScreenX = Math.min(148, w * 0.36);
+                const playerWorldX = sqCurrentStep === 0
+                    ? SQ_SIDEWALK_WIDTH * 0.52
+                    : SQ_SIDEWALK_WIDTH + (sqCurrentStep - 0.5) * SQ_STEP_WIDTH;
+                const desiredCameraX = Math.max(0, playerWorldX - targetPlayerScreenX);
+                sqCameraX += (desiredCameraX - sqCameraX) * Math.min(1, dt * 8);
 
-                sqLanes.forEach(function(laneObj) {
-                    // Переключаем состояние «машины едут / машины встали (пауза)»
-                    if (laneObj.paused) {
-                        laneObj.pauseTimer -= dt;
-                        if (laneObj.pauseTimer <= 0) {
-                            laneObj.paused = false;
-                            laneObj.activeTimer = 1.1 + Math.random() * 1.7;
+                sqRoadLanes.forEach(function(lane) {
+                    // Логика «машины едут / машины перестали ехать (пауза)»
+                    if (lane.paused) {
+                        lane.pauseTimer -= dt;
+                        if (lane.pauseTimer <= 0) {
+                            lane.paused = false;
+                            lane.driveTimer = 1.1 + Math.random() * 1.6;
                         }
-                        return;
                     } else {
-                        laneObj.activeTimer -= dt;
-                        if (laneObj.activeTimer <= 0 && Math.random() < cfg.pauseChance) {
-                            laneObj.paused = true;
-                            laneObj.pauseTimer = cfg.pauseMin + Math.random() * (cfg.pauseMax - cfg.pauseMin);
-                            return;
+                        lane.driveTimer -= dt;
+                        if (lane.driveTimer <= 0 && Math.random() < cfg.pauseChance) {
+                            lane.paused = true;
+                            lane.pauseTimer = cfg.pauseMin + Math.random() * (cfg.pauseMax - cfg.pauseMin);
                         }
                     }
 
-                    laneObj.cars.forEach(function(car) {
-                        car.x += car.dir * car.speed * dt;
-                        if (car.dir > 0 && car.x - car.w * 0.5 > w + 30) {
-                            car.x = -car.w * 0.5 - 20;
-                        } else if (car.dir < 0 && car.x + car.w * 0.5 < -30) {
-                            car.x = w + car.w * 0.5 + 20;
+                    // Спавн новых машин сверху на незаблокированных полосах
+                    if (!lane.blocked && !lane.paused) {
+                        lane.spawnTimer -= dt;
+                        if (lane.spawnTimer <= 0) {
+                            const hasTopCar = lane.cars.some(function(c) { return c.y < 85; });
+                            if (!hasTopCar) {
+                                const isFast = Math.random() < cfg.fastChance;
+                                const carStyles = isFast
+                                    ? [
+                                        { body: '#ef4444', roof: '#991b1b', stripe: '#fef08a', fast: true },
+                                        { body: '#f59e0b', roof: '#b45309', stripe: '#ffffff', fast: true }
+                                      ]
+                                    : [
+                                        { body: '#f8fafc', roof: '#cbd5e1', stripe: '#38bdf8', fast: false },
+                                        { body: '#3b82f6', roof: '#1d4ed8', stripe: '#93c5fd', fast: false },
+                                        { body: '#1e293b', roof: '#0f172a', stripe: '#64748b', fast: false }
+                                      ];
+                                const st = carStyles[Math.floor(Math.random() * carStyles.length)];
+                                lane.cars.push({
+                                    y: -55,
+                                    w: 44,
+                                    h: isFast ? 68 : 74,
+                                    speed: isFast ? cfg.fastSpeed : cfg.baseSpeed,
+                                    style: st
+                                });
+                            }
+                            lane.spawnTimer = cfg.spawnMin + Math.random() * (cfg.spawnMax - cfg.spawnMin);
+                        }
+                    }
+
+                    // Движение машин сверху вниз
+                    for (let i = lane.cars.length - 1; i >= 0; i--) {
+                        const c = lane.cars[i];
+                        if (!lane.paused) {
+                            c.y += c.speed * dt;
+                        }
+                        if (c.y - c.h > h + 70) {
+                            lane.cars.splice(i, 1);
+                            continue;
                         }
 
-                        // Столкновение с белочкой на текущей полосе
-                        if (sqPlaying && laneObj.lane === sqLane && sqLane > 0) {
-                            const carY = getSquirrelY(laneObj.lane);
-                            if (Math.abs(car.x - squirrelX) < (car.w * 0.45 + 12) && Math.abs(carY - squirrelY) < 12) {
-                                sqHitCar = car;
-                                finishSquirrelLoss();
+                        // Столкновение с белочкой на активном люке
+                        if (sqPlaying && sqCurrentStep === lane.step) {
+                            if (Math.abs(c.y - squirrelY) < (c.h * 0.46 + 15)) {
+                                triggerSquirrelLose();
                             }
                         }
-                    });
+                    }
                 });
             }
 
-            function getSquirrelY(laneIdx) {
-                const h = 330;
-                const topPad = 26;
-                const bottomPad = 28;
-                const usableH = h - topPad - bottomPad;
-                const stepH = usableH / SQ_TOTAL_LANES;
-                const baseY = h - bottomPad - laneIdx * stepH;
-                const hopOffset = Math.sin(sqJumpAnim * Math.PI) * 12;
-                return baseY - hopOffset;
+            function drawCarTopDown(ctx, cx, cy, car) {
+                ctx.save();
+                ctx.translate(cx, cy);
+
+                // Тень машины
+                ctx.fillStyle = 'rgba(0,0,0,0.42)';
+                ctx.beginPath();
+                ctx.roundRect(-car.w * 0.5 + 3, -car.h * 0.5 + 4, car.w, car.h, 12);
+                ctx.fill();
+
+                // Кузов
+                ctx.fillStyle = car.style.body;
+                ctx.beginPath();
+                ctx.roundRect(-car.w * 0.5, -car.h * 0.5, car.w, car.h, 11);
+                ctx.fill();
+
+                // Лобовое стекло (снизу, т.к. машина едет вниз)
+                ctx.fillStyle = '#0f172a';
+                ctx.beginPath();
+                ctx.roundRect(-car.w * 0.36, car.h * 0.06, car.w * 0.72, car.h * 0.22, 5);
+                ctx.fill();
+
+                // Крыша
+                ctx.fillStyle = car.style.roof;
+                ctx.beginPath();
+                ctx.roundRect(-car.w * 0.34, -car.h * 0.24, car.w * 0.68, car.h * 0.28, 6);
+                ctx.fill();
+
+                // Фары спереди
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(-car.w * 0.36, car.h * 0.44, 8, 4);
+                ctx.fillRect(car.w * 0.36 - 8, car.h * 0.44, 8, 4);
+
+                if (car.style.fast) {
+                    ctx.font = '900 12px sans-serif';
+                    ctx.fillStyle = '#fef08a';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('⚡', 0, -car.h * 0.1);
+                }
+
+                ctx.restore();
             }
 
-            function renderSquirrelScene(now) {
-                if (!sqLastFrame) sqLastFrame = now;
-                const dt = Math.min(0.05, (now - sqLastFrame) / 1000);
-                sqLastFrame = now;
+            function drawSquirrelCharacter(ctx, x, y, hopOffset, crashed) {
+                ctx.save();
+                ctx.translate(x, y - hopOffset);
 
-                if (sqCanvas.width === 0) resizeSquirrelCanvas();
+                if (crashed) {
+                    // Расплющенный след как на видео при проигрыше
+                    ctx.fillStyle = 'rgba(254, 243, 199, 0.9)';
+                    ctx.beginPath();
+                    ctx.ellipse(0, 12, 26, 8, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.font = '24px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('💥', 0, 4);
+                    ctx.restore();
+                    return;
+                }
+
+                // Тень под белочкой
+                ctx.fillStyle = 'rgba(0,0,0,0.4)';
+                ctx.beginPath();
+                ctx.ellipse(0, 20 + hopOffset * 0.6, 17, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Пышный хвост слева
+                ctx.fillStyle = '#ea580c';
+                ctx.beginPath();
+                ctx.moveTo(-8, 12);
+                ctx.bezierCurveTo(-30, 8, -32, -22, -12, -24);
+                ctx.bezierCurveTo(-2, -25, 0, -10, -6, -2);
+                ctx.closePath();
+                ctx.fill();
+                ctx.strokeStyle = '#fed7aa';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                // Тельце
+                ctx.fillStyle = '#f97316';
+                ctx.beginPath();
+                ctx.ellipse(2, 6, 12, 15, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#ffedd5';
+                ctx.beginPath();
+                ctx.ellipse(6, 8, 6.5, 10, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Голова и ушки
+                ctx.fillStyle = '#ea580c';
+                ctx.beginPath();
+                ctx.moveTo(-2, -16);
+                ctx.lineTo(-5, -26);
+                ctx.lineTo(3, -19);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(7, -16);
+                ctx.lineTo(10, -26);
+                ctx.lineTo(15, -18);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#f97316';
+                ctx.beginPath();
+                ctx.arc(6, -10, 10.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Глаз и носик
+                ctx.fillStyle = '#0f172a';
+                ctx.beginPath();
+                ctx.arc(9.5, -11.5, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(10.3, -12.3, 0.9, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#451a03';
+                ctx.beginPath();
+                ctx.arc(15.5, -9, 1.8, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            function renderSquirrelRoadScene(ts) {
+                if (!sqLastTs) sqLastTs = ts;
+                const dt = Math.min(0.05, (ts - sqLastTs) / 1000);
+                sqLastTs = ts;
+
+                if (sqCanvas.width === 0) resizeSquirrelRoadCanvas();
                 const w = sqCanvas.clientWidth || 340;
-                const h = 330;
+                const h = 360;
 
-                updateSquirrelSimulation(dt);
+                updateSquirrelPhysics(dt);
 
                 sqCtx.clearRect(0, 0, w, h);
-                sqCtx.fillStyle = '#0b1324';
+                sqCtx.fillStyle = '#1b1f33';
                 sqCtx.fillRect(0, 0, w, h);
 
-                const topPad = 26;
-                const bottomPad = 28;
-                const usableH = h - topPad - bottomPad;
-                const stepH = usableH / SQ_TOTAL_LANES;
+                sqCtx.save();
+                sqCtx.translate(-sqCameraX, 0);
 
-                // Рисуем полосы дороги и на каждом шаге пишем сколько звёзд получишь
-                for (let i = 1; i <= SQ_TOTAL_LANES; i++) {
-                    const yCenter = h - bottomPad - i * stepH;
-                    const yTop = yCenter - stepH * 0.5;
+                // 1. Левый стартовый тротуар (как на скриншоте RubUP)
+                sqCtx.fillStyle = '#2d6a4f';
+                sqCtx.fillRect(0, 0, 18, h);
+                sqCtx.fillStyle = '#9aa5b4';
+                sqCtx.fillRect(18, 0, SQ_SIDEWALK_WIDTH - 24, h);
+                sqCtx.fillStyle = '#cbd5e1';
+                sqCtx.fillRect(SQ_SIDEWALK_WIDTH - 6, 0, 6, h);
 
-                    sqCtx.fillStyle = (i % 2 === 1) ? '#111c33' : '#15223d';
-                    sqCtx.fillRect(0, yTop, w, stepH - 2);
-
-                    // Разметка полосы
-                    sqCtx.strokeStyle = 'rgba(148, 163, 184, 0.22)';
-                    sqCtx.setLineDash([8, 8]);
+                // Плитки тротуара
+                sqCtx.strokeStyle = 'rgba(71, 85, 105, 0.35)';
+                sqCtx.lineWidth = 1.5;
+                for (let py = 36; py < h; py += 58) {
                     sqCtx.beginPath();
-                    sqCtx.moveTo(0, yTop);
-                    sqCtx.lineTo(w, yTop);
+                    sqCtx.moveTo(18, py);
+                    sqCtx.lineTo(SQ_SIDEWALK_WIDTH - 6, py);
+                    sqCtx.stroke();
+                }
+
+                // Знак запрета машин внизу тротуара (как на видео)
+                sqCtx.fillStyle = '#e2e8f0';
+                sqCtx.beginPath();
+                sqCtx.arc(54, 316, 21, 0, Math.PI * 2);
+                sqCtx.fill();
+                sqCtx.strokeStyle = '#dc2626';
+                sqCtx.lineWidth = 4;
+                sqCtx.stroke();
+                sqCtx.beginPath();
+                sqCtx.moveTo(40, 302);
+                sqCtx.lineTo(68, 330);
+                ctx_sign_line: sqCtx.stroke();
+
+                // 2. Полосы дороги с люками, наградами в звёздах и коэффициентами
+                const manholeY = 232;
+                const badgeY = 148;
+
+                sqRoadLanes.forEach(function(lane) {
+                    const laneX = SQ_SIDEWALK_WIDTH + (lane.step - 1) * SQ_STEP_WIDTH;
+                    const centerX = laneX + SQ_STEP_WIDTH * 0.5;
+
+                    // Асфальт полосы
+                    sqCtx.fillStyle = '#1b1f33';
+                    sqCtx.fillRect(laneX, 0, SQ_STEP_WIDTH, h);
+
+                    // Пунктирная разметка справа от полосы
+                    sqCtx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+                    sqCtx.lineWidth = 2.5;
+                    sqCtx.setLineDash([14, 14]);
+                    sqCtx.beginPath();
+                    sqCtx.moveTo(laneX + SQ_STEP_WIDTH, 10);
+                    sqCtx.lineTo(laneX + SQ_STEP_WIDTH, h - 10);
                     sqCtx.stroke();
                     sqCtx.setLineDash([]);
 
-                    // Подпись награды за этот шаг прямо на полосе
-                    const multVal = getSqLaneMultiplier(i).toFixed(2) + 'x';
-                    const rewardStars = sqBet > 0 ? formatStars(getSqLaneReward(i)) + ' ⭐' : multVal;
-                    const isNextStep = sqPlaying && (i === sqLane + 1);
+                    const isPassed = lane.step < sqCurrentStep;
+                    const isCurrent = lane.step === sqCurrentStep;
+                    const isNext = sqPlaying && (lane.step === sqCurrentStep + 1);
 
-                    sqCtx.fillStyle = isNextStep ? 'rgba(0, 255, 204, 0.22)' : 'rgba(15, 23, 42, 0.72)';
+                    // Верхний кружок с призом (звездой) и суммой выигрыша на этом шаге
+                    const rewardStars = formatStars(getSqReward(lane.step));
+                    sqCtx.fillStyle = isPassed || isCurrent ? 'rgba(250, 204, 21, 0.16)' : '#141726';
                     sqCtx.beginPath();
-                    sqCtx.roundRect(8, yCenter - 11, 86, 22, 7);
+                    sqCtx.arc(centerX, badgeY, 24, 0, Math.PI * 2);
+                    sqCtx.fill();
+                    sqCtx.strokeStyle = isNext ? '#6366f1' : 'rgba(255,255,255,0.12)';
+                    sqCtx.lineWidth = 2;
+                    sqCtx.stroke();
+
+                    sqCtx.font = '20px sans-serif';
+                    sqCtx.textAlign = 'center';
+                    sqCtx.textBaseline = 'middle';
+                    sqCtx.fillText('⭐', centerX, badgeY);
+
+                    // Плашка со звёздами под верхним кружком (например "540 ⭐")
+                    sqCtx.fillStyle = '#111422';
+                    sqCtx.beginPath();
+                    sqCtx.roundRect(centerX - 30, badgeY + 27, 60, 18, 9);
+                    sqCtx.fill();
+                    sqCtx.font = '800 11px Outfit, sans-serif';
+                    sqCtx.fillStyle = '#ffffff';
+                    sqCtx.fillText(rewardStars + ' ⭐', centerX, badgeY + 36);
+
+                    // Люк на проезжей части
+                    sqCtx.fillStyle = (isPassed || isCurrent) ? '#d97706' : '#262b42';
+                    sqCtx.beginPath();
+                    sqCtx.arc(centerX, manholeY, 27, 0, Math.PI * 2);
                     sqCtx.fill();
 
-                    sqCtx.font = '800 11px Outfit, sans-serif';
-                    sqCtx.fillStyle = isNextStep ? '#00ffcc' : '#facc15';
-                    sqCtx.textAlign = 'left';
-                    sqCtx.textBaseline = 'middle';
-                    sqCtx.fillText(rewardStars, 13, yCenter);
+                    sqCtx.strokeStyle = (isPassed || isCurrent) ? '#fef08a' : (isNext ? '#818cf8' : '#3a4161');
+                    sqCtx.lineWidth = 3;
+                    sqCtx.stroke();
 
-                    const laneObj = sqLanes[i - 1];
-                    if (laneObj && laneObj.paused) {
-                        sqCtx.font = '700 10px Outfit, sans-serif';
-                        sqCtx.fillStyle = '#38bdf8';
-                        sqCtx.textAlign = 'right';
-                        sqCtx.fillText('ПАУЗА', w - 10, yCenter);
-                    }
-                }
+                    sqCtx.strokeStyle = (isPassed || isCurrent) ? '#facc15' : '#181c2e';
+                    sqCtx.lineWidth = 2;
+                    sqCtx.beginPath();
+                    sqCtx.arc(centerX, manholeY, 17, 0, Math.PI * 2);
+                    sqCtx.stroke();
 
-                // Стартовая зона
-                sqCtx.fillStyle = '#182844';
-                sqCtx.fillRect(0, h - bottomPad - stepH * 0.5, w, stepH * 0.5 + bottomPad);
+                    // Плашка коэффициента под люком (например "×1,08")
+                    const multText = '×' + getSqMultiplier(lane.step).toFixed(2).replace('.', ',');
+                    sqCtx.fillStyle = (isPassed || isCurrent) ? '#3730a3' : '#282d45';
+                    sqCtx.beginPath();
+                    sqCtx.roundRect(centerX - 30, manholeY + 34, 60, 22, 8);
+                    sqCtx.fill();
+                    sqCtx.font = '800 12px Outfit, sans-serif';
+                    sqCtx.fillStyle = '#ffffff';
+                    sqCtx.fillText(multText, centerX, manholeY + 45);
 
-                // Машины
-                sqLanes.forEach(function(laneObj) {
-                    const yCenter = h - bottomPad - laneObj.lane * stepH;
-                    laneObj.cars.forEach(function(car) {
-                        sqCtx.save();
-                        sqCtx.translate(car.x, yCenter);
-                        sqCtx.fillStyle = car.color;
+                    // Жёлто-чёрный барьер над пройденным люком (как на видео!)
+                    if (lane.blocked) {
+                        const barX = centerX - 28;
+                        const barY = manholeY - 46;
+                        sqCtx.fillStyle = '#facc15';
                         sqCtx.beginPath();
-                        sqCtx.roundRect(-car.w * 0.5, -car.h * 0.5, car.w, car.h, 6);
+                        sqCtx.roundRect(barX, barY, 56, 11, 3);
                         sqCtx.fill();
-
-                        // Окно и быстрый знак
-                        sqCtx.fillStyle = '#0f172a';
-                        sqCtx.fillRect(-car.w * 0.22, -car.h * 0.3, car.w * 0.44, car.h * 0.6);
-
-                        if (car.isFast) {
-                            sqCtx.font = '900 11px sans-serif';
-                            sqCtx.fillStyle = '#ffffff';
-                            sqCtx.textAlign = 'center';
-                            sqCtx.textBaseline = 'middle';
-                            sqCtx.fillText('⚡', 0, 1);
+                        sqCtx.fillStyle = '#111827';
+                        for (let sx = barX + 6; sx < barX + 50; sx += 14) {
+                            sqCtx.fillRect(sx, barY, 6, 11);
                         }
-                        sqCtx.restore();
+                    }
+
+                    // Индикатор паузы, когда машины на этой полосе остановились
+                    if (lane.paused && !lane.blocked) {
+                        sqCtx.font = '800 10px Outfit, sans-serif';
+                        sqCtx.fillStyle = '#38bdf8';
+                        sqCtx.fillText('ПАУЗА', centerX, 24);
+                    }
+
+                    // Машины на этой полосе
+                    lane.cars.forEach(function(car) {
+                        drawCarTopDown(sqCtx, centerX, car.y, car);
                     });
                 });
 
-                // Персонаж — Белочка
-                const sx = w * 0.5;
-                const sy = getSquirrelY(sqLane);
-                sqCtx.font = '30px sans-serif';
-                sqCtx.textAlign = 'center';
-                sqCtx.textBaseline = 'middle';
-                sqCtx.fillText(sqLost ? '💥' : '🐿️', sx, sy);
+                // 3. Персонаж — Белочка
+                const playerX = sqCurrentStep === 0
+                    ? SQ_SIDEWALK_WIDTH * 0.52
+                    : SQ_SIDEWALK_WIDTH + (sqCurrentStep - 0.5) * SQ_STEP_WIDTH;
+                const hopLift = Math.sin(sqHopProgress * Math.PI) * 18;
+                drawSquirrelCharacter(sqCtx, playerX, manholeY - 6, hopLift, sqCrashed);
 
-                requestAnimationFrame(renderSquirrelScene);
+                sqCtx.restore();
+                requestAnimationFrame(renderSquirrelRoadScene);
             }
 
             initCaseBanners();
@@ -2480,13 +2806,13 @@
             updateHistoryUI();
             initStars();
             resizeCrashCanvas();
-            resizeSquirrelCanvas();
+            resizeSquirrelRoadCanvas();
             window.addEventListener('resize', function() {
                 resizeCrashCanvas();
-                resizeSquirrelCanvas();
+                resizeSquirrelRoadCanvas();
             });
             requestAnimationFrame(renderCrashScene);
-            requestAnimationFrame(renderSquirrelScene);
+            requestAnimationFrame(renderSquirrelRoadScene);
             runWaitingPhase();
             selectSqDifficulty('easy');
         })();
