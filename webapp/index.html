@@ -13,8 +13,8 @@
             --card-bg: linear-gradient(145deg, #16223b, #0c1322);
             --border-color: #263854;
             --accent-color: #00ffcc;
-            --accent-glow: 0 0 20px rgba(0,255,204,0.45), inset 0 0 10px rgba(0,255,204,0.15);
-            --btn-glow: 0 4px 22px rgba(0,255,204,0.42);
+            --accent-glow: 0 0 22px rgba(0,255,204,0.42), inset 0 0 12px rgba(0,255,204,0.14);
+            --btn-glow: 0 4px 22px rgba(0,255,204,0.38);
             --text-color: #ffffff;
             --text-muted: #94a3b8;
         }
@@ -25,8 +25,8 @@
             --card-bg: linear-gradient(145deg, #261742, #160c2b);
             --border-color: #4c2d7a;
             --accent-color: #d946ef;
-            --accent-glow: 0 0 20px rgba(217,70,239,0.48), inset 0 0 10px rgba(217,70,239,0.15);
-            --btn-glow: 0 4px 22px rgba(217,70,239,0.42);
+            --accent-glow: 0 0 22px rgba(217,70,239,0.45), inset 0 0 12px rgba(217,70,239,0.15);
+            --btn-glow: 0 4px 22px rgba(217,70,239,0.4);
         }
 
         body.theme-fire {
@@ -35,8 +35,8 @@
             --card-bg: linear-gradient(145deg, #3d1414, #210a0a);
             --border-color: #7f2222;
             --accent-color: #ef4444;
-            --accent-glow: 0 0 20px rgba(239,68,68,0.48), inset 0 0 10px rgba(239,68,68,0.15);
-            --btn-glow: 0 4px 22px rgba(239,68,68,0.42);
+            --accent-glow: 0 0 22px rgba(239,68,68,0.45), inset 0 0 12px rgba(239,68,68,0.15);
+            --btn-glow: 0 4px 22px rgba(239,68,68,0.4);
         }
 
         body {
@@ -106,7 +106,7 @@
         .games-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 14px;
         }
         
         .game-card {
@@ -123,22 +123,41 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 152px;
+            height: 160px;
             box-sizing: border-box;
         }
         .game-card:active { transform: scale(0.96); }
+
         .game-card.crash-style {
-            background: radial-gradient(circle at 75% 25%, #1d4ed8 0%, #0b1947 58%, #060d24 100%);
-            border: 1.5px solid rgba(96, 165, 250, 0.55);
-            box-shadow: 0 0 22px rgba(37, 99, 235, 0.45);
+            background:
+                radial-gradient(circle at 72% 28%, rgba(56, 189, 248, 0.35) 0%, transparent 45%),
+                radial-gradient(circle at 25% 15%, rgba(99, 102, 241, 0.28) 0%, transparent 50%),
+                linear-gradient(155deg, #17348f 0%, #0b1949 55%, #050b21 100%);
+            border: 1.5px solid rgba(56, 189, 248, 0.65);
+            box-shadow: 0 8px 26px rgba(37, 99, 235, 0.45), inset 0 1px 1px rgba(255,255,255,0.25);
         }
 
-        .crash-card-svg {
+        .game-card.cases-style {
+            background:
+                radial-gradient(circle at 50% 35%, rgba(250, 204, 21, 0.22) 0%, transparent 55%),
+                linear-gradient(155deg, #1b2847 0%, #0d1528 65%, #070c18 100%);
+            border: 1.5px solid rgba(0, 255, 204, 0.42);
+            box-shadow: 0 8px 26px rgba(0, 255, 204, 0.2), inset 0 1px 1px rgba(255,255,255,0.18);
+        }
+
+        .crash-art-wrap {
             position: absolute;
-            right: 6px;
-            top: 6px;
-            width: 112px;
-            height: 112px;
+            right: -2px;
+            top: -2px;
+            width: 132px;
+            height: 132px;
+            pointer-events: none;
+        }
+
+        .cases-art-wrap {
+            width: 82px;
+            height: 82px;
+            margin: 2px auto 0 auto;
             pointer-events: none;
         }
 
@@ -147,63 +166,40 @@
             z-index: 2;
             font-size: 22px;
             font-weight: 900;
-            color: var(--text-color);
+            color: #ffffff;
             font-family: 'Outfit', sans-serif;
             margin-top: auto;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.65);
+            letter-spacing: 0.3px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.75);
         }
 
+        /* Арена Крашу на Canvas */
         .crash-screen { text-align: center; }
         .rocket-container {
             position: relative;
-            height: 295px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 20px;
+            height: 300px;
             margin: 10px 0;
-            background:
-                radial-gradient(circle at 65% 45%, rgba(29, 128, 255, 0.22) 0%, rgba(7, 13, 26, 0.96) 72%),
-                linear-gradient(180deg, #091224 0%, #060b16 100%);
+            background: #060b16;
             border-radius: 24px;
-            border: 1px solid var(--border-color);
+            border: 1.5px solid rgba(56, 189, 248, 0.35);
             overflow: hidden;
             box-shadow: var(--accent-glow);
         }
 
-        .stars-layer {
+        #crashCanvas {
             position: absolute;
             inset: 0;
-            background-image:
-                radial-gradient(2px 2px at 15% 25%, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1.5px 1.5px at 78% 18%, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 42% 72%, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1.5px 1.5px at 88% 68%, rgba(255,255,255,0.65), transparent),
-                radial-gradient(2px 2px at 24% 84%, rgba(255,255,255,0.55), transparent),
-                radial-gradient(1.5px 1.5px at 63% 35%, rgba(125,211,252,0.7), transparent);
-            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            display: block;
             z-index: 1;
-        }
-        
-        .particle {
-            position: absolute;
-            background: rgba(56, 189, 248, 0.85);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 2;
-            animation: streamRight 1.3s linear infinite;
-        }
-        @keyframes streamRight {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
-            100% { transform: translate(-150px, 100px) scale(0); opacity: 0; }
         }
 
         .y-axis-labels {
             position: absolute;
             left: 12px;
-            top: 24px;
-            bottom: 24px;
+            top: 22px;
+            bottom: 22px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -213,22 +209,32 @@
         }
         .y-label {
             font-size: 11px;
-            font-weight: 700;
-            color: rgba(148, 163, 184, 0.8);
-            background: rgba(15, 23, 42, 0.7);
-            padding: 2px 7px;
+            font-weight: 800;
+            color: rgba(203, 213, 225, 0.78);
+            background: rgba(15, 23, 42, 0.68);
+            backdrop-filter: blur(4px);
+            padding: 3px 8px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.2);
+            font-family: 'Outfit', sans-serif;
         }
 
         .multiplier-pill {
             position: relative;
             z-index: 4;
-            background: rgba(13, 23, 42, 0.88);
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            border-radius: 18px;
-            padding: 6px 22px;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+            display: inline-block;
+            margin-top: 18px;
+            background: rgba(11, 19, 36, 0.78);
+            backdrop-filter: blur(6px);
+            border: 1.5px solid rgba(56, 189, 248, 0.42);
+            border-radius: 20px;
+            padding: 8px 26px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(56, 189, 248, 0.2);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .multiplier-pill.crashed {
+            border-color: rgba(239, 68, 68, 0.75);
+            box-shadow: 0 8px 28px rgba(239, 68, 68, 0.35);
         }
         .multiplier {
             font-size: 46px;
@@ -237,43 +243,11 @@
             margin: 0;
             line-height: 1.05;
             font-family: 'Outfit', sans-serif;
-            text-shadow: 0 0 18px rgba(56, 189, 248, 0.5);
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.55);
         }
-
-        .curve-line {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .rocket-stage {
-            position: absolute;
-            left: 18%;
-            bottom: 30px;
-            width: 84px;
-            height: 84px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translate(0px, 0px) rotate(22deg);
-            transition: transform 0.1s linear;
-            z-index: 5;
-        }
-        .rocket-svg {
-            width: 84px;
-            height: 84px;
-            filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.65));
-        }
-        .flame-anim {
-            transform-origin: 42px 62px;
-            animation: flamePulse 0.1s infinite alternate;
-        }
-        @keyframes flamePulse {
-            0% { transform: scaleY(0.85); opacity: 0.85; }
-            100% { transform: scaleY(1.22); opacity: 1; }
+        .multiplier-pill.crashed .multiplier {
+            color: #fca5a5;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.7);
         }
 
         .history-bar {
@@ -569,29 +543,117 @@
     <div id="screen-games" class="screen active">
         <div class="main-title">ИГРЫ</div>
         <div class="games-grid">
+            <!-- Об'ємна ілюстрація Краш: золота планета-монета TON + об'ємна синя ракета з пілотом -->
             <div class="game-card crash-style" onclick="switchScreen('crash')">
-                <svg class="crash-card-svg" viewBox="0 0 120 120">
-                    <circle cx="38" cy="34" r="18" fill="#facc15" stroke="#fde047" stroke-width="2"/>
-                    <path d="M38 23 L46 28 L44 41 L38 45 L32 41 L30 28 Z" fill="#eab308"/>
-                    <g transform="translate(66, 62) rotate(-32)">
-                        <path d="M-14 20 L-22 32 L-8 26 Z" fill="#0284c7"/>
-                        <path d="M14 20 L22 32 L8 26 Z" fill="#0284c7"/>
-                        <path d="M0 -34 C16 -16 18 8 12 24 L-12 24 C-18 8 -16 -16 0 -34 Z" fill="#38bdf8" stroke="#e0f2fe" stroke-width="2"/>
-                        <circle cx="0" cy="-6" r="10" fill="#1e293b" stroke="#93c5fd" stroke-width="2"/>
-                        <circle cx="0" cy="-6" r="7" fill="#334155"/>
-                        <rect x="-6" y="-8" width="12" height="4" rx="1.5" fill="#0f172a"/>
-                        <text x="0" y="13" text-anchor="middle" fill="#ffffff" font-size="8.5" font-weight="900" font-family="Outfit, sans-serif">TON</text>
-                        <path d="M-7 24 Q0 38 7 24 Z" fill="#7dd3fc"/>
+                <svg class="crash-art-wrap" viewBox="0 0 140 140">
+                    <defs>
+                        <radialGradient id="goldMoon" cx="35%" cy="30%" r="70%">
+                            <stop offset="0%" stop-color="#fef08a"/>
+                            <stop offset="45%" stop-color="#facc15"/>
+                            <stop offset="100%" stop-color="#ca8a04"/>
+                        </radialGradient>
+                        <linearGradient id="rocketHull" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#7dd3fc"/>
+                            <stop offset="45%" stop-color="#2563eb"/>
+                            <stop offset="100%" stop-color="#1e3a8a"/>
+                        </linearGradient>
+                        <linearGradient id="rocketNose" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e0f2fe"/>
+                            <stop offset="100%" stop-color="#38bdf8"/>
+                        </linearGradient>
+                        <linearGradient id="finGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#38bdf8"/>
+                            <stop offset="100%" stop-color="#1d4ed8"/>
+                        </linearGradient>
+                        <radialGradient id="exhaustGlow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.95"/>
+                            <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.45"/>
+                            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+                        </radialGradient>
+                        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#020617" flood-opacity="0.6"/>
+                        </filter>
+                    </defs>
+
+                    <!-- Сяйво навколо монети -->
+                    <circle cx="48" cy="42" r="26" fill="#facc15" opacity="0.22"/>
+                    <!-- Об'ємна золота монета-місяць -->
+                    <circle cx="48" cy="42" r="20" fill="url(#goldMoon)" stroke="#fef9c3" stroke-width="1.5" filter="url(#softShadow)"/>
+                    <circle cx="39" cy="36" r="3" fill="#ca8a04" opacity="0.35"/>
+                    <circle cx="43" cy="51" r="2.2" fill="#ca8a04" opacity="0.35"/>
+                    <path d="M48 31 L58 37 L53 51 L48 55 L43 51 L38 37 Z" fill="none" stroke="#a16207" stroke-width="2.2" stroke-linejoin="round"/>
+                    <line x1="48" y1="31" x2="48" y2="55" stroke="#a16207" stroke-width="2"/>
+
+                    <!-- Зорі та іскри -->
+                    <circle cx="18" cy="24" r="2" fill="#ffffff" opacity="0.9"/>
+                    <circle cx="118" cy="24" r="2.2" fill="#7dd3fc"/>
+                    <circle cx="26" cy="76" r="1.8" fill="#ffffff" opacity="0.8"/>
+                    <circle cx="122" cy="108" r="2" fill="#ffffff" opacity="0.85"/>
+                    <circle cx="94" cy="122" r="1.5" fill="#93c5fd"/>
+
+                    <!-- Об'ємна ракета під кутом -->
+                    <g transform="translate(82, 74) rotate(-38)" filter="url(#softShadow)">
+                        <!-- Світіння двигуна -->
+                        <circle cx="0" cy="34" r="18" fill="url(#exhaustGlow)"/>
+                        <path d="M-7 25 Q0 42 7 25 Z" fill="#e0f2fe" opacity="0.9"/>
+
+                        <!-- Крила -->
+                        <path d="M-14 14 L-26 28 L-10 24 Z" fill="url(#finGrad)" stroke="#7dd3fc" stroke-width="1"/>
+                        <path d="M14 14 L26 28 L10 24 Z" fill="url(#finGrad)" stroke="#7dd3fc" stroke-width="1"/>
+
+                        <!-- Корпус ракети -->
+                        <path d="M0 -38 C18 -18 20 8 14 25 L-14 25 C-20 8 -18 -18 0 -38 Z" fill="url(#rocketHull)" stroke="#7dd3fc" stroke-width="1.5"/>
+                        <!-- Ніс ракети -->
+                        <path d="M0 -38 C7 -29 11 -22 13 -16 L-13 -16 C-11 -22 -7 -29 0 -38 Z" fill="url(#rocketNose)"/>
+                        <!-- Світловий блік збоку -->
+                        <path d="M-9 -12 C-11 0 -10 12 -7 20" fill="none" stroke="#bae6fd" stroke-width="2.2" stroke-linecap="round" opacity="0.65"/>
+
+                        <!-- Кабіна та пілот у темних окулярах -->
+                        <ellipse cx="0" cy="-3" rx="11" ry="12" fill="#0f172a" stroke="#93c5fd" stroke-width="2"/>
+                        <!-- Голова мавпочки -->
+                        <circle cx="0" cy="-2" r="7.5" fill="#334155"/>
+                        <circle cx="-7" cy="-2" r="2.2" fill="#334155"/>
+                        <circle cx="7" cy="-2" r="2.2" fill="#334155"/>
+                        <ellipse cx="0" cy="1.5" rx="4.5" ry="3.2" fill="#94a3b8"/>
+                        <!-- Темні окуляри -->
+                        <rect x="-6.5" y="-5" width="5.5" height="3.5" rx="1" fill="#020617" stroke="#38bdf8" stroke-width="0.8"/>
+                        <rect x="1" y="-5" width="5.5" height="3.5" rx="1" fill="#020617" stroke="#38bdf8" stroke-width="0.8"/>
+                        <line x1="-1" y1="-3.5" x2="1" y2="-3.5" stroke="#38bdf8" stroke-width="1"/>
+                        <!-- Скляний блік на куполі -->
+                        <path d="M-6 -10 Q0 -13 6 -9" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+
+                        <!-- Напис TON -->
+                        <text x="0" y="18" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="900" font-family="Outfit, sans-serif" letter-spacing="0.5">TON</text>
                     </g>
-                    <circle cx="16" cy="64" r="2" fill="#ffffff"/>
-                    <circle cx="104" cy="22" r="1.8" fill="#93c5fd"/>
-                    <circle cx="98" cy="96" r="2" fill="#ffffff"/>
                 </svg>
                 <div class="game-title-text">Краш</div>
             </div>
             
-            <div class="game-card" style="align-items: center;" onclick="switchScreen('cases-list')">
-                <div style="font-size: 56px; margin-top: 12px; line-height: 1;">🎁</div>
+            <!-- Картка Кейси у тому ж об'ємному стилі -->
+            <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('cases-list')">
+                <svg class="cases-art-wrap" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="boxFront" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#facc15"/>
+                            <stop offset="100%" stop-color="#ca8a04"/>
+                        </linearGradient>
+                        <linearGradient id="boxLid" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fef08a"/>
+                            <stop offset="100%" stop-color="#eab308"/>
+                        </linearGradient>
+                        <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#f43f5e"/>
+                            <stop offset="100%" stop-color="#be123c"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="20" y="42" width="60" height="44" rx="8" fill="url(#boxFront)"/>
+                    <rect x="44" y="42" width="12" height="44" fill="url(#ribbonGrad)"/>
+                    <rect x="15" y="30" width="70" height="15" rx="6" fill="url(#boxLid)"/>
+                    <rect x="44" y="30" width="12" height="15" fill="url(#ribbonGrad)"/>
+                    <path d="M50 30 C36 14 22 22 36 30 Z" fill="url(#ribbonGrad)"/>
+                    <path d="M50 30 C64 14 78 22 64 30 Z" fill="url(#ribbonGrad)"/>
+                    <circle cx="50" cy="29" r="5" fill="#fb7185"/>
+                </svg>
                 <div class="game-title-text" style="text-align: center; width: 100%;">Кейсы</div>
             </div>
         </div>
@@ -601,7 +663,7 @@
         <button onclick="switchScreen('games')" style="background:none; color:var(--accent-color); width:auto; padding:0; margin-bottom:10px; font-size:14px; border:none; cursor:pointer;">← Назад в меню</button>
         <div class="main-title">Кейсы</div>
         <div class="games-grid">
-            <div class="game-card" style="align-items: center;" onclick="switchScreen('free-case-detail')">
+            <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('free-case-detail')">
                 <div style="font-size: 56px; margin-top: 12px; line-height: 1;">🎁</div>
                 <div class="game-title-text" style="text-align: center; width: 100%;">Бесплатный кейс</div>
             </div>
@@ -701,8 +763,8 @@
 
         <div style="font-size: 14px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;" id="crashStatus">Ожидание ставки (7с)</div>
         
-        <div class="rocket-container">
-            <div class="stars-layer" id="particleField"></div>
+        <div class="rocket-container" id="rocketArena">
+            <canvas id="crashCanvas"></canvas>
 
             <div class="y-axis-labels">
                 <span class="y-label">12.5x</span>
@@ -712,35 +774,8 @@
                 <span class="y-label">3.5x</span>
             </div>
 
-            <div class="multiplier-pill">
+            <div class="multiplier-pill" id="multiplierPill">
                 <div class="multiplier" id="crashMultiplier">1.00x</div>
-            </div>
-
-            <svg class="curve-line" viewBox="0 0 360 290" preserveAspectRatio="none">
-                <defs>
-                    <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.38"/>
-                        <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.0"/>
-                    </linearGradient>
-                </defs>
-                <path id="flightArea" d="M 75 256 Q 170 250 230 165 L 230 256 Z" fill="url(#areaGrad)"/>
-                <path id="flightPath" d="M 75 256 Q 170 250 230 165" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/>
-            </svg>
-
-            <div class="rocket-stage" id="rocketStage">
-                <svg class="rocket-svg" id="rocketIcon" viewBox="0 0 84 84">
-                    <g class="flame-anim" id="rocketFire">
-                        <path d="M35 58 Q42 82 49 58 Z" fill="#f97316"/>
-                        <path d="M38 58 Q42 74 46 58 Z" fill="#facc15"/>
-                    </g>
-                    <path d="M28 46 L18 56 L30 52 Z" fill="#ef4444"/>
-                    <path d="M56 46 L66 56 L54 52 Z" fill="#ef4444"/>
-                    <path d="M42 10 C55 24 57 42 52 56 L32 56 C27 42 29 24 42 10 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
-                    <path d="M42 10 C47 16 50 22 52 28 L32 28 C34 22 37 16 42 10 Z" fill="#ef4444"/>
-                    <circle cx="42" cy="35" r="7.5" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
-                    <circle cx="40" cy="33" r="2.2" fill="#e0f2fe"/>
-                    <rect x="35" y="56" width="14" height="4" rx="1.5" fill="#64748b"/>
-                </svg>
             </div>
         </div>
 
@@ -791,6 +826,15 @@
         let hasBetThisRound = false;
         let multiplier = 1.00;
         let crashInterval = null;
+
+        // Стан Canvas-сцени Краш
+        let crashState = 'waiting'; // waiting | flying | crashed
+        let canvasStars = [];
+        let exhaustParticles = [];
+        let explosionParticles = [];
+        let shockwaveRadius = 0;
+        let shockwaveAlpha = 0;
+        let lastExplosionPos = { x: 180, y: 180 };
 
         const nftList = [
             { name: "Lucky Locket", emoji: "🐱" },
@@ -847,6 +891,7 @@
 
             if(screenName === 'profile') renderInventory();
             if(screenName === 'free-case-detail') checkCaseTimer();
+            if(screenName === 'crash') resizeCrashCanvas();
         }
 
         function showTopUpModal() {
@@ -1009,7 +1054,352 @@
             document.getElementById('betInput').value = balance;
         }
 
+        /* ================= 60 FPS CANVAS РЕНДЕРИНГ КРАШУ ================= */
+        const canvas = document.getElementById('crashCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCrashCanvas() {
+            const box = document.getElementById('rocketArena');
+            if (!box || !box.offsetWidth) return;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = box.offsetWidth * dpr;
+            canvas.height = box.offsetHeight * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function initStars() {
+            canvasStars = [];
+            for (let i = 0; i < 48; i++) {
+                canvasStars.push({
+                    x: Math.random() * 400,
+                    y: Math.random() * 300,
+                    r: Math.random() * 1.8 + 0.4,
+                    speed: Math.random() * 0.9 + 0.25,
+                    alpha: Math.random() * 0.7 + 0.3,
+                    tint: Math.random() < 0.25 ? '#7dd3fc' : '#ffffff'
+                });
+            }
+        }
+
+        function drawVolumetricRocket(ctx, x, y, angle, time) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+
+            // М'яке світіння навколо ракети
+            const aura = ctx.createRadialGradient(0, 0, 6, 0, 0, 52);
+            aura.addColorStop(0, 'rgba(56, 189, 248, 0.42)');
+            aura.addColorStop(1, 'rgba(56, 189, 248, 0)');
+            ctx.fillStyle = aura;
+            ctx.beginPath();
+            ctx.arc(0, 0, 52, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Реактивне полум'я з сопла
+            const flicker = Math.sin(time * 0.04) * 5 + Math.random() * 4;
+            const flameLen = (crashState === 'flying' ? 34 : 20) + flicker;
+
+            const outerFlame = ctx.createLinearGradient(0, 20, 0, 20 + flameLen);
+            outerFlame.addColorStop(0, '#ffffff');
+            outerFlame.addColorStop(0.25, '#facc15');
+            outerFlame.addColorStop(0.65, '#f97316');
+            outerFlame.addColorStop(1, 'rgba(239, 68, 68, 0)');
+            ctx.fillStyle = outerFlame;
+            ctx.beginPath();
+            ctx.moveTo(-9, 20);
+            ctx.quadraticCurveTo(0, 20 + flameLen, 9, 20);
+            ctx.closePath();
+            ctx.fill();
+
+            const innerFlame = ctx.createLinearGradient(0, 20, 0, 20 + flameLen * 0.65);
+            innerFlame.addColorStop(0, '#ffffff');
+            innerFlame.addColorStop(1, 'rgba(254, 240, 138, 0)');
+            ctx.fillStyle = innerFlame;
+            ctx.beginPath();
+            ctx.moveTo(-5, 20);
+            ctx.quadraticCurveTo(0, 20 + flameLen * 0.65, 5, 20);
+            ctx.closePath();
+            ctx.fill();
+
+            // Бічні стабілізатори (крила)
+            const finGrad = ctx.createLinearGradient(-22, 6, 22, 24);
+            finGrad.addColorStop(0, '#ef4444');
+            finGrad.addColorStop(1, '#991b1b');
+            ctx.fillStyle = finGrad;
+
+            ctx.beginPath();
+            ctx.moveTo(-11, 6);
+            ctx.lineTo(-24, 22);
+            ctx.lineTo(-10, 19);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(11, 6);
+            ctx.lineTo(24, 22);
+            ctx.lineTo(10, 19);
+            ctx.closePath();
+            ctx.fill();
+
+            // Сопло двигуна
+            ctx.fillStyle = '#334155';
+            ctx.beginPath();
+            ctx.roundRect(-8, 17, 16, 6, 2);
+            ctx.fill();
+
+            // Об'ємний металевий корпус ракети
+            const bodyGrad = ctx.createLinearGradient(-15, -25, 16, 18);
+            bodyGrad.addColorStop(0, '#ffffff');
+            bodyGrad.addColorStop(0.55, '#e2e8f0');
+            bodyGrad.addColorStop(1, '#94a3b8');
+            ctx.fillStyle = bodyGrad;
+            ctx.beginPath();
+            ctx.moveTo(0, -32);
+            ctx.bezierCurveTo(16, -15, 17, 6, 12, 19);
+            ctx.lineTo(-12, 19);
+            ctx.bezierCurveTo(-17, 6, -16, -15, 0, -32);
+            ctx.closePath();
+            ctx.fill();
+
+            // Червоний обтічник (ніс)
+            ctx.save();
+            ctx.clip();
+            const noseGrad = ctx.createLinearGradient(-12, -32, 12, -14);
+            noseGrad.addColorStop(0, '#f87171');
+            noseGrad.addColorStop(0.5, '#ef4444');
+            noseGrad.addColorStop(1, '#b91c1c');
+            ctx.fillStyle = noseGrad;
+            ctx.fillRect(-20, -35, 40, 20);
+            ctx.restore();
+
+            // Ілюмінатор із глибиною та відблиском
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.arc(0, -2, 8.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            const glassGrad = ctx.createRadialGradient(-2, -4, 1, 0, -2, 7);
+            glassGrad.addColorStop(0, '#bae6fd');
+            glassGrad.addColorStop(0.5, '#0284c7');
+            glassGrad.addColorStop(1, '#0c4a6e');
+            ctx.fillStyle = glassGrad;
+            ctx.beginPath();
+            ctx.arc(0, -2, 6.2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = 'rgba(255,255,255,0.85)';
+            ctx.beginPath();
+            ctx.ellipse(-2.2, -4.2, 2.2, 1.2, -0.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function renderCrashScene(time) {
+            const box = document.getElementById('rocketArena');
+            if (!box) return;
+            const w = box.offsetWidth || 340;
+            const h = box.offsetHeight || 300;
+            if (canvas.width === 0) resizeCrashCanvas();
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Глибокий космічний фон із туманністю
+            const bgGrad = ctx.createRadialGradient(w * 0.68, h * 0.42, 10, w * 0.5, h * 0.5, w * 0.85);
+            bgGrad.addColorStop(0, crashState === 'crashed' ? 'rgba(220, 38, 38, 0.22)' : 'rgba(29, 78, 216, 0.28)');
+            bgGrad.addColorStop(0.55, 'rgba(13, 25, 52, 0.92)');
+            bgGrad.addColorStop(1, '#060b16');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, w, h);
+
+            // Рухомі зорі (паралакс)
+            const speedMult = crashState === 'flying' ? 2.8 : 0.45;
+            canvasStars.forEach(s => {
+                s.x -= s.speed * speedMult;
+                s.y += s.speed * speedMult * 0.45;
+                if (s.x < 0) s.x = w;
+                if (s.y > h) s.y = 0;
+
+                ctx.fillStyle = s.tint;
+                ctx.globalAlpha = s.alpha;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+
+            // Координати траєкторії
+            const startX = 62;
+            const startY = h - 34;
+
+            if (crashState === 'waiting') {
+                const hoverY = Math.sin(time * 0.005) * 4;
+                const rx = startX + 28;
+                const ry = startY - 22 + hoverY;
+
+                // Коротка стартова дуга
+                const lineGrad = ctx.createLinearGradient(startX, startY, rx, ry);
+                lineGrad.addColorStop(0, 'rgba(56, 189, 248, 0.1)');
+                lineGrad.addColorStop(1, '#38bdf8');
+                ctx.strokeStyle = lineGrad;
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.quadraticCurveTo(startX + 16, startY - 4, rx, ry);
+                ctx.stroke();
+
+                drawVolumetricRocket(ctx, rx, ry, 0.72, time);
+            } else if (crashState === 'flying') {
+                const progress = Math.min(1, Math.max(0.06, (multiplier - 1) / 3.8));
+                const wave = Math.sin(time * 0.006) * 3;
+                const endX = startX + 32 + progress * (w - 145);
+                const endY = startY - 24 - progress * (h - 135) + wave;
+                const ctrlX = startX + (endX - startX) * 0.56;
+                const ctrlY = startY - (startY - endY) * 0.18;
+
+                lastExplosionPos = { x: endX, y: endY };
+
+                // Світлове заповнення під кривою
+                const areaGrad = ctx.createLinearGradient(0, endY, 0, startY);
+                areaGrad.addColorStop(0, 'rgba(56, 189, 248, 0.34)');
+                areaGrad.addColorStop(0.7, 'rgba(37, 99, 235, 0.12)');
+                areaGrad.addColorStop(1, 'rgba(37, 99, 235, 0)');
+                ctx.fillStyle = areaGrad;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
+                ctx.lineTo(endX, startY);
+                ctx.closePath();
+                ctx.fill();
+
+                // Зовнішнє неонове світіння лінії
+                ctx.save();
+                ctx.strokeStyle = 'rgba(0, 255, 204, 0.35)';
+                ctx.lineWidth = 11;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
+                ctx.stroke();
+
+                // Основна яскрава дуга
+                const strokeGrad = ctx.createLinearGradient(startX, startY, endX, endY);
+                strokeGrad.addColorStop(0, '#2563eb');
+                strokeGrad.addColorStop(0.6, '#38bdf8');
+                strokeGrad.addColorStop(1, '#a5f3fc');
+                ctx.strokeStyle = strokeGrad;
+                ctx.lineWidth = 4.5;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
+                ctx.stroke();
+                ctx.restore();
+
+                // Обчислення кута дотичної для природного нахилу ракети
+                const dx = endX - ctrlX;
+                const dy = endY - ctrlY;
+                const angle = Math.atan2(dy, dx) + Math.PI / 2;
+
+                // Генерація іскор з сопла
+                if (Math.random() < 0.75) {
+                    const tailX = endX - Math.sin(angle) * 24;
+                    const tailY = endY + Math.cos(angle) * 24;
+                    exhaustParticles.push({
+                        x: tailX + (Math.random() - 0.5) * 6,
+                        y: tailY + (Math.random() - 0.5) * 6,
+                        vx: -Math.sin(angle) * (1.8 + Math.random() * 2) + (Math.random() - 0.5) * 1.2,
+                        vy: Math.cos(angle) * (1.8 + Math.random() * 2) + (Math.random() - 0.5) * 1.2,
+                        life: 1,
+                        size: Math.random() * 3.2 + 1.5,
+                        color: Math.random() < 0.5 ? '#facc15' : '#38bdf8'
+                    });
+                }
+
+                // Малюємо іскри
+                for (let i = exhaustParticles.length - 1; i >= 0; i--) {
+                    const p = exhaustParticles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life -= 0.035;
+                    if (p.life <= 0) {
+                        exhaustParticles.splice(i, 1);
+                        continue;
+                    }
+                    ctx.globalAlpha = p.life;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.globalAlpha = 1;
+
+                drawVolumetricRocket(ctx, endX, endY, angle, time);
+            } else if (crashState === 'crashed') {
+                // Ударна хвиля вибуху
+                if (shockwaveAlpha > 0) {
+                    shockwaveRadius += 4.5;
+                    shockwaveAlpha -= 0.025;
+                    ctx.strokeStyle = `rgba(248, 113, 113, ${Math.max(0, shockwaveAlpha)})`;
+                    ctx.lineWidth = 3.5;
+                    ctx.beginPath();
+                    ctx.arc(lastExplosionPos.x, lastExplosionPos.y, shockwaveRadius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+
+                // Уламки та вогняні частинки
+                for (let i = explosionParticles.length - 1; i >= 0; i--) {
+                    const p = explosionParticles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.08;
+                    p.life -= 0.024;
+                    if (p.life <= 0) {
+                        explosionParticles.splice(i, 1);
+                        continue;
+                    }
+                    ctx.globalAlpha = p.life;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.globalAlpha = 1;
+            }
+
+            requestAnimationFrame(renderCrashScene);
+        }
+
+        function triggerExplosionEffect() {
+            crashState = 'crashed';
+            shockwaveRadius = 10;
+            shockwaveAlpha = 0.95;
+            explosionParticles = [];
+            const colors = ['#ffffff', '#facc15', '#f97316', '#ef4444', '#38bdf8'];
+            for (let i = 0; i < 36; i++) {
+                const ang = (Math.PI * 2 * i) / 36 + Math.random() * 0.2;
+                const spd = 1.5 + Math.random() * 4.5;
+                explosionParticles.push({
+                    x: lastExplosionPos.x,
+                    y: lastExplosionPos.y,
+                    vx: Math.cos(ang) * spd,
+                    vy: Math.sin(ang) * spd,
+                    life: 1,
+                    size: Math.random() * 4.5 + 2,
+                    color: colors[Math.floor(Math.random() * colors.length)]
+                });
+            }
+        }
+
         function initCrashGame() {
+            initStars();
+            resizeCrashCanvas();
+            window.addEventListener('resize', resizeCrashCanvas);
+            requestAnimationFrame(renderCrashScene);
             runWaitingPhase();
         }
 
@@ -1026,53 +1416,21 @@
             bar.innerHTML = html;
         }
 
-        function updateFlightVisuals(mult) {
-            const progress = Math.min(1, Math.max(0, (mult - 1) / 4.5));
-            const endX = 75 + progress * 200;
-            const endY = 256 - progress * 190;
-            const ctrlX = 75 + progress * 105;
-            const ctrlY = 256 - progress * 45;
-
-            document.getElementById('flightPath').setAttribute('d', `M 75 256 Q ${ctrlX} ${ctrlY} ${endX.toFixed(1)} ${endY.toFixed(1)}`);
-            document.getElementById('flightArea').setAttribute('d', `M 75 256 Q ${ctrlX} ${ctrlY} ${endX.toFixed(1)} ${endY.toFixed(1)} L ${endX.toFixed(1)} 256 Z`);
-
-            const moveX = progress * 165;
-            const moveY = -(progress * 155);
-            const rot = 20 + progress * 18;
-            document.getElementById('rocketStage').style.transform = `translate(${moveX.toFixed(1)}px, ${moveY.toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
-
-            if (Math.random() < 0.45) {
-                createEngineParticle(endX - 6, endY + 28);
-            }
-        }
-
-        function createEngineParticle(x, y) {
-            let p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = x + 'px';
-            p.style.top = y + 'px';
-            let size = Math.random() * 4 + 2;
-            p.style.width = size + 'px';
-            p.style.height = size + 'px';
-            p.style.background = Math.random() < 0.5 ? '#f59e0b' : '#38bdf8';
-            document.getElementById('particleField').appendChild(p);
-            setTimeout(() => p.remove(), 1300);
-        }
-
         function runWaitingPhase() {
             hasBetThisRound = false;
             inGame = false;
+            crashState = 'waiting';
+            exhaustParticles = [];
+            document.getElementById('multiplierPill').classList.remove('crashed');
+
             let countdown = 7;
             document.getElementById('crashStatus').innerText = `Ожидание ставки (${countdown}с)`;
             document.getElementById('crashMultiplier').innerText = "1.00x";
-            document.getElementById('rocketFire').style.display = 'block';
-            document.getElementById('rocketStage').style.transform = 'translate(0px, 0px) rotate(22deg)';
-            document.getElementById('flightPath').setAttribute('d', 'M 75 256 Q 130 245 170 215');
-            document.getElementById('flightArea').setAttribute('d', 'M 75 256 Q 130 245 170 215 L 170 256 Z');
 
             let btn = document.getElementById('actionBtn');
             btn.innerText = "Сделать ставку";
             btn.className = "btn-action";
+            btn.style.opacity = "1";
             btn.onclick = handleCrashAction;
 
             generateOnlineBets();
@@ -1138,10 +1496,10 @@
         function startFlightPhase() {
             inGame = hasBetThisRound;
             multiplier = 1.00;
+            crashState = 'flying';
             
             document.getElementById('crashStatus').innerText = "🚀 Ракета летит!";
             document.getElementById('crashMultiplier').innerText = "1.00x";
-            document.getElementById('rocketFire').style.display = 'block';
 
             let btn = document.getElementById('actionBtn');
             if (inGame) {
@@ -1173,8 +1531,6 @@
                 if (inGame) {
                     updateCashoutButtonText();
                 }
-
-                updateFlightVisuals(multiplier);
 
                 if (multiplier >= crashPoint) {
                     clearInterval(crashInterval);
@@ -1211,7 +1567,8 @@
         }
 
         function explosionPhase(crashPoint) {
-            document.getElementById('rocketFire').style.display = 'none';
+            triggerExplosionEffect();
+            document.getElementById('multiplierPill').classList.add('crashed');
             document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x!`;
 
             let btn = document.getElementById('actionBtn');
