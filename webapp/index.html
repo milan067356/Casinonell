@@ -349,6 +349,25 @@
         .btn-action:active { opacity: 0.8; transform: scale(0.98); }
         .btn-cashout { background: #10b981; color: #fff; box-shadow: 0 4px 20px rgba(16,185,129,0.5); }
 
+        .btn-secondary {
+            width: 100%;
+            padding: 13px;
+            font-size: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            outline: none;
+            box-sizing: border-box;
+            margin-top: 8px;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            background: #17223b;
+            color: #e2e8f0;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+        .btn-secondary:active { transform: scale(0.98); opacity: 0.85; }
+
         .bets-list { 
             background: var(--header-bg); 
             border-radius: 16px; 
@@ -461,34 +480,51 @@
         .gifts-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 13px;
         }
         .gift-item {
-            background: #1e2029;
-            border-radius: 18px;
-            padding: 10px;
+            position: relative;
+            background:
+                radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.08) 0%, transparent 65%),
+                linear-gradient(160deg, #232734 0%, #151821 100%);
+            border-radius: 20px;
+            padding: 10px 10px 12px 10px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 9px;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            transition: transform 0.2s;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
         }
-        .gift-item:active { transform: scale(0.95); }
+        .gift-item:hover {
+            border-color: rgba(250, 204, 21, 0.45);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55), 0 0 14px rgba(250, 204, 21, 0.16);
+        }
+        .gift-item:active { transform: scale(0.96); }
         .inventory-nft-art {
             width: 100%;
             aspect-ratio: 1 / 1;
-            border-radius: 14px;
+            border-radius: 15px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        .gift-item-name {
+            color: #f8fafc;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 0.2px;
+            font-family: 'Outfit', sans-serif;
         }
 
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.82);
+            backdrop-filter: blur(4px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -497,14 +533,14 @@
             box-sizing: border-box;
         }
         .modal-content {
-            background: var(--header-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+            background: linear-gradient(165deg, #16223b 0%, #0d1526 100%);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 22px;
             padding: 20px;
             text-align: center;
-            max-width: 340px;
+            max-width: 344px;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), var(--accent-glow);
+            box-shadow: 0 14px 36px rgba(0,0,0,0.85), var(--accent-glow);
         }
 
         .nav-bar {
@@ -731,16 +767,17 @@
 
     <div class="modal-overlay" id="nftModal" onclick="closeNftModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <div id="modalNftArt" style="width: 124px; height: 124px; margin: 0 auto 12px auto; border-radius: 18px; overflow: hidden;"></div>
-            <div id="modalNftTitle" style="font-size: 18px; font-weight: bold; margin-bottom: 10px; font-family: 'Outfit', sans-serif;"></div>
-            <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 15px;">
+            <div id="modalNftArt" style="width: 132px; height: 132px; margin: 0 auto 12px auto; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 8px 22px rgba(0,0,0,0.45);"></div>
+            <div id="modalNftTitle" style="font-size: 19px; font-weight: 900; margin-bottom: 12px; font-family: 'Outfit', sans-serif;"></div>
+            <div style="font-size: 13px; color: var(--text-muted); line-height: 1.55; text-align: left; margin-bottom: 14px;">
                 Чтобы вывести этот NFT, нужно пригласить <b>5 друзей</b> по вашей реферальной ссылке (они должны зайти в бота и прокрутить бесплатный кейс). 
                 <br><br>
                 Комиссия за вывод составляет <b>50 звезд</b>.
                 <br><br>
-                После этого напишите администратору на аккаунт <a href="https://t.me/allDepGame_bot2" target="_blank" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>, скиньте скриншот 5 приглашенных людей и оплатите комиссию за вывод просто подарить подарок за 50 звезд. После проверки вам отдадут ваш NFT!
+                После этого напишите администратору на аккаунт <a href="https://t.me/allDepGame_bot2" onclick="openWithdrawChat(event)" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>, скиньте скриншот 5 приглашенных людей и оплатите комиссию за вывод просто подарить подарок за 50 звезд. После проверки вам отдадут ваш NFT!
             </div>
-            <button class="btn-action" onclick="document.getElementById('nftModal').style.display='none'">ПОНЯТНО</button>
+            <button class="btn-action btn-cashout" onclick="openWithdrawChat(event)">ВЫВЕСТИ ПОДАРОК</button>
+            <button class="btn-secondary" onclick="document.getElementById('nftModal').style.display='none'">ПОНЯТНО</button>
         </div>
     </div>
 
@@ -812,6 +849,7 @@
         let multiplier = 1.00;
         let crashInterval = null;
         let isSpinningCase = false;
+        let selectedWithdrawNft = "";
 
         // Стан Canvas-сцени Краш
         let crashState = 'waiting';
@@ -821,6 +859,16 @@
         let shockwaveRadius = 0;
         let shockwaveAlpha = 0;
         let lastExplosionPos = { x: 180, y: 180 };
+
+        function openWithdrawChat(e) {
+            if (e) e.preventDefault();
+            const withdrawUrl = "https://t.me/allDepGame_bot2";
+            if (tg && typeof tg.openTelegramLink === "function") {
+                tg.openTelegramLink(withdrawUrl);
+            } else {
+                window.open(withdrawUrl, "_blank");
+            }
+        }
 
         /* ================= ЗАСТАВКА КЕЙСУ ТА ДЕТАЛІЗОВАНІ NFT-КАРТКИ ================= */
         function getCaseChestSvg() {
@@ -855,14 +903,12 @@
                 <polygon points="120,96 178,8 222,8" fill="#e879f9" opacity="0.24"/>
                 <circle cx="120" cy="88" r="76" fill="url(#innerLight)"/>
 
-                <!-- Кришка скрині -->
                 <path d="M46 76 C44 34, 196 34, 194 76 L178 88 L62 88 Z" fill="#1e3a8a" stroke="#93c5fd" stroke-width="2.5"/>
                 <path d="M54 74 C54 42, 186 42, 186 74 L174 82 L66 82 Z" fill="url(#chestWhite)"/>
                 <path d="M46 76 L62 76 L62 88 L46 88 Z" fill="url(#chestBlue)"/>
                 <path d="M178 76 L194 76 L194 88 L178 88 Z" fill="url(#chestBlue)"/>
                 <path d="M106 38 L111 50 L120 44 L129 50 L134 38 L130 56 L110 56 Z" fill="#2563eb"/>
 
-                <!-- Лівий NFT: котики в рожевому серці -->
                 <g transform="translate(68, 76) rotate(-14)">
                     <path d="M0 27 C-25 11, -27 -14, -9 -18 C-2 -19, 0 -12, 0 -12 C0 -12, 2 -19, 9 -18 C27 -14, 25 11, 0 27 Z" fill="#f472b6" stroke="#fbcfe8" stroke-width="2.5"/>
                     <path d="M0 21 C-18 9, -19 -9, -6 -12 C-2 -13, 0 -8, 0 -8 C0 -8, 2 -13, 6 -12 C19 -9, 18 9, 0 21 Z" fill="#fdf2f8"/>
@@ -873,7 +919,6 @@
                     <path d="M-9 -18 L2 -25 L11 -16 L2 -13 Z" fill="#ec4899"/>
                 </g>
 
-                <!-- Центральний NFT: білий кролик на тарілці -->
                 <g transform="translate(120, 75)">
                     <ellipse cx="0" cy="18" rx="30" ry="9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
                     <ellipse cx="0" cy="16" rx="22" ry="5.5" fill="#cbd5e1"/>
@@ -884,14 +929,12 @@
                     <circle cx="5" cy="3" r="2" fill="#1e293b"/>
                 </g>
 
-                <!-- Правий NFT: серце-пряник -->
                 <g transform="translate(172, 78) rotate(14)">
                     <path d="M0 25 C-24 10, -25 -14, -8 -18 C-2 -19, 0 -12, 0 -12 C0 -12, 2 -19, 8 -18 C25 -14, 24 10, 0 25 Z" fill="#d97706" stroke="#fde68a" stroke-width="2.2"/>
                     <path d="M0 19 C-16 7, -17 -9, -5 -12 C-1 -13, 0 -8, 0 -8 C0 -8, 1 -13, 5 -12 C17 -9, 16 7, 0 19 Z" fill="#ef4444"/>
                     <circle cx="0" cy="4" r="2.8" fill="#fffbeb"/>
                 </g>
 
-                <!-- Корпус скрині -->
                 <rect x="40" y="90" width="160" height="78" rx="18" fill="url(#chestWhite)" stroke="#93c5fd" stroke-width="2.5"/>
                 <rect x="40" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
                 <rect x="176" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
@@ -899,7 +942,6 @@
                 <rect x="96" y="106" width="48" height="40" rx="9" fill="#2563eb" stroke="#bfdbfe" stroke-width="2.2"/>
                 <path d="M104 117 L110 130 L120 121 L130 130 L136 117 L132 138 L108 138 Z" fill="#ffffff"/>
 
-                <!-- Іскри -->
                 <path d="M32 44 L34 49 L39 51 L34 53 L32 58 L30 53 L25 51 L30 49 Z" fill="#fef08a"/>
                 <path d="M208 48 L210 53 L215 55 L210 57 L208 62 L206 57 L201 55 L206 53 Z" fill="#fef08a"/>
                 <circle cx="120" cy="20" r="3" fill="#ffffff"/>
@@ -912,9 +954,9 @@
                     return `
                     <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
                         <defs>
-                            <radialGradient id="locketBg" cx="50%" cy="45%" r="65%">
-                                <stop offset="0%" stop-color="#353945"/>
-                                <stop offset="100%" stop-color="#1d2027"/>
+                            <radialGradient id="locketBg" cx="50%" cy="42%" r="68%">
+                                <stop offset="0%" stop-color="#3f3654"/>
+                                <stop offset="100%" stop-color="#191b24"/>
                             </radialGradient>
                             <linearGradient id="heartRim" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stop-color="#fbcfe8"/>
@@ -923,11 +965,9 @@
                             </linearGradient>
                         </defs>
                         <rect width="140" height="140" fill="url(#locketBg)"/>
-                        <ellipse cx="70" cy="116" rx="34" ry="7" fill="#000000" opacity="0.35"/>
-                        <!-- Медальйон-серце -->
+                        <ellipse cx="70" cy="118" rx="34" ry="7" fill="#000000" opacity="0.38"/>
                         <path d="M70 112 C28 82, 22 38, 50 28 C61 24, 70 35, 70 35 C70 35, 79 24, 90 28 C118 38, 112 82, 70 112 Z" fill="url(#heartRim)" stroke="#fce7f3" stroke-width="2.5"/>
                         <path d="M70 103 C37 78, 33 44, 54 37 C62 34, 70 42, 70 42 C70 42, 78 34, 86 37 C107 44, 103 78, 70 103 Z" fill="#fff1f2"/>
-                        <!-- Сірий котик зліва -->
                         <circle cx="56" cy="67" r="16" fill="#94a3b8"/>
                         <polygon points="42,57 45,42 54,52" fill="#94a3b8"/>
                         <polygon points="60,52 67,42 70,57" fill="#94a3b8"/>
@@ -937,7 +977,6 @@
                         <circle cx="50.2" cy="65.2" r="0.8" fill="#ffffff"/>
                         <circle cx="60.2" cy="65.2" r="0.8" fill="#ffffff"/>
                         <ellipse cx="56" cy="70" rx="2.2" ry="1.5" fill="#f472b6"/>
-                        <!-- Рудий котик справа -->
                         <circle cx="83" cy="69" r="16" fill="#fb923c"/>
                         <polygon points="69,59 72,44 81,54" fill="#fb923c"/>
                         <polygon points="87,54 94,44 97,59" fill="#fb923c"/>
@@ -947,7 +986,6 @@
                         <circle cx="77.2" cy="67.2" r="0.8" fill="#ffffff"/>
                         <circle cx="87.2" cy="67.2" r="0.8" fill="#ffffff"/>
                         <ellipse cx="83" cy="72" rx="2.2" ry="1.5" fill="#e11d48"/>
-                        <!-- Рожевий бантик на верхівці -->
                         <path d="M52 28 C44 16, 62 14, 70 25 C78 14, 96 16, 88 28 L70 33 Z" fill="#ec4899" stroke="#fbcfe8" stroke-width="1.5"/>
                         <circle cx="70" cy="27" r="4" fill="#f472b6"/>
                     </svg>`;
@@ -955,9 +993,9 @@
                     return `
                     <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
                         <defs>
-                            <radialGradient id="bunnyBg" cx="50%" cy="45%" r="65%">
-                                <stop offset="0%" stop-color="#353945"/>
-                                <stop offset="100%" stop-color="#1d2027"/>
+                            <radialGradient id="bunnyBg" cx="50%" cy="42%" r="68%">
+                                <stop offset="0%" stop-color="#3a4052"/>
+                                <stop offset="100%" stop-color="#191b24"/>
                             </radialGradient>
                             <linearGradient id="jellyBody" x1="20%" y1="0%" x2="80%" y2="100%">
                                 <stop offset="0%" stop-color="#fefce8"/>
@@ -966,15 +1004,13 @@
                             </linearGradient>
                         </defs>
                         <rect width="140" height="140" fill="url(#bunnyBg)"/>
-                        <ellipse cx="70" cy="112" rx="46" ry="14" fill="#0f172a" opacity="0.45"/>
-                        <!-- Тарілка -->
+                        <ellipse cx="70" cy="113" rx="46" ry="14" fill="#000000" opacity="0.42"/>
                         <ellipse cx="70" cy="103" rx="44" ry="13" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
                         <ellipse cx="70" cy="101" rx="32" ry="8" fill="#e2e8f0"/>
-                        <!-- Желейний кролик -->
                         <path d="M38 97 C36 62, 45 26, 55 29 C62 31, 59 54, 70 54 C81 54, 78 31, 85 29 C95 26, 104 62, 102 97 C88 105, 52 105, 38 97 Z" fill="url(#jellyBody)" stroke="#fef9c3" stroke-width="2"/>
                         <ellipse cx="52" cy="45" rx="3" ry="9" fill="#f9a8d4" opacity="0.7"/>
                         <ellipse cx="88" cy="45" rx="3" ry="9" fill="#f9a8d4" opacity="0.7"/>
-                        <path d="M48 64 C52 54, 62 54, 64 62" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+                        <path d="M48 64 C52 54, 62 54, 64 62" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
                         <circle cx="60" cy="75" r="3.2" fill="#1e293b"/>
                         <circle cx="80" cy="75" r="3.2" fill="#1e293b"/>
                         <circle cx="59" cy="73.8" r="1.1" fill="#ffffff"/>
@@ -986,14 +1022,14 @@
                     return `
                     <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
                         <defs>
-                            <radialGradient id="candleGlow" cx="50%" cy="32%" r="48%">
-                                <stop offset="0%" stop-color="#facc15" stop-opacity="0.35"/>
-                                <stop offset="65%" stop-color="#ca8a04" stop-opacity="0.08"/>
-                                <stop offset="100%" stop-color="#1d2027" stop-opacity="0"/>
+                            <radialGradient id="candleGlow" cx="50%" cy="32%" r="55%">
+                                <stop offset="0%" stop-color="#facc15" stop-opacity="0.4"/>
+                                <stop offset="65%" stop-color="#ca8a04" stop-opacity="0.1"/>
+                                <stop offset="100%" stop-color="#191b24" stop-opacity="0"/>
                             </radialGradient>
                         </defs>
-                        <rect width="140" height="140" fill="#21242c"/>
-                        <circle cx="70" cy="42" r="46" fill="url(#candleGlow)"/>
+                        <rect width="140" height="140" fill="#1d2029"/>
+                        <circle cx="70" cy="42" r="52" fill="url(#candleGlow)"/>
                         <ellipse cx="70" cy="112" rx="34" ry="9" fill="#334155" stroke="#64748b" stroke-width="1.5"/>
                         <path d="M98 109 C114 109, 114 86, 95 88" fill="none" stroke="#64748b" stroke-width="4.5" stroke-linecap="round"/>
                         <rect x="53" y="48" width="34" height="58" rx="7" fill="#fef3c7" stroke="#fde68a" stroke-width="1.5"/>
@@ -1005,17 +1041,30 @@
                 case "Bowtie Gift":
                     return `
                     <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <rect width="140" height="140" fill="#21242c"/>
-                        <ellipse cx="70" cy="108" rx="44" ry="8" fill="#000000" opacity="0.35"/>
+                        <defs>
+                            <radialGradient id="bowtieBg" cx="50%" cy="45%" r="68%">
+                                <stop offset="0%" stop-color="#31394d"/>
+                                <stop offset="100%" stop-color="#191b24"/>
+                            </radialGradient>
+                        </defs>
+                        <rect width="140" height="140" fill="url(#bowtieBg)"/>
+                        <ellipse cx="70" cy="109" rx="44" ry="8" fill="#000000" opacity="0.38"/>
                         <polygon points="70,46 24,32 24,108 70,94" fill="#334155" stroke="#64748b" stroke-width="2.2" stroke-linejoin="round"/>
-                        <line x1="30" y1="42" x2="64" y2="52" stroke="#94a3b8" stroke-width="1.5" opacity="0.5"/>
+                        <line x1="30" y1="42" x2="64" y2="52" stroke="#94a3b8" stroke-width="1.5" opacity="0.55"/>
                         <polygon points="70,46 116,32 116,108 70,94" fill="#1e293b" stroke="#475569" stroke-width="2.2" stroke-linejoin="round"/>
                         <rect x="59" y="54" width="22" height="32" rx="6" fill="#475569" stroke="#94a3b8" stroke-width="2"/>
                     </svg>`;
                 case "Heart Cookie":
                     return `
                     <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <rect width="140" height="140" fill="#21242c"/>
+                        <defs>
+                            <radialGradient id="cookieBg" cx="50%" cy="45%" r="68%">
+                                <stop offset="0%" stop-color="#452c26"/>
+                                <stop offset="100%" stop-color="#191b24"/>
+                            </radialGradient>
+                        </defs>
+                        <rect width="140" height="140" fill="url(#cookieBg)"/>
+                        <ellipse cx="70" cy="116" rx="34" ry="7" fill="#000000" opacity="0.38"/>
                         <path d="M70 112 C26 82, 20 38, 49 28 C60 24, 70 35, 70 35 C70 35, 80 24, 91 28 C120 38, 114 82, 70 112 Z" fill="#d97706" stroke="#fde68a" stroke-width="3"/>
                         <path d="M70 100 C37 76, 33 44, 54 38 C62 35, 70 43, 70 43 C70 43, 78 35, 86 38 C107 44, 103 76, 70 100 Z" fill="#dc2626"/>
                         <path d="M44 48 C48 40, 58 40, 62 46" fill="none" stroke="#fffbeb" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4"/>
@@ -1025,7 +1074,14 @@
                 default:
                     return `
                     <svg viewBox="0 0 140 140" style="width:100%;height:100%;display:block;">
-                        <rect width="140" height="140" fill="#21242c"/>
+                        <defs>
+                            <radialGradient id="bdayBg" cx="50%" cy="45%" r="68%">
+                                <stop offset="0%" stop-color="#28355c"/>
+                                <stop offset="100%" stop-color="#191b24"/>
+                            </radialGradient>
+                        </defs>
+                        <rect width="140" height="140" fill="url(#bdayBg)"/>
+                        <ellipse cx="70" cy="108" rx="46" ry="8" fill="#000000" opacity="0.38"/>
                         <rect x="18" y="42" width="104" height="58" rx="16" fill="#2563eb" stroke="#93c5fd" stroke-width="2.5"/>
                         <path d="M70 16 C77 24, 77 33, 70 38 C63 33, 63 24, 70 16 Z" fill="#facc15"/>
                         <path d="M70 22 C73 27, 73 32, 70 35 C67 32, 67 27, 70 22 Z" fill="#fef08a"/>
@@ -1207,7 +1263,7 @@
                 html += `
                     <div class="gift-item" onclick="openNftModal('${item.name}')">
                         <div class="inventory-nft-art">${getNftArtworkSvg(item.name)}</div>
-                        <span style="color:#fff; font-weight:bold; font-size:13px;">${item.name}</span>
+                        <span class="gift-item-name">${item.name}</span>
                     </div>
                 `;
             });
@@ -1215,6 +1271,7 @@
         }
 
         function openNftModal(name) {
+            selectedWithdrawNft = name;
             document.getElementById('modalNftArt').innerHTML = getNftArtworkSvg(name);
             document.getElementById('modalNftTitle').innerText = name;
             document.getElementById('nftModal').style.display = 'flex';
