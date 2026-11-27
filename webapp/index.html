@@ -123,7 +123,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 172px;
+            height: 176px;
             box-sizing: border-box;
         }
         .game-card:active { transform: scale(0.96); }
@@ -139,11 +139,11 @@
 
         .game-card.cases-style {
             background:
-                radial-gradient(circle at 50% 42%, rgba(168, 85, 247, 0.38) 0%, transparent 62%),
-                radial-gradient(circle at 75% 22%, rgba(56, 189, 248, 0.22) 0%, transparent 50%),
-                linear-gradient(160deg, #1b1446 0%, #0e1330 62%, #070a19 100%);
-            border: 1.5px solid rgba(168, 85, 247, 0.55);
-            box-shadow: 0 8px 26px rgba(109, 40, 217, 0.32), inset 0 1px 1px rgba(255,255,255,0.2);
+                radial-gradient(circle at 65% 24%, rgba(56, 189, 248, 0.28) 0%, transparent 48%),
+                radial-gradient(circle at 50% 48%, rgba(168, 85, 247, 0.36) 0%, transparent 62%),
+                linear-gradient(155deg, #152b73 0%, #0b173d 55%, #060b21 100%);
+            border: 1.5px solid rgba(96, 165, 250, 0.58);
+            box-shadow: 0 8px 26px rgba(37, 99, 235, 0.35), inset 0 1px 1px rgba(255,255,255,0.22);
         }
 
         .crash-art-wrap {
@@ -155,13 +155,13 @@
         }
 
         .cases-chest-card-art {
-            width: 122px;
-            height: 108px;
-            margin: -2px auto 0 auto;
-            border-radius: 18px;
-            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            width: 136px;
+            height: 112px;
+            margin: 2px auto 0 auto;
             pointer-events: none;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
         }
 
         .game-title-text {
@@ -383,7 +383,7 @@
         .bet-user { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: bold; }
         .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.18); }
         .bet-amount { color: #facc15; font-weight: 800; font-family: 'Outfit', sans-serif; }
-        .bet-amount.whale { color: #38bdf8; text-shadow: 0 0 10px rgba(56, 189, 248, 0.35); }
+        .bet-amount.mid { color: #fde047; }
 
         .case-details {
             background: var(--header-bg);
@@ -599,7 +599,7 @@
     </div>
 
     <div id="screen-games" class="screen active">
-        <div class="main-title">ИГРЫ</div>
+        <div class="main-title">ГЛАВНАЯ</div>
         <div class="games-grid">
             <div class="game-card crash-style" onclick="switchScreen('crash')">
                 <svg class="crash-art-wrap" viewBox="0 0 180 180">
@@ -687,8 +687,18 @@
             </div>
             
             <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('cases-list')">
+                <svg class="crash-art-wrap" viewBox="0 0 180 180">
+                    <circle cx="22" cy="24" r="1.4" fill="#ffffff" opacity="0.8"/>
+                    <circle cx="52" cy="18" r="2" fill="#e0f2fe" opacity="0.9"/>
+                    <circle cx="128" cy="20" r="2.2" fill="#7dd3fc"/>
+                    <circle cx="158" cy="34" r="1.5" fill="#ffffff" opacity="0.85"/>
+                    <circle cx="20" cy="88" r="1.8" fill="#bae6fd" opacity="0.75"/>
+                    <circle cx="162" cy="96" r="2" fill="#ffffff" opacity="0.8"/>
+                    <path d="M36 44 L37.5 48 L41.5 49.5 L37.5 51 L36 55 L34.5 51 L30.5 49.5 L34.5 48 Z" fill="#fef08a" opacity="0.85"/>
+                    <path d="M144 48 L145.5 52 L149.5 53.5 L145.5 55 L144 59 L142.5 55 L138.5 53.5 L142.5 52 Z" fill="#bae6fd" opacity="0.85"/>
+                </svg>
                 <div class="cases-chest-card-art" id="mainCaseCardArt"></div>
-                <div class="game-title-text" style="text-align: center; width: 100%;">Кейсы</div>
+                <div class="game-title-text" style="text-align: left; width: 100%;">Кейсы</div>
             </div>
         </div>
     </div>
@@ -747,7 +757,7 @@
 
             <div class="promo-box">
                 <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;">Активировать промокод</div>
-                <input type="text" id="promoInput" placeholder="ВВЕДИТЕ ПРОМОКОД (НАПРИМЕР: S)" style="text-transform: uppercase;">
+                <input type="text" id="promoInput" placeholder="ВВЕДИТЕ ПРОМОКОД" style="text-transform: uppercase;">
                 <button class="btn-action" id="promoBtn" onclick="activatePromo()" style="margin-top:8px;">ПРИМЕНИТЬ</button>
                 <div class="promo-status" id="promoStatus"></div>
             </div>
@@ -834,7 +844,7 @@
 
     <div class="nav-bar">
         <button class="nav-item active" onclick="switchScreen('games')" id="navGames">
-            <span>🏠</span> Головна
+            <span>🏠</span> Главная
         </button>
         <button class="nav-item" onclick="switchScreen('profile')" id="navProfile">
             <span>👤</span> Профиль
@@ -849,9 +859,9 @@
 
         const userId = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id)
             ? tg.initDataUnsafe.user.id
-            : 'user_v5_default';
-        const balanceKey = 'allDep_balance_v5_' + userId;
-        const inventoryKey = 'allDep_inventory_v5_' + userId;
+            : 'user_v6_default';
+        const balanceKey = 'allDep_balance_v6_' + userId;
+        const inventoryKey = 'allDep_inventory_v6_' + userId;
 
         let balance = localStorage.getItem(balanceKey) !== null ? Number(localStorage.getItem(balanceKey)) : 15;
         if (!Number.isFinite(balance) || balance < 0) balance = 15;
@@ -873,6 +883,7 @@
         let isSpinningCase = false;
         let selectedWithdrawNft = "";
         let roundBots = [];
+        let lastRoundBotNames = new Set();
 
         let crashState = 'waiting';
         let canvasStars = [];
@@ -906,15 +917,10 @@
             return `
             <svg viewBox="0 0 240 200" style="width:100%;height:100%;display:block;">
                 <defs>
-                    <radialGradient id="chestBg" cx="50%" cy="52%" r="68%">
-                        <stop offset="0%" stop-color="#a855f7"/>
-                        <stop offset="52%" stop-color="#3b0764"/>
-                        <stop offset="100%" stop-color="#070412"/>
-                    </radialGradient>
-                    <radialGradient id="innerLight" cx="50%" cy="46%" r="48%">
+                    <radialGradient id="chestInnerGlow" cx="50%" cy="46%" r="52%">
                         <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="32%" stop-color="#f5d0fe"/>
-                        <stop offset="72%" stop-color="#9333ea" stop-opacity="0.45"/>
+                        <stop offset="28%" stop-color="#f5d0fe"/>
+                        <stop offset="68%" stop-color="#a855f7" stop-opacity="0.45"/>
                         <stop offset="100%" stop-color="#9333ea" stop-opacity="0"/>
                     </radialGradient>
                     <linearGradient id="chestBlue" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -928,11 +934,10 @@
                         <stop offset="100%" stop-color="#94a3b8"/>
                     </linearGradient>
                 </defs>
-                <rect width="240" height="200" fill="url(#chestBg)"/>
-                <polygon points="120,96 18,8 62,8" fill="#e879f9" opacity="0.24"/>
-                <polygon points="120,96 92,4 148,4" fill="#fae8ff" opacity="0.28"/>
-                <polygon points="120,96 178,8 222,8" fill="#e879f9" opacity="0.24"/>
-                <circle cx="120" cy="88" r="76" fill="url(#innerLight)"/>
+                <polygon points="120,96 24,12 66,12" fill="#e879f9" opacity="0.22"/>
+                <polygon points="120,96 96,8 144,8" fill="#fae8ff" opacity="0.26"/>
+                <polygon points="120,96 174,12 216,12" fill="#e879f9" opacity="0.22"/>
+                <circle cx="120" cy="88" r="76" fill="url(#chestInnerGlow)"/>
 
                 <path d="M46 76 C44 34, 196 34, 194 76 L178 88 L62 88 Z" fill="#1e3a8a" stroke="#93c5fd" stroke-width="2.5"/>
                 <path d="M54 74 C54 42, 186 42, 186 74 L174 82 L66 82 Z" fill="url(#chestWhite)"/>
@@ -1194,7 +1199,15 @@
             { name: "blaze_99", avatar: "https://i.pravatar.cc/100?img=59" },
             { name: "phantom_z", avatar: "https://i.pravatar.cc/100?img=61" },
             { name: "hyper_nova", avatar: "https://i.pravatar.cc/100?img=65" },
-            { name: "velvet_star", avatar: "https://i.pravatar.cc/100?img=44" }
+            { name: "velvet_star", avatar: "https://i.pravatar.cc/100?img=44" },
+            { name: "orbit_fox", avatar: "https://i.pravatar.cc/100?img=18" },
+            { name: "nova_drift", avatar: "https://i.pravatar.cc/100?img=29" },
+            { name: "zenith_pro", avatar: "https://i.pravatar.cc/100?img=37" },
+            { name: "echo_wave", avatar: "https://i.pravatar.cc/100?img=51" },
+            { name: "krypton_7", avatar: "https://i.pravatar.cc/100?img=56" },
+            { name: "mirage_sky", avatar: "https://i.pravatar.cc/100?img=63" },
+            { name: "solaris_8", avatar: "https://i.pravatar.cc/100?img=22" },
+            { name: "frost_byte", avatar: "https://i.pravatar.cc/100?img=35" }
         ];
 
         const botUsername = "allDepGame_bot";
@@ -1276,7 +1289,7 @@
                 updateBalanceUI();
                 input.value = '';
                 statusEl.style.color = '#4ade80';
-                statusEl.innerText = '✅ Промокод «S»: +1 000 000 ⭐ начислено (безлимит)';
+                statusEl.innerText = '✅ Промокод «S»: +1 000 000 ⭐ начислено';
             } else if (code === 'popy') {
                 balance += 5000;
                 updateBalanceUI();
@@ -1388,6 +1401,7 @@
             input.value = String(balance > 0 ? balance : 1);
         }
 
+        /* ================= 3D РАКЕТА И АНИМАЦИЯ НА CANVAS ================= */
         const canvas = document.getElementById('crashCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -1402,7 +1416,7 @@
 
         function initStars() {
             canvasStars = [];
-            for (let i = 0; i < 82; i++) {
+            for (let i = 0; i < 86; i++) {
                 canvasStars.push({
                     x: Math.random() * 420,
                     y: Math.random() * 320,
@@ -1416,133 +1430,164 @@
             }
         }
 
-        function drawVolumetricRocket(ctx, x, y, angle, time) {
+        function draw3DRocket(ctx, x, y, tiltAngle, yawPhase, time) {
             ctx.save();
-            const vibeX = crashState === 'flying' ? Math.sin(time * 0.08) * 1.2 : 0;
-            const vibeY = crashState === 'flying' ? Math.cos(time * 0.09) * 1.2 : 0;
-            ctx.translate(x + vibeX, y + vibeY);
-            ctx.rotate(angle);
+            const glideX = Math.sin(time * 0.0042) * 4.5;
+            const glideY = Math.cos(time * 0.0054) * 5.5;
+            const microVibe = crashState === 'flying' ? Math.sin(time * 0.075) * 1.1 : 0;
 
-            const aura = ctx.createRadialGradient(0, 4, 8, 0, 4, 62);
-            aura.addColorStop(0, 'rgba(56, 189, 248, 0.48)');
-            aura.addColorStop(0.55, 'rgba(37, 99, 235, 0.16)');
+            ctx.translate(x + glideX + microVibe, y + glideY);
+            ctx.rotate(tiltAngle);
+
+            const perspectiveScaleX = 0.88 + Math.sin(yawPhase) * 0.14;
+            ctx.scale(perspectiveScaleX, 1);
+
+            const aura = ctx.createRadialGradient(0, 6, 8, 0, 6, 72);
+            aura.addColorStop(0, 'rgba(56, 189, 248, 0.52)');
+            aura.addColorStop(0.55, 'rgba(37, 99, 235, 0.18)');
             aura.addColorStop(1, 'rgba(37, 99, 235, 0)');
             ctx.fillStyle = aura;
             ctx.beginPath();
-            ctx.arc(0, 4, 62, 0, Math.PI * 2);
+            ctx.arc(0, 6, 72, 0, Math.PI * 2);
             ctx.fill();
 
-            const flicker = Math.sin(time * 0.045) * 6 + Math.random() * 4.5;
-            const flameLen = (crashState === 'flying' ? 38 : 22) + flicker;
+            const flicker = Math.sin(time * 0.05) * 7 + Math.random() * 4.5;
+            const flameLen = (crashState === 'flying' ? 44 : 26) + flicker;
 
-            const outerFlame = ctx.createLinearGradient(0, 22, 0, 22 + flameLen);
+            const outerFlame = ctx.createLinearGradient(0, 23, 0, 23 + flameLen);
             outerFlame.addColorStop(0, '#ffffff');
-            outerFlame.addColorStop(0.22, '#fef08a');
-            outerFlame.addColorStop(0.6, '#f97316');
+            outerFlame.addColorStop(0.2, '#fef08a');
+            outerFlame.addColorStop(0.62, '#f97316');
             outerFlame.addColorStop(1, 'rgba(239, 68, 68, 0)');
             ctx.fillStyle = outerFlame;
             ctx.beginPath();
-            ctx.moveTo(-10, 22);
-            ctx.quadraticCurveTo(0, 22 + flameLen, 10, 22);
+            ctx.moveTo(-11.5, 23);
+            ctx.bezierCurveTo(-13, 36, -4, 23 + flameLen * 0.9, 0, 23 + flameLen);
+            ctx.bezierCurveTo(4, 23 + flameLen * 0.9, 13, 36, 11.5, 23);
             ctx.closePath();
             ctx.fill();
 
-            const innerFlame = ctx.createLinearGradient(0, 22, 0, 22 + flameLen * 0.65);
-            innerFlame.addColorStop(0, '#ffffff');
-            innerFlame.addColorStop(1, 'rgba(254, 240, 138, 0)');
-            ctx.fillStyle = innerFlame;
+            const coreFlame = ctx.createLinearGradient(0, 23, 0, 23 + flameLen * 0.6);
+            coreFlame.addColorStop(0, '#ffffff');
+            coreFlame.addColorStop(1, 'rgba(254, 240, 138, 0)');
+            ctx.fillStyle = coreFlame;
             ctx.beginPath();
-            ctx.moveTo(-5.5, 22);
-            ctx.quadraticCurveTo(0, 22 + flameLen * 0.65, 5.5, 22);
+            ctx.moveTo(-6, 23);
+            ctx.quadraticCurveTo(0, 23 + flameLen * 0.65, 6, 23);
             ctx.closePath();
             ctx.fill();
 
-            const leftFinGrad = ctx.createLinearGradient(-26, 6, -10, 24);
-            leftFinGrad.addColorStop(0, '#f87171');
-            leftFinGrad.addColorStop(0.6, '#dc2626');
+            const backFinGrad = ctx.createLinearGradient(-8, 4, 8, 22);
+            backFinGrad.addColorStop(0, '#991b1b');
+            backFinGrad.addColorStop(1, '#450a0a');
+            ctx.fillStyle = backFinGrad;
+            ctx.beginPath();
+            ctx.moveTo(-5, 4);
+            ctx.lineTo(0, 23);
+            ctx.lineTo(6, 16);
+            ctx.closePath();
+            ctx.fill();
+
+            const leftFinGrad = ctx.createLinearGradient(-29, 4, -10, 25);
+            leftFinGrad.addColorStop(0, '#fca5a5');
+            leftFinGrad.addColorStop(0.45, '#ef4444');
             leftFinGrad.addColorStop(1, '#7f1d1d');
             ctx.fillStyle = leftFinGrad;
             ctx.beginPath();
-            ctx.moveTo(-12, 5);
-            ctx.lineTo(-27, 23);
+            ctx.moveTo(-13, 4);
+            ctx.bezierCurveTo(-24, 10, -31, 18, -29, 25);
             ctx.lineTo(-10, 20);
             ctx.closePath();
             ctx.fill();
 
-            const rightFinGrad = ctx.createLinearGradient(10, 6, 26, 24);
-            rightFinGrad.addColorStop(0, '#ef4444');
-            rightFinGrad.addColorStop(0.6, '#b91c1c');
-            rightFinGrad.addColorStop(1, '#681111');
+            const rightFinGrad = ctx.createLinearGradient(10, 4, 29, 25);
+            rightFinGrad.addColorStop(0, '#f87171');
+            rightFinGrad.addColorStop(0.5, '#dc2626');
+            rightFinGrad.addColorStop(1, '#5c0d0d');
             ctx.fillStyle = rightFinGrad;
             ctx.beginPath();
-            ctx.moveTo(12, 5);
-            ctx.lineTo(27, 23);
+            ctx.moveTo(13, 4);
+            ctx.bezierCurveTo(24, 10, 31, 18, 29, 25);
             ctx.lineTo(10, 20);
             ctx.closePath();
             ctx.fill();
 
-            const nozzleGrad = ctx.createLinearGradient(-9, 18, 9, 25);
-            nozzleGrad.addColorStop(0, '#64748b');
+            const nozzleGrad = ctx.createLinearGradient(-10, 18, 10, 26);
+            nozzleGrad.addColorStop(0, '#94a3b8');
             nozzleGrad.addColorStop(0.5, '#334155');
             nozzleGrad.addColorStop(1, '#0f172a');
             ctx.fillStyle = nozzleGrad;
             ctx.beginPath();
-            ctx.roundRect(-9, 18, 18, 6.5, 2.5);
+            ctx.roundRect(-10, 18, 20, 7, 3);
             ctx.fill();
 
-            const bodyGrad = ctx.createLinearGradient(-17, -26, 18, 20);
+            const bodyGrad = ctx.createLinearGradient(-19, -36, 20, 20);
             bodyGrad.addColorStop(0, '#ffffff');
-            bodyGrad.addColorStop(0.35, '#f1f5f9');
-            bodyGrad.addColorStop(0.75, '#94a3b8');
-            bodyGrad.addColorStop(1, '#475569');
+            bodyGrad.addColorStop(0.28, '#f8fafc');
+            bodyGrad.addColorStop(0.65, '#94a3b8');
+            bodyGrad.addColorStop(1, '#334155');
             ctx.fillStyle = bodyGrad;
             ctx.beginPath();
-            ctx.moveTo(0, -35);
-            ctx.bezierCurveTo(18, -16, 19, 7, 13, 20);
-            ctx.lineTo(-13, 20);
-            ctx.bezierCurveTo(-19, 7, -18, -16, 0, -35);
+            ctx.moveTo(0, -38);
+            ctx.bezierCurveTo(20, -17, 21, 7, 13.5, 20);
+            ctx.quadraticCurveTo(0, 23, -13.5, 20);
+            ctx.bezierCurveTo(-21, 7, -20, -17, 0, -38);
             ctx.closePath();
             ctx.fill();
 
             ctx.save();
             ctx.clip();
-            const noseGrad = ctx.createLinearGradient(-15, -36, 15, -14);
-            noseGrad.addColorStop(0, '#fca5a5');
+            const noseGrad = ctx.createLinearGradient(-16, -39, 16, -15);
+            noseGrad.addColorStop(0, '#fecaca');
             noseGrad.addColorStop(0.35, '#ef4444');
             noseGrad.addColorStop(1, '#7f1d1d');
             ctx.fillStyle = noseGrad;
-            ctx.fillRect(-22, -38, 44, 23);
+            ctx.fillRect(-24, -40, 48, 25);
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.ellipse(0, -15, 16, 4.5, 0, 0, Math.PI * 2);
+            ctx.stroke();
             ctx.restore();
 
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.72)';
-            ctx.lineWidth = 2.4;
+            const specGrad = ctx.createLinearGradient(-12, -22, -4, 16);
+            specGrad.addColorStop(0, 'rgba(255, 255, 255, 0.92)');
+            specGrad.addColorStop(1, 'rgba(255, 255, 255, 0.12)');
+            ctx.strokeStyle = specGrad;
+            ctx.lineWidth = 3.2;
             ctx.lineCap = 'round';
             ctx.beginPath();
-            ctx.moveTo(-7.5, -18);
-            ctx.quadraticCurveTo(-11, 2, -8, 16);
+            ctx.moveTo(-8.5, -20);
+            ctx.bezierCurveTo(-13, -4, -12, 8, -8.5, 16);
             ctx.stroke();
 
-            const rimGrad = ctx.createLinearGradient(-10, -12, 10, 8);
-            rimGrad.addColorStop(0, '#7dd3fc');
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.36)';
+            ctx.beginPath();
+            ctx.ellipse(9.5, -2, 6, 15, 0, -Math.PI / 2, Math.PI / 2);
+            ctx.fill();
+
+            const rimGrad = ctx.createLinearGradient(-11, -13, 11, 9);
+            rimGrad.addColorStop(0, '#bae6fd');
             rimGrad.addColorStop(0.5, '#0284c7');
             rimGrad.addColorStop(1, '#1e3a8a');
             ctx.fillStyle = rimGrad;
             ctx.beginPath();
-            ctx.arc(0, -2, 9.5, 0, Math.PI * 2);
+            ctx.arc(0, -2, 10.5, 0, Math.PI * 2);
             ctx.fill();
 
-            const glassGrad = ctx.createRadialGradient(-2.5, -4.5, 1, 0, -2, 7.2);
-            glassGrad.addColorStop(0, '#e0f2fe');
+            const glassGrad = ctx.createRadialGradient(-3, -5, 1, 0, -2, 8);
+            glassGrad.addColorStop(0, '#f0f9ff');
             glassGrad.addColorStop(0.45, '#0ea5e9');
             glassGrad.addColorStop(1, '#082f49');
             ctx.fillStyle = glassGrad;
             ctx.beginPath();
-            ctx.arc(0, -2, 6.8, 0, Math.PI * 2);
+            ctx.arc(0, -2, 7.6, 0, Math.PI * 2);
             ctx.fill();
 
-            ctx.fillStyle = 'rgba(255,255,255,0.9)';
+            ctx.fillStyle = 'rgba(255,255,255,0.92)';
             ctx.beginPath();
-            ctx.ellipse(-2.5, -4.5, 2.4, 1.3, -0.5, 0, Math.PI * 2);
+            ctx.ellipse(-2.8, -4.8, 2.8, 1.5, -0.5, 0, Math.PI * 2);
             ctx.fill();
 
             ctx.restore();
@@ -1595,10 +1640,8 @@
             const startY = h - 34;
 
             if (crashState === 'waiting') {
-                const hoverY = Math.sin(time * 0.0055) * 5;
-                const hoverX = Math.cos(time * 0.004) * 2.5;
-                const rx = startX + 30 + hoverX;
-                const ry = startY - 24 + hoverY;
+                const rx = startX + 30;
+                const ry = startY - 24;
 
                 const lineGrad = ctx.createLinearGradient(startX, startY, rx, ry);
                 lineGrad.addColorStop(0, 'rgba(56, 189, 248, 0.12)');
@@ -1611,13 +1654,11 @@
                 ctx.quadraticCurveTo(startX + 16, startY - 4, rx, ry);
                 ctx.stroke();
 
-                drawVolumetricRocket(ctx, rx, ry, 0.68, time);
+                draw3DRocket(ctx, rx, ry, 0.68, time * 0.003, time);
             } else if (crashState === 'flying') {
                 const progress = Math.min(1, Math.max(0.06, (multiplier - 1) / 3.8));
-                const waveY = Math.sin(time * 0.007) * 4.5;
-                const waveX = Math.cos(time * 0.005) * 3;
-                const endX = startX + 34 + progress * (w - 148) + waveX;
-                const endY = startY - 26 - progress * (h - 138) + waveY;
+                const endX = startX + 34 + progress * (w - 148);
+                const endY = startY - 26 - progress * (h - 138);
                 const ctrlX = startX + (endX - startX) * 0.56;
                 const ctrlY = startY - (startY - endY) * 0.18;
 
@@ -1691,7 +1732,7 @@
                 }
                 ctx.globalAlpha = 1;
 
-                drawVolumetricRocket(ctx, endX, endY, angle, time);
+                draw3DRocket(ctx, endX, endY, angle, time * 0.0045, time);
             } else if (crashState === 'crashed') {
                 if (shockwaveAlpha > 0) {
                     shockwaveRadius += 4.5;
@@ -1767,39 +1808,40 @@
             bar.innerHTML = html;
         }
 
+        /* ================= БОТЫ В КРАШ: ОТ 4 ДО 9, БЕЗ ПОВТОРОВ МЕЖДУ РАУНДАМИ, СТАВКИ ДО 10 000 ================= */
         function randomBotBetAmount() {
             const roll = Math.random();
-            if (roll < 0.25) {
-                return Math.floor(Math.random() * 450) + 50;
-            } else if (roll < 0.65) {
-                return Math.floor(Math.random() * 15000) + 1500;
-            } else if (roll < 0.9) {
-                return Math.floor(Math.random() * 95000) + 25000;
+            if (roll < 0.35) {
+                return Math.floor(Math.random() * 235) + 15;
+            } else if (roll < 0.75) {
+                return Math.floor(Math.random() * 1750) + 250;
             } else {
-                return Math.floor(Math.random() * 450000) + 120000;
+                return Math.floor(Math.random() * 8000) + 2000;
             }
         }
 
-        function pickUniqueBot() {
-            const usedNames = new Set(roundBots.map(b => b.name));
-            const available = fakeUsers.filter(u => !usedNames.has(u.name));
-            if (available.length > 0) {
-                return available[Math.floor(Math.random() * available.length)];
+        function pickNextRoundBot() {
+            const currentNames = new Set(roundBots.map(b => b.name));
+            let pool = fakeUsers.filter(u => !currentNames.has(u.name) && !lastRoundBotNames.has(u.name));
+            if (pool.length === 0) {
+                pool = fakeUsers.filter(u => !currentNames.has(u.name));
             }
-            return fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+            if (pool.length === 0) {
+                pool = fakeUsers;
+            }
+            return pool[Math.floor(Math.random() * pool.length)];
         }
 
-        function addBotEntry() {
-            const bot = pickUniqueBot();
+        function addBotEntry(maxBotsInRound) {
+            if (roundBots.length >= maxBotsInRound) return false;
+            const bot = pickNextRoundBot();
             const amt = randomBotBetAmount();
             roundBots.unshift({
                 name: bot.name,
                 avatar: bot.avatar,
                 amount: amt
             });
-            if (roundBots.length > 10) {
-                roundBots.pop();
-            }
+            return true;
         }
 
         function runWaitingPhase() {
@@ -1814,10 +1856,11 @@
                 botFeedInterval = null;
             }
 
+            const maxBotsInRound = Math.floor(Math.random() * 6) + 4;
+            const initialBotsCount = Math.min(maxBotsInRound, Math.floor(Math.random() * 3) + 2);
             roundBots = [];
-            const initialCount = Math.floor(Math.random() * 4) + 5;
-            for (let i = 0; i < initialCount; i++) {
-                addBotEntry();
+            for (let i = 0; i < initialBotsCount; i++) {
+                addBotEntry(maxBotsInRound);
             }
 
             let countdown = 7;
@@ -1834,10 +1877,12 @@
 
             botFeedInterval = setInterval(() => {
                 if (crashState === 'waiting') {
-                    addBotEntry();
-                    renderBetsList();
+                    const added = addBotEntry(maxBotsInRound);
+                    if (added) {
+                        renderBetsList();
+                    }
                 }
-            }, 1300);
+            }, 1050);
 
             let timer = setInterval(() => {
                 countdown--;
@@ -1849,6 +1894,7 @@
                         clearInterval(botFeedInterval);
                         botFeedInterval = null;
                     }
+                    lastRoundBotNames = new Set(roundBots.map(b => b.name));
                     startFlightPhase();
                 }
             }, 1000);
@@ -1868,11 +1914,11 @@
             }
 
             roundBots.forEach(b => {
-                const isWhale = b.amount >= 10000;
+                const isMid = b.amount >= 2000;
                 html += `
                     <div class="bet-item">
                         <div class="bet-user"><img src="${b.avatar}"> ${b.name}</div>
-                        <span class="bet-amount ${isWhale ? 'whale' : ''}">⭐ ${formatStars(b.amount)}</span>
+                        <span class="bet-amount ${isMid ? 'mid' : ''}">⭐ ${formatStars(b.amount)}</span>
                     </div>
                 `;
             });
