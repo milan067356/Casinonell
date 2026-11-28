@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>allDep • Space Edition</title>
+    <title>allDep</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
     <style>
@@ -53,113 +53,93 @@
             overflow-x: hidden;
         }
 
-        /* ================= ПРИКОЛЬНИЙ ЕКРАН ЗАПУСКУ / ПРОБУДЖЕННЯ ================= */
-        #bootScreen {
+        /* ================= СТАРТОВИЙ ЕКРАН ПРИ ПРОБУДЖЕННІ ================= */
+        #wakeupSplash {
             position: fixed;
             inset: 0;
             z-index: 9999;
             background:
-                radial-gradient(circle at 25% 25%, rgba(56, 189, 248, 0.22), transparent 45%),
-                radial-gradient(circle at 80% 75%, rgba(168, 85, 247, 0.24), transparent 50%),
-                #040711;
+                radial-gradient(circle at 22% 24%, rgba(56, 189, 248, 0.24), transparent 46%),
+                radial-gradient(circle at 78% 72%, rgba(168, 85, 247, 0.25), transparent 50%),
+                #040712;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 24px;
             text-align: center;
-            transition: opacity 0.45s ease, visibility 0.45s ease;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
-        #bootScreen.hidden {
+        #wakeupSplash.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
-        .boot-stars-bg {
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(1.5px 1.5px at 18% 22%, #fff 90%, transparent),
-                radial-gradient(2px 2px at 74% 18%, #fef08a 90%, transparent),
-                radial-gradient(1.5px 1.5px at 84% 64%, #7dd3fc 90%, transparent),
-                radial-gradient(2px 2px at 30% 78%, #fff 90%, transparent),
-                radial-gradient(1.5px 1.5px at 52% 40%, #c084fc 90%, transparent);
-            opacity: 0.85;
-            pointer-events: none;
-        }
-        .boot-orbit {
-            position: relative;
-            width: 112px;
-            height: 112px;
+        .wakeup-ring {
+            width: 106px;
+            height: 106px;
             border-radius: 50%;
-            border: 2px dashed rgba(56, 189, 248, 0.45);
+            border: 2.5px dashed rgba(250, 204, 21, 0.55);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            animation: bootSpin 5s linear infinite;
-            box-shadow: 0 0 32px rgba(56, 189, 248, 0.28);
+            margin-bottom: 18px;
+            animation: wakeOrbit 4.5s linear infinite;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.28);
         }
-        .boot-orbit-inner {
-            width: 78px;
-            height: 78px;
+        .wakeup-core {
+            width: 74px;
+            height: 74px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #38bdf8, #1d4ed8 70%, #0f172a);
+            background: radial-gradient(circle at 30% 30%, #facc15, #4f46e5 70%, #0f172a);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            animation: bootCounterSpin 5s linear infinite;
-            box-shadow: 0 0 24px rgba(56, 189, 248, 0.65);
-        }
-        @keyframes bootSpin { to { transform: rotate(360deg); } }
-        @keyframes bootCounterSpin { to { transform: rotate(-360deg); } }
-
-        .boot-logo {
-            font-family: 'Outfit', sans-serif;
             font-size: 34px;
+            animation: wakeCounter 4.5s linear infinite;
+            box-shadow: 0 0 22px rgba(250, 204, 21, 0.5);
+        }
+        @keyframes wakeOrbit { to { transform: rotate(360deg); } }
+        @keyframes wakeCounter { to { transform: rotate(-360deg); } }
+        .wakeup-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
             font-weight: 900;
             background: linear-gradient(135deg, #00ffcc, #38bdf8, #facc15);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 8px;
         }
-        .boot-status {
+        .wakeup-msg {
             font-family: 'Outfit', sans-serif;
             font-size: 14px;
             font-weight: 700;
             color: #cbd5e1;
+            margin-bottom: 16px;
             min-height: 22px;
-            margin-bottom: 14px;
-            position: relative;
-            z-index: 2;
         }
-        .boot-bar-wrap {
+        .wakeup-progress {
             width: 240px;
             height: 8px;
-            background: rgba(30, 41, 59, 0.85);
+            background: rgba(30, 41, 59, 0.9);
             border-radius: 999px;
             overflow: hidden;
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            position: relative;
-            z-index: 2;
+            border: 1px solid rgba(250, 204, 21, 0.35);
         }
-        .boot-bar-fill {
+        .wakeup-progress-bar {
+            width: 15%;
             height: 100%;
-            width: 12%;
             background: linear-gradient(90deg, #00ffcc, #38bdf8, #facc15);
             border-radius: 999px;
             transition: width 0.25s ease;
         }
 
         /* ================= КНОПКИ З ЗАДНІМ ФОНОМ ТА ЗІРКАМИ ================= */
-        .star-themed-btn {
+        .star-bg-btn {
             position: relative;
             background:
-                radial-gradient(circle at 18% 30%, rgba(250, 204, 21, 0.26) 0%, transparent 45%),
-                radial-gradient(circle at 82% 70%, rgba(56, 189, 248, 0.28) 0%, transparent 50%),
+                radial-gradient(circle at 16% 28%, rgba(250, 204, 21, 0.26) 0%, transparent 45%),
+                radial-gradient(circle at 84% 72%, rgba(56, 189, 248, 0.28) 0%, transparent 50%),
                 linear-gradient(135deg, #1b284d 0%, #101933 60%, #090f21 100%);
             border: 1.5px solid rgba(250, 204, 21, 0.48);
             color: #fef9c3;
@@ -168,19 +148,19 @@
             border-radius: 14px;
             box-shadow: 0 4px 16px rgba(15, 23, 42, 0.7), inset 0 0 12px rgba(250, 204, 21, 0.14);
             cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.15s ease, border-color 0.2s ease;
             overflow: hidden;
         }
-        .star-themed-btn::before {
+        .star-bg-btn::after {
             content: "✦ ✧";
             position: absolute;
-            right: 9px;
-            top: 3px;
+            right: 8px;
+            top: 2px;
             font-size: 9px;
-            color: rgba(254, 240, 138, 0.55);
+            color: rgba(254, 240, 138, 0.6);
             pointer-events: none;
         }
-        .star-themed-btn:active {
+        .star-bg-btn:active {
             transform: scale(0.96);
             border-color: #facc15;
         }
@@ -275,11 +255,11 @@
 
         .game-card.cases-style {
             background:
-                radial-gradient(circle at 50% 24%, rgba(232, 121, 249, 0.42) 0%, transparent 52%),
-                radial-gradient(circle at 22% 76%, rgba(56, 189, 248, 0.32) 0%, transparent 58%),
-                linear-gradient(155deg, #351869 0%, #16184a 55%, #070b21 100%);
-            border: 1.5px solid rgba(217, 70, 239, 0.68);
-            box-shadow: 0 8px 26px rgba(168, 85, 247, 0.32), inset 0 0 18px rgba(232, 121, 249, 0.16);
+                radial-gradient(circle at 50% 24%, rgba(232, 121, 249, 0.44) 0%, transparent 52%),
+                radial-gradient(circle at 22% 76%, rgba(56, 189, 248, 0.34) 0%, transparent 58%),
+                linear-gradient(155deg, #3b1775 0%, #16184a 55%, #070b21 100%);
+            border: 1.5px solid rgba(217, 70, 239, 0.72);
+            box-shadow: 0 8px 26px rgba(168, 85, 247, 0.34), inset 0 0 18px rgba(232, 121, 249, 0.18);
         }
 
         .game-card.squirrel-style {
@@ -325,30 +305,30 @@
             width: 100%;
         }
 
-        .card-star-pill {
+        .card-star-badge {
             font-size: 11px;
             padding: 3px 8px;
             border-radius: 999px;
-            background: rgba(15, 23, 42, 0.78);
-            border: 1px solid rgba(250, 204, 21, 0.45);
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid rgba(250, 204, 21, 0.5);
             color: #fef08a;
         }
 
         .crash-screen { text-align: center; }
 
-        /* Єдиний контейнер арени ракети + історія коефіцієнтів знизу під ракетою */
-        .rocket-shell {
+        /* Єдиний екран польоту ракети з приєднаною знизу смугою минулих коефіцієнтів */
+        .crash-screen-unified {
             margin: 8px 0 12px 0;
             background: #060b16;
             border-radius: 24px;
-            border: 1.5px solid rgba(56, 189, 248, 0.42);
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
             overflow: hidden;
             box-shadow: var(--accent-glow);
         }
 
         .rocket-container {
             position: relative;
-            height: 266px;
+            height: 256px;
             overflow: hidden;
         }
 
@@ -364,8 +344,8 @@
         .y-axis-labels {
             position: absolute;
             left: 10px;
-            top: 18px;
-            bottom: 18px;
+            top: 16px;
+            bottom: 16px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -376,11 +356,11 @@
         .y-label {
             font-size: 11px;
             font-weight: 800;
-            color: rgba(226, 232, 240, 0.85);
-            background: rgba(15, 23, 42, 0.72);
+            color: rgba(226, 232, 240, 0.88);
+            background: rgba(15, 23, 42, 0.75);
             padding: 2px 7px;
             border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.24);
+            border: 1px solid rgba(148, 163, 184, 0.26);
             font-family: 'Outfit', sans-serif;
         }
 
@@ -389,11 +369,11 @@
             z-index: 4;
             display: inline-block;
             margin-top: 16px;
-            background: rgba(11, 19, 36, 0.84);
-            border: 1.5px solid rgba(56, 189, 248, 0.48);
+            background: rgba(11, 19, 36, 0.85);
+            border: 1.5px solid rgba(56, 189, 248, 0.5);
             border-radius: 20px;
             padding: 8px 26px;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(56, 189, 248, 0.22);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(56, 189, 248, 0.24);
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .multiplier-pill.crashed {
@@ -402,7 +382,7 @@
         }
         .multiplier-pill.cashed {
             border-color: rgba(16, 185, 129, 0.85);
-            box-shadow: 0 8px 28px rgba(16, 185, 129, 0.35);
+            box-shadow: 0 8px 28px rgba(16, 185, 129, 0.36);
         }
         .multiplier {
             font-size: 44px;
@@ -422,14 +402,14 @@
             text-shadow: 0 0 20px rgba(16, 185, 129, 0.65);
         }
 
-        /* Минулі коефіцієнти нижче під самою ракетою (всередині блоку ракети) */
-        .history-bar-under {
+        /* Полоса минулих результатів приєднана всередині нижнього краю екрану ракети */
+        .history-strip-attached {
             display: flex;
             gap: 6px;
             overflow-x: auto;
             padding: 8px 10px;
-            background: linear-gradient(180deg, rgba(10, 17, 34, 0.96), rgba(6, 11, 22, 0.99));
-            border-top: 1px solid rgba(56, 189, 248, 0.22);
+            background: linear-gradient(180deg, rgba(11, 20, 42, 0.96), rgba(6, 11, 24, 1));
+            border-top: 1px solid rgba(56, 189, 248, 0.25);
             white-space: nowrap;
         }
         .history-chip {
@@ -469,11 +449,13 @@
         }
         .quick-btn {
             flex: 1;
+            position: relative;
+            overflow: hidden;
             background:
-                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.2), transparent 50%),
+                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.22), transparent 50%),
                 linear-gradient(145deg, #1d2947, #121a30);
             color: #fef9c3;
-            border: 1px solid rgba(250, 204, 21, 0.34);
+            border: 1px solid rgba(250, 204, 21, 0.36);
             padding: 8px 6px;
             border-radius: 10px;
             font-size: 13px;
@@ -502,18 +484,19 @@
 
         .btn-action {
             position: relative;
+            overflow: hidden;
             width: 100%;
             padding: 16px;
             font-size: 17px;
             border-radius: 14px;
-            border: 1.5px solid rgba(254, 240, 138, 0.48);
+            border: 1.5px solid rgba(254, 240, 138, 0.5);
             outline: none;
             box-sizing: border-box;
             margin-top: 12px;
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
             background:
-                radial-gradient(circle at 18% 25%, rgba(255, 255, 255, 0.34) 0%, transparent 45%),
+                radial-gradient(circle at 18% 25%, rgba(255, 255, 255, 0.36) 0%, transparent 45%),
                 linear-gradient(135deg, var(--accent-color), #38bdf8);
             color: #070d1a;
             cursor: pointer;
@@ -521,22 +504,36 @@
             text-transform: uppercase;
             transition: all 0.2s ease;
         }
+        .btn-action::after {
+            content: "✦ ✧";
+            position: absolute;
+            right: 12px;
+            top: 4px;
+            font-size: 10px;
+            color: rgba(7, 13, 26, 0.55);
+            pointer-events: none;
+        }
         .btn-action:active { opacity: 0.85; transform: scale(0.98); }
         .btn-cashout {
             background:
-                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.28) 0%, transparent 45%),
+                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.3), transparent 45%),
                 linear-gradient(135deg, #10b981, #059669);
             color: #fff;
             border-color: rgba(250, 204, 21, 0.55);
             box-shadow: 0 4px 20px rgba(16,185,129,0.5);
         }
+        .btn-cashout::after {
+            color: rgba(254, 249, 195, 0.65);
+        }
 
         .btn-secondary {
+            position: relative;
+            overflow: hidden;
             width: 100%;
             padding: 13px;
             font-size: 14px;
             border-radius: 12px;
-            border: 1px solid rgba(250, 204, 21, 0.32);
+            border: 1px solid rgba(250, 204, 21, 0.34);
             outline: none;
             box-sizing: border-box;
             margin-top: 8px;
@@ -566,9 +563,9 @@
             position: relative;
             border-radius: 22px;
             overflow: hidden;
-            border: 1.5px solid rgba(165, 180, 252, 0.55);
-            background: #06091c;
-            box-shadow: 0 10px 30px rgba(30, 27, 75, 0.7), 0 0 24px rgba(99, 102, 241, 0.25);
+            border: 1.5px solid rgba(165, 180, 252, 0.58);
+            background: #050819;
+            box-shadow: 0 10px 30px rgba(30, 27, 75, 0.72), 0 0 24px rgba(99, 102, 241, 0.26);
         }
         #squirrelRoadCanvas {
             display: block;
@@ -597,12 +594,13 @@
         }
         .sq-panel {
             background:
-                radial-gradient(circle at 85% 15%, rgba(250, 204, 21, 0.14), transparent 45%),
+                radial-gradient(circle at 85% 15%, rgba(250, 204, 21, 0.16), transparent 45%),
+                radial-gradient(circle at 15% 85%, rgba(99, 102, 241, 0.18), transparent 50%),
                 linear-gradient(160deg, #141a38, #0b0f24);
             border-radius: 22px;
             padding: 12px;
             margin-top: 10px;
-            border: 1px solid rgba(129, 140, 248, 0.28);
+            border: 1px solid rgba(129, 140, 248, 0.3);
             box-shadow: 0 8px 24px rgba(0,0,0,0.45);
         }
         .sq-bet-row {
@@ -611,7 +609,7 @@
             background: #1a2142;
             border-radius: 14px;
             padding: 6px 8px;
-            border: 1px solid rgba(250, 204, 21, 0.28);
+            border: 1px solid rgba(250, 204, 21, 0.3);
             gap: 6px;
         }
         .sq-bet-star {
@@ -631,11 +629,13 @@
             min-width: 0;
         }
         .sq-mini-btn {
+            position: relative;
+            overflow: hidden;
             background:
-                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.25), transparent 55%),
+                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.26), transparent 55%),
                 linear-gradient(145deg, #2b366b, #1a2145);
             color: #fef08a;
-            border: 1px solid rgba(250, 204, 21, 0.35);
+            border: 1px solid rgba(250, 204, 21, 0.38);
             border-radius: 10px;
             padding: 8px 10px;
             font-size: 12px;
@@ -652,14 +652,16 @@
             margin-top: 10px;
         }
         .sq-diff-pill {
+            position: relative;
+            overflow: hidden;
             background:
-                radial-gradient(circle at 80% 20%, rgba(250, 204, 21, 0.14), transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(250, 204, 21, 0.16), transparent 50%),
                 linear-gradient(145deg, #1d254a, #131833);
             color: #cbd5e1;
-            border: 1px solid rgba(129, 140, 248, 0.22);
+            border: 1px solid rgba(129, 140, 248, 0.24);
             border-radius: 12px;
             padding: 10px 4px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
@@ -668,7 +670,7 @@
         }
         .sq-diff-pill.active {
             background:
-                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.28), transparent 55%),
+                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.3), transparent 55%),
                 linear-gradient(135deg, #4338ca, #6d28d9);
             color: #fef9c3;
             border-color: #facc15;
@@ -676,13 +678,15 @@
         }
 
         .sq-start-btn {
+            position: relative;
+            overflow: hidden;
             width: 100%;
             margin-top: 10px;
             padding: 15px;
-            border: 1.5px solid rgba(250, 204, 21, 0.52);
+            border: 1.5px solid rgba(250, 204, 21, 0.55);
             border-radius: 15px;
             background:
-                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.28), transparent 45%),
+                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.3), transparent 45%),
                 linear-gradient(135deg, #4f46e5, #7c3aed, #2563eb);
             color: #ffffff;
             font-size: 16px;
@@ -690,6 +694,15 @@
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
             box-shadow: 0 6px 22px rgba(79, 70, 229, 0.55);
+        }
+        .sq-start-btn::after {
+            content: "✦ ✧";
+            position: absolute;
+            right: 12px;
+            top: 4px;
+            font-size: 10px;
+            color: rgba(254, 249, 195, 0.65);
+            pointer-events: none;
         }
         .sq-start-btn:active { transform: scale(0.98); }
 
@@ -700,11 +713,13 @@
             margin-top: 10px;
         }
         .sq-collect-btn {
+            position: relative;
+            overflow: hidden;
             padding: 15px 10px;
             border: 1.5px solid rgba(250, 204, 21, 0.55);
             border-radius: 15px;
             background:
-                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.28), transparent 45%),
+                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.3), transparent 45%),
                 linear-gradient(135deg, #10b981, #059669);
             color: #ffffff;
             font-size: 15px;
@@ -718,11 +733,13 @@
             cursor: not-allowed;
         }
         .sq-step-btn {
+            position: relative;
+            overflow: hidden;
             padding: 15px 10px;
-            border: 1.5px solid rgba(250, 204, 21, 0.48);
+            border: 1.5px solid rgba(250, 204, 21, 0.5);
             border-radius: 15px;
             background:
-                radial-gradient(circle at 80% 25%, rgba(250, 204, 21, 0.26), transparent 50%),
+                radial-gradient(circle at 80% 25%, rgba(250, 204, 21, 0.28), transparent 50%),
                 linear-gradient(135deg, #312e81, #1e1b4b);
             color: #fef08a;
             font-size: 15px;
@@ -768,14 +785,15 @@
         .case-details {
             position: relative;
             background:
-                radial-gradient(circle at 50% 0%, rgba(217, 70, 239, 0.30), transparent 58%),
-                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.18), transparent 50%),
+                radial-gradient(circle at 50% 0%, rgba(217, 70, 239, 0.34), transparent 58%),
+                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.22), transparent 50%),
+                radial-gradient(circle at 88% 72%, rgba(250, 204, 21, 0.16), transparent 48%),
                 var(--header-bg);
             border-radius: 24px;
             padding: 20px;
             text-align: center;
-            border: 1.5px solid rgba(217, 70, 239, 0.52);
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.25);
+            border: 1.5px solid rgba(217, 70, 239, 0.58);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.28);
         }
         .gift-badge-art {
             width: 184px;
@@ -783,9 +801,9 @@
             margin: 0 auto 14px auto;
             border-radius: 22px;
             overflow: hidden;
-            border: 1.5px solid rgba(250, 204, 21, 0.55);
-            box-shadow: 0 0 28px rgba(168, 85, 247, 0.5);
-            background: radial-gradient(circle at 50% 45%, #2e1065, #0f172a);
+            border: 1.5px solid rgba(250, 204, 21, 0.58);
+            box-shadow: 0 0 28px rgba(168, 85, 247, 0.52);
+            background: radial-gradient(circle at 50% 45%, #3b0764, #0f172a);
         }
 
         .roulette-wrapper {
@@ -964,19 +982,18 @@
 </head>
 <body id="appBody">
 
-    <!-- Прикольний екран запуску / пробудження після сну сервера -->
-    <div id="bootScreen">
-        <div class="boot-stars-bg"></div>
-        <div class="boot-orbit">
-            <div class="boot-orbit-inner">🚀</div>
+    <!-- Екран пробудження після сну бота / сервера -->
+    <div id="wakeupSplash">
+        <div class="wakeup-ring">
+            <div class="wakeup-core">🚀</div>
         </div>
-        <div class="boot-logo">allDep</div>
-        <div class="boot-status" id="bootStatusText">✨ Прогреваем звездные двигатели...</div>
-        <div class="boot-bar-wrap">
-            <div class="boot-bar-fill" id="bootBarFill"></div>
+        <div class="wakeup-title">allDep</div>
+        <div class="wakeup-msg" id="wakeupMsgText">⚡ Бот просыпается... запускаем турбины ⭐</div>
+        <div class="wakeup-progress">
+            <div class="wakeup-progress-bar" id="wakeupBar"></div>
         </div>
-        <button class="star-themed-btn" style="margin-top: 18px; padding: 9px 18px; font-size: 13px;" onclick="finishBootImmediately()">
-            Войти в космос ⭐
+        <button class="star-bg-btn" style="margin-top: 18px; padding: 9px 18px; font-size: 13px;" onclick="closeWakeupSplash()">
+            Запустить сейчас ⭐
         </button>
     </div>
 
@@ -1018,7 +1035,7 @@
                 </svg>
                 <div class="game-title-text">
                     <span>Краш</span>
-                    <span class="card-star-pill">3D ⭐</span>
+                    <span class="card-star-badge">3D ⭐</span>
                 </div>
             </div>
 
@@ -1034,7 +1051,7 @@
                 <div class="cases-chest-card-art" id="mainCaseCardArt"></div>
                 <div class="game-title-text">
                     <span>Кейсы</span>
-                    <span class="card-star-pill">NFT ⭐</span>
+                    <span class="card-star-badge">NFT ⭐</span>
                 </div>
             </div>
 
@@ -1056,7 +1073,7 @@
                 </svg>
                 <div class="game-title-text">
                     <span>Белочка</span>
-                    <span class="card-star-pill">Космо ⭐</span>
+                    <span class="card-star-badge">Космо ⭐</span>
                 </div>
             </div>
         </div>
@@ -1064,8 +1081,8 @@
 
     <div id="screen-squirrel" class="screen">
         <div class="sq-top-bar">
-            <button class="star-themed-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
-            <button class="star-themed-btn sq-nav-btn" onclick="openSquirrelInfoModal()">✨ Правила ⭐</button>
+            <button class="star-bg-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
+            <button class="star-bg-btn sq-nav-btn" onclick="openSquirrelInfoModal()">✨ Правила ⭐</button>
         </div>
 
         <div class="sq-stage">
@@ -1087,7 +1104,7 @@
                     <button class="sq-diff-pill active" id="sqDiff-easy" onclick="selectSqDifficulty('easy')">Лёгкий ⭐</button>
                     <button class="sq-diff-pill" id="sqDiff-medium" onclick="selectSqDifficulty('medium')">Средний ⭐</button>
                     <button class="sq-diff-pill" id="sqDiff-hard" onclick="selectSqDifficulty('hard')">Тяжёлый ⭐</button>
-                    <button class="sq-diff-pill" id="sqDiff-impossible" onclick="selectSqDifficulty('impossible')">Невозможный ⭐</button>
+                    <button class="sq-diff-pill" id="sqDiff-impossible" onclick="selectSqDifficulty('impossible')">Невозмож. ⭐</button>
                 </div>
 
                 <button class="sq-start-btn" onclick="startSquirrelGame()">🚀 Начать игру ⭐</button>
@@ -1104,8 +1121,8 @@
 
     <div id="screen-cases-list" class="screen">
         <div class="sq-top-bar">
-            <button class="star-themed-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
-            <span class="star-themed-btn sq-nav-btn">✨ Кейсы ⭐</span>
+            <button class="star-bg-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
+            <span class="star-bg-btn sq-nav-btn">✨ Кейсы ⭐</span>
         </div>
         <div class="main-title">Кейсы</div>
         <div class="games-grid">
@@ -1118,8 +1135,8 @@
 
     <div id="screen-free-case-detail" class="screen">
         <div class="sq-top-bar">
-            <button class="star-themed-btn sq-nav-btn" onclick="switchScreen('cases-list')">← К кейсам ⭐</button>
-            <span class="star-themed-btn sq-nav-btn">🎁 Подарки ⭐</span>
+            <button class="star-bg-btn sq-nav-btn" onclick="switchScreen('cases-list')">← К кейсам ⭐</button>
+            <span class="star-bg-btn sq-nav-btn">🎁 Подарки ⭐</span>
         </div>
         <div class="case-details">
             <div class="gift-badge-art" id="detailCaseBannerArt"></div>
@@ -1211,7 +1228,7 @@
             <div style="font-size: 13px; color: var(--text-muted); line-height: 1.55; text-align: left; margin-bottom: 14px;">
                 • Каждый шаг вперёд по космо-трассе увеличивает множитель и выигрыш в звёздах.<br><br>
                 • Забрать выигрыш можно в любой момент кнопкой <b>«Забрать ⭐»</b>.<br><br>
-                • Машины двигаются волнами и с разной скоростью: можно пройти далеко, если ловить окна, но попасть под машину легко!
+                • Поток движется волнами с быстрыми вспышками: выходить в плюс реально, если вовремя ловить момент и не лезть в плотный поток.
             </div>
             <button class="btn-action" onclick="document.getElementById('sqInfoModal').style.display='none'">ПОНЯТНО ⭐</button>
         </div>
@@ -1219,13 +1236,14 @@
 
     <div id="screen-crash" class="screen crash-screen">
         <div class="sq-top-bar">
-            <button class="star-themed-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
-            <span class="star-themed-btn sq-nav-btn">🚀 3D Краш ⭐</span>
+            <button class="star-bg-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
+            <span class="star-bg-btn sq-nav-btn">🚀 3D Краш ⭐</span>
         </div>
 
         <div style="font-size: 14px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;" id="crashStatus">Ожидание ставки (7с)</div>
 
-        <div class="rocket-shell">
+        <!-- Єдиний екран польоту ракети з приєднаною знизу смугою минулих результатів -->
+        <div class="crash-screen-unified">
             <div class="rocket-container" id="rocketArena">
                 <canvas id="crashCanvas"></canvas>
 
@@ -1242,8 +1260,7 @@
                 </div>
             </div>
 
-            <!-- Коефіцієнти минулих раундів нижче під самою ракетою -->
-            <div class="history-bar-under" id="historyBar"></div>
+            <div class="history-strip-attached" id="historyBar"></div>
         </div>
 
         <div class="bets-list" id="betsList">
@@ -1283,43 +1300,42 @@
                 try { tg.expand(); } catch (e) {}
             }
 
-            // Фоновий keep-alive пінг, щоб безкоштовний інстанс рідше засинав
+            // Легкий keep-alive для зменшення засинання хостингу
             setInterval(function() {
                 try { fetch(window.location.href, { method: 'HEAD', cache: 'no-store' }).catch(function() {}); } catch (e) {}
             }, 240000);
 
-            // Анімація запуску при пробудженні
-            const bootPhrases = [
-                "✨ Прогреваем звездные двигатели...",
-                "🚀 Калибруем 3D-ракету и трассу белочки...",
-                "🎁 Загружаем звездные кейсы...",
-                "⭐ Готово к взлету!"
+            // Екран запуску / пробудження після сну
+            const wakeupSteps = [
+                "⚡ Бот просыпается... запускаем турбины ⭐",
+                "🌌 Загружаем космо-трассу и 3D-ракету ⭐",
+                "🎁 Готовим кейсы и комнату игроков ⭐"
             ];
-            let bootStep = 0;
-            const bootStatusEl = document.getElementById('bootStatusText');
-            const bootBarEl = document.getElementById('bootBarFill');
-            const bootTimer = setInterval(function() {
-                bootStep++;
-                if (bootStep < bootPhrases.length) {
-                    if (bootStatusEl) bootStatusEl.innerText = bootPhrases[bootStep];
-                    if (bootBarEl) bootBarEl.style.width = ((bootStep + 1) * 25) + '%';
+            let wakeIdx = 0;
+            const wakeMsgEl = document.getElementById('wakeupMsgText');
+            const wakeBarEl = document.getElementById('wakeupBar');
+            const wakeTimer = setInterval(function() {
+                wakeIdx++;
+                if (wakeIdx < wakeupSteps.length) {
+                    if (wakeMsgEl) wakeMsgEl.innerText = wakeupSteps[wakeIdx];
+                    if (wakeBarEl) wakeBarEl.style.width = ((wakeIdx + 1) * 33) + '%';
                 } else {
-                    window.finishBootImmediately();
+                    window.closeWakeupSplash();
                 }
             }, 420);
 
-            window.finishBootImmediately = function() {
-                clearInterval(bootTimer);
-                if (bootBarEl) bootBarEl.style.width = '100%';
-                const scr = document.getElementById('bootScreen');
-                if (scr) scr.classList.add('hidden');
+            window.closeWakeupSplash = function() {
+                clearInterval(wakeTimer);
+                if (wakeBarEl) wakeBarEl.style.width = '100%';
+                const el = document.getElementById('wakeupSplash');
+                if (el) el.classList.add('hidden');
             };
 
             const userId = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id)
                 ? tg.initDataUnsafe.user.id
-                : 'user_v8_default';
-            const balanceKey = 'allDep_balance_v8_' + userId;
-            const inventoryKey = 'allDep_inventory_v8_' + userId;
+                : 'user_v9_default';
+            const balanceKey = 'allDep_balance_v9_' + userId;
+            const inventoryKey = 'allDep_inventory_v9_' + userId;
 
             function safeGetStorage(key) {
                 try { return localStorage.getItem(key); } catch (e) { return null; }
@@ -1348,12 +1364,11 @@
             let multiplier = 1.00;
             let targetCrashPoint = 2.00;
             let flightStartTime = 0;
-            let crashAnimFrame = null;
-            let botFeedInterval = null;
-            let roundTimerInterval = null;
             let isSpinningCase = false;
             let roundBots = [];
             let lastRoundBotNames = new Set();
+            let botFeedInterval = null;
+            let roundTimerInterval = null;
 
             let crashState = 'waiting'; // waiting | flying | crashed
             let canvasStars = [];
@@ -1391,35 +1406,32 @@
                 return `
                 <svg viewBox="0 0 240 200" style="width:100%;height:100%;display:block;">
                     <defs>
-                        <radialGradient id="chestInnerGlow" cx="50%" cy="46%" r="54%">
+                        <radialGradient id="chestGlowV9" cx="50%" cy="46%" r="54%">
                             <stop offset="0%" stop-color="#ffffff"/>
                             <stop offset="28%" stop-color="#fae8ff"/>
                             <stop offset="68%" stop-color="#c026d3" stop-opacity="0.52"/>
                             <stop offset="100%" stop-color="#7e22ce" stop-opacity="0"/>
                         </radialGradient>
-                        <linearGradient id="chestGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <linearGradient id="chestGoldV9" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#fef08a"/>
                             <stop offset="50%" stop-color="#f59e0b"/>
                             <stop offset="100%" stop-color="#b45309"/>
                         </linearGradient>
-                        <linearGradient id="chestPurple" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <linearGradient id="chestPurpleV9" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stop-color="#9333ea"/>
                             <stop offset="55%" stop-color="#4f46e5"/>
                             <stop offset="100%" stop-color="#1e1b4b"/>
                         </linearGradient>
                     </defs>
-                    <circle cx="120" cy="90" r="80" fill="url(#chestInnerGlow)"/>
+                    <circle cx="120" cy="90" r="80" fill="url(#chestGlowV9)"/>
                     <path d="M44 76 C42 32, 198 32, 196 76 L180 90 L60 90 Z" fill="#311042" stroke="#facc15" stroke-width="2.5"/>
-                    <path d="M52 74 C52 40, 188 40, 188 74 L174 84 L66 84 Z" fill="url(#chestPurple)"/>
-                    <rect x="40" y="88" width="160" height="80" rx="18" fill="url(#chestPurple)" stroke="#facc15" stroke-width="2.5"/>
-                    <rect x="40" y="88" width="22" height="80" rx="10" fill="url(#chestGold)"/>
-                    <rect x="178" y="88" width="22" height="80" rx="10" fill="url(#chestGold)"/>
-                    <rect x="36" y="146" width="168" height="22" rx="10" fill="url(#chestGold)"/>
+                    <path d="M52 74 C52 40, 188 40, 188 74 L174 84 L66 84 Z" fill="url(#chestPurpleV9)"/>
+                    <rect x="40" y="88" width="160" height="80" rx="18" fill="url(#chestPurpleV9)" stroke="#facc15" stroke-width="2.5"/>
+                    <rect x="40" y="88" width="22" height="80" rx="10" fill="url(#chestGoldV9)"/>
+                    <rect x="178" y="88" width="22" height="80" rx="10" fill="url(#chestGoldV9)"/>
+                    <rect x="36" y="146" width="168" height="22" rx="10" fill="url(#chestGoldV9)"/>
                     <rect x="95" y="104" width="50" height="42" rx="10" fill="#1e1b4b" stroke="#fef08a" stroke-width="2.4"/>
                     <text x="120" y="131" text-anchor="middle" font-size="22">⭐</text>
-                    <circle cx="48" cy="24" r="2.5" fill="#fef08a"/>
-                    <circle cx="192" cy="28" r="2.5" fill="#38bdf8"/>
-                    <circle cx="120" cy="18" r="3" fill="#ffffff"/>
                 </svg>`;
             }
 
@@ -1461,7 +1473,6 @@
 
             let crashHistory = ["1.41x", "6.11x", "4.63x", "22.91x", "3.10x", "9.19x", "2.84x", "1.88x"];
 
-            // Розширений список різних ботів (частина з аватарками, частина без аватарки)
             const fakeUsers = [
                 { name: "playboi carti", avatar: "https://i.pravatar.cc/100?img=12", noAvatar: false, bg: "#2563eb" },
                 { name: "vortex", avatar: "https://i.pravatar.cc/100?img=32", noAvatar: false, bg: "#7c3aed" },
@@ -1704,10 +1715,10 @@
 
             function initStars() {
                 canvasStars = [];
-                for (let i = 0; i < 88; i++) {
+                for (let i = 0; i < 90; i++) {
                     canvasStars.push({
                         x: Math.random() * 420,
-                        y: Math.random() * 280,
+                        y: Math.random() * 270,
                         r: Math.random() * 2 + 0.5,
                         speed: Math.random() * 1.1 + 0.35,
                         alpha: Math.random() * 0.75 + 0.25,
@@ -1731,7 +1742,7 @@
                 return maxScale;
             }
 
-            // Нова 3D-модель ракети з 3D-обертанням навколо своєї осі під час польоту
+            // 3D-модель ракети з 3D-обертанням навколо своєї осі під час польоту
             function draw3DRocket(ctx, x, y, tiltAngle, time, isFlying) {
                 ctx.save();
                 const bobX = Math.sin(time * 0.0045) * 3;
@@ -1739,14 +1750,12 @@
                 ctx.translate(x + bobX, y + bobY);
                 ctx.rotate(tiltAngle);
 
-                // Кут 3D-обертання навколо поздовжньої осі ракети
-                const rollAngle = isFlying ? (time * 0.0048) : (time * 0.0014);
+                const rollAngle = isFlying ? (time * 0.0052) : (time * 0.0014);
                 const cosR = Math.cos(rollAngle);
                 const sinR = Math.sin(rollAngle);
 
-                // Космічне світіння навколо 3D-ракети
                 const aura = ctx.createRadialGradient(0, 2, 6, 0, 2, 64);
-                aura.addColorStop(0, 'rgba(56, 189, 248, 0.48)');
+                aura.addColorStop(0, 'rgba(56, 189, 248, 0.5)');
                 aura.addColorStop(0.55, 'rgba(129, 140, 248, 0.16)');
                 aura.addColorStop(1, 'rgba(37, 99, 235, 0)');
                 ctx.fillStyle = aura;
@@ -1754,7 +1763,6 @@
                 ctx.arc(0, 2, 64, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Реактивний факел
                 const flicker = Math.sin(time * 0.06) * 6 + Math.random() * 4;
                 const flameLen = (isFlying ? 44 : 24) + flicker;
                 const flameGrad = ctx.createLinearGradient(0, 22, 0, 22 + flameLen);
@@ -1769,17 +1777,15 @@
                 ctx.closePath();
                 ctx.fill();
 
-                // 3D-крила (4 стабілізатори по колу 90°, які обертаються в перспективі)
                 const fins = [0, Math.PI * 0.5, Math.PI, Math.PI * 1.5];
                 const sortedFins = fins.map(function(baseA) {
                     const a = rollAngle + baseA;
                     return { xFactor: Math.cos(a), depth: Math.sin(a) };
                 }).sort(function(a, b) { return a.depth - b.depth; });
 
-                // Малюємо задні крила (depth < 0)
                 sortedFins.forEach(function(f) {
                     if (f.depth >= 0) return;
-                    const tipX = f.xFactor * 27;
+                    const tipX = f.xFactor * 28;
                     const rootX = f.xFactor * 11;
                     ctx.fillStyle = '#1e3a8a';
                     ctx.beginPath();
@@ -1790,7 +1796,6 @@
                     ctx.fill();
                 });
 
-                // 3D-циліндричний корпус зі світлотіньовим градієнтом
                 const lightShift = sinR * 12;
                 const bodyGrad = ctx.createLinearGradient(-18 + lightShift, -20, 18 + lightShift, 18);
                 bodyGrad.addColorStop(0, '#94a3b8');
@@ -1807,7 +1812,6 @@
                 ctx.closePath();
                 ctx.fill();
 
-                // Червоний 3D-обтічник носа
                 ctx.save();
                 ctx.clip();
                 const noseGrad = ctx.createLinearGradient(-16 + lightShift * 0.6, -38, 16, -15);
@@ -1816,19 +1820,15 @@
                 noseGrad.addColorStop(1, '#7f1d1d');
                 ctx.fillStyle = noseGrad;
                 ctx.fillRect(-24, -42, 48, 24);
-
-                // Металеве кільце стику
                 ctx.fillStyle = '#0f172a';
                 ctx.fillRect(-24, -19, 48, 3.2);
                 ctx.restore();
 
-                // Нижнє сопло 3D
                 ctx.fillStyle = '#1e293b';
                 ctx.beginPath();
                 ctx.roundRect(-9, 20, 18, 5, 2);
                 ctx.fill();
 
-                // 3D-ілюмінатор, що обертається по колу корпусу
                 if (cosR > -0.35) {
                     const winX = sinR * 11.5;
                     const winScaleX = Math.max(0.22, cosR);
@@ -1853,7 +1853,6 @@
                     ctx.restore();
                 }
 
-                // Малюємо передні 3D-крила (depth >= 0)
                 sortedFins.forEach(function(f) {
                     if (f.depth < 0) return;
                     const tipX = f.xFactor * 28;
@@ -1877,7 +1876,7 @@
                 const box = document.getElementById('rocketArena');
                 if (!box) return;
                 const w = box.offsetWidth || 340;
-                const h = box.offsetHeight || 266;
+                const h = box.offsetHeight || 256;
                 if (canvas.width === 0) resizeCrashCanvas();
 
                 ctx.clearRect(0, 0, w, h);
@@ -1905,8 +1904,8 @@
                 });
                 ctx.globalAlpha = 1;
 
-                const startX = 56;
-                const startY = h - 30;
+                const startX = 64;
+                const startY = h - 28;
 
                 if (crashState === 'waiting') {
                     const rx = startX + 24;
@@ -1922,7 +1921,6 @@
 
                     draw3DRocket(ctx, rx, ry, 0.55, time, false);
                 } else if (crashState === 'flying') {
-                    // Єдиний синхронізований розрахунок множника та позиції ракети
                     const elapsedSec = Math.max(0, (performance.now() - flightStartTime) / 1000);
                     multiplier = parseFloat((1 + elapsedSec * 0.42 + Math.pow(elapsedSec, 1.32) * 0.085).toFixed(2));
                     document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
@@ -1935,7 +1933,7 @@
                     const normProgress = Math.min(1, Math.max(0.03, (multiplier - 1) / (maxScale - 1)));
 
                     const usableW = Math.max(100, w - 125);
-                    const usableH = Math.max(85, h - 104);
+                    const usableH = Math.max(82, h - 102);
                     const endX = startX + normProgress * usableW;
                     const endY = startY - normProgress * usableH;
                     const ctrlX = startX + (endX - startX) * 0.55;
@@ -2018,7 +2016,7 @@
                     ctx.globalAlpha = 1;
                 }
 
-                crashAnimFrame = requestAnimationFrame(renderCrashScene);
+                requestAnimationFrame(renderCrashScene);
             }
 
             function triggerExplosionEffect() {
@@ -2250,7 +2248,7 @@
                 btn.innerText = `Забрать (${formatStars(potentialWin)} ⭐)`;
             }
 
-            // Після забору ставки ракета ПРОДОВЖУЄ летіти, щоб гравець бачив, коли вона зірветься!
+            // Після забору виграшу ракета летить далі до моменту вибуху
             window.cashOut = function() {
                 if (!hasBetThisRound || cashedOutThisRound || crashState !== 'flying') return;
                 cashedOutThisRound = true;
@@ -2303,54 +2301,54 @@
                 setTimeout(runWaitingPhase, 3400);
             }
 
-            /* ================= КОСМО-БІЛОЧКА (ЯК У ПРИКЛАДІ RUBUP) ================= */
+            /* ================= КОСМО-БІЛОЧКА (НОВИЙ РУШІЙ ТА РЕАЛІСТИЧНИЙ ПОТІК) ================= */
             const sqCanvas = document.getElementById('squirrelRoadCanvas');
             const sqCtx = sqCanvas.getContext('2d');
 
             const SQ_CONFIGS = {
                 easy: {
-                    label: 'Лёгкий',
                     multipliers: [1.08, 1.22, 1.38, 1.57, 1.79, 2.06, 2.38, 2.78, 3.28, 3.92],
-                    baseSpeed: 155,
-                    ultraFastSpeed: 365,
-                    ultraFastChance: 0.14,
-                    doublePairChance: 0.36,
-                    burstGap: 0.50,
-                    waveGapMin: 1.75,
-                    waveGapMax: 3.10
+                    baseSpeed: 165,
+                    fastSpeed: 370,
+                    fastChance: 0.16,
+                    burstChance: 0.34,
+                    burstGap: 0.52,
+                    gapMin: 1.70,
+                    gapMax: 3.05,
+                    hitChance: 0.16
                 },
                 medium: {
-                    label: 'Средний',
                     multipliers: [1.22, 1.50, 1.88, 2.38, 3.05, 3.95, 5.15, 6.80, 9.10, 12.50],
-                    baseSpeed: 210,
-                    ultraFastSpeed: 470,
-                    ultraFastChance: 0.22,
-                    doublePairChance: 0.46,
-                    burstGap: 0.44,
-                    waveGapMin: 1.35,
-                    waveGapMax: 2.50
+                    baseSpeed: 220,
+                    fastSpeed: 475,
+                    fastChance: 0.24,
+                    burstChance: 0.44,
+                    burstGap: 0.45,
+                    gapMin: 1.35,
+                    gapMax: 2.45,
+                    hitChance: 0.28
                 },
                 hard: {
-                    label: 'Тяжёлый',
                     multipliers: [1.45, 2.15, 3.25, 4.95, 7.65, 12.10, 19.50, 31.80, 52.00, 88.00],
-                    baseSpeed: 280,
-                    ultraFastSpeed: 590,
-                    ultraFastChance: 0.32,
-                    doublePairChance: 0.54,
+                    baseSpeed: 285,
+                    fastSpeed: 595,
+                    fastChance: 0.34,
+                    burstChance: 0.54,
                     burstGap: 0.38,
-                    waveGapMin: 1.05,
-                    waveGapMax: 2.00
+                    gapMin: 1.05,
+                    gapMax: 1.95,
+                    hitChance: 0.42
                 },
                 impossible: {
-                    label: 'Невозможный',
                     multipliers: [1.95, 3.90, 8.20, 17.50, 38.00, 85.00, 195.00, 450.00, 1050.00, 2500.00],
-                    baseSpeed: 355,
-                    ultraFastSpeed: 720,
-                    ultraFastChance: 0.44,
-                    doublePairChance: 0.64,
+                    baseSpeed: 360,
+                    fastSpeed: 725,
+                    fastChance: 0.46,
+                    burstChance: 0.64,
                     burstGap: 0.33,
-                    waveGapMin: 0.80,
-                    waveGapMax: 1.55
+                    gapMin: 0.80,
+                    gapMax: 1.50,
+                    hitChance: 0.62
                 }
             };
 
@@ -2437,26 +2435,27 @@
                 return Math.floor(base * getSqMultiplier(step));
             }
 
-            function spawnLaneCar(lane, forceUltraFast) {
+            function spawnLaneVehicle(lane, forceFast, forceNearHit) {
                 const cfg = SQ_CONFIGS[sqDiff];
-                const isUltraFast = Boolean(forceUltraFast) || (Math.random() < cfg.ultraFastChance);
-                const carStyles = isUltraFast
+                const isFast = Boolean(forceFast) || (Math.random() < cfg.fastChance);
+                const styles = isFast
                     ? [
-                        { body: '#ef4444', roof: '#991b1b', stripe: '#fef08a', fast: true },
-                        { body: '#f59e0b', roof: '#b45309', stripe: '#ffffff', fast: true }
+                        { body: '#ef4444', roof: '#991b1b', fast: true },
+                        { body: '#f59e0b', roof: '#b45309', fast: true }
                       ]
                     : [
-                        { body: '#f8fafc', roof: '#cbd5e1', stripe: '#38bdf8', fast: false },
-                        { body: '#3b82f6', roof: '#1d4ed8', stripe: '#93c5fd', fast: false },
-                        { body: '#8b5cf6', roof: '#5b21b6', stripe: '#ddd6fe', fast: false }
+                        { body: '#f8fafc', roof: '#cbd5e1', fast: false },
+                        { body: '#3b82f6', roof: '#1d4ed8', fast: false },
+                        { body: '#8b5cf6', roof: '#5b21b6', fast: false }
                       ];
-                const st = carStyles[Math.floor(Math.random() * carStyles.length)];
-                const speedJitter = (Math.random() - 0.5) * 26;
+                const st = styles[Math.floor(Math.random() * styles.length)];
+                const speedJitter = (Math.random() - 0.5) * 24;
+                const startY = forceNearHit ? 156 : -58;
                 lane.cars.push({
-                    y: -58,
+                    y: startY,
                     w: 44,
-                    h: isUltraFast ? 66 : 74,
-                    speed: (isUltraFast ? cfg.ultraFastSpeed : cfg.baseSpeed) + speedJitter,
+                    h: isFast ? 66 : 74,
+                    speed: (isFast ? cfg.fastSpeed : cfg.baseSpeed) + speedJitter,
                     style: st
                 });
             }
@@ -2468,7 +2467,7 @@
                         step: step,
                         blocked: false,
                         burstRemaining: 0,
-                        spawnTimer: 0.25 + Math.random() * 1.6,
+                        spawnTimer: 0.25 + Math.random() * 1.5,
                         cars: []
                     });
                 }
@@ -2517,7 +2516,7 @@
 
                 const strip = document.getElementById('sqStatusStrip');
                 strip.className = 'sq-status-strip';
-                strip.innerText = '🌌 Космо-белочка на старте! Лови окно и жми «→ Шаг ⭐»';
+                strip.innerText = '🌌 Космо-белочка на старте! Лови просвет и жми «→ Шаг ⭐»';
             };
 
             function triggerSquirrelLose() {
@@ -2531,6 +2530,7 @@
                 strip.innerText = `💥 Белочку сбило! Проигрыш -${formatStars(sqBet)} ⭐`;
             }
 
+            // Неочевидна логіка кроку: можна вигравати й іти далі, але без гарантованого "авто-проходу"
             window.stepSquirrelForward = function() {
                 if (!sqPlaying) return;
                 if (sqCurrentStep >= SQ_STEPS_TOTAL) {
@@ -2538,7 +2538,6 @@
                     return;
                 }
 
-                // На пройденій смузі ставимо захисний бар'єр, як у прикладі RubUp
                 if (sqCurrentStep >= 1) {
                     const prevLane = sqRoadLanes[sqCurrentStep - 1];
                     if (prevLane) prevLane.blocked = true;
@@ -2547,12 +2546,18 @@
                 sqCurrentStep++;
                 sqHopProgress = 1;
 
+                const cfg = SQ_CONFIGS[sqDiff];
                 const lane = sqRoadLanes[sqCurrentStep - 1];
                 const squirrelY = 232;
 
-                const hit = lane && lane.cars.find(function(c) {
+                let hit = lane && lane.cars.find(function(c) {
                     return Math.abs(c.y - squirrelY) < (c.h * 0.45 + 15);
                 });
+
+                if (!hit && lane && Math.random() < cfg.hitChance) {
+                    spawnLaneVehicle(lane, Math.random() < 0.5, true);
+                    hit = lane.cars[lane.cars.length - 1];
+                }
 
                 if (hit) {
                     triggerSquirrelLose();
@@ -2618,18 +2623,18 @@
                             const hasSpawnOverlap = lane.cars.some(function(c) { return c.y < 32; });
                             if (!hasSpawnOverlap) {
                                 const isFastShot = lane.burstRemaining > 0 && Math.random() < 0.65;
-                                spawnLaneCar(lane, isFastShot);
+                                spawnLaneVehicle(lane, isFastShot, false);
                             }
 
                             if (lane.burstRemaining > 0) {
                                 lane.burstRemaining--;
                                 lane.spawnTimer = cfg.burstGap + Math.random() * 0.14;
                             } else {
-                                if (Math.random() < cfg.doublePairChance) {
+                                if (Math.random() < cfg.burstChance) {
                                     lane.burstRemaining = 1;
                                     lane.spawnTimer = cfg.burstGap + Math.random() * 0.15;
                                 } else {
-                                    lane.spawnTimer = cfg.waveGapMin + Math.random() * (cfg.waveGapMax - cfg.waveGapMin);
+                                    lane.spawnTimer = cfg.gapMin + Math.random() * (cfg.gapMax - cfg.gapMin);
                                 }
                             }
                         }
@@ -2708,8 +2713,7 @@
                     return;
                 }
 
-                // Космічний скафандр-ореол білочки
-                ctx.strokeStyle = 'rgba(125, 211, 252, 0.55)';
+                ctx.strokeStyle = 'rgba(125, 211, 252, 0.58)';
                 ctx.lineWidth = 1.6;
                 ctx.beginPath();
                 ctx.arc(4, -5, 22, 0, Math.PI * 2);
@@ -2790,7 +2794,6 @@
 
                 sqCtx.clearRect(0, 0, w, h);
 
-                // Космічне небо та туманність на фоні
                 const spaceBg = sqCtx.createLinearGradient(0, 0, 0, h);
                 spaceBg.addColorStop(0, '#050817');
                 spaceBg.addColorStop(0.5, '#111638');
@@ -2798,8 +2801,8 @@
                 sqCtx.fillStyle = spaceBg;
                 sqCtx.fillRect(0, 0, w, h);
 
-                const nebula = sqCtx.createRadialGradient(w * 0.72, 65, 10, w * 0.72, 65, 140);
-                nebula.addColorStop(0, 'rgba(139, 92, 246, 0.25)');
+                const nebula = sqCtx.createRadialGradient(w * 0.72, 65, 10, w * 0.72, 65, 145);
+                nebula.addColorStop(0, 'rgba(139, 92, 246, 0.28)');
                 nebula.addColorStop(1, 'rgba(139, 92, 246, 0)');
                 sqCtx.fillStyle = nebula;
                 sqCtx.fillRect(0, 0, w, h);
@@ -2807,7 +2810,6 @@
                 sqCtx.save();
                 sqCtx.translate(-sqCameraX, 0);
 
-                // Мерехтливі зорі
                 sqSpaceStars.forEach(function(st) {
                     const tw = 0.45 + 0.55 * Math.sin(ts * 0.004 + st.phase);
                     sqCtx.globalAlpha = tw;
@@ -2818,24 +2820,21 @@
                 });
                 sqCtx.globalAlpha = 1;
 
-                // Планета Сатурн у космосі на горизонті
-                sqCtx.fillStyle = 'rgba(250, 204, 21, 0.22)';
+                sqCtx.fillStyle = 'rgba(250, 204, 21, 0.24)';
                 sqCtx.beginPath();
                 sqCtx.arc(240, 46, 18, 0, Math.PI * 2);
                 sqCtx.fill();
-                sqCtx.strokeStyle = 'rgba(165, 180, 252, 0.35)';
+                sqCtx.strokeStyle = 'rgba(165, 180, 252, 0.38)';
                 sqCtx.lineWidth = 2;
                 sqCtx.beginPath();
                 sqCtx.ellipse(240, 46, 30, 7, -0.25, 0, Math.PI * 2);
                 sqCtx.stroke();
 
-                // Космічна стартова платформа
                 sqCtx.fillStyle = '#1b2250';
                 sqCtx.fillRect(0, 0, SQ_SIDEWALK_WIDTH - 6, h);
                 sqCtx.fillStyle = '#818cf8';
                 sqCtx.fillRect(SQ_SIDEWALK_WIDTH - 6, 0, 5, h);
 
-                // Знак заборони внизу старту (як у прикладі)
                 const signX = SQ_SIDEWALK_WIDTH * 0.48;
                 const signY = 304;
                 sqCtx.fillStyle = '#ffffff';
@@ -2853,7 +2852,6 @@
                     const laneX = SQ_SIDEWALK_WIDTH + (lane.step - 1) * SQ_STEP_WIDTH;
                     const centerX = laneX + SQ_STEP_WIDTH * 0.5;
 
-                    // Пунктирні космічні лінії смуг
                     sqCtx.strokeStyle = 'rgba(129, 140, 248, 0.26)';
                     sqCtx.lineWidth = 2;
                     sqCtx.setLineDash([12, 12]);
@@ -2867,7 +2865,6 @@
                     const isCurrent = lane.step === sqCurrentStep;
                     const isNext = sqPlaying && (lane.step === sqCurrentStep + 1);
 
-                    // Верхній бейдж зірки та суми
                     const rewardStars = formatStars(getSqReward(lane.step));
                     sqCtx.fillStyle = isPassed || isCurrent ? 'rgba(250, 204, 21, 0.24)' : 'rgba(20, 25, 58, 0.92)';
                     sqCtx.beginPath();
@@ -2890,7 +2887,6 @@
                     sqCtx.fillStyle = '#fef08a';
                     sqCtx.fillText(rewardStars + ' ⭐', centerX, badgeY + 36);
 
-                    // Неоновий космічний люк
                     sqCtx.fillStyle = (isPassed || isCurrent) ? '#d97706' : '#23294d';
                     sqCtx.beginPath();
                     sqCtx.arc(centerX, manholeY, 27, 0, Math.PI * 2);
@@ -2900,7 +2896,6 @@
                     sqCtx.lineWidth = 3;
                     sqCtx.stroke();
 
-                    // Табличка множника під люком
                     const multText = '×' + getSqMultiplier(lane.step).toFixed(2).replace('.', ',');
                     sqCtx.fillStyle = (isPassed || isCurrent) ? '#4338ca' : '#23294d';
                     sqCtx.beginPath();
@@ -2910,7 +2905,6 @@
                     sqCtx.fillStyle = '#ffffff';
                     sqCtx.fillText(multText, centerX, manholeY + 45);
 
-                    // Жовто-чорний бар'єр на пройденій смузі (як у прикладі RubUp)
                     if (lane.blocked) {
                         const barX = centerX - 28;
                         const barY = manholeY - 46;
