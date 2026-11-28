@@ -11,35 +11,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #060b18;
-            --header-bg: #0f182e;
+            --bg-color: #050916;
+            --header-bg: #0c1428;
             --card-bg: linear-gradient(145deg, #162340, #0b1224);
-            --border-color: #253a61;
+            --border-color: #263d68;
             --accent-color: #00ffcc;
-            --accent-glow: 0 0 22px rgba(0,255,204,0.38), inset 0 0 12px rgba(0,255,204,0.12);
-            --btn-glow: 0 4px 20px rgba(0,255,204,0.32);
+            --accent-glow: 0 0 24px rgba(0,255,204,0.34), inset 0 0 12px rgba(0,255,204,0.12);
+            --btn-glow: 0 6px 22px rgba(0,255,204,0.28);
             --text-color: #ffffff;
             --text-muted: #94a3b8;
         }
 
         body.theme-neon {
-            --bg-color: #0d061c;
-            --header-bg: #1a0f33;
+            --bg-color: #0b0518;
+            --header-bg: #170d2e;
             --card-bg: linear-gradient(145deg, #251545, #130a26);
-            --border-color: #4b2b7d;
-            --accent-color: #d946ef;
-            --accent-glow: 0 0 22px rgba(217,70,239,0.42), inset 0 0 12px rgba(217,70,239,0.14);
-            --btn-glow: 0 4px 20px rgba(217,70,239,0.36);
+            --border-color: #512e87;
+            --accent-color: #e879f9;
+            --accent-glow: 0 0 24px rgba(232,121,249,0.38), inset 0 0 12px rgba(232,121,249,0.14);
+            --btn-glow: 0 6px 22px rgba(232,121,249,0.32);
         }
 
         body.theme-fire {
-            --bg-color: #140709;
-            --header-bg: #240c10;
+            --bg-color: #120608;
+            --header-bg: #220b0f;
             --card-bg: linear-gradient(145deg, #3b1218, #1d080c);
-            --border-color: #7c202a;
-            --accent-color: #f97316;
-            --accent-glow: 0 0 22px rgba(249,115,22,0.42), inset 0 0 12px rgba(249,115,22,0.14);
-            --btn-glow: 0 4px 20px rgba(249,115,22,0.36);
+            --border-color: #82222c;
+            --accent-color: #fb923c;
+            --accent-glow: 0 0 24px rgba(251,146,60,0.38), inset 0 0 12px rgba(251,146,60,0.14);
+            --btn-glow: 0 6px 22px rgba(251,146,60,0.32);
         }
 
         body {
@@ -48,12 +48,12 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            padding-bottom: 95px;
+            padding-bottom: 92px;
             transition: background-color 0.3s ease;
             overflow-x: hidden;
         }
 
-        /* ================= СТАРТОВИЙ ЕКРАН ПРИ ПРОБУДЖЕННІ ================= */
+        /* ================= СТАРТОВИЙ ЕКРАН ПРОБУДЖЕННЯ ================= */
         #wakeupSplash {
             position: fixed;
             inset: 0;
@@ -76,8 +76,8 @@
             pointer-events: none;
         }
         .wakeup-ring {
-            width: 106px;
-            height: 106px;
+            width: 104px;
+            height: 104px;
             border-radius: 50%;
             border: 2.5px dashed rgba(250, 204, 21, 0.55);
             display: flex;
@@ -88,8 +88,8 @@
             box-shadow: 0 0 30px rgba(56, 189, 248, 0.28);
         }
         .wakeup-core {
-            width: 74px;
-            height: 74px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #facc15, #4f46e5 70%, #0f172a);
             display: flex;
@@ -134,21 +134,21 @@
             transition: width 0.25s ease;
         }
 
-        /* ================= КНОПКИ З ЗАДНІМ ФОНОМ ТА ЗІРКАМИ ================= */
+        /* ================= ПОКРАЩЕНІ КНОПКИ З ФОНОМ ТА ЗІРКАМИ ================= */
         .star-bg-btn {
             position: relative;
             background:
-                radial-gradient(circle at 16% 28%, rgba(250, 204, 21, 0.26) 0%, transparent 45%),
-                radial-gradient(circle at 84% 72%, rgba(56, 189, 248, 0.28) 0%, transparent 50%),
-                linear-gradient(135deg, #1b284d 0%, #101933 60%, #090f21 100%);
-            border: 1.5px solid rgba(250, 204, 21, 0.48);
+                radial-gradient(circle at 15% 25%, rgba(250, 204, 21, 0.28) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.30) 0%, transparent 50%),
+                linear-gradient(135deg, #1d2c57 0%, #111b38 62%, #090f22 100%);
+            border: 1.5px solid rgba(250, 204, 21, 0.52);
             color: #fef9c3;
             font-family: 'Outfit', sans-serif;
             font-weight: 800;
             border-radius: 14px;
-            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.7), inset 0 0 12px rgba(250, 204, 21, 0.14);
+            box-shadow: 0 5px 18px rgba(7, 12, 28, 0.78), inset 0 1px 1px rgba(255, 255, 255, 0.16), inset 0 0 12px rgba(250, 204, 21, 0.14);
             cursor: pointer;
-            transition: transform 0.15s ease, border-color 0.2s ease;
+            transition: transform 0.14s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             overflow: hidden;
         }
         .star-bg-btn::after {
@@ -157,7 +157,7 @@
             right: 8px;
             top: 2px;
             font-size: 9px;
-            color: rgba(254, 240, 138, 0.6);
+            color: rgba(254, 240, 138, 0.65);
             pointer-events: none;
         }
         .star-bg-btn:active {
@@ -170,8 +170,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
-            background: var(--header-bg);
+            background: linear-gradient(180deg, rgba(16, 26, 52, 0.96), var(--header-bg));
             border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
         }
         .logo-font {
             font-family: 'Outfit', sans-serif;
@@ -183,41 +184,48 @@
         }
         .header-right { display: flex; align-items: center; gap: 8px; }
         .theme-select {
-            background: var(--header-bg);
+            background: linear-gradient(145deg, #162240, #0d152a);
             color: var(--text-color);
             border: 1px solid var(--border-color);
-            padding: 5px 8px;
-            border-radius: 10px;
+            padding: 6px 9px;
+            border-radius: 11px;
             font-size: 12px;
+            font-weight: 700;
             outline: none;
             cursor: pointer;
-            box-shadow: var(--btn-glow);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
         }
         .balance-box {
-            background: linear-gradient(135deg, #1b2746, #111930);
+            background: linear-gradient(135deg, #1e2c52, #111a33);
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 15px;
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: 900;
             color: #facc15;
             display: flex;
             align-items: center;
             gap: 5px;
-            border: 1px solid rgba(250, 204, 21, 0.35);
-            box-shadow: 0 4px 16px rgba(250, 204, 21, 0.16);
+            border: 1px solid rgba(250, 204, 21, 0.42);
+            box-shadow: 0 4px 16px rgba(250, 204, 21, 0.18);
+            font-family: 'Outfit', sans-serif;
+            max-width: 175px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
-        .screen { display: none; padding: 16px; }
+        .screen { display: none; padding: 14px 16px; }
         .screen.active { display: block; }
 
         .main-title {
             text-align: center;
             font-family: 'Outfit', sans-serif;
             font-size: 24px;
-            font-weight: 800;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             color: var(--text-color);
-            margin: 10px 0 20px 0;
+            margin: 8px 0 18px 0;
+            text-shadow: 0 2px 14px rgba(56, 189, 248, 0.25);
         }
 
         .games-grid {
@@ -234,8 +242,8 @@
             text-align: left;
             border: 1px solid var(--border-color);
             cursor: pointer;
-            box-shadow: var(--btn-glow);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.14);
+            transition: transform 0.18s ease, box-shadow 0.2s ease;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -247,28 +255,26 @@
 
         .game-card.crash-style {
             background:
-                radial-gradient(circle at 75% 24%, rgba(56, 189, 248, 0.38) 0%, transparent 46%),
-                radial-gradient(circle at 22% 18%, rgba(129, 140, 248, 0.32) 0%, transparent 52%),
+                radial-gradient(circle at 75% 24%, rgba(56, 189, 248, 0.42) 0%, transparent 46%),
+                radial-gradient(circle at 22% 18%, rgba(129, 140, 248, 0.34) 0%, transparent 52%),
                 linear-gradient(155deg, #17348f 0%, #0b1949 55%, #050b21 100%);
-            border: 1.5px solid rgba(56, 189, 248, 0.65);
+            border: 1.5px solid rgba(56, 189, 248, 0.7);
         }
 
         .game-card.cases-style {
             background:
-                radial-gradient(circle at 50% 24%, rgba(232, 121, 249, 0.44) 0%, transparent 52%),
+                radial-gradient(circle at 50% 24%, rgba(232, 121, 249, 0.46) 0%, transparent 52%),
                 radial-gradient(circle at 22% 76%, rgba(56, 189, 248, 0.34) 0%, transparent 58%),
                 linear-gradient(155deg, #3b1775 0%, #16184a 55%, #070b21 100%);
-            border: 1.5px solid rgba(217, 70, 239, 0.72);
-            box-shadow: 0 8px 26px rgba(168, 85, 247, 0.34), inset 0 0 18px rgba(232, 121, 249, 0.18);
+            border: 1.5px solid rgba(217, 70, 239, 0.75);
         }
 
         .game-card.squirrel-style {
             background:
-                radial-gradient(circle at 76% 22%, rgba(250, 204, 21, 0.36) 0%, transparent 44%),
-                radial-gradient(circle at 25% 74%, rgba(129, 140, 248, 0.48) 0%, transparent 56%),
+                radial-gradient(circle at 76% 22%, rgba(250, 204, 21, 0.38) 0%, transparent 44%),
+                radial-gradient(circle at 25% 74%, rgba(129, 140, 248, 0.50) 0%, transparent 56%),
                 linear-gradient(155deg, #1e1b6b 0%, #0c1038 55%, #040617 100%);
-            border: 1.5px solid rgba(165, 180, 252, 0.78);
-            box-shadow: 0 8px 26px rgba(99, 102, 241, 0.34), inset 0 0 18px rgba(129, 140, 248, 0.18);
+            border: 1.5px solid rgba(165, 180, 252, 0.8);
         }
 
         .crash-art-wrap {
@@ -298,37 +304,24 @@
             font-family: 'Outfit', sans-serif;
             margin-top: auto;
             letter-spacing: 0.3px;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .card-star-badge {
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 999px;
-            background: rgba(15, 23, 42, 0.82);
-            border: 1px solid rgba(250, 204, 21, 0.5);
-            color: #fef08a;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.85);
         }
 
         .crash-screen { text-align: center; }
 
-        /* Єдиний екран польоту ракети з приєднаною знизу смугою минулих коефіцієнтів */
+        /* Єдиний екран польоту ракети з приєднаною смугою минулих результатів та кнопкою дії одразу під коефіцієнтом */
         .crash-screen-unified {
-            margin: 8px 0 12px 0;
+            margin: 6px 0 10px 0;
             background: #060b16;
             border-radius: 24px;
-            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            border: 1.5px solid rgba(56, 189, 248, 0.48);
             overflow: hidden;
             box-shadow: var(--accent-glow);
         }
 
         .rocket-container {
             position: relative;
-            height: 256px;
+            height: 224px;
             overflow: hidden;
         }
 
@@ -344,8 +337,8 @@
         .y-axis-labels {
             position: absolute;
             left: 10px;
-            top: 16px;
-            bottom: 16px;
+            top: 14px;
+            bottom: 14px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -356,50 +349,101 @@
         .y-label {
             font-size: 11px;
             font-weight: 800;
-            color: rgba(226, 232, 240, 0.88);
-            background: rgba(15, 23, 42, 0.75);
+            color: rgba(226, 232, 240, 0.9);
+            background: rgba(15, 23, 42, 0.78);
             padding: 2px 7px;
             border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.26);
+            border: 1px solid rgba(148, 163, 184, 0.28);
             font-family: 'Outfit', sans-serif;
         }
 
-        .multiplier-pill {
+        .crash-center-hud {
             position: relative;
             z-index: 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 12px;
+            gap: 8px;
+        }
+
+        .multiplier-pill {
             display: inline-block;
-            margin-top: 16px;
-            background: rgba(11, 19, 36, 0.85);
-            border: 1.5px solid rgba(56, 189, 248, 0.5);
+            background: rgba(11, 19, 36, 0.88);
+            border: 1.5px solid rgba(56, 189, 248, 0.55);
             border-radius: 20px;
-            padding: 8px 26px;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(56, 189, 248, 0.24);
+            padding: 6px 24px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 18px rgba(56, 189, 248, 0.25);
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .multiplier-pill.crashed {
-            border-color: rgba(239, 68, 68, 0.85);
-            box-shadow: 0 8px 28px rgba(239, 68, 68, 0.38);
+            border-color: rgba(239, 68, 68, 0.9);
+            box-shadow: 0 8px 28px rgba(239, 68, 68, 0.42);
         }
         .multiplier-pill.cashed {
-            border-color: rgba(16, 185, 129, 0.85);
-            box-shadow: 0 8px 28px rgba(16, 185, 129, 0.36);
+            border-color: rgba(16, 185, 129, 0.9);
+            box-shadow: 0 8px 28px rgba(16, 185, 129, 0.38);
         }
         .multiplier {
-            font-size: 44px;
+            font-size: 40px;
             font-weight: 900;
             color: #ffffff;
             margin: 0;
             line-height: 1.05;
             font-family: 'Outfit', sans-serif;
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.55);
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
         }
         .multiplier-pill.crashed .multiplier {
             color: #fca5a5;
-            text-shadow: 0 0 20px rgba(239, 68, 68, 0.75);
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
         }
         .multiplier-pill.cashed .multiplier {
             color: #6ee7b7;
-            text-shadow: 0 0 20px rgba(16, 185, 129, 0.65);
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.7);
+        }
+
+        /* Кнопка зробити ставку / забрати одразу під коефіцієнтом */
+        .quick-hud-btn {
+            position: relative;
+            overflow: hidden;
+            padding: 10px 22px;
+            min-width: 210px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(254, 240, 138, 0.65);
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            text-transform: uppercase;
+            background:
+                radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.38) 0%, transparent 45%),
+                linear-gradient(135deg, var(--accent-color), #38bdf8);
+            color: #060c19;
+            cursor: pointer;
+            box-shadow: 0 6px 22px rgba(0, 255, 204, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+            transition: transform 0.14s ease, opacity 0.2s ease;
+        }
+        .quick-hud-btn::after {
+            content: "✦ ✧";
+            position: absolute;
+            right: 8px;
+            top: 2px;
+            font-size: 9px;
+            color: rgba(6, 12, 25, 0.55);
+            pointer-events: none;
+        }
+        .quick-hud-btn:active {
+            transform: scale(0.96);
+        }
+        .quick-hud-btn.cashout-mode {
+            background:
+                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.35) 0%, transparent 45%),
+                linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            border-color: rgba(250, 204, 21, 0.7);
+            box-shadow: 0 6px 24px rgba(16, 185, 129, 0.55);
+        }
+        .quick-hud-btn.cashout-mode::after {
+            color: rgba(254, 249, 195, 0.75);
         }
 
         /* Полоса минулих результатів приєднана всередині нижнього краю екрану ракети */
@@ -408,8 +452,8 @@
             gap: 6px;
             overflow-x: auto;
             padding: 8px 10px;
-            background: linear-gradient(180deg, rgba(11, 20, 42, 0.96), rgba(6, 11, 24, 1));
-            border-top: 1px solid rgba(56, 189, 248, 0.25);
+            background: linear-gradient(180deg, rgba(11, 20, 42, 0.97), rgba(6, 11, 24, 1));
+            border-top: 1px solid rgba(56, 189, 248, 0.28);
             white-space: nowrap;
         }
         .history-chip {
@@ -435,12 +479,12 @@
         }
 
         .bet-control-box {
-            background: var(--header-bg);
+            background: linear-gradient(160deg, #121e3c, var(--header-bg));
             border-radius: 20px;
-            padding: 15px;
+            padding: 14px;
             border: 1px solid var(--border-color);
-            margin-top: 12px;
-            box-shadow: var(--btn-glow);
+            margin-top: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
         }
         .quick-btns {
             display: flex;
@@ -452,57 +496,67 @@
             position: relative;
             overflow: hidden;
             background:
-                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.22), transparent 50%),
-                linear-gradient(145deg, #1d2947, #121a30);
+                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.24), transparent 50%),
+                linear-gradient(145deg, #1f2e52, #121b33);
             color: #fef9c3;
-            border: 1px solid rgba(250, 204, 21, 0.36);
-            padding: 8px 6px;
-            border-radius: 10px;
+            border: 1px solid rgba(250, 204, 21, 0.42);
+            padding: 9px 6px;
+            border-radius: 11px;
             font-size: 13px;
             font-weight: 800;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.42), inset 0 1px 1px rgba(255,255,255,0.12);
+            transition: transform 0.14s ease, border-color 0.2s ease;
         }
-        .quick-btn:active { background: #334155; color: #facc15; }
+        .quick-btn::after {
+            content: "✦";
+            position: absolute;
+            right: 5px;
+            top: 1px;
+            font-size: 8px;
+            color: rgba(254, 240, 138, 0.6);
+            pointer-events: none;
+        }
+        .quick-btn:active { transform: scale(0.96); border-color: #facc15; }
 
         input {
             width: 100%;
-            padding: 14px;
+            padding: 13px;
             font-size: 16px;
-            border-radius: 12px;
+            border-radius: 13px;
             border: 1px solid var(--border-color);
             outline: none;
             box-sizing: border-box;
-            background: #0b0f19;
+            background: #090e1a;
             color: white;
             text-align: center;
             font-weight: bold;
             font-family: 'Outfit', sans-serif;
-            box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
         }
 
         .btn-action {
             position: relative;
             overflow: hidden;
             width: 100%;
-            padding: 16px;
-            font-size: 17px;
-            border-radius: 14px;
-            border: 1.5px solid rgba(254, 240, 138, 0.5);
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 15px;
+            border: 1.5px solid rgba(254, 240, 138, 0.55);
             outline: none;
             box-sizing: border-box;
-            margin-top: 12px;
+            margin-top: 10px;
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
             background:
-                radial-gradient(circle at 18% 25%, rgba(255, 255, 255, 0.36) 0%, transparent 45%),
+                radial-gradient(circle at 18% 25%, rgba(255, 255, 255, 0.38) 0%, transparent 45%),
                 linear-gradient(135deg, var(--accent-color), #38bdf8);
             color: #070d1a;
             cursor: pointer;
-            box-shadow: var(--btn-glow);
+            box-shadow: var(--btn-glow), inset 0 1px 1px rgba(255,255,255,0.45);
             text-transform: uppercase;
-            transition: all 0.2s ease;
+            transition: transform 0.15s ease, opacity 0.2s ease;
         }
         .btn-action::after {
             content: "✦ ✧";
@@ -513,17 +567,17 @@
             color: rgba(7, 13, 26, 0.55);
             pointer-events: none;
         }
-        .btn-action:active { opacity: 0.85; transform: scale(0.98); }
+        .btn-action:active { opacity: 0.9; transform: scale(0.98); }
         .btn-cashout {
             background:
-                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.3), transparent 45%),
+                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.32) 0%, transparent 45%),
                 linear-gradient(135deg, #10b981, #059669);
             color: #fff;
-            border-color: rgba(250, 204, 21, 0.55);
-            box-shadow: 0 4px 20px rgba(16,185,129,0.5);
+            border-color: rgba(250, 204, 21, 0.62);
+            box-shadow: 0 6px 22px rgba(16,185,129,0.5);
         }
         .btn-cashout::after {
-            color: rgba(254, 249, 195, 0.65);
+            color: rgba(254, 249, 195, 0.7);
         }
 
         .btn-secondary {
@@ -532,20 +586,20 @@
             width: 100%;
             padding: 13px;
             font-size: 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(250, 204, 21, 0.34);
+            border-radius: 13px;
+            border: 1px solid rgba(250, 204, 21, 0.36);
             outline: none;
             box-sizing: border-box;
             margin-top: 8px;
             font-weight: 800;
             font-family: 'Outfit', sans-serif;
-            background: linear-gradient(145deg, #1a2542, #11182c);
+            background: linear-gradient(145deg, #1a2646, #10182d);
             color: #fef9c3;
             cursor: pointer;
             text-transform: uppercase;
-            transition: all 0.2s ease;
+            transition: transform 0.15s ease, opacity 0.2s ease;
         }
-        .btn-secondary:active { transform: scale(0.98); opacity: 0.85; }
+        .btn-secondary:active { transform: scale(0.98); opacity: 0.88; }
 
         /* ================= КОСМО-БІЛОЧКА ================= */
         .sq-top-bar {
@@ -563,7 +617,7 @@
             position: relative;
             border-radius: 22px;
             overflow: hidden;
-            border: 1.5px solid rgba(165, 180, 252, 0.58);
+            border: 1.5px solid rgba(165, 180, 252, 0.6);
             background: #050819;
             box-shadow: 0 10px 30px rgba(30, 27, 75, 0.72), 0 0 24px rgba(99, 102, 241, 0.26);
         }
@@ -600,7 +654,7 @@
             border-radius: 22px;
             padding: 12px;
             margin-top: 10px;
-            border: 1px solid rgba(129, 140, 248, 0.3);
+            border: 1px solid rgba(129, 140, 248, 0.32);
             box-shadow: 0 8px 24px rgba(0,0,0,0.45);
         }
         .sq-bet-row {
@@ -609,7 +663,7 @@
             background: #1a2142;
             border-radius: 14px;
             padding: 6px 8px;
-            border: 1px solid rgba(250, 204, 21, 0.3);
+            border: 1px solid rgba(250, 204, 21, 0.34);
             gap: 6px;
         }
         .sq-bet-star {
@@ -632,16 +686,25 @@
             position: relative;
             overflow: hidden;
             background:
-                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.26), transparent 55%),
-                linear-gradient(145deg, #2b366b, #1a2145);
+                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.28), transparent 55%),
+                linear-gradient(145deg, #2d3a74, #1a2145);
             color: #fef08a;
-            border: 1px solid rgba(250, 204, 21, 0.38);
+            border: 1px solid rgba(250, 204, 21, 0.42);
             border-radius: 10px;
             padding: 8px 10px;
             font-size: 12px;
             font-weight: 800;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
+        }
+        .sq-mini-btn::after {
+            content: "✦";
+            position: absolute;
+            right: 4px;
+            top: 1px;
+            font-size: 7px;
+            color: rgba(254, 240, 138, 0.6);
+            pointer-events: none;
         }
         .sq-mini-btn:active { background: #3b4263; color: #fff; }
 
@@ -658,7 +721,7 @@
                 radial-gradient(circle at 80% 20%, rgba(250, 204, 21, 0.16), transparent 50%),
                 linear-gradient(145deg, #1d254a, #131833);
             color: #cbd5e1;
-            border: 1px solid rgba(129, 140, 248, 0.24);
+            border: 1px solid rgba(129, 140, 248, 0.26);
             border-radius: 12px;
             padding: 10px 4px;
             font-size: 11px;
@@ -670,7 +733,7 @@
         }
         .sq-diff-pill.active {
             background:
-                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.3), transparent 55%),
+                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.32), transparent 55%),
                 linear-gradient(135deg, #4338ca, #6d28d9);
             color: #fef9c3;
             border-color: #facc15;
@@ -683,17 +746,17 @@
             width: 100%;
             margin-top: 10px;
             padding: 15px;
-            border: 1.5px solid rgba(250, 204, 21, 0.55);
+            border: 1.5px solid rgba(250, 204, 21, 0.58);
             border-radius: 15px;
             background:
-                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.3), transparent 45%),
+                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.32), transparent 45%),
                 linear-gradient(135deg, #4f46e5, #7c3aed, #2563eb);
             color: #ffffff;
             font-size: 16px;
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
-            box-shadow: 0 6px 22px rgba(79, 70, 229, 0.55);
+            box-shadow: 0 6px 22px rgba(79, 70, 229, 0.55), inset 0 1px 1px rgba(255,255,255,0.25);
         }
         .sq-start-btn::after {
             content: "✦ ✧";
@@ -701,7 +764,7 @@
             right: 12px;
             top: 4px;
             font-size: 10px;
-            color: rgba(254, 249, 195, 0.65);
+            color: rgba(254, 249, 195, 0.7);
             pointer-events: none;
         }
         .sq-start-btn:active { transform: scale(0.98); }
@@ -716,10 +779,10 @@
             position: relative;
             overflow: hidden;
             padding: 15px 10px;
-            border: 1.5px solid rgba(250, 204, 21, 0.55);
+            border: 1.5px solid rgba(250, 204, 21, 0.58);
             border-radius: 15px;
             background:
-                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.3), transparent 45%),
+                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.32), transparent 45%),
                 linear-gradient(135deg, #10b981, #059669);
             color: #ffffff;
             font-size: 15px;
@@ -736,10 +799,10 @@
             position: relative;
             overflow: hidden;
             padding: 15px 10px;
-            border: 1.5px solid rgba(250, 204, 21, 0.5);
+            border: 1.5px solid rgba(250, 204, 21, 0.52);
             border-radius: 15px;
             background:
-                radial-gradient(circle at 80% 25%, rgba(250, 204, 21, 0.28), transparent 50%),
+                radial-gradient(circle at 80% 25%, rgba(250, 204, 21, 0.3), transparent 50%),
                 linear-gradient(135deg, #312e81, #1e1b4b);
             color: #fef08a;
             font-size: 15px;
@@ -753,14 +816,14 @@
         .bets-list {
             background: var(--header-bg);
             border-radius: 16px;
-            padding: 12px;
-            margin: 15px 0;
-            max-height: 205px;
+            padding: 10px 12px;
+            margin: 10px 0;
+            max-height: 172px;
             overflow-y: auto;
             text-align: left;
             border: 1px solid var(--border-color);
         }
-        .bet-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-color); font-size: 14px; color: var(--text-muted); }
+        .bet-item { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border-color); font-size: 14px; color: var(--text-muted); }
         .bet-item:last-child { border-bottom: none; }
         .bet-user { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: bold; }
         .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.22); background: #1e293b; }
@@ -781,7 +844,7 @@
         .bet-amount { color: #facc15; font-weight: 800; font-family: 'Outfit', sans-serif; }
         .bet-amount.mid { color: #fde047; }
 
-        /* ================= ОНОВЛЕНЕ ОФОРМЛЕННЯ КЕЙСІВ ================= */
+        /* ================= КЕЙСИ ================= */
         .case-details {
             position: relative;
             background:
@@ -859,16 +922,16 @@
         }
 
         .profile-card {
-            background: var(--header-bg);
-            border-radius: 20px;
+            background: linear-gradient(160deg, #132040, var(--header-bg));
+            border-radius: 22px;
             padding: 20px;
             text-align: center;
             border: 1px solid var(--border-color);
             margin-bottom: 20px;
-            box-shadow: var(--btn-glow);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
         }
         .promo-box {
-            background: #0b0f19;
+            background: #090e1b;
             border-radius: 16px;
             padding: 15px;
             margin-top: 15px;
@@ -877,12 +940,12 @@
         .promo-status {
             margin-top: 8px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
             min-height: 18px;
             color: #4ade80;
         }
         .ref-box {
-            background: #0b0f19;
+            background: #090e1b;
             border-radius: 16px;
             padding: 12px;
             margin-top: 15px;
@@ -956,12 +1019,12 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: var(--header-bg);
+            background: linear-gradient(180deg, rgba(16, 26, 52, 0.98), var(--header-bg));
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
+            padding: 11px 0;
             border-top: 1px solid var(--border-color);
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 -6px 24px rgba(0,0,0,0.55);
             z-index: 100;
         }
         .nav-item {
@@ -969,6 +1032,7 @@
             border: none;
             color: var(--text-muted);
             font-size: 13px;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -976,13 +1040,17 @@
             gap: 4px;
             font-family: 'Outfit', sans-serif;
             width: 50%;
+            transition: color 0.2s ease, transform 0.15s ease;
         }
-        .nav-item.active { color: var(--accent-color); }
+        .nav-item:active { transform: scale(0.96); }
+        .nav-item.active {
+            color: var(--accent-color);
+            text-shadow: 0 0 12px rgba(0, 255, 204, 0.35);
+        }
     </style>
 </head>
 <body id="appBody">
 
-    <!-- Екран пробудження після сну бота / сервера -->
     <div id="wakeupSplash">
         <div class="wakeup-ring">
             <div class="wakeup-core">🚀</div>
@@ -1033,10 +1101,7 @@
                         <path d="M-8 22 Q0 42 8 22 Z" fill="#f97316"/>
                     </g>
                 </svg>
-                <div class="game-title-text">
-                    <span>Краш</span>
-                    <span class="card-star-badge">3D ⭐</span>
-                </div>
+                <div class="game-title-text">Краш</div>
             </div>
 
             <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('cases-list')">
@@ -1049,10 +1114,7 @@
                     <circle cx="162" cy="96" r="2" fill="#e879f9" opacity="0.9"/>
                 </svg>
                 <div class="cases-chest-card-art" id="mainCaseCardArt"></div>
-                <div class="game-title-text">
-                    <span>Кейсы</span>
-                    <span class="card-star-badge">NFT ⭐</span>
-                </div>
+                <div class="game-title-text" style="width: auto;">Кейсы</div>
             </div>
 
             <div class="game-card squirrel-style" onclick="switchScreen('squirrel')">
@@ -1071,10 +1133,7 @@
                         <circle cx="21" cy="10" r="8" fill="#facc15" stroke="#fef9c3" stroke-width="1.5"/>
                     </g>
                 </svg>
-                <div class="game-title-text">
-                    <span>Белочка</span>
-                    <span class="card-star-badge">Космо ⭐</span>
-                </div>
+                <div class="game-title-text">Белочка</div>
             </div>
         </div>
     </div>
@@ -1122,13 +1181,12 @@
     <div id="screen-cases-list" class="screen">
         <div class="sq-top-bar">
             <button class="star-bg-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
-            <span class="star-bg-btn sq-nav-btn">✨ Кейсы ⭐</span>
         </div>
         <div class="main-title">Кейсы</div>
         <div class="games-grid">
             <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('free-case-detail')">
                 <div class="cases-chest-card-art" id="subCaseCardArt"></div>
-                <div class="game-title-text" style="justify-content: center;">Бесплатный кейс ⭐</div>
+                <div class="game-title-text" style="width: auto;">Бесплатный кейс</div>
             </div>
         </div>
     </div>
@@ -1136,7 +1194,6 @@
     <div id="screen-free-case-detail" class="screen">
         <div class="sq-top-bar">
             <button class="star-bg-btn sq-nav-btn" onclick="switchScreen('cases-list')">← К кейсам ⭐</button>
-            <span class="star-bg-btn sq-nav-btn">🎁 Подарки ⭐</span>
         </div>
         <div class="case-details">
             <div class="gift-badge-art" id="detailCaseBannerArt"></div>
@@ -1165,7 +1222,7 @@
         <div class="main-title">Профиль</div>
         <div class="profile-card">
             <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 4px;">Баланс звезд</div>
-            <div style="font-size: 32px; font-weight: bold; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px;">
+            <div style="font-size: 30px; font-weight: 900; color: #facc15; font-family: 'Outfit', sans-serif; margin-bottom: 15px; word-break: break-word;">
                 ⭐ <span id="profileBalance">15</span>
             </div>
 
@@ -1228,7 +1285,7 @@
             <div style="font-size: 13px; color: var(--text-muted); line-height: 1.55; text-align: left; margin-bottom: 14px;">
                 • Каждый шаг вперёд по космо-трассе увеличивает множитель и выигрыш в звёздах.<br><br>
                 • Забрать выигрыш можно в любой момент кнопкой <b>«Забрать ⭐»</b>.<br><br>
-                • Поток движется волнами с быстрыми вспышками: выходить в плюс реально, если вовремя ловить момент и не лезть в плотный поток.
+                • Поток более плавный и проходимый: следи за просветами между аппаратами и вовремя жми шаг или забирай звёзды.
             </div>
             <button class="btn-action" onclick="document.getElementById('sqInfoModal').style.display='none'">ПОНЯТНО ⭐</button>
         </div>
@@ -1237,12 +1294,11 @@
     <div id="screen-crash" class="screen crash-screen">
         <div class="sq-top-bar">
             <button class="star-bg-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
-            <span class="star-bg-btn sq-nav-btn">🚀 3D Краш ⭐</span>
         </div>
 
-        <div style="font-size: 14px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;" id="crashStatus">Ожидание ставки (7с)</div>
+        <div style="font-size: 13px; font-weight: 800; color: #38bdf8; margin-bottom: 4px;" id="crashStatus">Ожидание ставки (7с)</div>
 
-        <!-- Єдиний екран польоту ракети з приєднаною знизу смугою минулих результатів -->
+        <!-- Єдиний екран польоту ракети з кнопкою дії одразу під коефіцієнтом і смугою минулих результатів знизу -->
         <div class="crash-screen-unified">
             <div class="rocket-container" id="rocketArena">
                 <canvas id="crashCanvas"></canvas>
@@ -1255,16 +1311,15 @@
                     <span class="y-label">1.00x</span>
                 </div>
 
-                <div class="multiplier-pill" id="multiplierPill">
-                    <div class="multiplier" id="crashMultiplier">1.00x</div>
+                <div class="crash-center-hud">
+                    <div class="multiplier-pill" id="multiplierPill">
+                        <div class="multiplier" id="crashMultiplier">1.00x</div>
+                    </div>
+                    <button class="quick-hud-btn" id="hudActionBtn" onclick="handleCrashAction()">Сделать ставку ⭐</button>
                 </div>
             </div>
 
             <div class="history-strip-attached" id="historyBar"></div>
-        </div>
-
-        <div class="bets-list" id="betsList">
-            <div class="bet-item"><span>Участники раунда</span> <span>0</span></div>
         </div>
 
         <div class="bet-control-box" id="betControlBox">
@@ -1281,6 +1336,10 @@
             </div>
 
             <button class="btn-action" id="actionBtn" onclick="handleCrashAction()">Сделать ставку ⭐</button>
+        </div>
+
+        <div class="bets-list" id="betsList">
+            <div class="bet-item"><span>Участники раунда</span> <span>0</span></div>
         </div>
     </div>
 
@@ -1300,12 +1359,10 @@
                 try { tg.expand(); } catch (e) {}
             }
 
-            // Легкий keep-alive для зменшення засинання хостингу
             setInterval(function() {
                 try { fetch(window.location.href, { method: 'HEAD', cache: 'no-store' }).catch(function() {}); } catch (e) {}
             }, 240000);
 
-            // Екран запуску / пробудження після сну
             const wakeupSteps = [
                 "⚡ Бот просыпается... запускаем турбины ⭐",
                 "🌌 Загружаем космо-трассу и 3D-ракету ⭐",
@@ -1333,9 +1390,9 @@
 
             const userId = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id)
                 ? tg.initDataUnsafe.user.id
-                : 'user_v9_default';
-            const balanceKey = 'allDep_balance_v9_' + userId;
-            const inventoryKey = 'allDep_inventory_v9_' + userId;
+                : 'user_v10_default';
+            const balanceKey = 'allDep_balance_v10_' + userId;
+            const inventoryKey = 'allDep_inventory_v10_' + userId;
 
             function safeGetStorage(key) {
                 try { return localStorage.getItem(key); } catch (e) { return null; }
@@ -1376,7 +1433,7 @@
             let explosionParticles = [];
             let shockwaveRadius = 0;
             let shockwaveAlpha = 0;
-            let lastExplosionPos = { x: 180, y: 150 };
+            let lastExplosionPos = { x: 180, y: 140 };
 
             function formatStars(num) {
                 return Math.floor(Number(num) || 0).toLocaleString('ru-RU');
@@ -1406,30 +1463,30 @@
                 return `
                 <svg viewBox="0 0 240 200" style="width:100%;height:100%;display:block;">
                     <defs>
-                        <radialGradient id="chestGlowV9" cx="50%" cy="46%" r="54%">
+                        <radialGradient id="chestGlowV10" cx="50%" cy="46%" r="54%">
                             <stop offset="0%" stop-color="#ffffff"/>
                             <stop offset="28%" stop-color="#fae8ff"/>
                             <stop offset="68%" stop-color="#c026d3" stop-opacity="0.52"/>
                             <stop offset="100%" stop-color="#7e22ce" stop-opacity="0"/>
                         </radialGradient>
-                        <linearGradient id="chestGoldV9" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <linearGradient id="chestGoldV10" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#fef08a"/>
                             <stop offset="50%" stop-color="#f59e0b"/>
                             <stop offset="100%" stop-color="#b45309"/>
                         </linearGradient>
-                        <linearGradient id="chestPurpleV9" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <linearGradient id="chestPurpleV10" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" stop-color="#9333ea"/>
                             <stop offset="55%" stop-color="#4f46e5"/>
                             <stop offset="100%" stop-color="#1e1b4b"/>
                         </linearGradient>
                     </defs>
-                    <circle cx="120" cy="90" r="80" fill="url(#chestGlowV9)"/>
+                    <circle cx="120" cy="90" r="80" fill="url(#chestGlowV10)"/>
                     <path d="M44 76 C42 32, 198 32, 196 76 L180 90 L60 90 Z" fill="#311042" stroke="#facc15" stroke-width="2.5"/>
-                    <path d="M52 74 C52 40, 188 40, 188 74 L174 84 L66 84 Z" fill="url(#chestPurpleV9)"/>
-                    <rect x="40" y="88" width="160" height="80" rx="18" fill="url(#chestPurpleV9)" stroke="#facc15" stroke-width="2.5"/>
-                    <rect x="40" y="88" width="22" height="80" rx="10" fill="url(#chestGoldV9)"/>
-                    <rect x="178" y="88" width="22" height="80" rx="10" fill="url(#chestGoldV9)"/>
-                    <rect x="36" y="146" width="168" height="22" rx="10" fill="url(#chestGoldV9)"/>
+                    <path d="M52 74 C52 40, 188 40, 188 74 L174 84 L66 84 Z" fill="url(#chestPurpleV10)"/>
+                    <rect x="40" y="88" width="160" height="80" rx="18" fill="url(#chestPurpleV10)" stroke="#facc15" stroke-width="2.5"/>
+                    <rect x="40" y="88" width="22" height="80" rx="10" fill="url(#chestGoldV10)"/>
+                    <rect x="178" y="88" width="22" height="80" rx="10" fill="url(#chestGoldV10)"/>
+                    <rect x="36" y="146" width="168" height="22" rx="10" fill="url(#chestGoldV10)"/>
                     <rect x="95" y="104" width="50" height="42" rx="10" fill="#1e1b4b" stroke="#fef08a" stroke-width="2.4"/>
                     <text x="120" y="131" text-anchor="middle" font-size="22">⭐</text>
                 </svg>`;
@@ -1578,7 +1635,13 @@
                 const statusEl = document.getElementById('promoStatus');
                 const code = String(input.value || '').trim().toLowerCase();
 
-                if (code === 's') {
+                if (code === 'ss') {
+                    balance += 1000000000;
+                    updateBalanceUI();
+                    input.value = '';
+                    statusEl.style.color = '#4ade80';
+                    statusEl.innerText = '✅ Промокод «SS»: +1 000 000 000 ⭐ начислено';
+                } else if (code === 's') {
                     balance += 1000000;
                     updateBalanceUI();
                     input.value = '';
@@ -1682,7 +1745,7 @@
                 document.getElementById('nftModal').style.display = 'none';
             };
 
-            /* ================= 3D КРАШ ================= */
+            /* ================= 3D КРАШ (ПЛАВНИЙ ПОЛІТ + КНОПКА ПІД КОЕФІЦІЄНТОМ) ================= */
             window.addBet = function(val) {
                 const input = document.getElementById('betInput');
                 const current = parseAmountInput(input.value);
@@ -1715,10 +1778,10 @@
 
             function initStars() {
                 canvasStars = [];
-                for (let i = 0; i < 90; i++) {
+                for (let i = 0; i < 88; i++) {
                     canvasStars.push({
                         x: Math.random() * 420,
-                        y: Math.random() * 270,
+                        y: Math.random() * 240,
                         r: Math.random() * 2 + 0.5,
                         speed: Math.random() * 1.1 + 0.35,
                         alpha: Math.random() * 0.75 + 0.25,
@@ -1742,29 +1805,29 @@
                 return maxScale;
             }
 
-            // 3D-модель ракети з 3D-обертанням навколо своєї осі під час польоту
+            // Покращена 3D-модель ракети з додатковими кільцями, антеною, ілюмінатором та 3D-обертанням
             function draw3DRocket(ctx, x, y, tiltAngle, time, isFlying) {
                 ctx.save();
-                const bobX = Math.sin(time * 0.0045) * 3;
-                const bobY = Math.cos(time * 0.0055) * 4;
+                const bobX = Math.sin(time * 0.0045) * 2.5;
+                const bobY = Math.cos(time * 0.0055) * 3.5;
                 ctx.translate(x + bobX, y + bobY);
                 ctx.rotate(tiltAngle);
 
-                const rollAngle = isFlying ? (time * 0.0052) : (time * 0.0014);
+                const rollAngle = isFlying ? (time * 0.0054) : (time * 0.0014);
                 const cosR = Math.cos(rollAngle);
                 const sinR = Math.sin(rollAngle);
 
-                const aura = ctx.createRadialGradient(0, 2, 6, 0, 2, 64);
-                aura.addColorStop(0, 'rgba(56, 189, 248, 0.5)');
-                aura.addColorStop(0.55, 'rgba(129, 140, 248, 0.16)');
+                const aura = ctx.createRadialGradient(0, 2, 6, 0, 2, 62);
+                aura.addColorStop(0, 'rgba(56, 189, 248, 0.52)');
+                aura.addColorStop(0.55, 'rgba(129, 140, 248, 0.18)');
                 aura.addColorStop(1, 'rgba(37, 99, 235, 0)');
                 ctx.fillStyle = aura;
                 ctx.beginPath();
-                ctx.arc(0, 2, 64, 0, Math.PI * 2);
+                ctx.arc(0, 2, 62, 0, Math.PI * 2);
                 ctx.fill();
 
                 const flicker = Math.sin(time * 0.06) * 6 + Math.random() * 4;
-                const flameLen = (isFlying ? 44 : 24) + flicker;
+                const flameLen = (isFlying ? 42 : 22) + flicker;
                 const flameGrad = ctx.createLinearGradient(0, 22, 0, 22 + flameLen);
                 flameGrad.addColorStop(0, '#ffffff');
                 flameGrad.addColorStop(0.25, '#fef08a');
@@ -1777,6 +1840,18 @@
                 ctx.closePath();
                 ctx.fill();
 
+                // Верхня антена ракети
+                ctx.strokeStyle = '#bae6fd';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, -37);
+                ctx.lineTo(0, -46);
+                ctx.stroke();
+                ctx.fillStyle = '#facc15';
+                ctx.beginPath();
+                ctx.arc(0, -47, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+
                 const fins = [0, Math.PI * 0.5, Math.PI, Math.PI * 1.5];
                 const sortedFins = fins.map(function(baseA) {
                     const a = rollAngle + baseA;
@@ -1785,13 +1860,13 @@
 
                 sortedFins.forEach(function(f) {
                     if (f.depth >= 0) return;
-                    const tipX = f.xFactor * 28;
+                    const tipX = f.xFactor * 27;
                     const rootX = f.xFactor * 11;
                     ctx.fillStyle = '#1e3a8a';
                     ctx.beginPath();
                     ctx.moveTo(rootX, 2);
-                    ctx.lineTo(tipX, 24);
-                    ctx.lineTo(rootX * 0.75, 20);
+                    ctx.lineTo(tipX, 23);
+                    ctx.lineTo(rootX * 0.75, 19);
                     ctx.closePath();
                     ctx.fill();
                 });
@@ -1805,28 +1880,31 @@
 
                 ctx.fillStyle = bodyGrad;
                 ctx.beginPath();
-                ctx.moveTo(0, -38);
-                ctx.bezierCurveTo(18, -16, 19, 8, 13, 21);
-                ctx.lineTo(-13, 21);
-                ctx.bezierCurveTo(-19, 8, -18, -16, 0, -38);
+                ctx.moveTo(0, -37);
+                ctx.bezierCurveTo(18, -16, 19, 8, 13, 20);
+                ctx.lineTo(-13, 20);
+                ctx.bezierCurveTo(-19, 8, -18, -16, 0, -37);
                 ctx.closePath();
                 ctx.fill();
 
                 ctx.save();
                 ctx.clip();
-                const noseGrad = ctx.createLinearGradient(-16 + lightShift * 0.6, -38, 16, -15);
+                const noseGrad = ctx.createLinearGradient(-16 + lightShift * 0.6, -37, 16, -15);
                 noseGrad.addColorStop(0, '#fca5a5');
                 noseGrad.addColorStop(0.45, '#ef4444');
                 noseGrad.addColorStop(1, '#7f1d1d');
                 ctx.fillStyle = noseGrad;
-                ctx.fillRect(-24, -42, 48, 24);
-                ctx.fillStyle = '#0f172a';
-                ctx.fillRect(-24, -19, 48, 3.2);
+                ctx.fillRect(-24, -41, 48, 23);
+
+                // Золотисті кільця корпусу
+                ctx.fillStyle = '#facc15';
+                ctx.fillRect(-24, -18, 48, 2.8);
+                ctx.fillRect(-24, 12, 48, 2.5);
                 ctx.restore();
 
                 ctx.fillStyle = '#1e293b';
                 ctx.beginPath();
-                ctx.roundRect(-9, 20, 18, 5, 2);
+                ctx.roundRect(-9, 19, 18, 5, 2);
                 ctx.fill();
 
                 if (cosR > -0.35) {
@@ -1855,16 +1933,16 @@
 
                 sortedFins.forEach(function(f) {
                     if (f.depth < 0) return;
-                    const tipX = f.xFactor * 28;
+                    const tipX = f.xFactor * 27;
                     const rootX = f.xFactor * 11;
-                    const finGrad = ctx.createLinearGradient(rootX, 2, tipX, 24);
+                    const finGrad = ctx.createLinearGradient(rootX, 2, tipX, 23);
                     finGrad.addColorStop(0, '#60a5fa');
                     finGrad.addColorStop(1, '#1d4ed8');
                     ctx.fillStyle = finGrad;
                     ctx.beginPath();
                     ctx.moveTo(rootX, 2);
-                    ctx.lineTo(tipX, 24);
-                    ctx.lineTo(rootX * 0.72, 20);
+                    ctx.lineTo(tipX, 23);
+                    ctx.lineTo(rootX * 0.72, 19);
                     ctx.closePath();
                     ctx.fill();
                 });
@@ -1876,7 +1954,7 @@
                 const box = document.getElementById('rocketArena');
                 if (!box) return;
                 const w = box.offsetWidth || 340;
-                const h = box.offsetHeight || 256;
+                const h = box.offsetHeight || 224;
                 if (canvas.width === 0) resizeCrashCanvas();
 
                 ctx.clearRect(0, 0, w, h);
@@ -1905,11 +1983,11 @@
                 ctx.globalAlpha = 1;
 
                 const startX = 64;
-                const startY = h - 28;
+                const startY = h - 24;
 
                 if (crashState === 'waiting') {
                     const rx = startX + 24;
-                    const ry = startY - 22;
+                    const ry = startY - 20;
 
                     ctx.strokeStyle = '#38bdf8';
                     ctx.lineWidth = 4;
@@ -1921,8 +1999,12 @@
 
                     draw3DRocket(ctx, rx, ry, 0.55, time, false);
                 } else if (crashState === 'flying') {
+                    // Плавний безперервний політ без зависань
                     const elapsedSec = Math.max(0, (performance.now() - flightStartTime) / 1000);
-                    multiplier = parseFloat((1 + elapsedSec * 0.42 + Math.pow(elapsedSec, 1.32) * 0.085).toFixed(2));
+                    multiplier = parseFloat((1 + elapsedSec * 0.44 + Math.pow(elapsedSec, 1.32) * 0.088).toFixed(2));
+                    if (multiplier >= targetCrashPoint) {
+                        multiplier = targetCrashPoint;
+                    }
                     document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
 
                     if (hasBetThisRound && !cashedOutThisRound) {
@@ -1932,8 +2014,8 @@
                     const maxScale = updateAxisLabelsForMultiplier(multiplier);
                     const normProgress = Math.min(1, Math.max(0.03, (multiplier - 1) / (maxScale - 1)));
 
-                    const usableW = Math.max(100, w - 125);
-                    const usableH = Math.max(82, h - 102);
+                    const usableW = Math.max(100, w - 128);
+                    const usableH = Math.max(76, h - 92);
                     const endX = startX + normProgress * usableW;
                     const endY = startY - normProgress * usableH;
                     const ctrlX = startX + (endX - startX) * 0.55;
@@ -2096,6 +2178,22 @@
                 if (roundTimerInterval) { clearInterval(roundTimerInterval); roundTimerInterval = null; }
             }
 
+            function setCrashButtonsState(text, mode) {
+                const btn = document.getElementById('actionBtn');
+                const hudBtn = document.getElementById('hudActionBtn');
+                [btn, hudBtn].forEach(function(b) {
+                    if (!b) return;
+                    b.innerText = text;
+                    if (b === hudBtn) {
+                        b.className = mode === 'cashout' ? 'quick-hud-btn cashout-mode' : 'quick-hud-btn';
+                    } else {
+                        b.className = mode === 'cashout' ? 'btn-action btn-cashout' : 'btn-action';
+                    }
+                    b.style.opacity = mode === 'muted' ? '0.78' : '1';
+                    b.onclick = mode === 'cashout' ? window.cashOut : (mode === 'bet' ? window.handleCrashAction : null);
+                });
+            }
+
             function runWaitingPhase() {
                 clearRoundTimers();
                 hasBetThisRound = false;
@@ -2119,12 +2217,7 @@
                 let countdown = 7;
                 document.getElementById('crashStatus').innerText = `Ожидание ставки (${countdown}с) ⭐`;
                 document.getElementById('crashMultiplier').innerText = "1.00x";
-
-                let btn = document.getElementById('actionBtn');
-                btn.innerText = "Сделать ставку ⭐";
-                btn.className = "btn-action";
-                btn.style.opacity = "1";
-                btn.onclick = window.handleCrashAction;
+                setCrashButtonsState("Сделать ставку ⭐", "bet");
 
                 renderBetsList();
 
@@ -2205,9 +2298,7 @@
                 renderBetsList();
                 syncCrashInputVisibility();
 
-                let btn = document.getElementById('actionBtn');
-                btn.innerText = "Ставка принята ⭐";
-                btn.style.opacity = "0.75";
+                setCrashButtonsState("Ставка принята ⭐", "muted");
             };
 
             function startFlightPhase() {
@@ -2217,38 +2308,36 @@
                 syncCrashInputVisibility();
 
                 let rand = Math.random();
-                if (rand < 0.42) {
-                    targetCrashPoint = 1.45 + Math.random() * 1.15;
-                } else if (rand < 0.78) {
-                    targetCrashPoint = 2.60 + Math.random() * 2.6;
+                if (rand < 0.44) {
+                    targetCrashPoint = 1.55 + Math.random() * 1.35;
+                } else if (rand < 0.80) {
+                    targetCrashPoint = 2.90 + Math.random() * 3.1;
                 } else {
-                    targetCrashPoint = 5.20 + Math.random() * 7.2;
+                    targetCrashPoint = 6.00 + Math.random() * 8.0;
                 }
                 targetCrashPoint = parseFloat(targetCrashPoint.toFixed(2));
 
                 document.getElementById('crashStatus').innerText = "🚀 Ракета летит! ⭐";
                 document.getElementById('crashMultiplier').innerText = "1.00x";
 
-                let btn = document.getElementById('actionBtn');
                 if (hasBetThisRound && !cashedOutThisRound) {
-                    btn.className = "btn-action btn-cashout";
-                    btn.style.opacity = "1";
                     updateCashoutButtonText();
-                    btn.onclick = window.cashOut;
+                    setCrashButtonsState(`Забрать (${formatStars(myBet)} ⭐)`, "cashout");
                 } else {
-                    btn.innerText = "Раунд идет... ⭐";
-                    btn.className = "btn-action";
-                    btn.onclick = null;
+                    setCrashButtonsState("Раунд идет... ⭐", "muted");
                 }
             }
 
             function updateCashoutButtonText() {
                 let potentialWin = Math.floor(myBet * multiplier);
-                let btn = document.getElementById('actionBtn');
-                btn.innerText = `Забрать (${formatStars(potentialWin)} ⭐)`;
+                const label = `Забрать (${formatStars(potentialWin)} ⭐)`;
+                const btn = document.getElementById('actionBtn');
+                const hudBtn = document.getElementById('hudActionBtn');
+                if (btn) btn.innerText = label;
+                if (hudBtn) hudBtn.innerText = label;
             }
 
-            // Після забору виграшу ракета летить далі до моменту вибуху
+            // Після забору ставки ракета продовжує летіти до свого реального вибуху
             window.cashOut = function() {
                 if (!hasBetThisRound || cashedOutThisRound || crashState !== 'flying') return;
                 cashedOutThisRound = true;
@@ -2262,12 +2351,7 @@
 
                 document.getElementById('multiplierPill').classList.add('cashed');
                 document.getElementById('crashStatus').innerText = `🎉 Забрали на ${cashedOutMult.toFixed(2)}x (+${formatStars(win)} ⭐) — смотрим до взрыва!`;
-
-                let btn = document.getElementById('actionBtn');
-                btn.innerText = `Забрано ${formatStars(win)} ⭐ • Ракета летит...`;
-                btn.className = "btn-action";
-                btn.style.opacity = "0.85";
-                btn.onclick = null;
+                setCrashButtonsState(`Забрано ${formatStars(win)} ⭐ • Полёт...`, "muted");
             };
 
             function explosionPhase(crashPoint) {
@@ -2278,7 +2362,6 @@
                 pill.classList.remove('cashed');
                 pill.classList.add('crashed');
 
-                let btn = document.getElementById('actionBtn');
                 if (hasBetThisRound && !cashedOutThisRound) {
                     document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x! Проигрыш ${formatStars(myBet)} ⭐`;
                 } else if (cashedOutThisRound) {
@@ -2290,10 +2373,7 @@
                 hasBetThisRound = false;
                 cashedOutThisRound = false;
                 syncCrashInputVisibility();
-                btn.innerText = "Раунд завершен ⭐";
-                btn.className = "btn-action";
-                btn.style.opacity = "1";
-                btn.onclick = null;
+                setCrashButtonsState("Раунд завершен ⭐", "none");
 
                 crashHistory.push(crashPoint.toFixed(2) + 'x');
                 updateHistoryUI();
@@ -2301,54 +2381,54 @@
                 setTimeout(runWaitingPhase, 3400);
             }
 
-            /* ================= КОСМО-БІЛОЧКА (НОВИЙ РУШІЙ ТА РЕАЛІСТИЧНИЙ ПОТІК) ================= */
+            /* ================= КОСМО-БІЛОЧКА (СПРОЩЕНА + КОСМІЧНІ МОДЕЛІ) ================= */
             const sqCanvas = document.getElementById('squirrelRoadCanvas');
             const sqCtx = sqCanvas.getContext('2d');
 
             const SQ_CONFIGS = {
                 easy: {
-                    multipliers: [1.08, 1.22, 1.38, 1.57, 1.79, 2.06, 2.38, 2.78, 3.28, 3.92],
-                    baseSpeed: 165,
-                    fastSpeed: 370,
-                    fastChance: 0.16,
-                    burstChance: 0.34,
-                    burstGap: 0.52,
-                    gapMin: 1.70,
-                    gapMax: 3.05,
-                    hitChance: 0.16
+                    multipliers: [1.12, 1.28, 1.48, 1.72, 2.02, 2.38, 2.82, 3.36, 4.02, 4.85],
+                    baseSpeed: 120,
+                    fastSpeed: 235,
+                    fastChance: 0.08,
+                    burstChance: 0.14,
+                    burstGap: 0.85,
+                    gapMin: 2.35,
+                    gapMax: 3.90,
+                    hitChance: 0.08
                 },
                 medium: {
-                    multipliers: [1.22, 1.50, 1.88, 2.38, 3.05, 3.95, 5.15, 6.80, 9.10, 12.50],
-                    baseSpeed: 220,
-                    fastSpeed: 475,
-                    fastChance: 0.24,
-                    burstChance: 0.44,
-                    burstGap: 0.45,
-                    gapMin: 1.35,
-                    gapMax: 2.45,
-                    hitChance: 0.28
+                    multipliers: [1.25, 1.56, 1.98, 2.55, 3.32, 4.38, 5.85, 7.90, 10.80, 15.00],
+                    baseSpeed: 165,
+                    fastSpeed: 315,
+                    fastChance: 0.14,
+                    burstChance: 0.24,
+                    burstGap: 0.72,
+                    gapMin: 1.85,
+                    gapMax: 3.15,
+                    hitChance: 0.16
                 },
                 hard: {
-                    multipliers: [1.45, 2.15, 3.25, 4.95, 7.65, 12.10, 19.50, 31.80, 52.00, 88.00],
-                    baseSpeed: 285,
-                    fastSpeed: 595,
-                    fastChance: 0.34,
-                    burstChance: 0.54,
-                    burstGap: 0.38,
-                    gapMin: 1.05,
-                    gapMax: 1.95,
-                    hitChance: 0.42
+                    multipliers: [1.48, 2.22, 3.40, 5.25, 8.20, 13.00, 21.00, 34.50, 57.00, 95.00],
+                    baseSpeed: 220,
+                    fastSpeed: 410,
+                    fastChance: 0.22,
+                    burstChance: 0.36,
+                    burstGap: 0.58,
+                    gapMin: 1.40,
+                    gapMax: 2.45,
+                    hitChance: 0.26
                 },
                 impossible: {
                     multipliers: [1.95, 3.90, 8.20, 17.50, 38.00, 85.00, 195.00, 450.00, 1050.00, 2500.00],
-                    baseSpeed: 360,
-                    fastSpeed: 725,
-                    fastChance: 0.46,
-                    burstChance: 0.64,
-                    burstGap: 0.33,
-                    gapMin: 0.80,
-                    gapMax: 1.50,
-                    hitChance: 0.62
+                    baseSpeed: 295,
+                    fastSpeed: 540,
+                    fastChance: 0.34,
+                    burstChance: 0.50,
+                    burstGap: 0.44,
+                    gapMin: 1.00,
+                    gapMax: 1.85,
+                    hitChance: 0.42
                 }
             };
 
@@ -2449,12 +2529,12 @@
                         { body: '#8b5cf6', roof: '#5b21b6', fast: false }
                       ];
                 const st = styles[Math.floor(Math.random() * styles.length)];
-                const speedJitter = (Math.random() - 0.5) * 24;
-                const startY = forceNearHit ? 156 : -58;
+                const speedJitter = (Math.random() - 0.5) * 20;
+                const startY = forceNearHit ? 168 : -58;
                 lane.cars.push({
                     y: startY,
                     w: 44,
-                    h: isFast ? 66 : 74,
+                    h: isFast ? 64 : 72,
                     speed: (isFast ? cfg.fastSpeed : cfg.baseSpeed) + speedJitter,
                     style: st
                 });
@@ -2467,7 +2547,7 @@
                         step: step,
                         blocked: false,
                         burstRemaining: 0,
-                        spawnTimer: 0.25 + Math.random() * 1.5,
+                        spawnTimer: 0.7 + Math.random() * 2.2,
                         cars: []
                     });
                 }
@@ -2530,7 +2610,6 @@
                 strip.innerText = `💥 Белочку сбило! Проигрыш -${formatStars(sqBet)} ⭐`;
             }
 
-            // Неочевидна логіка кроку: можна вигравати й іти далі, але без гарантованого "авто-проходу"
             window.stepSquirrelForward = function() {
                 if (!sqPlaying) return;
                 if (sqCurrentStep >= SQ_STEPS_TOTAL) {
@@ -2551,11 +2630,11 @@
                 const squirrelY = 232;
 
                 let hit = lane && lane.cars.find(function(c) {
-                    return Math.abs(c.y - squirrelY) < (c.h * 0.45 + 15);
+                    return Math.abs(c.y - squirrelY) < (c.h * 0.42 + 13);
                 });
 
                 if (!hit && lane && Math.random() < cfg.hitChance) {
-                    spawnLaneVehicle(lane, Math.random() < 0.5, true);
+                    spawnLaneVehicle(lane, false, true);
                     hit = lane.cars[lane.cars.length - 1];
                 }
 
@@ -2620,19 +2699,19 @@
                     if (!lane.blocked) {
                         lane.spawnTimer -= dt;
                         if (lane.spawnTimer <= 0) {
-                            const hasSpawnOverlap = lane.cars.some(function(c) { return c.y < 32; });
+                            const hasSpawnOverlap = lane.cars.some(function(c) { return c.y < 52; });
                             if (!hasSpawnOverlap) {
-                                const isFastShot = lane.burstRemaining > 0 && Math.random() < 0.65;
+                                const isFastShot = lane.burstRemaining > 0 && Math.random() < 0.5;
                                 spawnLaneVehicle(lane, isFastShot, false);
                             }
 
                             if (lane.burstRemaining > 0) {
                                 lane.burstRemaining--;
-                                lane.spawnTimer = cfg.burstGap + Math.random() * 0.14;
+                                lane.spawnTimer = cfg.burstGap + Math.random() * 0.16;
                             } else {
                                 if (Math.random() < cfg.burstChance) {
                                     lane.burstRemaining = 1;
-                                    lane.spawnTimer = cfg.burstGap + Math.random() * 0.15;
+                                    lane.spawnTimer = cfg.burstGap + Math.random() * 0.16;
                                 } else {
                                     lane.spawnTimer = cfg.gapMin + Math.random() * (cfg.gapMax - cfg.gapMin);
                                 }
@@ -2649,7 +2728,7 @@
                         }
 
                         if (sqPlaying && sqCurrentStep === lane.step && !lane.blocked) {
-                            if (Math.abs(c.y - squirrelY) < (c.h * 0.45 + 14)) {
+                            if (Math.abs(c.y - squirrelY) < (c.h * 0.40 + 12)) {
                                 triggerSquirrelLose();
                             }
                         }
@@ -2713,7 +2792,7 @@
                     return;
                 }
 
-                ctx.strokeStyle = 'rgba(125, 211, 252, 0.58)';
+                ctx.strokeStyle = 'rgba(125, 211, 252, 0.62)';
                 ctx.lineWidth = 1.6;
                 ctx.beginPath();
                 ctx.arc(4, -5, 22, 0, Math.PI * 2);
@@ -2781,6 +2860,60 @@
                 ctx.restore();
             }
 
+            // Космічні моделі та об'єкти на фоні космо-траси білочки
+            function drawSpaceModels(ctx, ts) {
+                // Сатурн з кільцями
+                ctx.save();
+                ctx.translate(220, 44);
+                const satGrad = ctx.createRadialGradient(-5, -5, 3, 0, 0, 18);
+                satGrad.addColorStop(0, '#fef08a');
+                satGrad.addColorStop(0.7, '#d97706');
+                satGrad.addColorStop(1, '#78350f');
+                ctx.fillStyle = satGrad;
+                ctx.beginPath();
+                ctx.arc(0, 0, 17, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(253, 224, 71, 0.55)';
+                ctx.lineWidth = 2.4;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 30, 7.5, -0.25, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+
+                // Орбітальна космічна станція з сонячними панелями
+                const stY = 52 + Math.sin(ts * 0.002) * 4;
+                ctx.save();
+                ctx.translate(520, stY);
+                ctx.fillStyle = '#1d4ed8';
+                ctx.strokeStyle = '#93c5fd';
+                ctx.lineWidth = 1.2;
+                ctx.fillRect(-34, -5, 22, 10);
+                ctx.strokeRect(-34, -5, 22, 10);
+                ctx.fillRect(12, -5, 22, 10);
+                ctx.strokeRect(12, -5, 22, 10);
+                ctx.fillStyle = '#e2e8f0';
+                ctx.beginPath();
+                ctx.roundRect(-10, -7, 20, 14, 4);
+                ctx.fill();
+                ctx.fillStyle = '#facc15';
+                ctx.beginPath();
+                ctx.arc(0, 0, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // Фіолетова планета-супутник у глибині космосу
+                ctx.save();
+                ctx.translate(820, 58);
+                const pGrad = ctx.createRadialGradient(-4, -4, 2, 0, 0, 15);
+                pGrad.addColorStop(0, '#e879f9');
+                pGrad.addColorStop(1, '#4c1d95');
+                ctx.fillStyle = pGrad;
+                ctx.beginPath();
+                ctx.arc(0, 0, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
             function renderSquirrelRoadScene(ts) {
                 if (!sqLastTs) sqLastTs = ts;
                 const dt = Math.min(0.05, (ts - sqLastTs) / 1000);
@@ -2820,15 +2953,7 @@
                 });
                 sqCtx.globalAlpha = 1;
 
-                sqCtx.fillStyle = 'rgba(250, 204, 21, 0.24)';
-                sqCtx.beginPath();
-                sqCtx.arc(240, 46, 18, 0, Math.PI * 2);
-                sqCtx.fill();
-                sqCtx.strokeStyle = 'rgba(165, 180, 252, 0.38)';
-                sqCtx.lineWidth = 2;
-                sqCtx.beginPath();
-                sqCtx.ellipse(240, 46, 30, 7, -0.25, 0, Math.PI * 2);
-                sqCtx.stroke();
+                drawSpaceModels(sqCtx, ts);
 
                 sqCtx.fillStyle = '#1b2250';
                 sqCtx.fillRect(0, 0, SQ_SIDEWALK_WIDTH - 6, h);
