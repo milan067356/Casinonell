@@ -2,8 +2,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>allDep</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>allDep • Space Edition</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
     <style>
@@ -47,51 +50,139 @@
             padding: 0;
             padding-bottom: 95px;
             transition: background-color 0.3s ease;
+            overflow-x: hidden;
         }
 
-        /* Анімований екран старту / пробудження сервера */
-        #bootOverlay {
+        /* ================= ПРИКОЛЬНИЙ ЕКРАН ЗАПУСКУ / ПРОБУДЖЕННЯ ================= */
+        #bootScreen {
             position: fixed;
             inset: 0;
-            z-index: 2000;
-            background: radial-gradient(circle at 50% 35%, rgba(99, 102, 241, 0.28), rgba(6, 11, 24, 0.98) 70%);
+            z-index: 9999;
+            background:
+                radial-gradient(circle at 25% 25%, rgba(56, 189, 248, 0.22), transparent 45%),
+                radial-gradient(circle at 80% 75%, rgba(168, 85, 247, 0.24), transparent 50%),
+                #040711;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 24px;
             text-align: center;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            transition: opacity 0.45s ease, visibility 0.45s ease;
         }
-        #bootOverlay.hidden {
+        #bootScreen.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
-        .boot-spinner {
-            width: 58px;
-            height: 58px;
+        .boot-stars-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(1.5px 1.5px at 18% 22%, #fff 90%, transparent),
+                radial-gradient(2px 2px at 74% 18%, #fef08a 90%, transparent),
+                radial-gradient(1.5px 1.5px at 84% 64%, #7dd3fc 90%, transparent),
+                radial-gradient(2px 2px at 30% 78%, #fff 90%, transparent),
+                radial-gradient(1.5px 1.5px at 52% 40%, #c084fc 90%, transparent);
+            opacity: 0.85;
+            pointer-events: none;
+        }
+        .boot-orbit {
+            position: relative;
+            width: 112px;
+            height: 112px;
             border-radius: 50%;
-            border: 4px solid rgba(148, 163, 184, 0.2);
-            border-top-color: var(--accent-color);
-            animation: spinBoot 0.9s linear infinite;
-            margin-bottom: 16px;
-            box-shadow: 0 0 24px rgba(0, 255, 204, 0.25);
+            border: 2px dashed rgba(56, 189, 248, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: bootSpin 5s linear infinite;
+            box-shadow: 0 0 32px rgba(56, 189, 248, 0.28);
         }
-        @keyframes spinBoot {
-            to { transform: rotate(360deg); }
+        .boot-orbit-inner {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #38bdf8, #1d4ed8 70%, #0f172a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            animation: bootCounterSpin 5s linear infinite;
+            box-shadow: 0 0 24px rgba(56, 189, 248, 0.65);
         }
-        .boot-title {
+        @keyframes bootSpin { to { transform: rotate(360deg); } }
+        @keyframes bootCounterSpin { to { transform: rotate(-360deg); } }
+
+        .boot-logo {
             font-family: 'Outfit', sans-serif;
-            font-size: 24px;
+            font-size: 34px;
             font-weight: 900;
-            margin-bottom: 8px;
+            background: linear-gradient(135deg, #00ffcc, #38bdf8, #facc15);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 2;
         }
-        .boot-sub {
-            font-size: 13px;
-            color: var(--text-muted);
-            max-width: 290px;
-            line-height: 1.45;
+        .boot-status {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #cbd5e1;
+            min-height: 22px;
+            margin-bottom: 14px;
+            position: relative;
+            z-index: 2;
+        }
+        .boot-bar-wrap {
+            width: 240px;
+            height: 8px;
+            background: rgba(30, 41, 59, 0.85);
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            position: relative;
+            z-index: 2;
+        }
+        .boot-bar-fill {
+            height: 100%;
+            width: 12%;
+            background: linear-gradient(90deg, #00ffcc, #38bdf8, #facc15);
+            border-radius: 999px;
+            transition: width 0.25s ease;
+        }
+
+        /* ================= КНОПКИ З ЗАДНІМ ФОНОМ ТА ЗІРКАМИ ================= */
+        .star-themed-btn {
+            position: relative;
+            background:
+                radial-gradient(circle at 18% 30%, rgba(250, 204, 21, 0.26) 0%, transparent 45%),
+                radial-gradient(circle at 82% 70%, rgba(56, 189, 248, 0.28) 0%, transparent 50%),
+                linear-gradient(135deg, #1b284d 0%, #101933 60%, #090f21 100%);
+            border: 1.5px solid rgba(250, 204, 21, 0.48);
+            color: #fef9c3;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.7), inset 0 0 12px rgba(250, 204, 21, 0.14);
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            overflow: hidden;
+        }
+        .star-themed-btn::before {
+            content: "✦ ✧";
+            position: absolute;
+            right: 9px;
+            top: 3px;
+            font-size: 9px;
+            color: rgba(254, 240, 138, 0.55);
+            pointer-events: none;
+        }
+        .star-themed-btn:active {
+            transform: scale(0.96);
+            border-color: #facc15;
         }
 
         .header {
@@ -169,33 +260,35 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 176px;
+            height: 178px;
             box-sizing: border-box;
         }
         .game-card:active { transform: scale(0.96); }
 
         .game-card.crash-style {
             background:
-                radial-gradient(circle at 75% 24%, rgba(56, 189, 248, 0.36) 0%, transparent 46%),
-                radial-gradient(circle at 22% 18%, rgba(129, 140, 248, 0.3) 0%, transparent 52%),
+                radial-gradient(circle at 75% 24%, rgba(56, 189, 248, 0.38) 0%, transparent 46%),
+                radial-gradient(circle at 22% 18%, rgba(129, 140, 248, 0.32) 0%, transparent 52%),
                 linear-gradient(155deg, #17348f 0%, #0b1949 55%, #050b21 100%);
             border: 1.5px solid rgba(56, 189, 248, 0.65);
         }
 
         .game-card.cases-style {
             background:
-                radial-gradient(circle at 65% 24%, rgba(192, 132, 252, 0.34) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(56, 189, 248, 0.26) 0%, transparent 58%),
-                linear-gradient(155deg, #2b1d75 0%, #131b4a 55%, #070b21 100%);
-            border: 1.5px solid rgba(192, 132, 252, 0.62);
+                radial-gradient(circle at 50% 24%, rgba(232, 121, 249, 0.42) 0%, transparent 52%),
+                radial-gradient(circle at 22% 76%, rgba(56, 189, 248, 0.32) 0%, transparent 58%),
+                linear-gradient(155deg, #351869 0%, #16184a 55%, #070b21 100%);
+            border: 1.5px solid rgba(217, 70, 239, 0.68);
+            box-shadow: 0 8px 26px rgba(168, 85, 247, 0.32), inset 0 0 18px rgba(232, 121, 249, 0.16);
         }
 
         .game-card.squirrel-style {
             background:
-                radial-gradient(circle at 74% 24%, rgba(250, 204, 21, 0.34) 0%, transparent 46%),
-                radial-gradient(circle at 26% 72%, rgba(99, 102, 241, 0.42) 0%, transparent 56%),
-                linear-gradient(155deg, #1d246b 0%, #0d133b 55%, #05081d 100%);
-            border: 1.5px solid rgba(129, 140, 248, 0.72);
+                radial-gradient(circle at 76% 22%, rgba(250, 204, 21, 0.36) 0%, transparent 44%),
+                radial-gradient(circle at 25% 74%, rgba(129, 140, 248, 0.48) 0%, transparent 56%),
+                linear-gradient(155deg, #1e1b6b 0%, #0c1038 55%, #040617 100%);
+            border: 1.5px solid rgba(165, 180, 252, 0.78);
+            box-shadow: 0 8px 26px rgba(99, 102, 241, 0.34), inset 0 0 18px rgba(129, 140, 248, 0.18);
         }
 
         .crash-art-wrap {
@@ -209,56 +302,53 @@
         .cases-chest-card-art {
             position: relative;
             z-index: 2;
-            width: 136px;
-            height: 112px;
-            margin: 2px auto 0 auto;
+            width: 138px;
+            height: 114px;
+            margin: 0 auto;
             pointer-events: none;
-            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
+            filter: drop-shadow(0 8px 18px rgba(168, 85, 247, 0.55));
         }
 
         .game-title-text {
             position: relative;
             z-index: 2;
-            font-size: 21px;
+            font-size: 20px;
             font-weight: 900;
             color: #ffffff;
             font-family: 'Outfit', sans-serif;
             margin-top: auto;
             letter-spacing: 0.3px;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.75);
+            text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
 
-        /* Кнопки з фоном і зірками */
-        .star-pill-btn {
-            background: linear-gradient(135deg, #1e294b, #121a33);
+        .card-star-pill {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid rgba(250, 204, 21, 0.45);
             color: #fef08a;
-            border: 1px solid rgba(250, 204, 21, 0.42);
-            border-radius: 12px;
-            padding: 8px 12px;
-            font-size: 13px;
-            font-weight: 800;
-            font-family: 'Outfit', sans-serif;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.65), inset 0 0 10px rgba(250, 204, 21, 0.12);
-            transition: transform 0.15s ease, border-color 0.15s ease;
         }
-        .star-pill-btn:active { transform: scale(0.96); }
 
         .crash-screen { text-align: center; }
 
-        /* Єдиний контейнер арени ракети + коефіцієнти минулих раундів знизу під ракетою */
+        /* Єдиний контейнер арени ракети + історія коефіцієнтів знизу під ракетою */
         .rocket-shell {
             margin: 8px 0 12px 0;
             background: #060b16;
             border-radius: 24px;
-            border: 1.5px solid rgba(56, 189, 248, 0.38);
+            border: 1.5px solid rgba(56, 189, 248, 0.42);
             overflow: hidden;
             box-shadow: var(--accent-glow);
         }
 
         .rocket-container {
             position: relative;
-            height: 270px;
+            height: 266px;
             overflow: hidden;
         }
 
@@ -273,13 +363,13 @@
 
         .y-axis-labels {
             position: absolute;
-            right: 10px;
+            left: 10px;
             top: 18px;
             bottom: 18px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: flex-start;
             z-index: 3;
             pointer-events: none;
         }
@@ -299,16 +389,20 @@
             z-index: 4;
             display: inline-block;
             margin-top: 16px;
-            background: rgba(11, 19, 36, 0.82);
-            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            background: rgba(11, 19, 36, 0.84);
+            border: 1.5px solid rgba(56, 189, 248, 0.48);
             border-radius: 20px;
             padding: 8px 26px;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55), 0 0 18px rgba(56, 189, 248, 0.22);
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .multiplier-pill.crashed {
-            border-color: rgba(239, 68, 68, 0.8);
-            box-shadow: 0 8px 28px rgba(239, 68, 68, 0.35);
+            border-color: rgba(239, 68, 68, 0.85);
+            box-shadow: 0 8px 28px rgba(239, 68, 68, 0.38);
+        }
+        .multiplier-pill.cashed {
+            border-color: rgba(16, 185, 129, 0.85);
+            box-shadow: 0 8px 28px rgba(16, 185, 129, 0.35);
         }
         .multiplier {
             font-size: 44px;
@@ -321,16 +415,20 @@
         }
         .multiplier-pill.crashed .multiplier {
             color: #fca5a5;
-            text-shadow: 0 0 20px rgba(239, 68, 68, 0.7);
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.75);
+        }
+        .multiplier-pill.cashed .multiplier {
+            color: #6ee7b7;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.65);
         }
 
-        /* Історія коефіцієнтів під ракетою всередині блоку */
+        /* Минулі коефіцієнти нижче під самою ракетою (всередині блоку ракети) */
         .history-bar-under {
             display: flex;
             gap: 6px;
             overflow-x: auto;
             padding: 8px 10px;
-            background: rgba(11, 19, 38, 0.96);
+            background: linear-gradient(180deg, rgba(10, 17, 34, 0.96), rgba(6, 11, 22, 0.99));
             border-top: 1px solid rgba(56, 189, 248, 0.22);
             white-space: nowrap;
         }
@@ -343,6 +441,7 @@
             color: #38bdf8;
             border: 1px solid rgba(56, 189, 248, 0.28);
             font-family: 'Outfit', sans-serif;
+            flex-shrink: 0;
         }
         .history-chip.high {
             background: rgba(168, 85, 247, 0.28);
@@ -370,15 +469,18 @@
         }
         .quick-btn {
             flex: 1;
-            background: linear-gradient(145deg, #1d2947, #131c33);
-            color: #f8fafc;
-            border: 1px solid rgba(250, 204, 21, 0.25);
-            padding: 8px;
+            background:
+                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.2), transparent 50%),
+                linear-gradient(145deg, #1d2947, #121a30);
+            color: #fef9c3;
+            border: 1px solid rgba(250, 204, 21, 0.34);
+            padding: 8px 6px;
             border-radius: 10px;
             font-size: 13px;
             font-weight: 800;
+            font-family: 'Outfit', sans-serif;
             cursor: pointer;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.4);
         }
         .quick-btn:active { background: #334155; color: #facc15; }
 
@@ -399,17 +501,20 @@
         }
 
         .btn-action {
+            position: relative;
             width: 100%;
             padding: 16px;
             font-size: 17px;
             border-radius: 14px;
-            border: none;
+            border: 1.5px solid rgba(254, 240, 138, 0.48);
             outline: none;
             box-sizing: border-box;
             margin-top: 12px;
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
-            background: linear-gradient(135deg, var(--accent-color), #38bdf8);
+            background:
+                radial-gradient(circle at 18% 25%, rgba(255, 255, 255, 0.34) 0%, transparent 45%),
+                linear-gradient(135deg, var(--accent-color), #38bdf8);
             color: #070d1a;
             cursor: pointer;
             box-shadow: var(--btn-glow);
@@ -418,8 +523,11 @@
         }
         .btn-action:active { opacity: 0.85; transform: scale(0.98); }
         .btn-cashout {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background:
+                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.28) 0%, transparent 45%),
+                linear-gradient(135deg, #10b981, #059669);
             color: #fff;
+            border-color: rgba(250, 204, 21, 0.55);
             box-shadow: 0 4px 20px rgba(16,185,129,0.5);
         }
 
@@ -428,21 +536,21 @@
             padding: 13px;
             font-size: 14px;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(250, 204, 21, 0.32);
             outline: none;
             box-sizing: border-box;
             margin-top: 8px;
             font-weight: 800;
             font-family: 'Outfit', sans-serif;
             background: linear-gradient(145deg, #1a2542, #11182c);
-            color: #e2e8f0;
+            color: #fef9c3;
             cursor: pointer;
             text-transform: uppercase;
             transition: all 0.2s ease;
         }
         .btn-secondary:active { transform: scale(0.98); opacity: 0.85; }
 
-        /* Космічне оформлення Білочки */
+        /* ================= КОСМО-БІЛОЧКА ================= */
         .sq-top-bar {
             display: flex;
             justify-content: space-between;
@@ -450,18 +558,22 @@
             gap: 8px;
             margin-bottom: 8px;
         }
+        .sq-nav-btn {
+            padding: 8px 13px;
+            font-size: 13px;
+        }
         .sq-stage {
             position: relative;
             border-radius: 22px;
             overflow: hidden;
-            border: 1.5px solid rgba(129, 140, 248, 0.55);
-            background: #090d24;
-            box-shadow: 0 10px 30px rgba(30, 27, 75, 0.65), 0 0 22px rgba(99, 102, 241, 0.22);
+            border: 1.5px solid rgba(165, 180, 252, 0.55);
+            background: #06091c;
+            box-shadow: 0 10px 30px rgba(30, 27, 75, 0.7), 0 0 24px rgba(99, 102, 241, 0.25);
         }
         #squirrelRoadCanvas {
             display: block;
             width: 100%;
-            height: 360px;
+            height: 364px;
             cursor: pointer;
             touch-action: manipulation;
         }
@@ -471,24 +583,26 @@
             font-family: 'Outfit', sans-serif;
             font-weight: 900;
             font-size: 14px;
-            background: linear-gradient(90deg, #111633, #1e1b4b, #111633);
-            border-top: 1px solid rgba(129, 140, 248, 0.28);
+            background: linear-gradient(90deg, #0d122e, #1e1b4b, #0d122e);
+            border-top: 1px solid rgba(129, 140, 248, 0.32);
             color: #e0e7ff;
         }
         .sq-status-strip.lose {
-            background: rgba(127, 29, 29, 0.88);
+            background: rgba(127, 29, 29, 0.9);
             color: #fecaca;
         }
         .sq-status-strip.win {
-            background: rgba(6, 78, 59, 0.88);
+            background: rgba(6, 78, 59, 0.9);
             color: #a7f3d0;
         }
         .sq-panel {
-            background: linear-gradient(160deg, #131833, #0c1024);
+            background:
+                radial-gradient(circle at 85% 15%, rgba(250, 204, 21, 0.14), transparent 45%),
+                linear-gradient(160deg, #141a38, #0b0f24);
             border-radius: 22px;
             padding: 12px;
             margin-top: 10px;
-            border: 1px solid rgba(129, 140, 248, 0.25);
+            border: 1px solid rgba(129, 140, 248, 0.28);
             box-shadow: 0 8px 24px rgba(0,0,0,0.45);
         }
         .sq-bet-row {
@@ -497,7 +611,7 @@
             background: #1a2142;
             border-radius: 14px;
             padding: 6px 8px;
-            border: 1px solid rgba(250, 204, 21, 0.22);
+            border: 1px solid rgba(250, 204, 21, 0.28);
             gap: 6px;
         }
         .sq-bet-star {
@@ -517,12 +631,14 @@
             min-width: 0;
         }
         .sq-mini-btn {
-            background: linear-gradient(145deg, #273161, #1b2245);
+            background:
+                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.25), transparent 55%),
+                linear-gradient(145deg, #2b366b, #1a2145);
             color: #fef08a;
-            border: 1px solid rgba(250, 204, 21, 0.25);
+            border: 1px solid rgba(250, 204, 21, 0.35);
             border-radius: 10px;
-            padding: 8px 11px;
-            font-size: 13px;
+            padding: 8px 10px;
+            font-size: 12px;
             font-weight: 800;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
@@ -536,9 +652,11 @@
             margin-top: 10px;
         }
         .sq-diff-pill {
-            background: #1a2142;
-            color: #94a3b8;
-            border: 1px solid rgba(129, 140, 248, 0.16);
+            background:
+                radial-gradient(circle at 80% 20%, rgba(250, 204, 21, 0.14), transparent 50%),
+                linear-gradient(145deg, #1d254a, #131833);
+            color: #cbd5e1;
+            border: 1px solid rgba(129, 140, 248, 0.22);
             border-radius: 12px;
             padding: 10px 4px;
             font-size: 12px;
@@ -549,25 +667,29 @@
             transition: all 0.15s ease;
         }
         .sq-diff-pill.active {
-            background: linear-gradient(135deg, #3730a3, #5b21b6);
-            color: #ffffff;
-            border-color: #a5b4fc;
-            box-shadow: 0 0 14px rgba(99, 102, 241, 0.45);
+            background:
+                radial-gradient(circle at 25% 25%, rgba(250, 204, 21, 0.28), transparent 55%),
+                linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fef9c3;
+            border-color: #facc15;
+            box-shadow: 0 0 14px rgba(99, 102, 241, 0.5);
         }
 
         .sq-start-btn {
             width: 100%;
             margin-top: 10px;
             padding: 15px;
-            border: 1px solid rgba(250, 204, 21, 0.35);
+            border: 1.5px solid rgba(250, 204, 21, 0.52);
             border-radius: 15px;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed, #2563eb);
+            background:
+                radial-gradient(circle at 20% 25%, rgba(250, 204, 21, 0.28), transparent 45%),
+                linear-gradient(135deg, #4f46e5, #7c3aed, #2563eb);
             color: #ffffff;
             font-size: 16px;
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
-            box-shadow: 0 6px 22px rgba(79, 70, 229, 0.5);
+            box-shadow: 0 6px 22px rgba(79, 70, 229, 0.55);
         }
         .sq-start-btn:active { transform: scale(0.98); }
 
@@ -579,15 +701,17 @@
         }
         .sq-collect-btn {
             padding: 15px 10px;
-            border: 1px solid rgba(250, 204, 21, 0.4);
+            border: 1.5px solid rgba(250, 204, 21, 0.55);
             border-radius: 15px;
-            background: linear-gradient(135deg, #10b981, #059669);
+            background:
+                radial-gradient(circle at 20% 25%, rgba(254, 240, 138, 0.28), transparent 45%),
+                linear-gradient(135deg, #10b981, #059669);
             color: #ffffff;
             font-size: 15px;
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
         }
         .sq-collect-btn:disabled {
             opacity: 0.48;
@@ -595,15 +719,17 @@
         }
         .sq-step-btn {
             padding: 15px 10px;
-            border: 1px solid rgba(129, 140, 248, 0.45);
+            border: 1.5px solid rgba(250, 204, 21, 0.48);
             border-radius: 15px;
-            background: linear-gradient(135deg, #283266, #1b2247);
+            background:
+                radial-gradient(circle at 80% 25%, rgba(250, 204, 21, 0.26), transparent 50%),
+                linear-gradient(135deg, #312e81, #1e1b4b);
             color: #fef08a;
             font-size: 15px;
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(30, 27, 75, 0.6);
+            box-shadow: 0 4px 16px rgba(30, 27, 75, 0.65);
         }
         .sq-step-btn:active { background: #343b59; transform: scale(0.98); }
 
@@ -612,7 +738,7 @@
             border-radius: 16px;
             padding: 12px;
             margin: 15px 0;
-            max-height: 195px;
+            max-height: 205px;
             overflow-y: auto;
             text-align: left;
             border: 1px solid var(--border-color);
@@ -620,8 +746,8 @@
         .bet-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-color); font-size: 14px; color: var(--text-muted); }
         .bet-item:last-child { border-bottom: none; }
         .bet-user { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: bold; }
-        .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.18); background: #1e293b; }
-        .bet-avatar-fallback {
+        .bet-user img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255,255,255,0.22); background: #1e293b; }
+        .bet-no-avatar {
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -632,28 +758,34 @@
             font-weight: 900;
             font-family: 'Outfit', sans-serif;
             color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.22);
+            border: 1px solid rgba(255,255,255,0.24);
             flex-shrink: 0;
         }
         .bet-amount { color: #facc15; font-weight: 800; font-family: 'Outfit', sans-serif; }
         .bet-amount.mid { color: #fde047; }
 
+        /* ================= ОНОВЛЕНЕ ОФОРМЛЕННЯ КЕЙСІВ ================= */
         .case-details {
-            background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.22), var(--header-bg) 62%);
-            border-radius: 22px;
+            position: relative;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(217, 70, 239, 0.30), transparent 58%),
+                radial-gradient(circle at 15% 80%, rgba(56, 189, 248, 0.18), transparent 50%),
+                var(--header-bg);
+            border-radius: 24px;
             padding: 20px;
             text-align: center;
-            border: 1.5px solid rgba(192, 132, 252, 0.42);
-            box-shadow: var(--btn-glow);
+            border: 1.5px solid rgba(217, 70, 239, 0.52);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.25);
         }
         .gift-badge-art {
-            width: 176px;
-            height: 154px;
+            width: 184px;
+            height: 158px;
             margin: 0 auto 14px auto;
             border-radius: 22px;
             overflow: hidden;
-            border: 1.5px solid rgba(192, 132, 252, 0.65);
-            box-shadow: 0 0 26px rgba(139, 92, 246, 0.45);
+            border: 1.5px solid rgba(250, 204, 21, 0.55);
+            box-shadow: 0 0 28px rgba(168, 85, 247, 0.5);
+            background: radial-gradient(circle at 50% 45%, #2e1065, #0f172a);
         }
 
         .roulette-wrapper {
@@ -832,12 +964,20 @@
 </head>
 <body id="appBody">
 
-    <!-- Прикольний екран запуску / пробудження після сну на Render -->
-    <div id="bootOverlay">
-        <div class="boot-spinner"></div>
-        <div class="boot-title">🚀 allDep прокидається...</div>
-        <div class="boot-sub" id="bootStatusText">Запускаємо двигун ракет та космічну трасу білочки ⭐</div>
-        <button class="star-pill-btn" style="margin-top: 16px;" onclick="dismissBootOverlay()">Увійти одразу ⭐</button>
+    <!-- Прикольний екран запуску / пробудження після сну сервера -->
+    <div id="bootScreen">
+        <div class="boot-stars-bg"></div>
+        <div class="boot-orbit">
+            <div class="boot-orbit-inner">🚀</div>
+        </div>
+        <div class="boot-logo">allDep</div>
+        <div class="boot-status" id="bootStatusText">✨ Прогреваем звездные двигатели...</div>
+        <div class="boot-bar-wrap">
+            <div class="boot-bar-fill" id="bootBarFill"></div>
+        </div>
+        <button class="star-themed-btn" style="margin-top: 18px; padding: 9px 18px; font-size: 13px;" onclick="finishBootImmediately()">
+            Войти в космос ⭐
+        </button>
     </div>
 
     <div class="header">
@@ -876,30 +1016,36 @@
                         <path d="M-8 22 Q0 42 8 22 Z" fill="#f97316"/>
                     </g>
                 </svg>
-                <div class="game-title-text">Краш</div>
+                <div class="game-title-text">
+                    <span>Краш</span>
+                    <span class="card-star-pill">3D ⭐</span>
+                </div>
             </div>
 
             <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('cases-list')">
                 <svg class="crash-art-wrap" viewBox="0 0 180 180">
-                    <circle cx="22" cy="24" r="1.4" fill="#ffffff" opacity="0.8"/>
-                    <circle cx="52" cy="18" r="2" fill="#fae8ff" opacity="0.9"/>
-                    <circle cx="128" cy="20" r="2.2" fill="#e879f9"/>
-                    <circle cx="158" cy="34" r="1.5" fill="#ffffff" opacity="0.85"/>
-                    <circle cx="20" cy="88" r="1.8" fill="#fef08a" opacity="0.75"/>
-                    <circle cx="162" cy="96" r="2" fill="#ffffff" opacity="0.8"/>
+                    <circle cx="22" cy="24" r="1.6" fill="#ffffff" opacity="0.9"/>
+                    <circle cx="52" cy="18" r="2.2" fill="#fae8ff" opacity="0.95"/>
+                    <circle cx="128" cy="20" r="2.5" fill="#facc15"/>
+                    <circle cx="158" cy="34" r="1.6" fill="#ffffff" opacity="0.85"/>
+                    <circle cx="20" cy="88" r="2" fill="#fef08a" opacity="0.85"/>
+                    <circle cx="162" cy="96" r="2" fill="#e879f9" opacity="0.9"/>
                 </svg>
                 <div class="cases-chest-card-art" id="mainCaseCardArt"></div>
-                <div class="game-title-text" style="text-align: left; width: 100%;">Кейсы</div>
+                <div class="game-title-text">
+                    <span>Кейсы</span>
+                    <span class="card-star-pill">NFT ⭐</span>
+                </div>
             </div>
 
             <div class="game-card squirrel-style" onclick="switchScreen('squirrel')">
                 <svg class="crash-art-wrap" viewBox="0 0 180 180">
-                    <circle cx="24" cy="22" r="1.5" fill="#ffffff" opacity="0.9"/>
-                    <circle cx="58" cy="15" r="2" fill="#fde047" opacity="0.95"/>
-                    <circle cx="136" cy="20" r="2.2" fill="#a5b4fc"/>
-                    <circle cx="156" cy="46" r="1.5" fill="#ffffff" opacity="0.85"/>
-                    <circle cx="20" cy="78" r="1.7" fill="#bae6fd" opacity="0.8"/>
-                    <circle cx="148" cy="84" r="1.8" fill="#fef08a" opacity="0.8"/>
+                    <circle cx="24" cy="22" r="1.7" fill="#ffffff" opacity="0.95"/>
+                    <circle cx="58" cy="15" r="2.3" fill="#fde047" opacity="0.95"/>
+                    <circle cx="136" cy="20" r="2.5" fill="#a5b4fc"/>
+                    <circle cx="156" cy="46" r="1.6" fill="#ffffff" opacity="0.85"/>
+                    <circle cx="20" cy="78" r="1.8" fill="#bae6fd" opacity="0.85"/>
+                    <circle cx="148" cy="84" r="2" fill="#fef08a" opacity="0.9"/>
                     <g transform="translate(94, 72)">
                         <path d="M-12 20 C-36 16, -40 -20, -16 -26 C-2 -29, 2 -13, -8 -4 C-16 3, -8 13, -4 18 Z" fill="#f97316" stroke="#fed7aa" stroke-width="1.5"/>
                         <ellipse cx="4" cy="12" rx="14" ry="18" fill="#ea580c" stroke="#fed7aa" stroke-width="1.4"/>
@@ -908,20 +1054,23 @@
                         <circle cx="21" cy="10" r="8" fill="#facc15" stroke="#fef9c3" stroke-width="1.5"/>
                     </g>
                 </svg>
-                <div class="game-title-text">Белочка</div>
+                <div class="game-title-text">
+                    <span>Белочка</span>
+                    <span class="card-star-pill">Космо ⭐</span>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="screen-squirrel" class="screen">
         <div class="sq-top-bar">
-            <button class="star-pill-btn" onclick="switchScreen('games')">← Меню ⭐</button>
-            <button class="star-pill-btn" onclick="openSquirrelInfoModal()">✨ Космо-правила ⭐</button>
+            <button class="star-themed-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
+            <button class="star-themed-btn sq-nav-btn" onclick="openSquirrelInfoModal()">✨ Правила ⭐</button>
         </div>
 
         <div class="sq-stage">
             <canvas id="squirrelRoadCanvas"></canvas>
-            <div class="sq-status-strip" id="sqStatusStrip">🌌 Космо-траса готова: оберіть ставку та рівень</div>
+            <div class="sq-status-strip" id="sqStatusStrip">🌌 Космо-трасса готова: выберите ставку и уровень</div>
         </div>
 
         <div class="sq-panel">
@@ -935,10 +1084,10 @@
                 </div>
 
                 <div class="sq-diff-row">
-                    <button class="sq-diff-pill active" id="sqDiff-easy" onclick="selectSqDifficulty('easy')">Лёгкий</button>
-                    <button class="sq-diff-pill" id="sqDiff-medium" onclick="selectSqDifficulty('medium')">Средний</button>
-                    <button class="sq-diff-pill" id="sqDiff-hard" onclick="selectSqDifficulty('hard')">Тяжёлый</button>
-                    <button class="sq-diff-pill" id="sqDiff-impossible" onclick="selectSqDifficulty('impossible')">Невозможный</button>
+                    <button class="sq-diff-pill active" id="sqDiff-easy" onclick="selectSqDifficulty('easy')">Лёгкий ⭐</button>
+                    <button class="sq-diff-pill" id="sqDiff-medium" onclick="selectSqDifficulty('medium')">Средний ⭐</button>
+                    <button class="sq-diff-pill" id="sqDiff-hard" onclick="selectSqDifficulty('hard')">Тяжёлый ⭐</button>
+                    <button class="sq-diff-pill" id="sqDiff-impossible" onclick="selectSqDifficulty('impossible')">Невозможный ⭐</button>
                 </div>
 
                 <button class="sq-start-btn" onclick="startSquirrelGame()">🚀 Начать игру ⭐</button>
@@ -955,26 +1104,26 @@
 
     <div id="screen-cases-list" class="screen">
         <div class="sq-top-bar">
-            <button class="star-pill-btn" onclick="switchScreen('games')">← Меню ⭐</button>
-            <span class="star-pill-btn">🎁 Кейсы ⭐</span>
+            <button class="star-themed-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
+            <span class="star-themed-btn sq-nav-btn">✨ Кейсы ⭐</span>
         </div>
         <div class="main-title">Кейсы</div>
         <div class="games-grid">
             <div class="game-card cases-style" style="align-items: center;" onclick="switchScreen('free-case-detail')">
                 <div class="cases-chest-card-art" id="subCaseCardArt"></div>
-                <div class="game-title-text" style="text-align: center; width: 100%;">Бесплатный кейс ⭐</div>
+                <div class="game-title-text" style="justify-content: center;">Бесплатный кейс ⭐</div>
             </div>
         </div>
     </div>
 
     <div id="screen-free-case-detail" class="screen">
         <div class="sq-top-bar">
-            <button class="star-pill-btn" onclick="switchScreen('cases-list')">← Кейсы ⭐</button>
-            <span class="star-pill-btn">✨ Бесплатно ⭐</span>
+            <button class="star-themed-btn sq-nav-btn" onclick="switchScreen('cases-list')">← К кейсам ⭐</button>
+            <span class="star-themed-btn sq-nav-btn">🎁 Подарки ⭐</span>
         </div>
         <div class="case-details">
             <div class="gift-badge-art" id="detailCaseBannerArt"></div>
-            <div style="font-size: 20px; font-weight: bold; margin-bottom: 6px; font-family: 'Outfit', sans-serif;">Бесплатный кейс</div>
+            <div style="font-size: 21px; font-weight: 900; margin-bottom: 6px; font-family: 'Outfit', sans-serif;">✨ Бесплатный кейс ⭐</div>
             <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
                 Подпишись на канал <a href="https://t.me/allDep2" target="_blank" style="color: var(--accent-color); text-decoration: underline; font-weight: bold;">https://t.me/allDep2</a>
             </div>
@@ -1008,7 +1157,7 @@
             <div class="ref-box">
                 <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">Ваша реферальная ссылка:</div>
                 <input type="text" id="refLinkInput" readonly style="font-size: 13px; padding: 10px; margin-bottom: 8px;">
-                <button class="quick-btn" style="width:100%; padding: 10px; background:var(--accent-color); color:#0b0f19; font-weight:900;" onclick="copyRefLink()">Скопировать ссылку ⭐</button>
+                <button class="quick-btn" style="width:100%; padding: 10px;" onclick="copyRefLink()">Скопировать ссылку ⭐</button>
             </div>
 
             <div class="promo-box">
@@ -1036,7 +1185,7 @@
                 <br><br>
                 Передайте сумму подарками и получите бонус +15%!
             </div>
-            <button class="btn-action" onclick="document.getElementById('topUpModal').style.display='none'">Гаразд ⭐</button>
+            <button class="btn-action" onclick="document.getElementById('topUpModal').style.display='none'">Понятно ⭐</button>
         </div>
     </div>
 
@@ -1052,26 +1201,26 @@
                 После этого напишите администратору на аккаунт <a href="https://t.me/allDepGame_bot2" onclick="openWithdrawChat(event)" style="color: var(--accent-color); font-weight: bold; text-decoration: underline;">@allDepGame_bot2</a>, скиньте скриншот 5 приглашенных людей и оплатите комиссию за вывод просто подарить подарок за 50 звезд. После проверки вам отдадут ваш NFT!
             </div>
             <button class="btn-action btn-cashout" onclick="openWithdrawChat(event)">ВЫВЕСТИ ПОДАРОК ⭐</button>
-            <button class="btn-secondary" onclick="document.getElementById('nftModal').style.display='none'">ПОНЯТНО</button>
+            <button class="btn-secondary" onclick="document.getElementById('nftModal').style.display='none'">ПОНЯТНО ⭐</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="sqInfoModal" onclick="document.getElementById('sqInfoModal').style.display='none'">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <div style="font-size: 19px; font-weight: 900; margin-bottom: 10px; font-family: 'Outfit', sans-serif;">🌌 Космо-білочка ⭐</div>
+            <div style="font-size: 19px; font-weight: 900; margin-bottom: 10px; font-family: 'Outfit', sans-serif;">🌌 Космо-белочка ⭐</div>
             <div style="font-size: 13px; color: var(--text-muted); line-height: 1.55; text-align: left; margin-bottom: 14px;">
-                • Кожен крок уперед по космо-трасі піднімає множник та потенційний виграш у зірках.<br><br>
-                • Забирати виграш можна на будь-якому кроці кнопкою <b>«Забрать»</b>.<br><br>
-                • Машини рухаються нерівномірно (можуть пролітати пачками або швидко), тож стеж за моментом!
+                • Каждый шаг вперёд по космо-трассе увеличивает множитель и выигрыш в звёздах.<br><br>
+                • Забрать выигрыш можно в любой момент кнопкой <b>«Забрать ⭐»</b>.<br><br>
+                • Машины двигаются волнами и с разной скоростью: можно пройти далеко, если ловить окна, но попасть под машину легко!
             </div>
-            <button class="btn-action" onclick="document.getElementById('sqInfoModal').style.display='none'">ЗРОЗУМІЛО ⭐</button>
+            <button class="btn-action" onclick="document.getElementById('sqInfoModal').style.display='none'">ПОНЯТНО ⭐</button>
         </div>
     </div>
 
     <div id="screen-crash" class="screen crash-screen">
         <div class="sq-top-bar">
-            <button class="star-pill-btn" onclick="switchScreen('games')">← Меню ⭐</button>
-            <span class="star-pill-btn">🚀 3D Краш ⭐</span>
+            <button class="star-themed-btn sq-nav-btn" onclick="switchScreen('games')">← Назад в меню ⭐</button>
+            <span class="star-themed-btn sq-nav-btn">🚀 3D Краш ⭐</span>
         </div>
 
         <div style="font-size: 14px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;" id="crashStatus">Ожидание ставки (7с)</div>
@@ -1093,7 +1242,7 @@
                 </div>
             </div>
 
-            <!-- Коефіцієнти минулих раундів нище під ракетою -->
+            <!-- Коефіцієнти минулих раундів нижче під самою ракетою -->
             <div class="history-bar-under" id="historyBar"></div>
         </div>
 
@@ -1134,26 +1283,37 @@
                 try { tg.expand(); } catch (e) {}
             }
 
-            // Анімація пробудження після сну на Render
-            const bootMessages = [
-                'Запускаємо двигун ракет та космічну трасу білочки ⭐',
-                'Сервер прокидається після сну... підключаємо зірки ⭐',
-                'Майже готово! Збираємо кімнату гравців ⭐'
+            // Фоновий keep-alive пінг, щоб безкоштовний інстанс рідше засинав
+            setInterval(function() {
+                try { fetch(window.location.href, { method: 'HEAD', cache: 'no-store' }).catch(function() {}); } catch (e) {}
+            }, 240000);
+
+            // Анімація запуску при пробудженні
+            const bootPhrases = [
+                "✨ Прогреваем звездные двигатели...",
+                "🚀 Калибруем 3D-ракету и трассу белочки...",
+                "🎁 Загружаем звездные кейсы...",
+                "⭐ Готово к взлету!"
             ];
-            let bootIdx = 0;
+            let bootStep = 0;
+            const bootStatusEl = document.getElementById('bootStatusText');
+            const bootBarEl = document.getElementById('bootBarFill');
             const bootTimer = setInterval(function() {
-                bootIdx = (bootIdx + 1) % bootMessages.length;
-                const el = document.getElementById('bootStatusText');
-                if (el) el.innerText = bootMessages[bootIdx];
-            }, 900);
+                bootStep++;
+                if (bootStep < bootPhrases.length) {
+                    if (bootStatusEl) bootStatusEl.innerText = bootPhrases[bootStep];
+                    if (bootBarEl) bootBarEl.style.width = ((bootStep + 1) * 25) + '%';
+                } else {
+                    window.finishBootImmediately();
+                }
+            }, 420);
 
-            window.dismissBootOverlay = function() {
+            window.finishBootImmediately = function() {
                 clearInterval(bootTimer);
-                const ov = document.getElementById('bootOverlay');
-                if (ov) ov.classList.add('hidden');
+                if (bootBarEl) bootBarEl.style.width = '100%';
+                const scr = document.getElementById('bootScreen');
+                if (scr) scr.classList.add('hidden');
             };
-
-            setTimeout(window.dismissBootOverlay, 1300);
 
             const userId = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id)
                 ? tg.initDataUnsafe.user.id
@@ -1231,35 +1391,35 @@
                 return `
                 <svg viewBox="0 0 240 200" style="width:100%;height:100%;display:block;">
                     <defs>
-                        <radialGradient id="chestInnerGlow" cx="50%" cy="46%" r="52%">
+                        <radialGradient id="chestInnerGlow" cx="50%" cy="46%" r="54%">
                             <stop offset="0%" stop-color="#ffffff"/>
-                            <stop offset="28%" stop-color="#f5d0fe"/>
-                            <stop offset="68%" stop-color="#a855f7" stop-opacity="0.45"/>
-                            <stop offset="100%" stop-color="#9333ea" stop-opacity="0"/>
+                            <stop offset="28%" stop-color="#fae8ff"/>
+                            <stop offset="68%" stop-color="#c026d3" stop-opacity="0.52"/>
+                            <stop offset="100%" stop-color="#7e22ce" stop-opacity="0"/>
                         </radialGradient>
-                        <linearGradient id="chestBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#60a5fa"/>
-                            <stop offset="45%" stop-color="#2563eb"/>
-                            <stop offset="100%" stop-color="#172554"/>
+                        <linearGradient id="chestGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fef08a"/>
+                            <stop offset="50%" stop-color="#f59e0b"/>
+                            <stop offset="100%" stop-color="#b45309"/>
                         </linearGradient>
-                        <linearGradient id="chestWhite" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="#ffffff"/>
-                            <stop offset="65%" stop-color="#e2e8f0"/>
-                            <stop offset="100%" stop-color="#94a3b8"/>
+                        <linearGradient id="chestPurple" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#9333ea"/>
+                            <stop offset="55%" stop-color="#4f46e5"/>
+                            <stop offset="100%" stop-color="#1e1b4b"/>
                         </linearGradient>
                     </defs>
-                    <circle cx="120" cy="88" r="76" fill="url(#chestInnerGlow)"/>
-                    <path d="M46 76 C44 34, 196 34, 194 76 L178 88 L62 88 Z" fill="#1e3a8a" stroke="#93c5fd" stroke-width="2.5"/>
-                    <path d="M54 74 C54 42, 186 42, 186 74 L174 82 L66 82 Z" fill="url(#chestWhite)"/>
-                    <path d="M46 76 L62 76 L62 88 L46 88 Z" fill="url(#chestBlue)"/>
-                    <path d="M178 76 L194 76 L194 88 L178 88 Z" fill="url(#chestBlue)"/>
-                    <rect x="40" y="90" width="160" height="78" rx="18" fill="url(#chestWhite)" stroke="#93c5fd" stroke-width="2.5"/>
-                    <rect x="40" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
-                    <rect x="176" y="90" width="24" height="78" rx="11" fill="url(#chestBlue)"/>
-                    <rect x="36" y="144" width="168" height="24" rx="11" fill="url(#chestBlue)"/>
-                    <rect x="96" y="106" width="48" height="40" rx="9" fill="#2563eb" stroke="#bfdbfe" stroke-width="2.2"/>
-                    <path d="M104 117 L110 130 L120 121 L130 130 L136 117 L132 138 L108 138 Z" fill="#ffffff"/>
-                    <circle cx="120" cy="20" r="3" fill="#fef08a"/>
+                    <circle cx="120" cy="90" r="80" fill="url(#chestInnerGlow)"/>
+                    <path d="M44 76 C42 32, 198 32, 196 76 L180 90 L60 90 Z" fill="#311042" stroke="#facc15" stroke-width="2.5"/>
+                    <path d="M52 74 C52 40, 188 40, 188 74 L174 84 L66 84 Z" fill="url(#chestPurple)"/>
+                    <rect x="40" y="88" width="160" height="80" rx="18" fill="url(#chestPurple)" stroke="#facc15" stroke-width="2.5"/>
+                    <rect x="40" y="88" width="22" height="80" rx="10" fill="url(#chestGold)"/>
+                    <rect x="178" y="88" width="22" height="80" rx="10" fill="url(#chestGold)"/>
+                    <rect x="36" y="146" width="168" height="22" rx="10" fill="url(#chestGold)"/>
+                    <rect x="95" y="104" width="50" height="42" rx="10" fill="#1e1b4b" stroke="#fef08a" stroke-width="2.4"/>
+                    <text x="120" y="131" text-anchor="middle" font-size="22">⭐</text>
+                    <circle cx="48" cy="24" r="2.5" fill="#fef08a"/>
+                    <circle cx="192" cy="28" r="2.5" fill="#38bdf8"/>
+                    <circle cx="120" cy="18" r="3" fill="#ffffff"/>
                 </svg>`;
             }
 
@@ -1301,30 +1461,36 @@
 
             let crashHistory = ["1.41x", "6.11x", "4.63x", "22.91x", "3.10x", "9.19x", "2.84x", "1.88x"];
 
-            // Розширений список ботів: частина з аватарками, частина без аватарки (noAvatar: true)
+            // Розширений список різних ботів (частина з аватарками, частина без аватарки)
             const fakeUsers = [
-                { name: "playboi carti", avatar: "https://i.pravatar.cc/100?img=12", noAvatar: false, color: "#2563eb" },
-                { name: "vortex", avatar: "https://i.pravatar.cc/100?img=32", noAvatar: false, color: "#7c3aed" },
-                { name: "crypto_king", avatar: "", noAvatar: true, color: "#0ea5e9" },
-                { name: "satoshi99", avatar: "https://i.pravatar.cc/100?img=68", noAvatar: false, color: "#f59e0b" },
-                { name: "neon_whale", avatar: "", noAvatar: true, color: "#ec4899" },
-                { name: "ton_lord", avatar: "https://i.pravatar.cc/100?img=24", noAvatar: false, color: "#10b981" },
-                { name: "star_hunter", avatar: "", noAvatar: true, color: "#6366f1" },
-                { name: "lunar_x", avatar: "https://i.pravatar.cc/100?img=47", noAvatar: false, color: "#f97316" },
-                { name: "blaze_99", avatar: "", noAvatar: true, color: "#ef4444" },
-                { name: "phantom_z", avatar: "https://i.pravatar.cc/100?img=61", noAvatar: false, color: "#8b5cf6" },
-                { name: "hyper_nova", avatar: "", noAvatar: true, color: "#14b8a6" },
-                { name: "velvet_star", avatar: "https://i.pravatar.cc/100?img=44", noAvatar: false, color: "#d946ef" },
-                { name: "orbit_fox", avatar: "https://i.pravatar.cc/100?img=18", noAvatar: false, color: "#3b82f6" },
-                { name: "nova_drift", avatar: "", noAvatar: true, color: "#eab308" },
-                { name: "zenith_pro", avatar: "https://i.pravatar.cc/100?img=37", noAvatar: false, color: "#06b6d4" },
-                { name: "echo_wave", avatar: "", noAvatar: true, color: "#a855f7" },
-                { name: "krypton_7", avatar: "https://i.pravatar.cc/100?img=56", noAvatar: false, color: "#22c55e" },
-                { name: "mirage_sky", avatar: "", noAvatar: true, color: "#f43f5e" },
-                { name: "solaris_8", avatar: "https://i.pravatar.cc/100?img=22", noAvatar: false, color: "#6366f1" },
-                { name: "frost_byte", avatar: "", noAvatar: true, color: "#0284c7" },
-                { name: "turbo_misha", avatar: "", noAvatar: true, color: "#7e22ce" },
-                { name: "cosmo_cat", avatar: "https://i.pravatar.cc/100?img=14", noAvatar: false, color: "#db2777" }
+                { name: "playboi carti", avatar: "https://i.pravatar.cc/100?img=12", noAvatar: false, bg: "#2563eb" },
+                { name: "vortex", avatar: "https://i.pravatar.cc/100?img=32", noAvatar: false, bg: "#7c3aed" },
+                { name: "crypto_king", avatar: "", noAvatar: true, bg: "#0284c7" },
+                { name: "satoshi99", avatar: "https://i.pravatar.cc/100?img=68", noAvatar: false, bg: "#d97706" },
+                { name: "neon_whale", avatar: "", noAvatar: true, bg: "#db2777" },
+                { name: "ton_lord", avatar: "https://i.pravatar.cc/100?img=24", noAvatar: false, bg: "#059669" },
+                { name: "star_hunter", avatar: "", noAvatar: true, bg: "#4f46e5" },
+                { name: "lunar_x", avatar: "https://i.pravatar.cc/100?img=47", noAvatar: false, bg: "#ea580c" },
+                { name: "blaze_99", avatar: "", noAvatar: true, bg: "#dc2626" },
+                { name: "phantom_z", avatar: "https://i.pravatar.cc/100?img=61", noAvatar: false, bg: "#7c3aed" },
+                { name: "hyper_nova", avatar: "", noAvatar: true, bg: "#0d9488" },
+                { name: "velvet_star", avatar: "https://i.pravatar.cc/100?img=44", noAvatar: false, bg: "#c026d3" },
+                { name: "orbit_fox", avatar: "https://i.pravatar.cc/100?img=18", noAvatar: false, bg: "#2563eb" },
+                { name: "nova_drift", avatar: "", noAvatar: true, bg: "#ca8a04" },
+                { name: "zenith_pro", avatar: "https://i.pravatar.cc/100?img=37", noAvatar: false, bg: "#0891b2" },
+                { name: "echo_wave", avatar: "", noAvatar: true, bg: "#9333ea" },
+                { name: "krypton_7", avatar: "https://i.pravatar.cc/100?img=56", noAvatar: false, bg: "#16a34a" },
+                { name: "mirage_sky", avatar: "", noAvatar: true, bg: "#e11d48" },
+                { name: "solaris_8", avatar: "https://i.pravatar.cc/100?img=22", noAvatar: false, bg: "#4338ca" },
+                { name: "frost_byte", avatar: "", noAvatar: true, bg: "#0369a1" },
+                { name: "maks_ton", avatar: "", noAvatar: true, bg: "#6d28d9" },
+                { name: "danya_777", avatar: "https://i.pravatar.cc/100?img=15", noAvatar: false, bg: "#1d4ed8" },
+                { name: "kiber_kot", avatar: "", noAvatar: true, bg: "#be185d" },
+                { name: "alina_star", avatar: "https://i.pravatar.cc/100?img=5", noAvatar: false, bg: "#a21caf" },
+                { name: "artem_dev", avatar: "", noAvatar: true, bg: "#15803d" },
+                { name: "space_wolf", avatar: "https://i.pravatar.cc/100?img=59", noAvatar: false, bg: "#b45309" },
+                { name: "lucky_den", avatar: "", noAvatar: true, bg: "#3730a3" },
+                { name: "mira_moon", avatar: "https://i.pravatar.cc/100?img=29", noAvatar: false, bg: "#be123c" }
             ];
 
             const botUsername = "allDepGame_bot";
@@ -1505,7 +1671,7 @@
                 document.getElementById('nftModal').style.display = 'none';
             };
 
-            /* ================= КРАШ (3D-ОБЕРТАННЯ, СИНХРОННІ ІКСИ, ПОЛІТ ПІСЛЯ ЗАБОРУ) ================= */
+            /* ================= 3D КРАШ ================= */
             window.addBet = function(val) {
                 const input = document.getElementById('betInput');
                 const current = parseAmountInput(input.value);
@@ -1538,7 +1704,7 @@
 
             function initStars() {
                 canvasStars = [];
-                for (let i = 0; i < 85; i++) {
+                for (let i = 0; i < 88; i++) {
                     canvasStars.push({
                         x: Math.random() * 420,
                         y: Math.random() * 280,
@@ -1554,8 +1720,8 @@
 
             function updateAxisLabelsForMultiplier(mult) {
                 const axisEl = document.getElementById('crashAxisLabels');
-                if (!axisEl) return;
-                const maxScale = Math.max(2.5, Math.ceil((mult * 1.35) * 2) / 2);
+                if (!axisEl) return 5.0;
+                const maxScale = Math.max(2.6, Math.ceil((mult * 1.32) * 2) / 2);
                 const labels = [];
                 for (let i = 4; i >= 0; i--) {
                     const val = 1 + (maxScale - 1) * (i / 4);
@@ -1565,34 +1731,32 @@
                 return maxScale;
             }
 
-            // 3D-модель ракети з плавним 3D-обертанням під час польоту
+            // Нова 3D-модель ракети з 3D-обертанням навколо своєї осі під час польоту
             function draw3DRocket(ctx, x, y, tiltAngle, time, isFlying) {
                 ctx.save();
-                const bobX = Math.sin(time * 0.0045) * 3.5;
-                const bobY = Math.cos(time * 0.0055) * 4.5;
+                const bobX = Math.sin(time * 0.0045) * 3;
+                const bobY = Math.cos(time * 0.0055) * 4;
                 ctx.translate(x + bobX, y + bobY);
-
-                // 3D-перспектива: обертання навколо вертикальної осі (cos дає глибину та зміну ширини)
-                const spin3D = isFlying ? time * 0.0042 : time * 0.0015;
-                const depthCos = Math.cos(spin3D);
-                const depthSin = Math.sin(spin3D);
-                const scaleX3D = 0.72 + Math.abs(depthCos) * 0.34;
-
                 ctx.rotate(tiltAngle);
-                ctx.scale(scaleX3D, 1);
 
-                const aura = ctx.createRadialGradient(0, 4, 6, 0, 4, 62);
-                aura.addColorStop(0, 'rgba(56, 189, 248, 0.45)');
-                aura.addColorStop(0.6, 'rgba(99, 102, 241, 0.14)');
+                // Кут 3D-обертання навколо поздовжньої осі ракети
+                const rollAngle = isFlying ? (time * 0.0048) : (time * 0.0014);
+                const cosR = Math.cos(rollAngle);
+                const sinR = Math.sin(rollAngle);
+
+                // Космічне світіння навколо 3D-ракети
+                const aura = ctx.createRadialGradient(0, 2, 6, 0, 2, 64);
+                aura.addColorStop(0, 'rgba(56, 189, 248, 0.48)');
+                aura.addColorStop(0.55, 'rgba(129, 140, 248, 0.16)');
                 aura.addColorStop(1, 'rgba(37, 99, 235, 0)');
                 ctx.fillStyle = aura;
                 ctx.beginPath();
-                ctx.arc(0, 4, 62, 0, Math.PI * 2);
+                ctx.arc(0, 2, 64, 0, Math.PI * 2);
                 ctx.fill();
 
-                const flicker = Math.sin(time * 0.055) * 6 + Math.random() * 4;
-                const flameLen = (isFlying ? 42 : 24) + flicker;
-
+                // Реактивний факел
+                const flicker = Math.sin(time * 0.06) * 6 + Math.random() * 4;
+                const flameLen = (isFlying ? 44 : 24) + flicker;
                 const flameGrad = ctx.createLinearGradient(0, 22, 0, 22 + flameLen);
                 flameGrad.addColorStop(0, '#ffffff');
                 flameGrad.addColorStop(0.25, '#fef08a');
@@ -1605,72 +1769,106 @@
                 ctx.closePath();
                 ctx.fill();
 
-                // Задні та передні 3D-стабілізатори залежно від фази обертання
-                const leftFinOffset = depthSin * 5;
-                const rightFinOffset = -depthSin * 5;
+                // 3D-крила (4 стабілізатори по колу 90°, які обертаються в перспективі)
+                const fins = [0, Math.PI * 0.5, Math.PI, Math.PI * 1.5];
+                const sortedFins = fins.map(function(baseA) {
+                    const a = rollAngle + baseA;
+                    return { xFactor: Math.cos(a), depth: Math.sin(a) };
+                }).sort(function(a, b) { return a.depth - b.depth; });
 
-                ctx.fillStyle = depthSin >= 0 ? '#1d4ed8' : '#38bdf8';
-                ctx.beginPath();
-                ctx.moveTo(-12, 5);
-                ctx.lineTo(-26 + leftFinOffset * 0.4, 23);
-                ctx.lineTo(-9, 19);
-                ctx.closePath();
-                ctx.fill();
+                // Малюємо задні крила (depth < 0)
+                sortedFins.forEach(function(f) {
+                    if (f.depth >= 0) return;
+                    const tipX = f.xFactor * 27;
+                    const rootX = f.xFactor * 11;
+                    ctx.fillStyle = '#1e3a8a';
+                    ctx.beginPath();
+                    ctx.moveTo(rootX, 2);
+                    ctx.lineTo(tipX, 24);
+                    ctx.lineTo(rootX * 0.75, 20);
+                    ctx.closePath();
+                    ctx.fill();
+                });
 
-                ctx.fillStyle = depthSin < 0 ? '#1d4ed8' : '#38bdf8';
-                ctx.beginPath();
-                ctx.moveTo(12, 5);
-                ctx.lineTo(26 + rightFinOffset * 0.4, 23);
-                ctx.lineTo(9, 19);
-                ctx.closePath();
-                ctx.fill();
-
-                // 3D циліндричний корпус ракети з тіньовим градієнтом
-                const bodyGrad = ctx.createLinearGradient(-16, -34, 16, 20);
-                if (depthCos >= 0) {
-                    bodyGrad.addColorStop(0, '#ffffff');
-                    bodyGrad.addColorStop(0.45, '#e2e8f0');
-                    bodyGrad.addColorStop(0.85, '#64748b');
-                    bodyGrad.addColorStop(1, '#334155');
-                } else {
-                    bodyGrad.addColorStop(0, '#475569');
-                    bodyGrad.addColorStop(0.45, '#cbd5e1');
-                    bodyGrad.addColorStop(0.85, '#ffffff');
-                    bodyGrad.addColorStop(1, '#94a3b8');
-                }
+                // 3D-циліндричний корпус зі світлотіньовим градієнтом
+                const lightShift = sinR * 12;
+                const bodyGrad = ctx.createLinearGradient(-18 + lightShift, -20, 18 + lightShift, 18);
+                bodyGrad.addColorStop(0, '#94a3b8');
+                bodyGrad.addColorStop(0.32, '#ffffff');
+                bodyGrad.addColorStop(0.68, '#cbd5e1');
+                bodyGrad.addColorStop(1, '#334155');
 
                 ctx.fillStyle = bodyGrad;
                 ctx.beginPath();
-                ctx.moveTo(0, -36);
-                ctx.bezierCurveTo(17, -15, 18, 7, 12, 20);
-                ctx.lineTo(-12, 20);
-                ctx.bezierCurveTo(-18, 7, -17, -15, 0, -36);
+                ctx.moveTo(0, -38);
+                ctx.bezierCurveTo(18, -16, 19, 8, 13, 21);
+                ctx.lineTo(-13, 21);
+                ctx.bezierCurveTo(-19, 8, -18, -16, 0, -38);
                 ctx.closePath();
                 ctx.fill();
 
-                // Червоний конус носа
+                // Червоний 3D-обтічник носа
                 ctx.save();
                 ctx.clip();
-                ctx.fillStyle = '#ef4444';
-                ctx.fillRect(-22, -40, 44, 23);
+                const noseGrad = ctx.createLinearGradient(-16 + lightShift * 0.6, -38, 16, -15);
+                noseGrad.addColorStop(0, '#fca5a5');
+                noseGrad.addColorStop(0.45, '#ef4444');
+                noseGrad.addColorStop(1, '#7f1d1d');
+                ctx.fillStyle = noseGrad;
+                ctx.fillRect(-24, -42, 48, 24);
+
+                // Металеве кільце стику
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(-24, -19, 48, 3.2);
                 ctx.restore();
 
-                // 3D-ілюмінатор, що зміщується по глибині при обертанні
-                const winX = depthSin * 5.5;
-                ctx.fillStyle = '#0f172a';
+                // Нижнє сопло 3D
+                ctx.fillStyle = '#1e293b';
                 ctx.beginPath();
-                ctx.arc(winX, -1, 9, 0, Math.PI * 2);
+                ctx.roundRect(-9, 20, 18, 5, 2);
                 ctx.fill();
 
-                ctx.fillStyle = '#38bdf8';
-                ctx.beginPath();
-                ctx.arc(winX, -1, 6.4, 0, Math.PI * 2);
-                ctx.fill();
+                // 3D-ілюмінатор, що обертається по колу корпусу
+                if (cosR > -0.35) {
+                    const winX = sinR * 11.5;
+                    const winScaleX = Math.max(0.22, cosR);
+                    ctx.save();
+                    ctx.translate(winX, -1);
+                    ctx.scale(winScaleX, 1);
 
-                ctx.fillStyle = 'rgba(255,255,255,0.85)';
-                ctx.beginPath();
-                ctx.arc(winX - 2, -3, 2, 0, Math.PI * 2);
-                ctx.fill();
+                    ctx.fillStyle = '#0f172a';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 9.2, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = '#38bdf8';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 6.6, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = 'rgba(255,255,255,0.88)';
+                    ctx.beginPath();
+                    ctx.arc(-2.2, -2.2, 2.1, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                // Малюємо передні 3D-крила (depth >= 0)
+                sortedFins.forEach(function(f) {
+                    if (f.depth < 0) return;
+                    const tipX = f.xFactor * 28;
+                    const rootX = f.xFactor * 11;
+                    const finGrad = ctx.createLinearGradient(rootX, 2, tipX, 24);
+                    finGrad.addColorStop(0, '#60a5fa');
+                    finGrad.addColorStop(1, '#1d4ed8');
+                    ctx.fillStyle = finGrad;
+                    ctx.beginPath();
+                    ctx.moveTo(rootX, 2);
+                    ctx.lineTo(tipX, 24);
+                    ctx.lineTo(rootX * 0.72, 20);
+                    ctx.closePath();
+                    ctx.fill();
+                });
 
                 ctx.restore();
             }
@@ -1679,13 +1877,13 @@
                 const box = document.getElementById('rocketArena');
                 if (!box) return;
                 const w = box.offsetWidth || 340;
-                const h = box.offsetHeight || 270;
+                const h = box.offsetHeight || 266;
                 if (canvas.width === 0) resizeCrashCanvas();
 
                 ctx.clearRect(0, 0, w, h);
 
                 const bgGrad = ctx.createRadialGradient(w * 0.65, h * 0.4, 10, w * 0.5, h * 0.5, w * 0.88);
-                bgGrad.addColorStop(0, crashState === 'crashed' ? 'rgba(220, 38, 38, 0.24)' : 'rgba(37, 99, 235, 0.28)');
+                bgGrad.addColorStop(0, crashState === 'crashed' ? 'rgba(220, 38, 38, 0.25)' : 'rgba(37, 99, 235, 0.30)');
                 bgGrad.addColorStop(0.55, 'rgba(13, 25, 52, 0.94)');
                 bgGrad.addColorStop(1, '#060b16');
                 ctx.fillStyle = bgGrad;
@@ -1707,8 +1905,8 @@
                 });
                 ctx.globalAlpha = 1;
 
-                const startX = 48;
-                const startY = h - 32;
+                const startX = 56;
+                const startY = h - 30;
 
                 if (crashState === 'waiting') {
                     const rx = startX + 24;
@@ -1724,9 +1922,9 @@
 
                     draw3DRocket(ctx, rx, ry, 0.55, time, false);
                 } else if (crashState === 'flying') {
-                    // Оновлюємо коефіцієнт за часом та синхронізуємо висоту зі шкалою
+                    // Єдиний синхронізований розрахунок множника та позиції ракети
                     const elapsedSec = Math.max(0, (performance.now() - flightStartTime) / 1000);
-                    multiplier = parseFloat((1 + elapsedSec * 0.42 + Math.pow(elapsedSec, 1.28) * 0.08).toFixed(2));
+                    multiplier = parseFloat((1 + elapsedSec * 0.42 + Math.pow(elapsedSec, 1.32) * 0.085).toFixed(2));
                     document.getElementById('crashMultiplier').innerText = multiplier.toFixed(2) + 'x';
 
                     if (hasBetThisRound && !cashedOutThisRound) {
@@ -1736,8 +1934,8 @@
                     const maxScale = updateAxisLabelsForMultiplier(multiplier);
                     const normProgress = Math.min(1, Math.max(0.03, (multiplier - 1) / (maxScale - 1)));
 
-                    const usableW = Math.max(90, w - 135);
-                    const usableH = Math.max(80, h - 108);
+                    const usableW = Math.max(100, w - 125);
+                    const usableH = Math.max(85, h - 104);
                     const endX = startX + normProgress * usableW;
                     const endY = startY - normProgress * usableH;
                     const ctrlX = startX + (endX - startX) * 0.55;
@@ -1745,7 +1943,7 @@
 
                     lastExplosionPos = { x: endX, y: endY };
 
-                    ctx.strokeStyle = '#38bdf8';
+                    ctx.strokeStyle = cashedOutThisRound ? '#10b981' : '#38bdf8';
                     ctx.lineWidth = 4.5;
                     ctx.beginPath();
                     ctx.moveTo(startX, startY);
@@ -1756,7 +1954,7 @@
                     const dy = endY - ctrlY;
                     const angle = Math.atan2(dy, dx) + Math.PI / 2;
 
-                    if (Math.random() < 0.75) {
+                    if (Math.random() < 0.78) {
                         exhaustParticles.push({
                             x: endX - Math.sin(angle) * 22,
                             y: endY + Math.cos(angle) * 22,
@@ -1829,9 +2027,9 @@
                 shockwaveAlpha = 0.95;
                 explosionParticles = [];
                 const colors = ['#ffffff', '#facc15', '#f97316', '#ef4444', '#38bdf8'];
-                for (let i = 0; i < 32; i++) {
-                    const ang = (Math.PI * 2 * i) / 32;
-                    const spd = 1.5 + Math.random() * 4.2;
+                for (let i = 0; i < 34; i++) {
+                    const ang = (Math.PI * 2 * i) / 34;
+                    const spd = 1.5 + Math.random() * 4.4;
                     explosionParticles.push({
                         x: lastExplosionPos.x,
                         y: lastExplosionPos.y,
@@ -1847,7 +2045,7 @@
             function updateHistoryUI() {
                 let bar = document.getElementById('historyBar');
                 let html = '';
-                crashHistory.slice(-8).forEach(function(res) {
+                crashHistory.slice(-9).forEach(function(res) {
                     const num = parseFloat(res);
                     let cls = '';
                     if (num >= 5) cls = 'high';
@@ -1864,7 +2062,7 @@
                 } else if (roll < 0.75) {
                     return Math.floor(Math.random() * 1750) + 250;
                 } else {
-                    return Math.floor(Math.random() * 8000) + 2000;
+                    return Math.floor(Math.random() * 8500) + 2000;
                 }
             }
 
@@ -1889,7 +2087,7 @@
                     name: bot.name,
                     avatar: bot.avatar,
                     noAvatar: Boolean(bot.noAvatar),
-                    color: bot.color || '#3b82f6',
+                    bg: bot.bg || '#2563eb',
                     amount: randomBotBetAmount()
                 });
                 return true;
@@ -1909,9 +2107,11 @@
                 exhaustParticles = [];
                 updateAxisLabelsForMultiplier(3.5);
                 syncCrashInputVisibility();
-                document.getElementById('multiplierPill').classList.remove('crashed');
+                const pill = document.getElementById('multiplierPill');
+                pill.classList.remove('crashed');
+                pill.classList.remove('cashed');
 
-                const maxBotsInRound = Math.floor(Math.random() * 6) + 5;
+                const maxBotsInRound = Math.floor(Math.random() * 7) + 6;
                 const initialBotsCount = Math.min(maxBotsInRound, Math.floor(Math.random() * 3) + 3);
                 roundBots = [];
                 for (let i = 0; i < initialBotsCount; i++) {
@@ -1934,7 +2134,7 @@
                     if (crashState === 'waiting' && addBotEntry(maxBotsInRound)) {
                         renderBetsList();
                     }
-                }, 950);
+                }, 850);
 
                 roundTimerInterval = setInterval(function() {
                     countdown--;
@@ -1953,10 +2153,10 @@
                 }, 1000);
             }
 
-            function renderBotAvatarHtml(b) {
+            function renderBotAvatar(b) {
                 if (b.noAvatar || !b.avatar) {
-                    const initial = String(b.name || '?').charAt(0).toUpperCase();
-                    return `<span class="bet-avatar-fallback" style="background:${b.color};">${initial}</span>`;
+                    const ch = String(b.name || '?').trim().charAt(0).toUpperCase();
+                    return `<span class="bet-no-avatar" style="background:${b.bg};">${ch}</span>`;
                 }
                 return `<img src="${b.avatar}" alt="">`;
             }
@@ -1966,10 +2166,10 @@
                 let html = '';
 
                 if (hasBetThisRound) {
-                    const tag = cashedOutThisRound ? ` (Забрано ${cashedOutMult.toFixed(2)}x)` : ' (Ставка)';
+                    const statusLabel = cashedOutThisRound ? ` (Забрано ${cashedOutMult.toFixed(2)}x)` : ' (Ставка)';
                     html += `
                         <div class="bet-item" style="color:var(--accent-color); font-weight:bold;">
-                            <div class="bet-user"><span>Вы${tag}</span></div>
+                            <div class="bet-user"><span>Вы${statusLabel}</span></div>
                             <span class="bet-amount">⭐ ${formatStars(myBet)}</span>
                         </div>
                     `;
@@ -1979,7 +2179,7 @@
                     const isMid = b.amount >= 2000;
                     html += `
                         <div class="bet-item">
-                            <div class="bet-user">${renderBotAvatarHtml(b)} ${b.name}</div>
+                            <div class="bet-user">${renderBotAvatar(b)} ${b.name}</div>
                             <span class="bet-amount ${isMid ? 'mid' : ''}">⭐ ${formatStars(b.amount)}</span>
                         </div>
                     `;
@@ -2019,12 +2219,12 @@
                 syncCrashInputVisibility();
 
                 let rand = Math.random();
-                if (rand < 0.45) {
-                    targetCrashPoint = 1.45 + Math.random() * 1.1;
-                } else if (rand < 0.80) {
-                    targetCrashPoint = 2.55 + Math.random() * 2.4;
+                if (rand < 0.42) {
+                    targetCrashPoint = 1.45 + Math.random() * 1.15;
+                } else if (rand < 0.78) {
+                    targetCrashPoint = 2.60 + Math.random() * 2.6;
                 } else {
-                    targetCrashPoint = 5.0 + Math.random() * 6.5;
+                    targetCrashPoint = 5.20 + Math.random() * 7.2;
                 }
                 targetCrashPoint = parseFloat(targetCrashPoint.toFixed(2));
 
@@ -2038,7 +2238,7 @@
                     updateCashoutButtonText();
                     btn.onclick = window.cashOut;
                 } else {
-                    btn.innerText = "Раунд идет...";
+                    btn.innerText = "Раунд идет... ⭐";
                     btn.className = "btn-action";
                     btn.onclick = null;
                 }
@@ -2050,7 +2250,7 @@
                 btn.innerText = `Забрать (${formatStars(potentialWin)} ⭐)`;
             }
 
-            // Забираємо виграш, але ракета летить далі до моменту її реального вибуху!
+            // Після забору ставки ракета ПРОДОВЖУЄ летіти, щоб гравець бачив, коли вона зірветься!
             window.cashOut = function() {
                 if (!hasBetThisRound || cashedOutThisRound || crashState !== 'flying') return;
                 cashedOutThisRound = true;
@@ -2062,10 +2262,11 @@
                 updateBalanceUI();
                 renderBetsList();
 
-                document.getElementById('crashStatus').innerText = `🎉 Забрано на ${cashedOutMult.toFixed(2)}x (+${formatStars(win)} ⭐) — дивись, куди долетить ракета!`;
+                document.getElementById('multiplierPill').classList.add('cashed');
+                document.getElementById('crashStatus').innerText = `🎉 Забрали на ${cashedOutMult.toFixed(2)}x (+${formatStars(win)} ⭐) — смотрим до взрыва!`;
 
                 let btn = document.getElementById('actionBtn');
-                btn.innerText = `Забрано ${formatStars(win)} ⭐ • Ракета летить...`;
+                btn.innerText = `Забрано ${formatStars(win)} ⭐ • Ракета летит...`;
                 btn.className = "btn-action";
                 btn.style.opacity = "0.85";
                 btn.onclick = null;
@@ -2075,13 +2276,15 @@
                 if (crashState === 'crashed') return;
                 triggerExplosionEffect();
                 document.getElementById('crashMultiplier').innerText = crashPoint.toFixed(2) + 'x';
-                document.getElementById('multiplierPill').classList.add('crashed');
+                const pill = document.getElementById('multiplierPill');
+                pill.classList.remove('cashed');
+                pill.classList.add('crashed');
 
                 let btn = document.getElementById('actionBtn');
                 if (hasBetThisRound && !cashedOutThisRound) {
-                    document.getElementById('crashStatus').innerText = `💥 Ракета зірвалась на ${crashPoint.toFixed(2)}x! Програш ${formatStars(myBet)} ⭐`;
+                    document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x! Проигрыш ${formatStars(myBet)} ⭐`;
                 } else if (cashedOutThisRound) {
-                    document.getElementById('crashStatus').innerText = `💥 Ракета зірвалась на ${crashPoint.toFixed(2)}x (ти забрав на ${cashedOutMult.toFixed(2)}x) ⭐`;
+                    document.getElementById('crashStatus').innerText = `💥 Взорвалась на ${crashPoint.toFixed(2)}x (вы забрали на ${cashedOutMult.toFixed(2)}x) ⭐`;
                 } else {
                     document.getElementById('crashStatus').innerText = `💥 Ракета взорвалась на ${crashPoint.toFixed(2)}x!`;
                 }
@@ -2089,7 +2292,7 @@
                 hasBetThisRound = false;
                 cashedOutThisRound = false;
                 syncCrashInputVisibility();
-                btn.innerText = "Раунд завершен";
+                btn.innerText = "Раунд завершен ⭐";
                 btn.className = "btn-action";
                 btn.style.opacity = "1";
                 btn.onclick = null;
@@ -2097,10 +2300,10 @@
                 crashHistory.push(crashPoint.toFixed(2) + 'x');
                 updateHistoryUI();
 
-                setTimeout(runWaitingPhase, 3500);
+                setTimeout(runWaitingPhase, 3400);
             }
 
-            /* ================= КОСМО-БІЛОЧКА ================= */
+            /* ================= КОСМО-БІЛОЧКА (ЯК У ПРИКЛАДІ RUBUP) ================= */
             const sqCanvas = document.getElementById('squirrelRoadCanvas');
             const sqCtx = sqCanvas.getContext('2d');
 
@@ -2108,46 +2311,46 @@
                 easy: {
                     label: 'Лёгкий',
                     multipliers: [1.08, 1.22, 1.38, 1.57, 1.79, 2.06, 2.38, 2.78, 3.28, 3.92],
-                    baseSpeed: 165,
-                    ultraFastSpeed: 390,
-                    ultraFastChance: 0.16,
-                    doublePairChance: 0.42,
-                    burstGap: 0.48,
-                    waveGapMin: 1.55,
-                    waveGapMax: 2.85
+                    baseSpeed: 155,
+                    ultraFastSpeed: 365,
+                    ultraFastChance: 0.14,
+                    doublePairChance: 0.36,
+                    burstGap: 0.50,
+                    waveGapMin: 1.75,
+                    waveGapMax: 3.10
                 },
                 medium: {
                     label: 'Средний',
                     multipliers: [1.22, 1.50, 1.88, 2.38, 3.05, 3.95, 5.15, 6.80, 9.10, 12.50],
-                    baseSpeed: 225,
-                    ultraFastSpeed: 495,
-                    ultraFastChance: 0.24,
-                    doublePairChance: 0.50,
-                    burstGap: 0.42,
-                    waveGapMin: 1.20,
-                    waveGapMax: 2.30
+                    baseSpeed: 210,
+                    ultraFastSpeed: 470,
+                    ultraFastChance: 0.22,
+                    doublePairChance: 0.46,
+                    burstGap: 0.44,
+                    waveGapMin: 1.35,
+                    waveGapMax: 2.50
                 },
                 hard: {
                     label: 'Тяжёлый',
                     multipliers: [1.45, 2.15, 3.25, 4.95, 7.65, 12.10, 19.50, 31.80, 52.00, 88.00],
-                    baseSpeed: 295,
-                    ultraFastSpeed: 610,
-                    ultraFastChance: 0.34,
-                    doublePairChance: 0.58,
-                    burstGap: 0.36,
-                    waveGapMin: 0.95,
-                    waveGapMax: 1.85
+                    baseSpeed: 280,
+                    ultraFastSpeed: 590,
+                    ultraFastChance: 0.32,
+                    doublePairChance: 0.54,
+                    burstGap: 0.38,
+                    waveGapMin: 1.05,
+                    waveGapMax: 2.00
                 },
                 impossible: {
                     label: 'Невозможный',
                     multipliers: [1.95, 3.90, 8.20, 17.50, 38.00, 85.00, 195.00, 450.00, 1050.00, 2500.00],
-                    baseSpeed: 375,
-                    ultraFastSpeed: 740,
-                    ultraFastChance: 0.46,
-                    doublePairChance: 0.68,
-                    burstGap: 0.32,
-                    waveGapMin: 0.72,
-                    waveGapMax: 1.45
+                    baseSpeed: 355,
+                    ultraFastSpeed: 720,
+                    ultraFastChance: 0.44,
+                    doublePairChance: 0.64,
+                    burstGap: 0.33,
+                    waveGapMin: 0.80,
+                    waveGapMax: 1.55
                 }
             };
 
@@ -2168,11 +2371,11 @@
 
             function initSqSpaceStars() {
                 sqSpaceStars = [];
-                for (let i = 0; i < 45; i++) {
+                for (let i = 0; i < 65; i++) {
                     sqSpaceStars.push({
-                        x: Math.random() * 1100,
-                        y: Math.random() * 360,
-                        r: Math.random() * 1.8 + 0.6,
+                        x: Math.random() * 1150,
+                        y: Math.random() * 364,
+                        r: Math.random() * 2 + 0.6,
                         phase: Math.random() * Math.PI * 2,
                         color: i % 3 === 0 ? '#fef08a' : (i % 2 === 0 ? '#a5b4fc' : '#ffffff')
                     });
@@ -2184,7 +2387,7 @@
                 if (!stage || !stage.offsetWidth) return;
                 const dpr = Math.min(window.devicePixelRatio || 1, 2);
                 const w = stage.offsetWidth;
-                const h = 360;
+                const h = 364;
                 sqCanvas.width = w * dpr;
                 sqCanvas.height = h * dpr;
                 sqCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -2245,10 +2448,10 @@
                     : [
                         { body: '#f8fafc', roof: '#cbd5e1', stripe: '#38bdf8', fast: false },
                         { body: '#3b82f6', roof: '#1d4ed8', stripe: '#93c5fd', fast: false },
-                        { body: '#1e293b', roof: '#0f172a', stripe: '#64748b', fast: false }
+                        { body: '#8b5cf6', roof: '#5b21b6', stripe: '#ddd6fe', fast: false }
                       ];
                 const st = carStyles[Math.floor(Math.random() * carStyles.length)];
-                const speedJitter = (Math.random() - 0.5) * 28;
+                const speedJitter = (Math.random() - 0.5) * 26;
                 lane.cars.push({
                     y: -58,
                     w: 44,
@@ -2265,7 +2468,7 @@
                         step: step,
                         blocked: false,
                         burstRemaining: 0,
-                        spawnTimer: Math.random() * 1.4,
+                        spawnTimer: 0.25 + Math.random() * 1.6,
                         cars: []
                     });
                 }
@@ -2290,7 +2493,7 @@
             window.startSquirrelGame = function() {
                 const amt = parseAmountInput(document.getElementById('sqBetInput').value);
                 if (!amt || amt < 1) {
-                    alert("Введите ставку в звёздах от 1.");
+                    alert("Введите ставку от 1 звезды.");
                     return;
                 }
                 if (balance < amt) {
@@ -2314,7 +2517,7 @@
 
                 const strip = document.getElementById('sqStatusStrip');
                 strip.className = 'sq-status-strip';
-                strip.innerText = '🌌 Білочка на старті! Тисни «→ Шаг ⭐» або по люку';
+                strip.innerText = '🌌 Космо-белочка на старте! Лови окно и жми «→ Шаг ⭐»';
             };
 
             function triggerSquirrelLose() {
@@ -2325,7 +2528,7 @@
 
                 const strip = document.getElementById('sqStatusStrip');
                 strip.className = 'sq-status-strip lose';
-                strip.innerText = `💥 Білочку збито! Програш -${formatStars(sqBet)} ⭐`;
+                strip.innerText = `💥 Белочку сбило! Проигрыш -${formatStars(sqBet)} ⭐`;
             }
 
             window.stepSquirrelForward = function() {
@@ -2335,6 +2538,7 @@
                     return;
                 }
 
+                // На пройденій смузі ставимо захисний бар'єр, як у прикладі RubUp
                 if (sqCurrentStep >= 1) {
                     const prevLane = sqRoadLanes[sqCurrentStep - 1];
                     if (prevLane) prevLane.blocked = true;
@@ -2347,7 +2551,7 @@
                 const squirrelY = 232;
 
                 const hit = lane && lane.cars.find(function(c) {
-                    return Math.abs(c.y - squirrelY) < (c.h * 0.46 + 16);
+                    return Math.abs(c.y - squirrelY) < (c.h * 0.45 + 15);
                 });
 
                 if (hit) {
@@ -2362,7 +2566,7 @@
                 strip.className = 'sq-status-strip';
 
                 if (sqCurrentStep >= SQ_STEPS_TOTAL) {
-                    strip.innerText = `🏆 Фініш! Виграш ${formatStars(rewardNow)} ⭐ (×${multNow}) — тисни «Забрать»!`;
+                    strip.innerText = `🏆 Космо-финиш! Выигрыш ${formatStars(rewardNow)} ⭐ (×${multNow}) — жми «Забрать»!`;
                 } else {
                     strip.innerText = `🌌 Люк ${sqCurrentStep}/${SQ_STEPS_TOTAL}: ×${multNow} (${formatStars(rewardNow)} ⭐)`;
                 }
@@ -2381,7 +2585,7 @@
 
                 const strip = document.getElementById('sqStatusStrip');
                 strip.className = 'sq-status-strip win';
-                strip.innerText = `✅ Забрано: +${formatStars(win)} ⭐ (×${multNow})!`;
+                strip.innerText = `✅ Выигрыш забран: +${formatStars(win)} ⭐ (×${multNow})!`;
             };
 
             sqCanvas.addEventListener('click', function() {
@@ -2392,7 +2596,7 @@
 
             function updateSquirrelPhysics(dt) {
                 const cfg = SQ_CONFIGS[sqDiff];
-                const h = 360;
+                const h = 364;
                 const squirrelY = 232;
 
                 if (sqHopProgress > 0) {
@@ -2411,7 +2615,7 @@
                     if (!lane.blocked) {
                         lane.spawnTimer -= dt;
                         if (lane.spawnTimer <= 0) {
-                            const hasSpawnOverlap = lane.cars.some(function(c) { return c.y < 24; });
+                            const hasSpawnOverlap = lane.cars.some(function(c) { return c.y < 32; });
                             if (!hasSpawnOverlap) {
                                 const isFastShot = lane.burstRemaining > 0 && Math.random() < 0.65;
                                 spawnLaneCar(lane, isFastShot);
@@ -2439,8 +2643,8 @@
                             continue;
                         }
 
-                        if (sqPlaying && sqCurrentStep === lane.step) {
-                            if (Math.abs(c.y - squirrelY) < (c.h * 0.46 + 15)) {
+                        if (sqPlaying && sqCurrentStep === lane.step && !lane.blocked) {
+                            if (Math.abs(c.y - squirrelY) < (c.h * 0.45 + 14)) {
                                 triggerSquirrelLose();
                             }
                         }
@@ -2452,7 +2656,7 @@
                 ctx.save();
                 ctx.translate(cx, cy);
 
-                ctx.fillStyle = 'rgba(0,0,0,0.45)';
+                ctx.fillStyle = 'rgba(0,0,0,0.48)';
                 ctx.beginPath();
                 ctx.roundRect(-car.w * 0.5 + 3, -car.h * 0.5 + 4, car.w, car.h, 12);
                 ctx.fill();
@@ -2503,6 +2707,13 @@
                     ctx.restore();
                     return;
                 }
+
+                // Космічний скафандр-ореол білочки
+                ctx.strokeStyle = 'rgba(125, 211, 252, 0.55)';
+                ctx.lineWidth = 1.6;
+                ctx.beginPath();
+                ctx.arc(4, -5, 22, 0, Math.PI * 2);
+                ctx.stroke();
 
                 ctx.fillStyle = 'rgba(0,0,0,0.45)';
                 ctx.beginPath();
@@ -2573,24 +2784,30 @@
 
                 if (sqCanvas.width === 0) resizeSquirrelRoadCanvas();
                 const w = sqCanvas.clientWidth || 340;
-                const h = 360;
+                const h = 364;
 
                 updateSquirrelPhysics(dt);
 
                 sqCtx.clearRect(0, 0, w, h);
 
-                // Космо-фон траси
+                // Космічне небо та туманність на фоні
                 const spaceBg = sqCtx.createLinearGradient(0, 0, 0, h);
-                spaceBg.addColorStop(0, '#090d24');
-                spaceBg.addColorStop(0.55, '#13193b');
-                spaceBg.addColorStop(1, '#0b0f29');
+                spaceBg.addColorStop(0, '#050817');
+                spaceBg.addColorStop(0.5, '#111638');
+                spaceBg.addColorStop(1, '#080c24');
                 sqCtx.fillStyle = spaceBg;
+                sqCtx.fillRect(0, 0, w, h);
+
+                const nebula = sqCtx.createRadialGradient(w * 0.72, 65, 10, w * 0.72, 65, 140);
+                nebula.addColorStop(0, 'rgba(139, 92, 246, 0.25)');
+                nebula.addColorStop(1, 'rgba(139, 92, 246, 0)');
+                sqCtx.fillStyle = nebula;
                 sqCtx.fillRect(0, 0, w, h);
 
                 sqCtx.save();
                 sqCtx.translate(-sqCameraX, 0);
 
-                // Зорі в космосі
+                // Мерехтливі зорі
                 sqSpaceStars.forEach(function(st) {
                     const tw = 0.45 + 0.55 * Math.sin(ts * 0.004 + st.phase);
                     sqCtx.globalAlpha = tw;
@@ -2601,11 +2818,33 @@
                 });
                 sqCtx.globalAlpha = 1;
 
-                // Космо-платформа старту
-                sqCtx.fillStyle = '#1e2454';
+                // Планета Сатурн у космосі на горизонті
+                sqCtx.fillStyle = 'rgba(250, 204, 21, 0.22)';
+                sqCtx.beginPath();
+                sqCtx.arc(240, 46, 18, 0, Math.PI * 2);
+                sqCtx.fill();
+                sqCtx.strokeStyle = 'rgba(165, 180, 252, 0.35)';
+                sqCtx.lineWidth = 2;
+                sqCtx.beginPath();
+                sqCtx.ellipse(240, 46, 30, 7, -0.25, 0, Math.PI * 2);
+                sqCtx.stroke();
+
+                // Космічна стартова платформа
+                sqCtx.fillStyle = '#1b2250';
                 sqCtx.fillRect(0, 0, SQ_SIDEWALK_WIDTH - 6, h);
                 sqCtx.fillStyle = '#818cf8';
                 sqCtx.fillRect(SQ_SIDEWALK_WIDTH - 6, 0, 5, h);
+
+                // Знак заборони внизу старту (як у прикладі)
+                const signX = SQ_SIDEWALK_WIDTH * 0.48;
+                const signY = 304;
+                sqCtx.fillStyle = '#ffffff';
+                sqCtx.beginPath();
+                sqCtx.arc(signX, signY, 18, 0, Math.PI * 2);
+                sqCtx.fill();
+                sqCtx.strokeStyle = '#ef4444';
+                sqCtx.lineWidth = 3.5;
+                sqCtx.stroke();
 
                 const manholeY = 232;
                 const badgeY = 148;
@@ -2614,7 +2853,8 @@
                     const laneX = SQ_SIDEWALK_WIDTH + (lane.step - 1) * SQ_STEP_WIDTH;
                     const centerX = laneX + SQ_STEP_WIDTH * 0.5;
 
-                    sqCtx.strokeStyle = 'rgba(129, 140, 248, 0.25)';
+                    // Пунктирні космічні лінії смуг
+                    sqCtx.strokeStyle = 'rgba(129, 140, 248, 0.26)';
                     sqCtx.lineWidth = 2;
                     sqCtx.setLineDash([12, 12]);
                     sqCtx.beginPath();
@@ -2627,12 +2867,13 @@
                     const isCurrent = lane.step === sqCurrentStep;
                     const isNext = sqPlaying && (lane.step === sqCurrentStep + 1);
 
+                    // Верхній бейдж зірки та суми
                     const rewardStars = formatStars(getSqReward(lane.step));
-                    sqCtx.fillStyle = isPassed || isCurrent ? 'rgba(250, 204, 21, 0.2)' : 'rgba(20, 25, 58, 0.9)';
+                    sqCtx.fillStyle = isPassed || isCurrent ? 'rgba(250, 204, 21, 0.24)' : 'rgba(20, 25, 58, 0.92)';
                     sqCtx.beginPath();
                     sqCtx.arc(centerX, badgeY, 24, 0, Math.PI * 2);
                     sqCtx.fill();
-                    sqCtx.strokeStyle = isNext ? '#facc15' : 'rgba(129, 140, 248, 0.35)';
+                    sqCtx.strokeStyle = isNext ? '#facc15' : 'rgba(129, 140, 248, 0.38)';
                     sqCtx.lineWidth = 2;
                     sqCtx.stroke();
 
@@ -2641,25 +2882,27 @@
                     sqCtx.textBaseline = 'middle';
                     sqCtx.fillText('⭐', centerX, badgeY);
 
-                    sqCtx.fillStyle = '#111422';
+                    sqCtx.fillStyle = '#0f1329';
                     sqCtx.beginPath();
-                    sqCtx.roundRect(centerX - 32, badgeY + 27, 64, 18, 9);
+                    sqCtx.roundRect(centerX - 33, badgeY + 27, 66, 18, 9);
                     sqCtx.fill();
                     sqCtx.font = '800 11px Outfit, sans-serif';
                     sqCtx.fillStyle = '#fef08a';
                     sqCtx.fillText(rewardStars + ' ⭐', centerX, badgeY + 36);
 
-                    sqCtx.fillStyle = (isPassed || isCurrent) ? '#d97706' : '#262b42';
+                    // Неоновий космічний люк
+                    sqCtx.fillStyle = (isPassed || isCurrent) ? '#d97706' : '#23294d';
                     sqCtx.beginPath();
                     sqCtx.arc(centerX, manholeY, 27, 0, Math.PI * 2);
                     sqCtx.fill();
 
-                    sqCtx.strokeStyle = (isPassed || isCurrent) ? '#fef08a' : (isNext ? '#818cf8' : '#3a4161');
+                    sqCtx.strokeStyle = (isPassed || isCurrent) ? '#fef08a' : (isNext ? '#818cf8' : '#3b4475');
                     sqCtx.lineWidth = 3;
                     sqCtx.stroke();
 
+                    // Табличка множника під люком
                     const multText = '×' + getSqMultiplier(lane.step).toFixed(2).replace('.', ',');
-                    sqCtx.fillStyle = (isPassed || isCurrent) ? '#3730a3' : '#282d45';
+                    sqCtx.fillStyle = (isPassed || isCurrent) ? '#4338ca' : '#23294d';
                     sqCtx.beginPath();
                     sqCtx.roundRect(centerX - 30, manholeY + 34, 60, 22, 8);
                     sqCtx.fill();
@@ -2667,13 +2910,19 @@
                     sqCtx.fillStyle = '#ffffff';
                     sqCtx.fillText(multText, centerX, manholeY + 45);
 
+                    // Жовто-чорний бар'єр на пройденій смузі (як у прикладі RubUp)
                     if (lane.blocked) {
                         const barX = centerX - 28;
                         const barY = manholeY - 46;
                         sqCtx.fillStyle = '#facc15';
                         sqCtx.beginPath();
-                        sqCtx.roundRect(barX, barY, 56, 11, 3);
+                        sqCtx.roundRect(barX, barY, 56, 12, 3);
                         sqCtx.fill();
+
+                        sqCtx.fillStyle = '#111827';
+                        for (let sx = barX + 6; sx < barX + 50; sx += 12) {
+                            sqCtx.fillRect(sx, barY, 6, 12);
+                        }
                     }
 
                     lane.cars.forEach(function(car) {
